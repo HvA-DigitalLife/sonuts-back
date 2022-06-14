@@ -1,8 +1,7 @@
-﻿using MediatR;
-
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Template.Presentation.Controllers;
+namespace Sonuts.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

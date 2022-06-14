@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Common.Security;
+namespace Sonuts.Application.Common.Security;
 
 /// <summary>
 /// Specifies the class this attribute is applied to requires authorization.

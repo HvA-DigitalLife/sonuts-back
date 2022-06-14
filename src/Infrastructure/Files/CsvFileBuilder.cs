@@ -1,21 +1,21 @@
-﻿using System.Globalization;
+using System.Globalization;
 using CsvHelper;
-using Template.Application.Common.Interfaces;
-using Template.Application.TodoLists.Queries.ExportTodos;
-using Template.Infrastructure.Files.Maps;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Executions.Models;
+using Sonuts.Infrastructure.Files.Maps;
 
-namespace Template.Infrastructure.Files;
+namespace Sonuts.Infrastructure.Files;
 
 public class CsvFileBuilder : ICsvFileBuilder
 {
-	public byte[] BuildTodoItemsFile(IEnumerable<TodoItemRecord> records)
+	public byte[] BuildExecutionsFile(IEnumerable<ExecutionRecord> records)
 	{
 		using var memoryStream = new MemoryStream();
 		using (var streamWriter = new StreamWriter(memoryStream))
 		{
 			using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
-			csvWriter.Configuration.RegisterClassMap<TodoItemRecordMap>();
+			csvWriter.Configuration.RegisterClassMap<ExecutionRecordMap>();
 			csvWriter.WriteRecords(records);
 		}
 

@@ -1,4 +1,4 @@
-﻿namespace Template.Domain.Enums;
+namespace Sonuts.Domain.Enums;
 
 public enum PriorityLevel
 {

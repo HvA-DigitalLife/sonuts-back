@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 
-namespace Template.Infrastructure.Identity;
+namespace Sonuts.Infrastructure.Identity;
 
 public class ApplicationUser : IdentityUser
 {

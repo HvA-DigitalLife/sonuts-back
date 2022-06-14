@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Template.Application</RootNamespace>
-        <AssemblyName>Template.Application</AssemblyName>
+        <RootNamespace>Sonuts.Application</RootNamespace>
+        <AssemblyName>Sonuts.Application</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>

@@ -1,6 +1,6 @@
-﻿using Template.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces;
 
-namespace Template.Infrastructure.Services;
+namespace Sonuts.Infrastructure.Services;
 
 public class DateTimeService : IDateTime
 {

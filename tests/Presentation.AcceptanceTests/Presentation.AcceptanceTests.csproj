@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-      <RootNamespace>Template.Presentation.AcceptanceTests</RootNamespace>
-      <AssemblyName>Template.Presentation.AcceptanceTests</AssemblyName>
+      <RootNamespace>Sonuts.Presentation.AcceptanceTests</RootNamespace>
+      <AssemblyName>Sonuts.Presentation.AcceptanceTests</AssemblyName>
       <Nullable>enable</Nullable>
       <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>

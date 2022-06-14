@@ -1,6 +1,6 @@
-﻿using MediatR;
+using MediatR;
 
-namespace Template.Domain.Common;
+namespace Sonuts.Domain.Common;
 
 public abstract class BaseEvent : INotification
 {

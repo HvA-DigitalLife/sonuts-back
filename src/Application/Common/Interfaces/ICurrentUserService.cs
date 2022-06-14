@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Common.Interfaces;
+namespace Sonuts.Application.Common.Interfaces;
 
 public interface ICurrentUserService
 {

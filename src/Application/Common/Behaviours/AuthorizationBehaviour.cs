@@ -1,10 +1,10 @@
-﻿using System.Reflection;
+using System.Reflection;
 using MediatR;
-using Template.Application.Common.Exceptions;
-using Template.Application.Common.Interfaces;
-using Template.Application.Common.Security;
+using Sonuts.Application.Common.Exceptions;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Security;
 
-namespace Template.Application.Common.Behaviours;
+namespace Sonuts.Application.Common.Behaviours;
 
 public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

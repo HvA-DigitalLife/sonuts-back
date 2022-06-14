@@ -1,9 +1,8 @@
 using System.Diagnostics;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Template.Presentation.Pages;
+namespace Sonuts.Presentation.Pages;
 
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public class ErrorModel : PageModel

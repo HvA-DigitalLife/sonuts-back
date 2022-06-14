@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Common.Exceptions;
+namespace Sonuts.Application.Common.Exceptions;
 
 public class NotFoundException : Exception
 {

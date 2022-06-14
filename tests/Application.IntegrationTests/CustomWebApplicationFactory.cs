@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using Template.Application.Common.Interfaces;
-using Template.Infrastructure.Persistence;
-using Template.Presentation;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Infrastructure.Persistence;
+using Sonuts.Presentation;
 
-namespace Template.Application.IntegrationTests;
+namespace Sonuts.Application.IntegrationTests;
 
 using static Testing;
 

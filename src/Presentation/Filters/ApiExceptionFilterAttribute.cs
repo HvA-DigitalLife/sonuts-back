@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Template.Application.Common.Exceptions;
+using Sonuts.Application.Common.Exceptions;
 
-namespace Template.Presentation.Filters;
+namespace Sonuts.Presentation.Filters;
 
 public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 {

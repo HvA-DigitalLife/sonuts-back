@@ -1,8 +1,8 @@
-﻿using Template.Application.TodoLists.Queries.ExportTodos;
+using Sonuts.Application.Executions.Models;
 
-namespace Template.Application.Common.Interfaces;
+namespace Sonuts.Application.Common.Interfaces;
 
 public interface ICsvFileBuilder
 {
-	byte[] BuildTodoItemsFile(IEnumerable<TodoItemRecord> records);
+	byte[] BuildExecutionsFile(IEnumerable<ExecutionRecord> records);
 }

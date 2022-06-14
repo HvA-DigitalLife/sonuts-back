@@ -1,6 +1,6 @@
-﻿using FluentValidation.Results;
+using FluentValidation.Results;
 
-namespace Template.Application.Common.Exceptions;
+namespace Sonuts.Application.Common.Exceptions;
 
 public class ValidationException : Exception
 {

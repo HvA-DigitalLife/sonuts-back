@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Template.Application.Common.Interfaces;
-using Template.Infrastructure.Files;
-using Template.Infrastructure.Identity;
-using Template.Infrastructure.Persistence;
-using Template.Infrastructure.Persistence.Interceptors;
-using Template.Infrastructure.Services;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Infrastructure.Files;
+using Sonuts.Infrastructure.Identity;
+using Sonuts.Infrastructure.Persistence;
+using Sonuts.Infrastructure.Persistence.Interceptors;
+using Sonuts.Infrastructure.Services;
 
-namespace Template.Infrastructure;
+namespace Sonuts.Infrastructure;
 
 public static class ConfigureServices
 {

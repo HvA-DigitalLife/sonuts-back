@@ -1,10 +1,10 @@
-﻿using System.Reflection;
+using System.Reflection;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Application.Common.Behaviours;
+using Sonuts.Application.Common.Behaviours;
 
-namespace Template.Application;
+namespace Sonuts.Application;
 
 public static class ConfigureServices
 {

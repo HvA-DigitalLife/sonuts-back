@@ -1,6 +1,6 @@
-using Template.Presentation.AcceptanceTests.Pages;
+using Sonuts.Presentation.AcceptanceTests.Pages;
 
-namespace Template.Presentation.AcceptanceTests.StepDefinitions;
+namespace Sonuts.Presentation.AcceptanceTests.StepDefinitions;
 
 [Binding]
 public sealed class LoginStepDefinitions

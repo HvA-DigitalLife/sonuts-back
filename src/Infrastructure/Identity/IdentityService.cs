@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Template.Application.Common.Interfaces;
-using Template.Application.Common.Models;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Models;
 
-namespace Template.Infrastructure.Identity;
+namespace Sonuts.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {

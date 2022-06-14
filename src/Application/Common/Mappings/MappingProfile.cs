@@ -1,7 +1,7 @@
 using System.Reflection;
 using AutoMapper;
 
-namespace Template.Application.Common.Mappings;
+namespace Sonuts.Application.Common.Mappings;
 
 public class MappingProfile : Profile
 {

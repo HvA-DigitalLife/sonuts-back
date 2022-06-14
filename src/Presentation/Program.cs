@@ -1,7 +1,7 @@
-using Template.Application;
-using Template.Infrastructure;
-using Template.Infrastructure.Persistence;
-using Template.Presentation;
+using Sonuts.Application;
+using Sonuts.Infrastructure;
+using Sonuts.Infrastructure.Persistence;
+using Sonuts.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +49,7 @@ app.MapFallbackToFile("index.html");
 app.Run();
 
 // Make the implicit Program class public so test projects can access it
-namespace Template.Presentation
+namespace Sonuts.Presentation
 {
 	public partial class Program { }
 }

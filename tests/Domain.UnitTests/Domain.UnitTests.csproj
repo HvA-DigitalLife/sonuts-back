@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Template.Domain.UnitTests</RootNamespace>
-        <AssemblyName>Template.Domain.UnitTests</AssemblyName>
+        <RootNamespace>Sonuts.Domain.UnitTests</RootNamespace>
+        <AssemblyName>Sonuts.Domain.UnitTests</AssemblyName>
 
         <IsPackable>false</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -22,6 +22,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Domain\Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ValueObjects\" />
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Common.Models;
+namespace Sonuts.Application.Common.Models;
 
 public class Result
 {

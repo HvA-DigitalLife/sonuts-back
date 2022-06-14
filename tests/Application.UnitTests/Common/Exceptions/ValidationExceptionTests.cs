@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
-using Template.Application.Common.Exceptions;
+using Sonuts.Application.Common.Exceptions;
 
-namespace Template.Application.UnitTests.Common.Exceptions;
+namespace Sonuts.Application.UnitTests.Common.Exceptions;
 
 public class ValidationExceptionTests
 {

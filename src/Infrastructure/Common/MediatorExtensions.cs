@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
 using MediatR;
-using Template.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Sonuts.Domain.Common;
 
-namespace Template.Infrastructure.Common;
+namespace Sonuts.Infrastructure.Common;
 
 public static class MediatorExtensions
 {

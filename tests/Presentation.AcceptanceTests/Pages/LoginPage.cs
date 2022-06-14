@@ -1,4 +1,4 @@
-﻿namespace Template.Presentation.AcceptanceTests.Pages;
+namespace Sonuts.Presentation.AcceptanceTests.Pages;
 
 public class LoginPage : BasePage
 {

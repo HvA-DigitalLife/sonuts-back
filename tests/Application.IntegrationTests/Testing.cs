@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -6,11 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Respawn;
-using Template.Infrastructure.Identity;
-using Template.Infrastructure.Persistence;
-using Template.Presentation;
+using Sonuts.Infrastructure.Identity;
+using Sonuts.Infrastructure.Persistence;
+using Sonuts.Presentation;
 
-namespace Template.Application.IntegrationTests;
+namespace Sonuts.Application.IntegrationTests;
 
 [SetUpFixture]
 public partial class Testing

@@ -1,8 +1,8 @@
-﻿using FluentValidation;
+using FluentValidation;
 using MediatR;
-using ValidationException = Template.Application.Common.Exceptions.ValidationException;
+using ValidationException = Sonuts.Application.Common.Exceptions.ValidationException;
 
-namespace Template.Application.Common.Behaviours;
+namespace Sonuts.Application.Common.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
 	 where TRequest : notnull

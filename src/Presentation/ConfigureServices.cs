@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 using FluentValidation.AspNetCore;
@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Template.Application.Common.Interfaces;
-using Template.Infrastructure.Persistence;
-using Template.Presentation.Filters;
-using Template.Presentation.Services;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Infrastructure.Persistence;
+using Sonuts.Presentation.Filters;
+using Sonuts.Presentation.Services;
 
-namespace Template.Presentation;
+namespace Sonuts.Presentation;
 
 public static class ConfigureServices
 {

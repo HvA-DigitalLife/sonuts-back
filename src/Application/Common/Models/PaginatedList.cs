@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-namespace Template.Application.Common.Models;
+namespace Sonuts.Application.Common.Models;
 
 public class PaginatedList<T>
 {

@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 
-namespace Template.Presentation.AcceptanceTests;
+namespace Sonuts.Presentation.AcceptanceTests;
 
 public static class ConfigurationHelper
 {

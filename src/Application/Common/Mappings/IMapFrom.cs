@@ -1,6 +1,6 @@
-﻿using AutoMapper;
+using AutoMapper;
 
-namespace Template.Application.Common.Mappings;
+namespace Sonuts.Application.Common.Mappings;
 
 public interface IMapFrom<T>
 {

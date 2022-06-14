@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Template.Application.Common.Interfaces;
-using Template.Domain.Common;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Domain.Common;
 
-namespace Template.Infrastructure.Persistence.Interceptors;
+namespace Sonuts.Infrastructure.Persistence.Interceptors;
 
 public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 {
@@ -42,13 +42,13 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 			if (entry.State == EntityState.Added)
 			{
 				entry.Entity.CreatedBy = _currentUserService.UserId;
-				entry.Entity.Created = _dateTime.Now;
+				entry.Entity.CreatedAt = _dateTime.Now;
 			}
 
 			if (entry.State is EntityState.Added or EntityState.Modified || entry.HasChangedOwnedEntities())
 			{
 				entry.Entity.LastModifiedBy = _currentUserService.UserId;
-				entry.Entity.LastModified = _dateTime.Now;
+				entry.Entity.LastModifiedAt = _dateTime.Now;
 			}
 		}
 	}

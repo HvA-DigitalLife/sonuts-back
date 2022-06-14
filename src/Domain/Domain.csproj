@@ -2,14 +2,19 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Template.Domain</RootNamespace>
-        <AssemblyName>Template.Domain</AssemblyName>
+        <RootNamespace>Sonuts.Domain</RootNamespace>
+        <AssemblyName>Sonuts.Domain</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Events\" />
+      <Folder Include="Exceptions\" />
     </ItemGroup>
 
 </Project>

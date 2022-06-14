@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Template.Infrastructure.Identity;
+using Sonuts.Infrastructure.Identity;
 
-namespace Template.Infrastructure.Persistence.Configurations;
+namespace Sonuts.Infrastructure.Persistence.Configurations;
 
 public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {

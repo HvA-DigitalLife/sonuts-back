@@ -1,9 +1,9 @@
-﻿using AutoMapper;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using Template.Application.Common.Models;
+using Sonuts.Application.Common.Models;
 
-namespace Template.Application.Common.Mappings;
+namespace Sonuts.Application.Common.Mappings;
 
 public static class MappingExtensions
 {

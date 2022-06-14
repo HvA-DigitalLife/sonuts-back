@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Template.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces;
 
-namespace Template.Application.Common.Behaviours;
+namespace Sonuts.Application.Common.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

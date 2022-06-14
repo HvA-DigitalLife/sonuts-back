@@ -1,7 +1,7 @@
-﻿using System.Security.Claims;
-using Template.Application.Common.Interfaces;
+using System.Security.Claims;
+using Sonuts.Application.Common.Interfaces;
 
-namespace Template.Presentation.Services;
+namespace Sonuts.Presentation.Services;
 
 public class CurrentUserService : ICurrentUserService
 {

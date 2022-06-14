@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 
-namespace Template.Application.IntegrationTests;
+namespace Sonuts.Application.IntegrationTests;
 
 using static Testing;
 

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Template.Domain.Entities;
-using Template.Infrastructure.Identity;
+using Sonuts.Domain.Entities;
+using Sonuts.Domain.Enums;
+using Sonuts.Infrastructure.Identity;
 
-namespace Template.Infrastructure.Persistence;
+namespace Sonuts.Infrastructure.Persistence;
 
 public class ApplicationDbContextInitialiser
 {
@@ -32,7 +33,7 @@ public class ApplicationDbContextInitialiser
 		}
 		catch (Exception ex)
 		{
-			_logger.LogError(ex, "An error occurred while initialising the database.");
+			_logger.LogError(ex, "An error occurred while initializing the database.");
 			throw;
 		}
 	}
@@ -55,10 +56,7 @@ public class ApplicationDbContextInitialiser
 		// Default roles
 		var administratorRole = new IdentityRole("Administrator");
 
-		if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
-		{
-			await _roleManager.CreateAsync(administratorRole);
-		}
+		if (_roleManager.Roles.All(role => role.Name != administratorRole.Name)) await _roleManager.CreateAsync(administratorRole);
 
 		// Default users
 		var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
@@ -68,24 +66,23 @@ public class ApplicationDbContextInitialiser
 			await _userManager.CreateAsync(administrator, "Administrator1!");
 			await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
 		}
+		
+		bool shouldSave = false;
 
-		// Default data
-		// Seed, if necessary
-		if (!_context.TodoLists.Any())
+		foreach (var contentType in Enum.GetValues(typeof(ContentType)))
 		{
-			_context.TodoLists.Add(new TodoList
+			if (await _context.Content.FirstOrDefaultAsync(content => content.Type.Equals(contentType)) is null)
 			{
-				Title = "Todo List",
-				Items =
+				shouldSave = true;
+				_context.Content.Add(new Content
 				{
-					new TodoItem { Title = "Make a todo list 📃" },
-					new TodoItem { Title = "Check off the first item ✅" },
-					new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
-					new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
-				}
-			});
-
-			await _context.SaveChangesAsync();
+					Type = Enum.Parse<ContentType>(contentType.ToString()!),
+					Title = "",
+					Description = ""
+				});
+			}
 		}
+		
+		if (shouldSave) await _context.SaveChangesAsync();
 	}
 }

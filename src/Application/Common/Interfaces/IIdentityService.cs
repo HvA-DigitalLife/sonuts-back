@@ -1,6 +1,6 @@
-﻿using Template.Application.Common.Models;
+using Sonuts.Application.Common.Models;
 
-namespace Template.Application.Common.Interfaces;
+namespace Sonuts.Application.Common.Interfaces;
 
 public interface IIdentityService
 {

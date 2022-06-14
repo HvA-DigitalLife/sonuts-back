@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Template.Application.IntegrationTests</RootNamespace>
-        <AssemblyName>Template.Application.IntegrationTests</AssemblyName>
+        <RootNamespace>Sonuts.Application.IntegrationTests</RootNamespace>
+        <AssemblyName>Sonuts.Application.IntegrationTests</AssemblyName>
 
         <IsPackable>false</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>

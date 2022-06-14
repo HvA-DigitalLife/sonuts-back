@@ -1,8 +1,8 @@
-﻿using MediatR.Pipeline;
+using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
-using Template.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces;
 
-namespace Template.Application.Common.Behaviours;
+namespace Sonuts.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 {

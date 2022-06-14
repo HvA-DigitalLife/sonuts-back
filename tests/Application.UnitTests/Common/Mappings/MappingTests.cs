@@ -1,12 +1,9 @@
-﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using AutoMapper;
 using NUnit.Framework;
-using Template.Application.Common.Mappings;
-using Template.Application.Common.Models;
-using Template.Application.TodoLists.Queries.GetTodos;
-using Template.Domain.Entities;
+using Sonuts.Application.Common.Mappings;
 
-namespace Template.Application.UnitTests.Common.Mappings;
+namespace Sonuts.Application.UnitTests.Common.Mappings;
 
 public class MappingTests
 {
@@ -28,10 +25,7 @@ public class MappingTests
 	}
 
 	[Test]
-	[TestCase(typeof(TodoList), typeof(TodoListDto))]
-	[TestCase(typeof(TodoItem), typeof(TodoItemDto))]
-	[TestCase(typeof(TodoList), typeof(LookupDto))]
-	[TestCase(typeof(TodoItem), typeof(LookupDto))]
+	[TestCase(typeof(bool), typeof(bool))]
 	public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
 	{
 		var instance = GetInstanceOf(source);

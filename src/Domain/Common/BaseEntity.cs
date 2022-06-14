@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Template.Domain.Common;
+namespace Sonuts.Domain.Common;
 
 public abstract class BaseEntity
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     private readonly List<BaseEvent> _domainEvents = new();
 

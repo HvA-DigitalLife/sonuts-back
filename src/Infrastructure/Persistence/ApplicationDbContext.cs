@@ -1,15 +1,15 @@
-﻿using System.Reflection;
+using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Template.Application.Common.Interfaces;
-using Template.Domain.Entities;
-using Template.Infrastructure.Common;
-using Template.Infrastructure.Identity;
-using Template.Infrastructure.Persistence.Interceptors;
+using Sonuts.Application.Common.Interfaces;
+using Sonuts.Domain.Entities;
+using Sonuts.Infrastructure.Common;
+using Sonuts.Infrastructure.Identity;
+using Sonuts.Infrastructure.Persistence.Interceptors;
 
-namespace Template.Infrastructure.Persistence;
+namespace Sonuts.Infrastructure.Persistence;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
@@ -26,10 +26,34 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 		_mediator = mediator;
 		_auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
 	}
+	
+	public DbSet<Activity> Activities => Set<Activity>();
 
-	public DbSet<TodoList> TodoLists => Set<TodoList>();
+	public DbSet<AnswerOption> AnswerOptions => Set<AnswerOption>();
 
-	public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+	public DbSet<Category> Categories => Set<Category>();
+
+	public DbSet<Coach> Coaches => Set<Coach>();
+
+	public DbSet<Content> Content => Set<Content>();
+
+	public DbSet<Execution> Executions => Set<Execution>();
+
+	public DbSet<Image> Images => Set<Image>();
+
+	public DbSet<Intention> Intentions => Set<Intention>();
+
+	public DbSet<Participant> Participants => Set<Participant>();
+
+	public DbSet<Question> Questions => Set<Question>();
+
+	public DbSet<Questionnaire> Questionnaires => Set<Questionnaire>();
+
+	public DbSet<QuestionnaireResponse> QuestionnaireResponses => Set<QuestionnaireResponse>();
+
+	public DbSet<QuestionResponse> QuestionResponses => Set<QuestionResponse>();
+
+	public DbSet<Theme> Themes => Set<Theme>();
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
