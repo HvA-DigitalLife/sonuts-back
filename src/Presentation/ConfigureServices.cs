@@ -98,4 +98,17 @@ public static class ConfigureServices
 
 		return services;
 	}
+
+	public static WebApplication InitialiseAndSeedDatabase(this WebApplication app)
+	{
+		var task = Task.Run(async () =>
+		{
+			using var scope = app.Services.CreateScope();
+			var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+			await initialiser.InitialiseAsync();
+			await initialiser.SeedAsync();
+		});
+		task.Wait();
+		return app;
+	}
 }

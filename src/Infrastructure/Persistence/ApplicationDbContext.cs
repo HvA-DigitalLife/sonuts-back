@@ -1,13 +1,17 @@
+using System.Diagnostics;
 using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Domain.Common;
 using Sonuts.Domain.Entities;
+using Sonuts.Domain.Entities.Owned;
 using Sonuts.Infrastructure.Common;
 using Sonuts.Infrastructure.Identity;
 using Sonuts.Infrastructure.Persistence.Interceptors;
+using Activity = Sonuts.Domain.Entities.Activity;
 
 namespace Sonuts.Infrastructure.Persistence;
 

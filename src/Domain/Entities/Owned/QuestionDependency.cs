@@ -1,6 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Sonuts.Domain.Entities.Owned;
 
-public class QuestionDependency : IOwned
+[Owned]
+public class QuestionDependency
 {
 	public Guid QuestionId { get; set; } = default!;
 	public Operator Operator { get; set; } = default!;

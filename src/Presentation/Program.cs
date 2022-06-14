@@ -1,6 +1,5 @@
 using Sonuts.Application;
 using Sonuts.Infrastructure;
-using Sonuts.Infrastructure.Persistence;
 using Sonuts.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,12 +16,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
-
-	// Initialise and seed database
-	using var scope = app.Services.CreateScope();
-	var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
-	await initialiser.InitialiseAsync();
-	await initialiser.SeedAsync();
+    app.InitialiseAndSeedDatabase();
 }
 else
 {
@@ -43,8 +37,6 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapRazorPages();
-
-app.MapFallbackToFile("index.html");
 
 app.Run();
 
