@@ -21,6 +21,6 @@ public class ContentController : ApiControllerBase
 	{
 		if (!type.Equals(command.Type)) BadRequest();
 
-		return await Mediator.Send(command);
+		return Ok(await Mediator.Send(command));
 	}
 }

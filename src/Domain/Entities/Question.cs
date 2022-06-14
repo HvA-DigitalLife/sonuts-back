@@ -8,5 +8,5 @@ public class Question : BaseEntity
 	public int Order { get; set; } = default!;
 	public int? MaxAnswers { get; set; }
 	public QuestionDependency? QuestionDependency { get; set; }
-	public List<AnswerOption> AnswerOptions { get; set; } = new();
+	public ICollection<AnswerOption> AnswerOptions { get; set; } = new List<AnswerOption>();
 }

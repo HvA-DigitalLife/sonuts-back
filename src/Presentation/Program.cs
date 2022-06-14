@@ -14,16 +14,21 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-    app.UseMigrationsEndPoint();
-    app.InitialiseAndSeedDatabase();
+	app.UseDeveloperExceptionPage();
+	app.UseMigrationsEndPoint();
+	app.InitialiseAndSeedDatabase();
 }
 else
 {
-    app.UseHsts();
+	app.UseHsts();
 }
 
-app.UseHealthChecks("/health");
+if (app.Configuration.GetValue<bool>("Swagger"))
+{
+	app.UseSwagger();
+	app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -32,10 +37,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
+app.UseHealthChecks("/Health");
+app.MapControllers();
 app.MapRazorPages();
 
 app.Run();
