@@ -26,7 +26,7 @@ else
 if (app.Configuration.GetValue<bool>("Swagger"))
 {
 	app.UseSwagger();
-	app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

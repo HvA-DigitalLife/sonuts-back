@@ -43,13 +43,13 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 				.Cascade(CascadeMode.Stop)
 				.NotNull()
 				.Must(command => _context.Questions.FirstOrDefault(question => question.Id.Equals(command!.Value)) is not null)
-				.WithMessage("{PropertyName} not found");
+				.WithMessage("'{PropertyName}' not found");
 
 			validator.RuleFor(response => response.Answer)
 				.Cascade(CascadeMode.Stop)
 				.NotNull()
 				.MustAsync((response, _, _) => IsValidAnswer(response))
-				.WithMessage("{PropertyName} is not valid");
+				.WithMessage("'{PropertyName}' is not valid");
 		});
 
 	}

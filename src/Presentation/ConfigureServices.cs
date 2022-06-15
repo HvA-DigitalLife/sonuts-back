@@ -47,15 +47,17 @@ public static class ConfigureServices
 		// Configure swagger API Docs
 		services.AddSwaggerGen(options =>
 		{
-			options.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = environment.EnvironmentName, Description = "Swagger documentation for the Beyco auth api" });
-			options.AddSecurityDefinition("Bearer",
-				new OpenApiSecurityScheme
+			options.SwaggerDoc("v1", new OpenApiInfo
+			{
+				Title = $"{environment.ApplicationName.Split('.').FirstOrDefault()}"
+			});
+			options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 				{
-					Description = "Example: 'Bearer {your JWT token}'",
+					Description = "Example: 'Bearer {JWT-token}'",
 					Name = "Authorization",
 					In = ParameterLocation.Header,
 					Type = SecuritySchemeType.ApiKey,
-					Scheme = "Bearer",
+					Scheme = "Bearer"
 				});
 			options.AddSecurityRequirement(new OpenApiSecurityRequirement
 			{
@@ -88,8 +90,7 @@ public static class ConfigureServices
 					ValidIssuer = configuration["Authentication:Issuer"],
 					ValidAudience = configuration["Authentication:Audience"],
 					ValidateIssuerSigningKey = true,
-					IssuerSigningKey =
-						new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Authentication:SecurityKey"]))
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Authentication:SecurityKey"]))
 				};
 			});
 
