@@ -8,7 +8,7 @@ namespace Sonuts.Presentation.Controllers;
 public class ParticipantsController : ApiControllerBase
 {
 	/// <summary>
-	/// Create users that can partake in the program
+	/// Create users that can partake in the program (Admin token required)
 	/// </summary>
 	[Authorize(Roles = "Admin")]
 	[HttpPost]
