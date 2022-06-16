@@ -5,6 +5,7 @@ namespace Sonuts.Application.Dtos;
 
 public class AnswerOptionDto : IMapFrom<AnswerOption>
 {
+	public Guid Id { get; set; }
 	public string Text { get; set; } = default!;
 	public int Order { get; set; } = default!;
 }

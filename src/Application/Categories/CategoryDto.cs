@@ -6,6 +6,7 @@ namespace Sonuts.Application.Categories;
 
 public class CategoryDto : IMapFrom<Category>
 {
+	public Guid Id { get; set; }
 	public bool IsActive { get; set; } = false;
 	public string Name { get; set; } = default!;
 	public string Color { get; set; } = default!;

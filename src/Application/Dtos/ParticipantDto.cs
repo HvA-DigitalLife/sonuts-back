@@ -5,6 +5,7 @@ namespace Sonuts.Application.Dtos;
 
 public class ParticipantDto : IMapFrom<Participant>
 {
+	public Guid Id { get; set; }
 	public DateOnly? Birth { get; set; }
 	public string? Gender { get; set; }
 	public decimal? Weight { get; set; }

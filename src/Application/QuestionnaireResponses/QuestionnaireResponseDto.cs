@@ -6,6 +6,7 @@ namespace Sonuts.Application.QuestionnaireResponses;
 
 public class QuestionnaireResponseDto : IMapFrom<QuestionnaireResponse>
 {
+	public Guid Id { get; set; }
 	public DateTime CreatedAt { get; set; }
 	public Questionnaire Questionnaire { get; set; } = default!;
 	public Participant Participant { get; set; } = default!;

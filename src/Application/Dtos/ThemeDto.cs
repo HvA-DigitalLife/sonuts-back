@@ -7,6 +7,7 @@ namespace Sonuts.Application.Dtos;
 
 public class ThemeDto : IMapFrom<Theme>
 {
+	public Guid Id { get; set; }
 	public string Name { get; set; } = default!;
 	public string Description { get; set; } = default!;
 	public CategoryDto Category { get; set; } = default!;

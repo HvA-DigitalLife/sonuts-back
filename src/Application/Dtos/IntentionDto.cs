@@ -5,6 +5,7 @@ namespace Sonuts.Application.Dtos;
 
 public class IntentionDto : IMapFrom<Intention>
 {
+	public Guid Id { get; set; }
 	public ActivityDto Activity { get; set; } = default!;
 	public int FrequencyAmount { get; set; } = default!;
 	public MomentDto Moment { get; set; } = default!;

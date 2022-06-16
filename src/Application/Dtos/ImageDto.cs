@@ -5,4 +5,5 @@ namespace Sonuts.Application.Dtos;
 
 public class ImageDto : IMapFrom<Image>
 {
+	public Guid Id { get; set; }
 }
