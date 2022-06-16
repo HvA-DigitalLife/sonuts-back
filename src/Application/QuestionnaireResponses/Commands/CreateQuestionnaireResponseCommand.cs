@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Domain.Entities;
 using static System.Decimal;
@@ -90,7 +91,11 @@ public class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQ
 		{
 			Questionnaire = await _context.Questionnaires.FirstAsync(questionnaire => questionnaire.Id.Equals(request.QuestionnaireId), cancellationToken),
 			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken),
-			Responses = new List<QuestionResponse>()
+			Responses = request.Responses.Select(response => new QuestionResponse
+			{
+				Question = _context.Questions.FirstOrDefault(question => question.Id.Equals(response.QuestionId)) ?? throw new NotFoundException(nameof(Question), response.QuestionId!),
+				Answer = response.Answer!
+			}).ToList()
 		};
 
 		await _context.QuestionnaireResponses.AddAsync(entity, cancellationToken);
