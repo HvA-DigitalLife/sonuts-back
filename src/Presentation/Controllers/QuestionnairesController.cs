@@ -9,6 +9,6 @@ public class QuestionnairesController : ApiControllerBase
 	[HttpGet("{categoryId:guid}")]
 	public async Task<ActionResult<QuestionnaireDto>> GetQuestionnaireByCategory(Guid categoryId)
 	{
-		return await Mediator.Send(new GetQuestionnaireByCategoryQuery{ CategoryId = categoryId });
+		return Ok(await Mediator.Send(new GetQuestionnaireByCategoryQuery { CategoryId = categoryId }));
 	}
 }

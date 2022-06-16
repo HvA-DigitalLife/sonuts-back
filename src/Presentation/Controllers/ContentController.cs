@@ -14,18 +14,18 @@ public class ContentController : ApiControllerBase
 	/// Get text for screens
 	/// </summary>
 	[HttpGet("{type}")]
-	public async Task<ActionResult<ContentDto>> GetContentByType([FromRoute] ContentType? type)
+	public async Task<ActionResult<ContentDto>> GetContentByType(ContentType? type)
 	{
-		return await Mediator.Send(new GetContentByTypeQuery{ Type = type });
+		return Ok(await Mediator.Send(new GetContentByTypeQuery { Type = type }));
 	}
 
 	[ApiExplorerSettings(IgnoreApi = true)]
 	[Authorize(Roles = "Admin")]
 	[HttpPatch("{type}")]
-	public async Task<ActionResult<ContentDto>> UpdateContent([FromRoute] ContentType type, [FromBody] UpdateContentCommand command)
+	public async Task<ActionResult<ContentDto>> UpdateContent(ContentType type, UpdateContentCommand command)
 	{
 		if (!type.Equals(command.Type)) BadRequest();
 
-		return await Mediator.Send(command);
+		return Ok(await Mediator.Send(command));
 	}
 }

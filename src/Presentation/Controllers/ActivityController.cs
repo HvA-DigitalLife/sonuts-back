@@ -1,17 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
+using Sonuts.Application.Activities.Queries;
 using Sonuts.Application.Dtos;
 
 namespace Sonuts.Presentation.Controllers;
 
 public class ActivityController : ApiControllerBase
 {
-	/// <summary>
-	/// [NotImplemented]
-	/// </summary>
 	[HttpGet("{activityId:guid}")]
-	public async Task<ActionResult<ActivityDto>> GetActivity([FromBody] Guid activityId)
+	public async Task<ActionResult<ActivityDto>> GetActivity(Guid activityId)
 	{
-		await Task.Delay(1);
-		return Ok();
+		return Ok(await Mediator.Send(new GetActivityQuery { Id = activityId }));
 	}
 }

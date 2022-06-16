@@ -10,8 +10,8 @@ public class QuestionnaireResponsesController : ApiControllerBase
 	/// Answer a questionnaire [NotImplemented]
 	/// </summary>
 	[HttpPost]
-	public async Task<ActionResult<QuestionnaireResponseDto>> CreateQuestionnaireResponse([FromBody] CreateQuestionnaireResponseCommand command)
+	public async Task<ActionResult<QuestionnaireResponseDto>> CreateQuestionnaireResponse(CreateQuestionnaireResponseCommand command)
 	{
-		return await Mediator.Send(command);
+		return Ok(await Mediator.Send(command));
 	}
 }

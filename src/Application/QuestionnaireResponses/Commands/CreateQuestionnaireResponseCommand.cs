@@ -89,7 +89,7 @@ public class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQ
 		var entity = new QuestionnaireResponse
 		{
 			Questionnaire = await _context.Questionnaires.FirstAsync(questionnaire => questionnaire.Id.Equals(request.QuestionnaireId), cancellationToken),
-			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.UserId!)), cancellationToken),
+			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken),
 			Responses = new List<QuestionResponse>()
 		};
 
