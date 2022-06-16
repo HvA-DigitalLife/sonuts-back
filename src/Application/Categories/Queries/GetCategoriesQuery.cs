@@ -21,6 +21,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 
 	public async Task<ICollection<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken) =>
 		await _context.Categories
+			.Where(category => category.IsActive)
 			.Include(category => category.Themes)
 			.ProjectToListAsync<CategoryDto>(_mapper.ConfigurationProvider, cancellationToken);
 }

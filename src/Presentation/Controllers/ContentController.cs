@@ -10,6 +10,9 @@ namespace Sonuts.Presentation.Controllers;
 [AllowAnonymous]
 public class ContentController : ApiControllerBase
 {
+	/// <summary>
+	/// Get text for screens
+	/// </summary>
 	[HttpGet("{type}")]
 	public async Task<ActionResult<ContentDto>> GetContentByType([FromRoute] ContentType? type)
 	{
