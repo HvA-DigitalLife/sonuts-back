@@ -7,12 +7,12 @@ using Sonuts.Domain.Enums;
 
 namespace Sonuts.Presentation.Controllers;
 
-[AllowAnonymous]
 public class ContentController : ApiControllerBase
 {
 	/// <summary>
 	/// Get text for screens
 	/// </summary>
+	[Authorize(Roles = "Admin, Participant")]
 	[HttpGet("{type}")]
 	public async Task<ActionResult<ContentDto>> GetContentByType(ContentType? type)
 	{
