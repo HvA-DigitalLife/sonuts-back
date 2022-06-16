@@ -65,7 +65,7 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 			QuestionType.Range => int.TryParse(response.Answer, out int rangeAnswer) && rangeAnswer is >= 0 and <= 10,
 			QuestionType.Integer => int.TryParse(response.Answer, out int integerAnswer) && integerAnswer >= 0,
 			QuestionType.Decimal => TryParse(response.Answer, out decimal decimalAnswer) && decimalAnswer >= Zero,
-			QuestionType.MultipleChoice => question.AnswerOptions.FirstOrDefault(option => option.Text.ToLower().Equals(response.Answer!.ToLower())) is not null,
+			QuestionType.MultipleChoice => question.AnswerOptions?.FirstOrDefault(option => option.Text.ToLower().Equals(response.Answer!.ToLower())) != null,
 			QuestionType.MultipleOpen => response.Answer!.Split(';').Length <= question.MaxAnswers!.Value,
 			_ => false
 		};

@@ -143,7 +143,6 @@ namespace Sonuts.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     QuestionnaireId = table.Column<Guid>(type: "uuid", nullable: false),
                     ParticipantId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -306,7 +305,10 @@ namespace Sonuts.Infrastructure.Migrations
                     FrequencyType = table.Column<string>(type: "text", nullable: false),
                     FrequencyGoal = table.Column<int>(type: "integer", nullable: false),
                     CurrentQuestion = table.Column<string>(type: "text", nullable: false),
-                    GoalQuestion = table.Column<string>(type: "text", nullable: false)
+                    GoalQuestion = table.Column<string>(type: "text", nullable: false),
+                    QuestionDependency_QuestionId = table.Column<Guid>(type: "uuid", nullable: true),
+                    QuestionDependency_Operator = table.Column<string>(type: "text", nullable: true),
+                    QuestionDependency_Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -379,10 +381,7 @@ namespace Sonuts.Infrastructure.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     Video = table.Column<string>(type: "text", nullable: true),
                     ImageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ThemeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    QuestionDependency_QuestionId = table.Column<Guid>(type: "uuid", nullable: true),
-                    QuestionDependency_Operator = table.Column<string>(type: "text", nullable: true),
-                    QuestionDependency_Value = table.Column<string>(type: "text", nullable: true)
+                    ThemeId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -444,7 +443,6 @@ namespace Sonuts.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDone = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IntentionId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

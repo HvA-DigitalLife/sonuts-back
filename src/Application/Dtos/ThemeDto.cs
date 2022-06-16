@@ -15,5 +15,6 @@ public class ThemeDto : IMapFrom<Theme>
 	public int FrequencyGoal { get; set; } = default!;
 	public string CurrentQuestion { get; set; } = default!;
 	public string GoalQuestion { get; set; } = default!;
+	public QuestionDependencyDto? QuestionDependency { get; set; }
 	public ICollection<ActivityDto> Activities { get; set; } = new List<ActivityDto>();
 }

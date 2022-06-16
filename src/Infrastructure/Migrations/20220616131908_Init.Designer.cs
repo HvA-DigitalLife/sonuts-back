@@ -12,7 +12,7 @@ using Sonuts.Infrastructure.Persistence;
 namespace Sonuts.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220614205641_Init")]
+    [Migration("20220616131908_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,9 +283,6 @@ namespace Sonuts.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<Guid>("IntentionId")
                         .HasColumnType("uuid");
 
@@ -423,9 +420,6 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("ParticipantId")
                         .HasColumnType("uuid");
@@ -646,33 +640,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Owned.QuestionDependency", "QuestionDependency", b1 =>
-                        {
-                            b1.Property<Guid>("ActivityId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Operator")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<Guid>("QuestionId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("ActivityId");
-
-                            b1.ToTable("Activities");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ActivityId");
-                        });
-
                     b.Navigation("Image");
-
-                    b.Navigation("QuestionDependency");
 
                     b.Navigation("Theme");
                 });
@@ -854,9 +822,35 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("Sonuts.Domain.Entities.Owned.QuestionDependency", "QuestionDependency", b1 =>
+                        {
+                            b1.Property<Guid>("ThemeId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Operator")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<Guid>("QuestionId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("ThemeId");
+
+                            b1.ToTable("Themes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ThemeId");
+                        });
+
                     b.Navigation("Category");
 
                     b.Navigation("Image");
+
+                    b.Navigation("QuestionDependency");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Category", b =>

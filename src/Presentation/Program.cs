@@ -11,12 +11,13 @@ builder.Services.AddPresentationServices(builder.Configuration, builder.Environm
 
 var app = builder.Build();
 
+app.UseMigrationsEndPoint();
+app.InitialiseAndSeedDatabase();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseDeveloperExceptionPage();
-	app.UseMigrationsEndPoint();
-	app.InitialiseAndSeedDatabase();
 }
 else
 {

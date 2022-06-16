@@ -10,5 +10,6 @@ public class Theme : BaseEntity
 	public int FrequencyGoal { get; set; } = default!;
 	public string CurrentQuestion { get; set; } = default!;
 	public string GoalQuestion { get; set; } = default!;
+	public QuestionDependency? QuestionDependency { get; set; }
 	public ICollection<Activity> Activities { get; set; } = new List<Activity>();
 }
