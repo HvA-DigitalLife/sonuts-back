@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Models;
 
@@ -72,6 +73,15 @@ public class IdentityService : IIdentityService
 		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
 		return user != null && await _userManager.IsInRoleAsync(user, role);
+	}
+
+	public async Task<Result> AddToRole(string userId, string role)
+	{
+		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId) ?? throw new NotFoundException(nameof(ApplicationUser), userId);
+
+		var result = await _userManager.AddToRoleAsync(user, role);
+
+		return result.ToApplicationResult();
 	}
 
 	public async Task<bool> AuthorizeAsync(string userId, string policyName)
