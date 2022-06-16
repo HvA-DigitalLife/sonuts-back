@@ -41,7 +41,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
 			var userName = string.IsNullOrEmpty(userId) ? string.Empty : await _identityService.GetUserNameAsync(userId);
 
 			if (_logger.IsEnabled(LogLevel.Warning))
-				_logger.LogWarning("template_dotnet Long Running Request: {RequestName} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
+				_logger.LogWarning("Sonuts long running request: {RequestName} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
 					requestName, elapsedMilliseconds, userId, userName, request);
 		}
 

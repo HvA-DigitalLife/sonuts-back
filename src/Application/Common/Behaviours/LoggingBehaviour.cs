@@ -6,7 +6,7 @@ namespace Sonuts.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 {
-	private readonly ILogger _logger;
+	private readonly ILogger<TRequest> _logger;
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IIdentityService _identityService;
 
@@ -24,7 +24,7 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
 		var userName = string.IsNullOrEmpty(userId) ? string.Empty : await _identityService.GetUserNameAsync(userId);
 
 		if (_logger.IsEnabled(LogLevel.Information))
-			_logger.LogInformation("template_dotnet Request: {RequestName} {@UserId} {@UserName} {@Request}",
+			_logger.LogInformation("Sonuts request: {RequestName} {@UserId} {@UserName} {@Request}",
 			requestName, userId, userName, request);
 	}
 }
