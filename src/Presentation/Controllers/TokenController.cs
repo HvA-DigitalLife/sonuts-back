@@ -7,6 +7,9 @@ namespace Sonuts.Presentation.Controllers;
 
 public class TokenController : ApiControllerBase
 {
+	/// <summary>
+	/// Create a token to access resources the API (admin@local, participant@local)
+	/// </summary>
 	[AllowAnonymous]
 	[HttpPost]
 	public async Task<ActionResult<TokenVm>> CreateToken(CreateTokenCommand command)
