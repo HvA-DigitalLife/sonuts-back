@@ -8,8 +8,8 @@ namespace Sonuts.Presentation.Controllers;
 public class QuestionnairesController : ApiControllerBase
 {
 	[Authorize(Roles = "Admin, Participant")]
-	[HttpGet("{categoryId:guid}")]
-	public async Task<ActionResult<QuestionnaireDto>> GetQuestionnaireByCategory(Guid categoryId)
+	[HttpGet]
+	public async Task<ActionResult<QuestionnaireDto>> GetQuestionnaireByCategory([FromQuery] Guid categoryId)
 	{
 		return Ok(await Mediator.Send(new GetQuestionnaireByCategoryQuery { CategoryId = categoryId }));
 	}

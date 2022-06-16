@@ -25,6 +25,7 @@ public record CreateQuestionResponse
 public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<CreateQuestionnaireResponseCommand>
 {
 	private readonly IApplicationDbContext _context;
+
 	public CreateQuestionnaireResponseCommandValidator(IApplicationDbContext context)
 	{
 		_context = context;
@@ -57,7 +58,11 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 
 	private async Task<bool> IsValidAnswer(CreateQuestionResponse response)
 	{
-		var question = await _context.Questions.FirstAsync(question => question.Id.Equals(response.QuestionId));
+		var question = await _context.Questions
+			               .Include(question => question.AnswerOptions)
+			               .FirstOrDefaultAsync(question => question.Id.Equals(response.QuestionId!.Value)) ??
+		               throw new NotFoundException(nameof(Question), response.QuestionId!.Value);
+
 		return question.Type switch
 		{
 			QuestionType.Activity => false,
@@ -89,11 +94,13 @@ public class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQ
 	{
 		var entity = new QuestionnaireResponse
 		{
-			Questionnaire = await _context.Questionnaires.FirstAsync(questionnaire => questionnaire.Id.Equals(request.QuestionnaireId!.Value), cancellationToken),
-			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken),
+			Questionnaire = await _context.Questionnaires.FirstOrDefaultAsync(questionnaire => questionnaire.Id.Equals(request.QuestionnaireId!.Value), cancellationToken)
+			                ?? throw new NotFoundException(nameof(Questionnaire), request.QuestionnaireId!),
+			Participant = (await _context.Participants.FirstOrDefaultAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken))!,
 			Responses = request.Responses.Select(response => new QuestionResponse
 			{
-				Question = _context.Questions.FirstOrDefault(question => question.Id.Equals(response.QuestionId)) ?? throw new NotFoundException(nameof(Question), response.QuestionId!),
+				Question = _context.Questions.FirstOrDefault(question => question.Id.Equals(response.QuestionId)) ??
+				           throw new NotFoundException(nameof(Question), response.QuestionId!),
 				Answer = response.Answer!
 			}).ToList()
 		};

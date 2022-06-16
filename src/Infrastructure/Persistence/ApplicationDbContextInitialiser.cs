@@ -54,6 +54,8 @@ public class ApplicationDbContextInitialiser
 
 	public async Task TrySeedAsync()
 	{
+		bool shouldSave = false;
+
 		// Default roles
 		foreach (var roleName in Enum.GetNames<Role>().Where(roleName => _roleManager.Roles.All(role => role.Name != roleName)))
 		{
@@ -75,11 +77,16 @@ public class ApplicationDbContextInitialiser
 			{
 				await _userManager.CreateAsync(applicationUser, "Sonuts1!"); //TODO: Get default password from appsettings
 				await _userManager.AddToRolesAsync(applicationUser, new[] { roleName });
+
+				if (roleName.Equals(Role.Participant.ToString()))
+				{
+					shouldSave = true;
+					await _context.Participants.AddAsync(new Participant { Id = Guid.Parse(applicationUser.Id) });
+				}
 			}
 		}
 		
 		// Default Categories
-		bool shouldSave = false;
 
 		foreach (var contentType in Enum.GetNames<ContentType>())
 		{

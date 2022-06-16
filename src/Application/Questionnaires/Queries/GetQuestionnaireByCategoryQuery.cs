@@ -37,7 +37,8 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 	public async Task<QuestionnaireDto> Handle(GetQuestionnaireByCategoryQuery request, CancellationToken cancellationToken)
 	{
 		var category = await _context.Categories
-			.Include(category => category.Questionnaire)
+			.Include(category => category.Questionnaire.Questions)
+			.ThenInclude(question => question.AnswerOptions)
 			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId!.Value), cancellationToken);
 
 		if (category == null)
