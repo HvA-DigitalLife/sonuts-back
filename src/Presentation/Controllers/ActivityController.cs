@@ -5,6 +5,9 @@ namespace Sonuts.Presentation.Controllers;
 
 public class ActivityController : ApiControllerBase
 {
+	/// <summary>
+	/// [NotImplemented]
+	/// </summary>
 	[HttpGet("{activityId:guid}")]
 	public async Task<ActionResult<ActivityDto>> GetActivity([FromBody] Guid activityId)
 	{

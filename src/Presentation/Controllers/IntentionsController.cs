@@ -6,7 +6,7 @@ namespace Sonuts.Presentation.Controllers;
 public class IntentionsController : ApiControllerBase
 {
 	/// <summary>
-	/// Get agenda tasks
+	/// Get agenda tasks [NotImplemented]
 	/// </summary>
 	[HttpGet]
 	public async Task<ActionResult<ICollection<IntentionDto>>> GetIntentions()
@@ -16,7 +16,7 @@ public class IntentionsController : ApiControllerBase
 	}
 
 	/// <summary>
-	/// Plan tasks for agenda
+	/// Plan tasks for agenda [NotImplemented]
 	/// </summary>
 	[HttpPost]
 	public async Task<ActionResult<IntentionDto>> CreateIntentions()
@@ -26,7 +26,7 @@ public class IntentionsController : ApiControllerBase
 	}
 
 	/// <summary>
-	/// Complete a task from agenda
+	/// Complete a task from agenda [NotImplemented]
 	/// </summary>
 	/// <returns></returns>
 	[HttpPost("{intentionId}")]
