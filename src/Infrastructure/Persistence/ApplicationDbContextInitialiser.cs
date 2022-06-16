@@ -270,7 +270,40 @@ public class ApplicationDbContextInitialiser
 				Questionnaire = new Questionnaire
 				{
 					Title = "Intake",
-					Description = "Vragen over voeding"
+					Description = "Vragen over voeding",
+					Questions = new List<Question>
+					{
+						new()
+						{
+							Type = QuestionType.MultipleOpen,
+							Text = "Heeft u speciale voedingsgewoontes?",
+							Description = "Meerdere antwoorden mogelijk",
+							Order = 8,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Text = "Nee", Order = 0 },
+								new() { Text = "Ik eet vegetarisch", Order = 1 },
+								new() { Text = "Ik eet geen vlees, maar wel vis", Order = 2 },
+								new() { Text = "Ik eet veganistisch", Order = 3 },
+								new() { Text = "Ik eet geen varkensvlees", Order = 4 },
+								new() { Text = "Ik eet geen koeienvlees", Order = 5 },
+								new() { Text = "Ik eet flexitarisch", Order = 6 },
+								new() { Text = "Ja, anders namelijk:", Order = 7 }
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Open,
+							Text = "Speciale voedingsgewoontes",
+							Order = 1,
+							QuestionDependency = new QuestionDependency
+							{
+								QuestionId = default,
+								Operator = Operator.Equals,
+								Value = "Ja, anders namelijk:"
+							}
+						}
+					}
 				},
 				Themes = new List<Theme>
 				{
@@ -321,7 +354,84 @@ public class ApplicationDbContextInitialiser
 				Questionnaire = new Questionnaire
 				{
 					Title = "Intake",
-					Description = "Vragen over beweging"
+					Description = "Vragen over beweging",
+					Questions = new List<Question>
+					{
+						new()
+						{
+							Id = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+							Type = QuestionType.MultipleChoice,
+							Text = "Is er spraken van lopen van/naar werk?",
+							Order = 0,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new()
+								{
+									Text = "Nee",
+									Order = 0
+								},
+								new()
+								{
+									Text = "Ja",
+									Order = 1
+								}
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel dagen per week?",
+							Order = 1,
+							QuestionDependency = new QuestionDependency
+							{
+								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								Operator = Operator.Equals,
+								Value = "Ja"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 2,
+							QuestionDependency = new QuestionDependency
+							{
+								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								Operator = Operator.Equals,
+								Value = "Ja"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.MultipleChoice,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 2,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new()
+								{
+									Text = "Langzaam",
+									Order = 0
+								},
+								new()
+								{
+									Text = "Gemiddeld",
+									Order = 1
+								},
+								new()
+								{
+									Text = "Snel",
+									Order = 2
+								}
+							},
+							QuestionDependency = new QuestionDependency
+							{
+								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								Operator = Operator.Equals,
+								Value = "Ja"
+							}
+						}
+					}
 				},
 				Themes = new List<Theme>
 				{
