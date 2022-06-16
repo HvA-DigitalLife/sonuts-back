@@ -27,6 +27,7 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 		base.OnException(context);
 	}
 
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
 	private void HandleException(ExceptionContext context)
 	{
 		Type type = context.Exception.GetType();

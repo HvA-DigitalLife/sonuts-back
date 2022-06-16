@@ -4,7 +4,11 @@ namespace Sonuts.Application.Common.Interfaces;
 
 public interface IIdentityService
 {
+	Task<string> GetIdAsync(string userName);
+
 	Task<string> GetUserNameAsync(string userId);
+
+	Task<IList<string>> GetRolesAsync(string userId);
 
 	Task<bool> IsInRoleAsync(string userId, string role);
 
@@ -13,4 +17,8 @@ public interface IIdentityService
 	Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);
 
 	Task<Result> DeleteUserAsync(string userId);
+
+	Task<string> CreateAccessTokenAsync(string userId);
+
+	string CreateRefreshTokenAsync(string userId);
 }

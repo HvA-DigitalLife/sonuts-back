@@ -30,7 +30,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 		_mediator = mediator;
 		_auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
 	}
-	
+
 	public DbSet<Activity> Activities => Set<Activity>();
 
 	public DbSet<AnswerOption> AnswerOptions => Set<AnswerOption>();
