@@ -75,6 +75,13 @@ public class IdentityService : IIdentityService
 		return user != null && await _userManager.IsInRoleAsync(user, role);
 	}
 
+	public async Task<bool> IsUser(string userId)
+	{
+		var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+		return user is not null;
+	}
+
 	public async Task<Result> AddToRole(string userId, string role)
 	{
 		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId) ?? throw new NotFoundException(nameof(ApplicationUser), userId);
