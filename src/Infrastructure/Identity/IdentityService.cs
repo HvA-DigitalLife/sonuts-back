@@ -117,8 +117,8 @@ public class IdentityService : IIdentityService
 			}),
 			Expires = now.AddMilliseconds(int.Parse(_configuration["Authentication:TokenDuration"])),
 			IssuedAt = now,
-			Issuer = "Beyco",
-			Audience = "Beyco",
+			Issuer = _configuration["Authentication:Issuer"],
+			Audience = _configuration["Authentication:Audience"],
 			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:SecurityKey"])), SecurityAlgorithms.HmacSha256Signature)
 		};
 

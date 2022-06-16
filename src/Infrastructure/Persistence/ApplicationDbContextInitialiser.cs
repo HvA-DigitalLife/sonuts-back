@@ -78,6 +78,7 @@ public class ApplicationDbContextInitialiser
 			}
 		}
 		
+		// Default Categories
 		bool shouldSave = false;
 
 		foreach (var contentType in Enum.GetNames<ContentType>())
