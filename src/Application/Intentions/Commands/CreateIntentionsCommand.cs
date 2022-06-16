@@ -95,8 +95,8 @@ public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCo
 	{
 		Intention entity = new()
 		{
-			Activity = (await _context.Activities.FirstOrDefaultAsync(activity => activity.Id.Equals(request.ActivityId!), cancellationToken)) ??
-			           throw new NotFoundException(nameof(Activity), request.ActivityId!),
+			Activity = (await _context.Activities.FirstOrDefaultAsync(activity => activity.Id.Equals(request.ActivityId!.Value), cancellationToken)) ??
+			           throw new NotFoundException(nameof(Activity), request.ActivityId!.Value),
 			FrequencyAmount = request.FrequencyAmount!.Value,
 			Moment = new Moment
 			{

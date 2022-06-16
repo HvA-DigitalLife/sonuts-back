@@ -1,3 +1,4 @@
+using AutoMapper;
 using Sonuts.Application.Categories;
 using Sonuts.Application.Common.Mappings;
 using Sonuts.Domain.Entities;
@@ -16,6 +17,11 @@ public class ThemeDto : IMapFrom<Theme>
 	public int FrequencyGoal { get; set; } = default!;
 	public string CurrentQuestion { get; set; } = default!;
 	public string GoalQuestion { get; set; } = default!;
-	public QuestionDependencyDto? QuestionDependency { get; set; }
+	public bool IsRecommend { get; set; }
 	public ICollection<ActivityDto> Activities { get; set; } = new List<ActivityDto>();
+
+	public void Mapping(Profile profile) =>
+		profile.CreateMap<Theme, ThemeDto>()
+			.ForMember(themeDto => themeDto.IsRecommend, expression => expression
+				.MapFrom(theme => theme.QuestionDependency != null && theme.QuestionDependency.Operator == Operator.Equals));
 }

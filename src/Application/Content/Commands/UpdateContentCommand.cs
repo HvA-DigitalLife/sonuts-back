@@ -44,7 +44,7 @@ public class UpdateContentCommandHandler : IRequestHandler<UpdateContentCommand,
 	public async Task<ContentDto> Handle(UpdateContentCommand request, CancellationToken cancellationToken)
 	{
 		var content = (await _context.Content.FirstOrDefaultAsync(content => content.Type.Equals(request.Type!), cancellationToken: cancellationToken)) ??
-		              throw new NotFoundException(nameof(Content), request.Type!);
+		              throw new NotFoundException(nameof(Content), request.Type!.Value);
 
 		content.Title = request.Title!;
 		content.Description = request.Description!;

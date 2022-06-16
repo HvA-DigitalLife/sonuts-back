@@ -35,5 +35,5 @@ public class GetContentByTypeQueryHandler : IRequestHandler<GetContentByTypeQuer
 
 	public async Task<ContentDto> Handle(GetContentByTypeQuery request, CancellationToken cancellationToken) =>
 		_mapper.Map<ContentDto>((await _context.Content.FirstOrDefaultAsync(content => content.Type.Equals(request.Type!), cancellationToken: cancellationToken)) ??
-		                        throw new NotFoundException(nameof(Content), request.Type!));
+								throw new NotFoundException(nameof(Content), request.Type!.Value.ToString()));
 }

@@ -43,8 +43,8 @@ public class CreateExecutionCommandHandler : IRequestHandler<CreateExecutionComm
 		Execution entity = new()
 		{
 			IsDone = request.IsDone!.Value,
-			Intention = (await _context.Intentions.FirstOrDefaultAsync(content => content.Id.Equals(request.IntentionId!), cancellationToken)) ??
-			            throw new NotFoundException(nameof(Intention), request.IntentionId!)
+			Intention = (await _context.Intentions.FirstOrDefaultAsync(content => content.Id.Equals(request.IntentionId!.Value), cancellationToken)) ??
+			            throw new NotFoundException(nameof(Intention), request.IntentionId!.Value)
 		};
 
 		await _context.Executions.AddAsync(entity, cancellationToken);

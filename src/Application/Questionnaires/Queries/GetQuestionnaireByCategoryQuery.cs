@@ -34,8 +34,15 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 		_mapper = mapper;
 	}
 
-	public async Task<QuestionnaireDto> Handle(GetQuestionnaireByCategoryQuery request, CancellationToken cancellationToken) =>
-		_mapper.Map<QuestionnaireDto>((await _context.Categories.Select(category => category.Questionnaire)
-			                              .FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId!), cancellationToken)) ??
-		                              throw new NotFoundException(nameof(Category), request.CategoryId!));
+	public async Task<QuestionnaireDto> Handle(GetQuestionnaireByCategoryQuery request, CancellationToken cancellationToken)
+	{
+		var category = await _context.Categories
+			.Include(category => category.Questionnaire)
+			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId!.Value), cancellationToken);
+
+		if (category == null)
+			throw new NotFoundException(nameof(Category), request.CategoryId!.Value);
+
+		return _mapper.Map<QuestionnaireDto>(category.Questionnaire);
+	}
 }
