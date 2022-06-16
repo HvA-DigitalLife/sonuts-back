@@ -16,11 +16,13 @@ public class ContentController : ApiControllerBase
 		return await Mediator.Send(new GetContentByTypeQuery{ Type = type });
 	}
 
+	[ApiExplorerSettings(IgnoreApi = true)]
+	[Authorize(Roles = "Admin")]
 	[HttpPatch("{type}")]
 	public async Task<ActionResult<ContentDto>> UpdateContent([FromRoute] ContentType type, [FromBody] UpdateContentCommand command)
 	{
 		if (!type.Equals(command.Type)) BadRequest();
 
-		return Ok(await Mediator.Send(command));
+		return await Mediator.Send(command);
 	}
 }

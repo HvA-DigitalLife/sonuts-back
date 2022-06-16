@@ -9,7 +9,7 @@ namespace Sonuts.Presentation.Controllers;
 public class CategoriesController : ApiControllerBase
 {
 	[HttpGet]
-	public async Task<ActionResult<ICollection<CategoryDto>>> GetContentByType()
+	public async Task<ActionResult<ICollection<CategoryDto>>> GetCategories()
 	{
 		return Ok(await Mediator.Send(new GetCategoriesQuery()));
 	}
