@@ -10,7 +10,7 @@ public class CategoriesController : ApiControllerBase
 	/// <summary>
 	/// Get all active categories
 	/// </summary>
-	[Authorize(Roles = "Admin, Participant")]
+	[AllowAnonymous] //TODO: [Authorize(Roles = "Admin, Participant")]
 	[HttpGet]
 	public async Task<ActionResult<ICollection<CategoryDto>>> GetCategories()
 	{

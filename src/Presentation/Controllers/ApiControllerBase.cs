@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Sonuts.Presentation.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public abstract class ApiControllerBase : ControllerBase

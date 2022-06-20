@@ -7,7 +7,7 @@ namespace Sonuts.Presentation.Controllers;
 
 public class QuestionnairesController : ApiControllerBase
 {
-	[Authorize(Roles = "Admin, Participant")]
+	[AllowAnonymous] //TODO: [Authorize(Roles = "Admin, Participant")]
 	[HttpGet]
 	public async Task<ActionResult<QuestionnaireDto>> GetQuestionnaireByCategory([FromQuery] Guid categoryId)
 	{

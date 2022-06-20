@@ -12,7 +12,7 @@ public class IntentionsController : ApiControllerBase
 	/// <summary>
 	/// Get agenda tasks
 	/// </summary>
-	[Authorize(Roles = "Participant")]
+	[AllowAnonymous] //TODO: [Authorize(Roles = "Participant")]
 	[HttpGet]
 	public async Task<ActionResult<ICollection<IntentionDto>>> GetIntentions()
 	{
