@@ -28,6 +28,7 @@ namespace Sonuts.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Subtitle = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>

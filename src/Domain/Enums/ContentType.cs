@@ -6,6 +6,5 @@ public enum ContentType
 	Intake,
 	Themes,
 	ThemeChoice,
-	Goal,
 	Schedule
 }
