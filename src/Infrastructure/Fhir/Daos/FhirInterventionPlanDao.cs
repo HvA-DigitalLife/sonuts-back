@@ -1,4 +1,5 @@
 using System.Text;
+using Sonuts.Infrastructure.Common;
 using Sonuts.Infrastructure.Fhir.Adapters;
 using Sonuts.Infrastructure.Fhir.Interfaces;
 using Sonuts.Infrastructure.Fhir.Models;
@@ -18,7 +19,7 @@ public class FhirInterventionPlanDao : IInterventionPlanDao
 	{
 
 		// load and parse domains instance
-		var client = _httpClientFactory.CreateClient("Fhir");
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var result = await client.GetStringAsync("PlanDefinition?type=" + participantId); // todo, add extension and search parameter for mib domain id valueset to FHIR, will get all of them for now
 
 		return FhirInterventionPlanAdapter.FromJsonBundle(result);
@@ -26,7 +27,7 @@ public class FhirInterventionPlanDao : IInterventionPlanDao
 
 	public async Task<InterventionPlan> Insert(InterventionPlan interventionPlan)
 	{
-		var client = _httpClientFactory.CreateClient("Fhir");
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var response = await client.PostAsync("PlanDefinition", new StringContent(FhirInterventionPlanAdapter.ToJson(interventionPlan), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();

@@ -1,3 +1,4 @@
+using Sonuts.Infrastructure.Common;
 using Sonuts.Infrastructure.Fhir.Adapters;
 using Sonuts.Infrastructure.Fhir.Interfaces;
 
@@ -15,7 +16,7 @@ public class FhirDomainDao : IDomainDao
 	public async Task<List<Models.Domain>> SelectAll()
 	{
 		// load and parse domains instance
-		var client = _httpClientFactory.CreateClient("Fhir");
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var result = await client.GetStringAsync("ValueSet/?identifier=mib-domains");
 
 		return FhirDomainAdapter.FromJsonBundle(result);

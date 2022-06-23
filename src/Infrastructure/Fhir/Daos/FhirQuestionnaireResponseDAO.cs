@@ -1,4 +1,5 @@
 using System.Text;
+using Sonuts.Infrastructure.Common;
 using Sonuts.Infrastructure.Fhir.Adapters;
 using Sonuts.Infrastructure.Fhir.Interfaces;
 using Sonuts.Infrastructure.Fhir.Models;
@@ -17,7 +18,7 @@ public class FhirQuestionnaireResponseDao : IQuestionnaireResponseDao
 	public async Task<QuestionnaireResponse> Select(string id)
 	{
 		// load and parse questionnaire response instance
-		var client = _httpClientFactory.CreateClient("Fhir");
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var result = await client.GetStringAsync("QuestionnaireResponse/" + id);
 
 		return FhirQuestionnaireResponseAdapter.FromJson(result);
@@ -25,7 +26,7 @@ public class FhirQuestionnaireResponseDao : IQuestionnaireResponseDao
 
 	public async Task<QuestionnaireResponse> Insert(QuestionnaireResponse questionnaireResponse)
 	{
-		var client = _httpClientFactory.CreateClient("Fhir");
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var response = await client.PostAsync("QuestionnaireResponse", new StringContent(FhirQuestionnaireResponseAdapter.ToJson(questionnaireResponse), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();

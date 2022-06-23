@@ -1,6 +1,7 @@
 using System.Text;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
+using Sonuts.Infrastructure.Common;
 using Sonuts.Infrastructure.Fhir.Interfaces;
 using Sonuts.Infrastructure.Fhir.Models;
 using Task = System.Threading.Tasks.Task;
@@ -69,7 +70,7 @@ public class FhirParticipantDao : IParticipantDao
 		var payload = await serializer.SerializeToStringAsync(fhirObject);
 
 		// send to fhir server
-		var fhirClient = _httpClientFactory.CreateClient("Fhir");
+		var fhirClient = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var response = await fhirClient.PostAsync("Patient", new StringContent(payload, Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();

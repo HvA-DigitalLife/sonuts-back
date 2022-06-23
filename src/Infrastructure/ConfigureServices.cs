@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
+using Sonuts.Infrastructure.Common;
+using Sonuts.Infrastructure.Fhir.Daos;
 using Sonuts.Infrastructure.Files;
 using Sonuts.Infrastructure.Identity;
 using Sonuts.Infrastructure.Persistence;
@@ -29,7 +32,7 @@ public static class ConfigureServices
 		else
 		{
 			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
+				options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"),
 					builder =>
 					{
 						builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
@@ -51,6 +54,16 @@ public static class ConfigureServices
 		services.AddTransient<IIdentityService, IdentityService>();
 		services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 		
+		services.AddTransient<IQuestionnaireDao, FhirQuestionnaireDao>();
+
+		services.AddHttpClient(HttpClientName.Fhir, httpClient =>
+		{
+			httpClient.BaseAddress = new Uri(configuration.GetConnectionString("Fhir"));
+			httpClient.DefaultRequestHeaders.Accept.Clear();
+			httpClient.DefaultRequestHeaders.Add("Accept", "application/fhir+json");
+			httpClient.DefaultRequestHeaders.Add("User-Agent", "Mib FHIR client");
+		});
+
 		return services;
 	}
 }
