@@ -303,6 +303,7 @@ public class ApplicationDbContextInitialiser
 				Color = "94BF31",
 				Questionnaire = new Questionnaire
 				{
+					Id = Guid.Parse("08f26fc7-eb92-4a59-b15c-ff0fae8570a2"),
 					Title = "Intake",
 					Description = "Vragen over voeding",
 					Questions = new List<Question>
@@ -332,7 +333,7 @@ public class ApplicationDbContextInitialiser
 							Order = 1,
 							QuestionDependency = new QuestionDependency
 							{
-								QuestionId = default,
+								QuestionId = Guid.Parse("08f26fc7-eb92-4a59-b15c-ff0fae8570a2"),
 								Operator = Operator.Equals,
 								Value = "Ja, anders namelijk:"
 							}

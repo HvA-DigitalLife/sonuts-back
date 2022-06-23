@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+	    <PackageReference Include="Hl7.Fhir.R4" Version="4.0.0" />
 	    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
 		    <PrivateAssets>all</PrivateAssets>
 		    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
