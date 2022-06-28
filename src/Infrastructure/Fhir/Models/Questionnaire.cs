@@ -1,4 +1,4 @@
-namespace Sonuts.Infrastructure.Fhir.Models;
+namespace Sonuts.Infrastructure.Fhir.Models.disabled;
 
 public class Questionnaire
 {

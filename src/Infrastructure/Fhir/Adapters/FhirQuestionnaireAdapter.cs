@@ -37,11 +37,14 @@ public static class FhirQuestionnaireAdapter
 
 				foreach (var itemExtension in item.Extension)
 				{
-					// check if we have the openLabel extension (for openchoice question answers)
-					if (itemExtension.Url == "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel")
-					{
-						question.Text = itemExtension.Value.ToString()!; //What is OpenLable
-					}
+					
+					// to be replaced by question dependency?
+
+					// // check if we have the openLabel extension (for openchoice question answers)
+					// if (itemExtension.Url == "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel")
+					// {
+					// 	question.Text = itemExtension.Value.ToString()!; //What is OpenLable
+					// }
 					// check if we have the single option flag set
 					if ((itemExtension.Url == "http://hl7.org/fhir/StructureDefinition/questionnaire-optionExclusive") && (itemExtension.Value.Equals(true)))
 					{
@@ -65,6 +68,26 @@ public static class FhirQuestionnaireAdapter
 					var answerOptionCoding = (Hl7.Fhir.Model.Coding)answerOption.Value;
 					qaOption.Id = Guid.Parse(answerOptionCoding.Code);
 					qaOption.Text = answerOptionCoding.Display;
+
+					foreach (var answerOptionExtension in answerOption.Extension)
+					{
+						
+						// to be replaced by question dependency?
+
+						// // check if we have the openLabel extension (for openchoice question answers)
+						// if (itemExtension.Url == "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel")
+						// {
+						// 	question.Text = itemExtension.Value.ToString()!; //What is OpenLable
+						// }
+						// check if we have the single option flag set
+						if (answerOptionExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order")
+						{
+							// @thomaslem how best to do this?
+							// i want to convert from   (Hl7.Fhir.Model.Integer) answerOptionExtension.Value  to int
+							qaOption.Order = int.Parse(answerOptionExtension.Value.ToString());
+						}
+					}
+
 					question.AnswerOptions!.Add(qaOption);
 				}
 
@@ -105,6 +128,9 @@ public static class FhirQuestionnaireAdapter
 			if (question.Type is QuestionType.MultipleChoice or QuestionType.MultipleOpen) //(question.Type == "choice") || (question.Type == "openChoice") || (question.Type == "multiChoice") || (question.Type == "multiOpenChoice"))
 			{
 
+
+
+
 				if (question.Type is QuestionType.MultipleChoice) //(question.Type == "choice") || (question.Type == "multiChoice"))
 				{
 					item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice;
@@ -113,13 +139,20 @@ public static class FhirQuestionnaireAdapter
 				{
 					item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice;
 					// add open-choice label extension when open-choice is selected
-					var answerOptionTypeExtension = new Hl7.Fhir.Model.Extension
-						{
-							Url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel",
-							Value = new Hl7.Fhir.Model.FhirString(question.Text) //.OpenLabel)
-						};
-					item.Extension.Add(answerOptionTypeExtension);
+					
+					
+					// to be replaced by question dependency?
+
+					// var answerOptionTypeExtension = new Hl7.Fhir.Model.Extension
+					// 	{
+					// 		Url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel",
+					// 		Value = new Hl7.Fhir.Model.FhirString(question.Text) //.OpenLabel)
+					// 	};
+					// item.Extension.Add(answerOptionTypeExtension);
+
+
 				}
+				
 				if (question.Type is QuestionType.MultipleChoice or QuestionType.MultipleOpen) //(question.Type == "choice") || (question.Type == "openChoice"))
 				{
 					// add single option choise extension no multi choice is selected
@@ -144,6 +177,17 @@ public static class FhirQuestionnaireAdapter
 						};
 						answerOption.Value = answerOptionCoding;
 						//answerOption.InitialSelected = qaOption.Selected;
+
+
+						// answerOrder extension
+						// to-do: check if there is something like this already within SDC
+						// title extension
+						var answerOptionOrderExtension = new Hl7.Fhir.Model.Extension() { 
+							Url = "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order",
+							Value = new Hl7.Fhir.Model.Integer(qaOption.Order)
+						};
+						answerOption.Extension.Add(answerOptionOrderExtension);
+
 
 						// add answeroptions to answer fhir item
 						item.AnswerOption.Add(answerOption);
