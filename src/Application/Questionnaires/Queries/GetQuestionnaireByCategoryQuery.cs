@@ -6,6 +6,7 @@ using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
+using Sonuts.Infrastructure.Fhir.Interfaces;
 
 namespace Sonuts.Application.Questionnaires.Queries;
 
@@ -27,6 +28,8 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
+
+	private readonly  IQuestionnaireResponseDao _dao;
 
 	public GetQuestionnaireByTypeQueryHandler(IApplicationDbContext context, IMapper mapper)
 	{
