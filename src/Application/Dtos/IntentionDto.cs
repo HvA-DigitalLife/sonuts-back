@@ -3,7 +3,7 @@ using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Dtos;
 
-public class IntentionDto : IMapFrom<Intention>
+public class IntentionDto : IMapFrom<Goal>
 {
 	public Guid Id { get; set; }
 	public ActivityDto Activity { get; set; } = default!;

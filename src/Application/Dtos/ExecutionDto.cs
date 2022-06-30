@@ -8,5 +8,5 @@ public class ExecutionDto : IMapFrom<Execution>
 	public Guid Id { get; set; }
 	public bool IsDone { get; set; } = default!;
 	public DateTime CreatedAt { get; set; } = default!;
-	public Intention Intention { get; set; } = default!;
+	public Goal Goal { get; set; } = default!;
 }

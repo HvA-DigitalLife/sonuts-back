@@ -28,7 +28,7 @@ public class CreateMoment
 	public bool? OnFriday { get; set; }
 	public bool? OnSaturday { get; set; }
 	public bool? OnSunday { get; set; }
-	public TimeOnly? Time { get; set; }
+	public DateTime? Time { get; set; }
 	public MomentType? Type { get; set; }
 	public string? EventName { get; set; }
 }
@@ -93,27 +93,27 @@ public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCo
 
 	public async Task<IntentionDto> Handle(CreateIntentionsCommand request, CancellationToken cancellationToken)
 	{
-		Intention entity = new()
+		Goal entity = new()
 		{
 			Activity = (await _context.Activities.FirstOrDefaultAsync(activity => activity.Id.Equals(request.ActivityId!.Value), cancellationToken)) ??
 			           throw new NotFoundException(nameof(Activity), request.ActivityId!.Value),
 			FrequencyAmount = request.FrequencyAmount!.Value,
-			Moment = new Moment
+			Moment = new Moment //TODO: Fix moment
 			{
-				OnMonday = request.Moment!.OnMonday!.Value,
-				OnTuesday = request.Moment.OnTuesday!.Value,
-				OnWednesday = request.Moment.OnWednesday!.Value,
-				OnThursday = request.Moment.OnThursday!.Value,
-				OnFriday = request.Moment.OnFriday!.Value,
-				OnSaturday = request.Moment.OnSaturday!.Value,
-				OnSunday = request.Moment.OnSunday!.Value,
-				Time = request.Moment.Time!.Value,
+				//OnMonday = request.Moment!.OnMonday!.Value,
+				//OnTuesday = request.Moment.OnTuesday!.Value,
+				//OnWednesday = request.Moment.OnWednesday!.Value,
+				//OnThursday = request.Moment.OnThursday!.Value,
+				//OnFriday = request.Moment.OnFriday!.Value,
+				//OnSaturday = request.Moment.OnSaturday!.Value,
+				//OnSunday = request.Moment.OnSunday!.Value,
+				Time = request.Moment!.Time!.Value,
 				Type = request.Moment.Type!.Value,
 				EventName = request.Moment.EventName
 			},
 			Reminder = request.Reminder,
-			Participant = await _context.Participants.FirstOrDefaultAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken) ??
-			              throw new UnauthorizedAccessException()
+			//Participant = await _context.Participants.FirstOrDefaultAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken) ??
+			//              throw new UnauthorizedAccessException()
 		};
 
 		await _context.Intentions.AddAsync(entity, cancellationToken);

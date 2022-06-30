@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Sonuts.Domain.Entities;
-using Sonuts.Domain.Entities.Owned;
 using Sonuts.Domain.Enums;
 using Sonuts.Infrastructure.Identity;
 
@@ -155,9 +154,9 @@ public class ApplicationDbContextInitialiser
 							Order = 1,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Text = "Man", Order = 0 },
-								new() { Text = "Vrouw", Order = 1 },
-								new() { Text = "Anders", Order = 2 }
+								new() { Value = "Man", Order = 0 },
+								new() { Value = "Vrouw", Order = 1 },
+								new() { Value = "Anders", Order = 2 }
 							}
 						},
 						new()
@@ -184,16 +183,15 @@ public class ApplicationDbContextInitialiser
 							Type = QuestionType.MultipleOpen,
 							Text = "Welke van de onderstaande beschijvingen past het beste bij jouw situatie?",
 							Order = 5,
-							MaxAnswers = 3,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Text = "Alleenstaand", Order = 0 },
-								new() { Text = "Getrouwd", Order = 1 },
-								new() { Text = "Samenwonend", Order = 2 },
-								new() { Text = "Apart wonend", Order = 3 },
-								new() { Text = "Weduwnaar", Order = 4 },
-								new() { Text = "Gescheiden", Order = 5 },
-								new() { Text = "Anders, namelijk:", Order = 6 }
+								new() { Value = "Alleenstaand", Order = 0 },
+								new() { Value = "Getrouwd", Order = 1 },
+								new() { Value = "Samenwonend", Order = 2 },
+								new() { Value = "Apart wonend", Order = 3 },
+								new() { Value = "Weduwnaar", Order = 4 },
+								new() { Value = "Gescheiden", Order = 5 },
+								new() { Value = "Anders, namelijk:", Order = 6 }
 							}
 						},
 						new()
@@ -201,11 +199,11 @@ public class ApplicationDbContextInitialiser
 							Type = QuestionType.Open,
 							Text = "Welke andere situatie?",
 							Order = 6,
-							QuestionDependency = new QuestionDependency
+							EnableWhen = new EnableWhen
 							{
 								QuestionId = Guid.Parse("7565096f-9c8e-4e62-bdc7-9cd73ade8349"),
 								Operator = Operator.Equals,
-								Value = "Anders, namelijk:"
+								Answer = "Anders, namelijk:"
 							}
 						},
 						new()
@@ -215,8 +213,8 @@ public class ApplicationDbContextInitialiser
 							Order = 7,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Text = "Nee", Order = 0 },
-								new() { Text = "Ja", Order = 1 }
+								new() { Value = "Nee", Order = 0 },
+								new() { Value = "Ja", Order = 1 }
 							}
 						},
 						new()
@@ -227,13 +225,13 @@ public class ApplicationDbContextInitialiser
 							Order = 8,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Text = "Geen opleiding afgemaakt", Order = 0 },
-								new() { Text = "Basisschool / lager beroepsonderwijs", Order = 1 },
-								new() { Text = "VMBO / MAVO / MULO", Order = 3 },
-								new() { Text = "MBO / MTS / MEAO / HAVO / VWO", Order = 4 },
-								new() { Text = "HBO", Order = 5 },
-								new() { Text = "Wetenschappelijk onderwijs / uni", Order = 6 },
-								new() { Text = "Anders, Namelijk:", Order = 7 }
+								new() { Value = "Geen opleiding afgemaakt", Order = 0 },
+								new() { Value = "Basisschool / lager beroepsonderwijs", Order = 1 },
+								new() { Value = "VMBO / MAVO / MULO", Order = 3 },
+								new() { Value = "MBO / MTS / MEAO / HAVO / VWO", Order = 4 },
+								new() { Value = "HBO", Order = 5 },
+								new() { Value = "Wetenschappelijk onderwijs / uni", Order = 6 },
+								new() { Value = "Anders, Namelijk:", Order = 7 }
 							}
 						},
 						new()
@@ -241,11 +239,11 @@ public class ApplicationDbContextInitialiser
 							Type = QuestionType.Open,
 							Text = "Welke andere opleiding?",
 							Order = 9,
-							QuestionDependency = new QuestionDependency
+							EnableWhen = new EnableWhen
 							{
 								QuestionId = Guid.Parse("999d06ed-d0ca-46ff-8971-71193538db8d"),
 								Operator = Operator.Equals,
-								Value = "Anders, namelijk:"
+								Answer = "Anders, namelijk:"
 							}
 						},
 						new()
@@ -257,14 +255,14 @@ public class ApplicationDbContextInitialiser
 							Order = 10,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Text = "Werken - voltijds", Order = 0 },
-								new() { Text = "Werken - deeltijds", Order = 1 },
-								new() { Text = "Gepensioneerd", Order = 3 },
-								new() { Text = "Huisman/vrouw", Order = 4 },
-								new() { Text = "Student", Order = 5 },
-								new() { Text = "Niet werkzaam en niet gepensioneerd", Order = 6 },
-								new() { Text = "Blijvend arbeidsongeschikt / ziek", Order = 7 },
-								new() { Text = "Anders, Namelijk:", Order = 8 }
+								new() { Value = "Werken - voltijds", Order = 0 },
+								new() { Value = "Werken - deeltijds", Order = 1 },
+								new() { Value = "Gepensioneerd", Order = 3 },
+								new() { Value = "Huisman/vrouw", Order = 4 },
+								new() { Value = "Student", Order = 5 },
+								new() { Value = "Niet werkzaam en niet gepensioneerd", Order = 6 },
+								new() { Value = "Blijvend arbeidsongeschikt / ziek", Order = 7 },
+								new() { Value = "Anders, Namelijk:", Order = 8 }
 							}
 						},
 						new()
@@ -272,11 +270,11 @@ public class ApplicationDbContextInitialiser
 							Type = QuestionType.Open,
 							Text = "Welke andere arbeidspositie?",
 							Order = 11,
-							QuestionDependency = new QuestionDependency
+							EnableWhen = new EnableWhen
 							{
 								QuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 								Operator = Operator.Equals,
-								Value = "Anders, namelijk:"
+								Answer = "Anders, namelijk:"
 							}
 						},
 						new()
@@ -316,14 +314,14 @@ public class ApplicationDbContextInitialiser
 							Order = 8,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Text = "Nee", Order = 0 },
-								new() { Text = "Ik eet vegetarisch", Order = 1 },
-								new() { Text = "Ik eet geen vlees, maar wel vis", Order = 2 },
-								new() { Text = "Ik eet veganistisch", Order = 3 },
-								new() { Text = "Ik eet geen varkensvlees", Order = 4 },
-								new() { Text = "Ik eet geen koeienvlees", Order = 5 },
-								new() { Text = "Ik eet flexitarisch", Order = 6 },
-								new() { Text = "Ja, anders namelijk:", Order = 7 }
+								new() { Value = "Nee", Order = 0 },
+								new() { Value = "Ik eet vegetarisch", Order = 1 },
+								new() { Value = "Ik eet geen vlees, maar wel vis", Order = 2 },
+								new() { Value = "Ik eet veganistisch", Order = 3 },
+								new() { Value = "Ik eet geen varkensvlees", Order = 4 },
+								new() { Value = "Ik eet geen koeienvlees", Order = 5 },
+								new() { Value = "Ik eet flexitarisch", Order = 6 },
+								new() { Value = "Ja, anders namelijk:", Order = 7 }
 							}
 						},
 						new()
@@ -331,11 +329,11 @@ public class ApplicationDbContextInitialiser
 							Type = QuestionType.Open,
 							Text = "Speciale voedingsgewoontes",
 							Order = 1,
-							QuestionDependency = new QuestionDependency
+							EnableWhen = new EnableWhen
 							{
 								QuestionId = Guid.Parse("08f26fc7-eb92-4a59-b15c-ff0fae8570a2"),
 								Operator = Operator.Equals,
-								Value = "Ja, anders namelijk:"
+								Answer = "Ja, anders namelijk:"
 							}
 						}
 					}
@@ -351,7 +349,7 @@ public class ApplicationDbContextInitialiser
 						FrequencyGoal = 1400,
 						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
 						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
-						Activities = new List<Activity>
+						Activities = new List<Domain.Entities.Activity>
 						{
 							new()
 							{
@@ -402,12 +400,12 @@ public class ApplicationDbContextInitialiser
 							{
 								new()
 								{
-									Text = "Nee",
+									Value = "Nee",
 									Order = 0
 								},
 								new()
 								{
-									Text = "Ja",
+									Value = "Ja",
 									Order = 1
 								}
 							}
@@ -417,11 +415,11 @@ public class ApplicationDbContextInitialiser
 							Type = QuestionType.Integer,
 							Text = "Hoeveel dagen per week?",
 							Order = 1,
-							QuestionDependency = new QuestionDependency
+							EnableWhen = new EnableWhen
 							{
 								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
-								Value = "Ja"
+								Answer = "Ja"
 							}
 						},
 						new()
@@ -429,11 +427,11 @@ public class ApplicationDbContextInitialiser
 							Type = QuestionType.Integer,
 							Text = "Hoeveel minuten gemiddeld per dag?",
 							Order = 2,
-							QuestionDependency = new QuestionDependency
+							EnableWhen = new EnableWhen
 							{
 								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
-								Value = "Ja"
+								Answer = "Ja"
 							}
 						},
 						new()
@@ -445,25 +443,25 @@ public class ApplicationDbContextInitialiser
 							{
 								new()
 								{
-									Text = "Langzaam",
+									Value = "Langzaam",
 									Order = 0
 								},
 								new()
 								{
-									Text = "Gemiddeld",
+									Value = "Gemiddeld",
 									Order = 1
 								},
 								new()
 								{
-									Text = "Snel",
+									Value = "Snel",
 									Order = 2
 								}
 							},
-							QuestionDependency = new QuestionDependency
+							EnableWhen = new EnableWhen
 							{
 								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
-								Value = "Ja"
+								Answer = "Ja"
 							}
 						}
 					}
@@ -479,7 +477,7 @@ public class ApplicationDbContextInitialiser
 						FrequencyGoal = 150,
 						CurrentQuestion = "Welke beweging doe je al?",
 						GoalQuestion = "Welke beweging wil je nog meer doen?",
-						Activities = new List<Activity>
+						Activities = new List<Domain.Entities.Activity>
 						{
 							new()
 							{

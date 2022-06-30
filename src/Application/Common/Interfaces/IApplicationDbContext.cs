@@ -19,7 +19,7 @@ public interface IApplicationDbContext
 
 	DbSet<Image> Images { get; }
 
-	DbSet<Intention> Intentions { get; }
+	DbSet<Goal> Intentions { get; }
 
 	DbSet<Participant> Participants { get; }
 
