@@ -67,7 +67,7 @@ public static class FhirQuestionnaireAdapter
 					// parse coding of the fhir answer option object and store in our own option object
 					var answerOptionCoding = (Hl7.Fhir.Model.Coding)answerOption.Value;
 					qaOption.Id = Guid.Parse(answerOptionCoding.Code);
-					qaOption.Text = answerOptionCoding.Display;
+					qaOption.Value = answerOptionCoding.Display;
 
 					foreach (var answerOptionExtension in answerOption.Extension)
 					{
@@ -173,7 +173,7 @@ public static class FhirQuestionnaireAdapter
 						{
 							// add questionOption coding
 							Code = qaOption.Id.ToString(),
-							Display = qaOption.Text
+							Display = qaOption.Value
 						};
 						answerOption.Value = answerOptionCoding;
 						//answerOption.InitialSelected = qaOption.Selected;

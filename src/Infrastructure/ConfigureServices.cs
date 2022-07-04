@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Interfaces.Fhir;
+using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Common;
 using Sonuts.Infrastructure.Fhir.Daos;
 using Sonuts.Infrastructure.Files;
@@ -45,8 +46,8 @@ public static class ConfigureServices
 
 		services.AddScoped<ApplicationDbContextInitialiser>();
 
-		services.AddIdentity<ApplicationUser, IdentityRole>()
-			.AddUserManager<UserManager<ApplicationUser>>()
+		services.AddIdentity<User, IdentityRole>()
+			.AddUserManager<UserManager<User>>()
 			.AddEntityFrameworkStores<ApplicationDbContext>()
 			.AddDefaultTokenProviders();
 

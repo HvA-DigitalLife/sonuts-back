@@ -6,7 +6,6 @@ using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
-using Sonuts.Domain.Entities.Owned;
 using Sonuts.Domain.Enums;
 
 namespace Sonuts.Application.Intentions.Commands;
@@ -116,7 +115,7 @@ public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCo
 			//              throw new UnauthorizedAccessException()
 		};
 
-		await _context.Intentions.AddAsync(entity, cancellationToken);
+		//await _context.Intentions.AddAsync(entity, cancellationToken);
 
 		await _context.SaveChangesAsync(cancellationToken);
 

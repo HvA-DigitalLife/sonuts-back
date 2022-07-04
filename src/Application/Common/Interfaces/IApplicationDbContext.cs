@@ -8,8 +8,11 @@ public interface IApplicationDbContext
 	DbSet<Activity> Activities { get; }
 
 	DbSet<AnswerOption> AnswerOptions { get; }
+	DbSet<CarePlan> CarePlans { get; }
 
 	DbSet<Category> Categories { get; }
+
+	DbSet<Client> Clients { get; }
 
 	DbSet<Coach> Coaches { get; }
 
@@ -17,9 +20,9 @@ public interface IApplicationDbContext
 
 	DbSet<Execution> Executions { get; }
 
-	DbSet<Image> Images { get; }
+	DbSet<Goal> Goals { get; }
 
-	DbSet<Goal> Intentions { get; }
+	DbSet<Image> Images { get; }
 
 	DbSet<Participant> Participants { get; }
 
@@ -31,7 +34,9 @@ public interface IApplicationDbContext
 
 	DbSet<QuestionResponse> QuestionResponses { get; }
 
+	DbSet<RefreshToken> RefreshTokens { get; }
+
 	DbSet<Theme> Themes { get; }
 
-	Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+	Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

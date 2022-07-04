@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Respawn;
+using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Identity;
 using Sonuts.Infrastructure.Persistence;
 using Sonuts.Presentation;
@@ -62,9 +63,9 @@ public partial class Testing
 	{
 		using var scope = _scopeFactory.CreateScope();
 
-		var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+		var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-		var user = new ApplicationUser { UserName = userName, Email = userName };
+		var user = new User { UserName = userName, Email = userName };
 
 		var result = await userManager.CreateAsync(user, password);
 

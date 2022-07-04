@@ -23,5 +23,5 @@ public class ThemeDto : IMapFrom<Theme>
 	public void Mapping(Profile profile) =>
 		profile.CreateMap<Theme, ThemeDto>()
 			.ForMember(themeDto => themeDto.IsRecommend, expression => expression
-				.MapFrom(theme => theme.QuestionDependency != null && theme.QuestionDependency.Operator == Operator.Equals));
+				.MapFrom(theme => theme.Name.ToUpper().Contains('B')));
 }

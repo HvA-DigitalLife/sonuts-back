@@ -11,10 +11,10 @@ public class ApplicationDbContextInitialiser
 {
 	private readonly ILogger<ApplicationDbContextInitialiser> _logger;
 	private readonly ApplicationDbContext _context;
-	private readonly UserManager<ApplicationUser> _userManager;
+	private readonly UserManager<User> _userManager;
 	private readonly RoleManager<IdentityRole> _roleManager;
 
-	public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+	public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
 	{
 		_logger = logger;
 		_context = context;
@@ -62,15 +62,15 @@ public class ApplicationDbContextInitialiser
 		}
 
 		// Default users
-		List<(ApplicationUser, string)> users = new()
+		List<(User, string)> users = new()
 		{
-			(new ApplicationUser { UserName = "admin@local", Email = "admin@local" }, Role.Admin.ToString()),
-			(new ApplicationUser { UserName = "participant@local", Email = "participant@local"}, Role.Participant.ToString() )
+			(new User { UserName = "admin@local", Email = "admin@local" }, Role.Admin.ToString()),
+			(new User { UserName = "participant@local", Email = "participant@local"}, Role.Participant.ToString() )
 		};
 
 		foreach (var user in users)
 		{
-			(ApplicationUser applicationUser, string roleName) = user;
+			(User applicationUser, string roleName) = user;
 
 			if (_userManager.Users.All(u => u.UserName != applicationUser.UserName))
 			{
