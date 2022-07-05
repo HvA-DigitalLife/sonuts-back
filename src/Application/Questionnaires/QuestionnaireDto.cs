@@ -1,7 +1,8 @@
 using Sonuts.Application.Common.Mappings;
+using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 
-namespace Sonuts.Application.Dtos;
+namespace Sonuts.Application.Questionnaires;
 
 public class QuestionnaireDto : IMapFrom<Questionnaire>
 {

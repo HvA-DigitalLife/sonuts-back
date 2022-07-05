@@ -7,5 +7,5 @@ public class ExecutionRecord : IMapFrom<Execution>
 {
 	public bool IsDone { get; set; } = default!;
 	public DateTime CreatedAt { get; set; }
-	public Intention Intention { get; set; } = default!;
+	public Goal Goal { get; set; } = default!;
 }

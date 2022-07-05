@@ -23,9 +23,9 @@ public class GetIntentionsQueryHandler : IRequestHandler<GetIntentionsQuery, ICo
 	}
 
 	public async Task<ICollection<IntentionDto>> Handle(GetIntentionsQuery request, CancellationToken cancellationToken) =>
-		await _context.Intentions
-			.Where(intention => intention.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
-			.Include(intention => intention.Activity.Image)
-			.Include(intention => intention.Executions)
+		await _context.Goals
+			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
+			.Include(goal => goal.Activity.Image)
+			.Include(goal => goal.Executions)
 			.ProjectToListAsync<IntentionDto>(_mapper.ConfigurationProvider, cancellationToken);
 }

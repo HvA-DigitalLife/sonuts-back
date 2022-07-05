@@ -402,7 +402,7 @@ namespace Sonuts.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Intentions",
+                name: "Goals",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -452,7 +452,7 @@ namespace Sonuts.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Executions_Intentions_IntentionId",
                         column: x => x.IntentionId,
-                        principalTable: "Intentions",
+                        principalTable: "Goals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -490,12 +490,12 @@ namespace Sonuts.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Intentions_ActivityId",
-                table: "Intentions",
+                table: "Goals",
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Intentions_ParticipantId",
-                table: "Intentions",
+                table: "Goals",
                 column: "ParticipantId");
 
             migrationBuilder.CreateIndex(
@@ -604,7 +604,7 @@ namespace Sonuts.Infrastructure.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "Intentions");
+                name: "Goals");
 
             migrationBuilder.DropTable(
                 name: "QuestionnaireResponses");

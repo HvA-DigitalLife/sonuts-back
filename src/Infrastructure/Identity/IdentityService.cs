@@ -10,19 +10,20 @@ using Microsoft.IdentityModel.Tokens;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Models;
+using Sonuts.Domain.Entities;
 
 namespace Sonuts.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {
-	private readonly UserManager<ApplicationUser> _userManager;
-	private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
+	private readonly UserManager<User> _userManager;
+	private readonly IUserClaimsPrincipalFactory<User> _userClaimsPrincipalFactory;
 	private readonly IAuthorizationService _authorizationService;
 	private readonly IConfiguration _configuration;
 
 	public IdentityService(
-		UserManager<ApplicationUser> userManager,
-		IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+		UserManager<User> userManager,
+		IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
 		IAuthorizationService authorizationService,
 		IConfiguration configuration)
 	{
@@ -46,6 +47,11 @@ public class IdentityService : IIdentityService
 		return user.UserName;
 	}
 
+	public Task<bool> CheckRefreshTokenAsync(string username, string token, Guid clientId)
+	{
+		throw new NotImplementedException();
+	}
+
 	public async Task<IList<string>> GetRolesAsync(string userId)
 	{
 		var user = await _userManager.Users.FirstOrDefaultAsync(user => user.Id.Equals(userId));
@@ -57,7 +63,7 @@ public class IdentityService : IIdentityService
 
 	public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
 	{
-		var user = new ApplicationUser
+		var user = new User
 		{
 			UserName = userName,
 			Email = userName,
@@ -66,6 +72,11 @@ public class IdentityService : IIdentityService
 		var result = await _userManager.CreateAsync(user, password);
 
 		return (result.ToApplicationResult(), user.Id);
+	}
+
+	public Task<bool> CheckPasswordAsync(string username, string password)
+	{
+		throw new NotImplementedException();
 	}
 
 	public async Task<bool> IsInRoleAsync(string userId, string role)
@@ -84,7 +95,7 @@ public class IdentityService : IIdentityService
 
 	public async Task<Result> AddToRole(string userId, string role)
 	{
-		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId) ?? throw new NotFoundException(nameof(ApplicationUser), userId);
+		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId) ?? throw new NotFoundException(nameof(User), userId);
 
 		var result = await _userManager.AddToRoleAsync(user, role);
 
@@ -114,7 +125,7 @@ public class IdentityService : IIdentityService
 		return user != null ? await DeleteUserAsync(user) : Result.Success();
 	}
 
-	public async Task<Result> DeleteUserAsync(ApplicationUser user)
+	public async Task<Result> DeleteUserAsync(User user)
 	{
 		var result = await _userManager.DeleteAsync(user);
 

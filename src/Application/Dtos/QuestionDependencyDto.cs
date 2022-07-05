@@ -1,10 +1,10 @@
 using Sonuts.Application.Common.Mappings;
-using Sonuts.Domain.Entities.Owned;
+using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
 namespace Sonuts.Application.Dtos;
 
-public class QuestionDependencyDto : IMapFrom<QuestionDependency>
+public class QuestionDependencyDto : IMapFrom<EnableWhen>
 {
 	public Guid QuestionId { get; set; } = default!;
 	public Operator Operator { get; set; } = default!;

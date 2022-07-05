@@ -148,7 +148,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("Value")
+                    b.Property<string>("Awnser")
                         .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
@@ -200,7 +200,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<Guid?>("QuestionId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Text")
+                    b.Property<string>("Awnser")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -311,7 +311,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("Sonuts.Domain.Entities.Intention", b =>
+            modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -335,7 +335,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("Intentions");
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Participant", b =>
@@ -385,7 +385,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<Guid?>("QuestionnaireId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Text")
+                    b.Property<string>("Awnser")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -669,16 +669,16 @@ namespace Sonuts.Infrastructure.Migrations
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Execution", b =>
                 {
-                    b.HasOne("Sonuts.Domain.Entities.Intention", "Intention")
+                    b.HasOne("Sonuts.Domain.Entities.Goal", "Goal")
                         .WithMany("Executions")
                         .HasForeignKey("IntentionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Intention");
+                    b.Navigation("Goal");
                 });
 
-            modelBuilder.Entity("Sonuts.Domain.Entities.Intention", b =>
+            modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
                 {
                     b.HasOne("Sonuts.Domain.Entities.Activity", "Activity")
                         .WithMany()
@@ -687,7 +687,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Sonuts.Domain.Entities.Participant", "Participant")
-                        .WithMany("Intentions")
+                        .WithMany("Goals")
                         .HasForeignKey("ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -730,7 +730,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                             b1.HasKey("IntentionId");
 
-                            b1.ToTable("Intentions");
+                            b1.ToTable("Goals");
 
                             b1.WithOwner()
                                 .HasForeignKey("IntentionId");
@@ -750,7 +750,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("QuestionnaireId");
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Owned.QuestionDependency", "QuestionDependency", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.Owned.EnableWhen", "EnableWhen", b1 =>
                         {
                             b1.Property<Guid>("QuestionId")
                                 .HasColumnType("uuid");
@@ -759,7 +759,7 @@ namespace Sonuts.Infrastructure.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<string>("Value")
+                            b1.Property<string>("Awnser")
                                 .IsRequired()
                                 .HasColumnType("text");
 
@@ -771,7 +771,7 @@ namespace Sonuts.Infrastructure.Migrations
                                 .HasForeignKey("QuestionId");
                         });
 
-                    b.Navigation("QuestionDependency");
+                    b.Navigation("EnableWhen");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.QuestionnaireResponse", b =>
@@ -826,7 +826,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Owned.QuestionDependency", "QuestionDependency", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.Owned.EnableWhen", "EnableWhen", b1 =>
                         {
                             b1.Property<Guid>("ThemeId")
                                 .HasColumnType("uuid");
@@ -838,7 +838,7 @@ namespace Sonuts.Infrastructure.Migrations
                             b1.Property<Guid>("QuestionId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<string>("Value")
+                            b1.Property<string>("Awnser")
                                 .IsRequired()
                                 .HasColumnType("text");
 
@@ -854,7 +854,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.Navigation("Image");
 
-                    b.Navigation("QuestionDependency");
+                    b.Navigation("EnableWhen");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Category", b =>
@@ -862,14 +862,14 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Navigation("Themes");
                 });
 
-            modelBuilder.Entity("Sonuts.Domain.Entities.Intention", b =>
+            modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
                 {
                     b.Navigation("Executions");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Participant", b =>
                 {
-                    b.Navigation("Intentions");
+                    b.Navigation("Goals");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Question", b =>
