@@ -85,7 +85,7 @@ public class ApplicationDbContextInitialiser
 			}
 		}
 
-		if (await _context.Clients.FirstOrDefaultAsync(client => client.Id.Equals(Guid.Parse("05004bd2-18d9-402f-9a1b-673fcf1d46e7"))) is not null)
+		if (await _context.Clients.FirstOrDefaultAsync(client => client.Id.Equals(Guid.Parse("05004bd2-18d9-402f-9a1b-673fcf1d46e7"))) is null)
 		{
 			shouldSave = true;
 
