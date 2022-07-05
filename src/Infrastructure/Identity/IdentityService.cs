@@ -1,12 +1,6 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Models;
@@ -19,18 +13,18 @@ public class IdentityService : IIdentityService
 	private readonly UserManager<User> _userManager;
 	private readonly IUserClaimsPrincipalFactory<User> _userClaimsPrincipalFactory;
 	private readonly IAuthorizationService _authorizationService;
-	private readonly IConfiguration _configuration;
+	private readonly IApplicationDbContext _context;
 
 	public IdentityService(
 		UserManager<User> userManager,
 		IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
 		IAuthorizationService authorizationService,
-		IConfiguration configuration)
+		IApplicationDbContext context)
 	{
 		_userManager = userManager;
 		_userClaimsPrincipalFactory = userClaimsPrincipalFactory;
 		_authorizationService = authorizationService;
-		_configuration = configuration;
+		_context = context;
 	}
 
 	public async Task<string> GetIdAsync(string userName)
@@ -45,11 +39,6 @@ public class IdentityService : IIdentityService
 		var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
 		return user.UserName;
-	}
-
-	public Task<bool> CheckRefreshTokenAsync(string username, string token, Guid clientId)
-	{
-		throw new NotImplementedException();
 	}
 
 	public async Task<IList<string>> GetRolesAsync(string userId)
@@ -72,11 +61,6 @@ public class IdentityService : IIdentityService
 		var result = await _userManager.CreateAsync(user, password);
 
 		return (result.ToApplicationResult(), user.Id);
-	}
-
-	public Task<bool> CheckPasswordAsync(string username, string password)
-	{
-		throw new NotImplementedException();
 	}
 
 	public async Task<bool> IsInRoleAsync(string userId, string role)
@@ -132,38 +116,20 @@ public class IdentityService : IIdentityService
 		return result.ToApplicationResult();
 	}
 
-
-	public async Task<string> CreateAccessTokenAsync(string userId)
+	public async Task<bool> CheckPasswordAsync(string username, string password)
 	{
-		var now = DateTime.Now;
-		var tokenHandler = new JwtSecurityTokenHandler();
-		var tokenDescriptor = new SecurityTokenDescriptor
-		{
-			Subject = new ClaimsIdentity(new Claim[]
-			{
-				new(ClaimTypes.Name, userId)
-			}),
-			Expires = now.AddMilliseconds(int.Parse(_configuration["Authentication:TokenDuration"])),
-			IssuedAt = now,
-			Issuer = _configuration["Authentication:Issuer"],
-			Audience = _configuration["Authentication:Audience"],
-			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:SecurityKey"])), SecurityAlgorithms.HmacSha256Signature)
-		};
+		var user = await _userManager.FindByNameAsync(username);
 
-		foreach (var role in await GetRolesAsync(userId))
-		{
-			tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
-		}
-
-		return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
+		return user is not null && await _userManager.CheckPasswordAsync(user, password);
 	}
 
-	public string CreateRefreshTokenAsync(string userId)
+	public async Task<bool> CheckRefreshTokenAsync(string username, string token, Guid clientId)
 	{
-		var randomNumber = new byte[32];
-		using var rng = RandomNumberGenerator.Create();
-		rng.GetBytes(randomNumber);
-		var token = Convert.ToBase64String(randomNumber);
-		return token;
+		var refreshToken = await _context.RefreshTokens
+			.Include(rt => rt.User)
+			.Include(rt => rt.Client)
+			.FirstOrDefaultAsync(rt => rt.Token.Equals(token));
+
+		return refreshToken is not null && refreshToken.User.NormalizedUserName.Equals(username.ToUpper()) && refreshToken.Client.Id.Equals(clientId);
 	}
 }

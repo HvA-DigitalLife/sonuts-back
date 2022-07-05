@@ -11,6 +11,19 @@ namespace Sonuts.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Secret = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Coaches",
                 columns: table => new
                 {
@@ -119,6 +132,26 @@ namespace Sonuts.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CarePlans",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Start = table.Column<DateOnly>(type: "date", nullable: false),
+                    End = table.Column<DateOnly>(type: "date", nullable: false),
+                    ParticipantId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarePlans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarePlans_Participants_ParticipantId",
+                        column: x => x.ParticipantId,
+                        principalTable: "Participants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -173,9 +206,8 @@ namespace Sonuts.Infrastructure.Migrations
                     Text = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Order = table.Column<int>(type: "integer", nullable: false),
-                    MaxAnswers = table.Column<int>(type: "integer", nullable: true),
-                    QuestionDependency_Operator = table.Column<string>(type: "text", nullable: true),
-                    QuestionDependency_Value = table.Column<string>(type: "text", nullable: true),
+                    EnableWhen_Operator = table.Column<string>(type: "text", nullable: true),
+                    EnableWhen_Answer = table.Column<string>(type: "text", nullable: true),
                     QuestionnaireId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -207,6 +239,31 @@ namespace Sonuts.Infrastructure.Migrations
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Token = table.Column<string>(type: "character varying(44)", maxLength: 44, nullable: false),
+                    IssuedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Token);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -306,10 +363,7 @@ namespace Sonuts.Infrastructure.Migrations
                     FrequencyType = table.Column<string>(type: "text", nullable: false),
                     FrequencyGoal = table.Column<int>(type: "integer", nullable: false),
                     CurrentQuestion = table.Column<string>(type: "text", nullable: false),
-                    GoalQuestion = table.Column<string>(type: "text", nullable: false),
-                    QuestionDependency_QuestionId = table.Column<Guid>(type: "uuid", nullable: true),
-                    QuestionDependency_Operator = table.Column<string>(type: "text", nullable: true),
-                    QuestionDependency_Value = table.Column<string>(type: "text", nullable: true)
+                    GoalQuestion = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -333,7 +387,7 @@ namespace Sonuts.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Text = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: false),
                     Order = table.Column<int>(type: "integer", nullable: false),
                     QuestionId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -408,32 +462,25 @@ namespace Sonuts.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ActivityId = table.Column<Guid>(type: "uuid", nullable: false),
                     FrequencyAmount = table.Column<int>(type: "integer", nullable: false),
-                    Moment_OnMonday = table.Column<bool>(type: "boolean", nullable: false),
-                    Moment_OnTuesday = table.Column<bool>(type: "boolean", nullable: false),
-                    Moment_OnWednesday = table.Column<bool>(type: "boolean", nullable: false),
-                    Moment_OnThursday = table.Column<bool>(type: "boolean", nullable: false),
-                    Moment_OnFriday = table.Column<bool>(type: "boolean", nullable: false),
-                    Moment_OnSaturday = table.Column<bool>(type: "boolean", nullable: false),
-                    Moment_OnSunday = table.Column<bool>(type: "boolean", nullable: false),
-                    Moment_Time = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    Moment_Time = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Moment_Type = table.Column<string>(type: "text", nullable: false),
                     Moment_EventName = table.Column<string>(type: "text", nullable: true),
                     Reminder = table.Column<TimeOnly>(type: "time without time zone", nullable: true),
-                    ParticipantId = table.Column<Guid>(type: "uuid", nullable: false)
+                    CarePlanId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Intentions", x => x.Id);
+                    table.PrimaryKey("PK_Goals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Intentions_Activities_ActivityId",
+                        name: "FK_Goals_Activities_ActivityId",
                         column: x => x.ActivityId,
                         principalTable: "Activities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Intentions_Participants_ParticipantId",
-                        column: x => x.ParticipantId,
-                        principalTable: "Participants",
+                        name: "FK_Goals_CarePlans_CarePlanId",
+                        column: x => x.CarePlanId,
+                        principalTable: "CarePlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -444,14 +491,14 @@ namespace Sonuts.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDone = table.Column<bool>(type: "boolean", nullable: false),
-                    IntentionId = table.Column<Guid>(type: "uuid", nullable: false)
+                    GoalId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Executions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Executions_Intentions_IntentionId",
-                        column: x => x.IntentionId,
+                        name: "FK_Executions_Goals_GoalId",
+                        column: x => x.GoalId,
                         principalTable: "Goals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -473,6 +520,11 @@ namespace Sonuts.Infrastructure.Migrations
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarePlans_ParticipantId",
+                table: "CarePlans",
+                column: "ParticipantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Categories_QuestionnaireId",
                 table: "Categories",
                 column: "QuestionnaireId");
@@ -484,19 +536,19 @@ namespace Sonuts.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Executions_IntentionId",
+                name: "IX_Executions_GoalId",
                 table: "Executions",
-                column: "IntentionId");
+                column: "GoalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Intentions_ActivityId",
+                name: "IX_Goals_ActivityId",
                 table: "Goals",
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Intentions_ParticipantId",
+                name: "IX_Goals_CarePlanId",
                 table: "Goals",
-                column: "ParticipantId");
+                column: "CarePlanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionnaireResponses_ParticipantId",
@@ -522,6 +574,16 @@ namespace Sonuts.Infrastructure.Migrations
                 name: "IX_Questions_QuestionnaireId",
                 table: "Questions",
                 column: "QuestionnaireId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_ClientId",
+                table: "RefreshTokens",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -589,6 +651,9 @@ namespace Sonuts.Infrastructure.Migrations
                 name: "QuestionResponses");
 
             migrationBuilder.DropTable(
+                name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
                 name: "RoleClaims");
 
             migrationBuilder.DropTable(
@@ -613,6 +678,9 @@ namespace Sonuts.Infrastructure.Migrations
                 name: "Questions");
 
             migrationBuilder.DropTable(
+                name: "Clients");
+
+            migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
@@ -622,10 +690,13 @@ namespace Sonuts.Infrastructure.Migrations
                 name: "Activities");
 
             migrationBuilder.DropTable(
-                name: "Participants");
+                name: "CarePlans");
 
             migrationBuilder.DropTable(
                 name: "Themes");
+
+            migrationBuilder.DropTable(
+                name: "Participants");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -12,14 +12,14 @@ using Sonuts.Infrastructure.Persistence;
 namespace Sonuts.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220617083810_Init")]
+    [Migration("20220705081740_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -148,7 +148,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("Awnser")
+                    b.Property<string>("Value")
                         .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
@@ -200,7 +200,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<Guid?>("QuestionId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Awnser")
+                    b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -209,6 +209,28 @@ namespace Sonuts.Infrastructure.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("AnswerOptions");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.CarePlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly>("End")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("ParticipantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly>("Start")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParticipantId");
+
+                    b.ToTable("CarePlans");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Category", b =>
@@ -237,6 +259,25 @@ namespace Sonuts.Infrastructure.Migrations
                     b.HasIndex("QuestionnaireId");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Secret")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Coach", b =>
@@ -287,7 +328,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("IntentionId")
+                    b.Property<Guid>("GoalId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsDone")
@@ -295,20 +336,9 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IntentionId");
+                    b.HasIndex("GoalId");
 
                     b.ToTable("Executions");
-                });
-
-            modelBuilder.Entity("Sonuts.Domain.Entities.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
@@ -320,11 +350,11 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<Guid>("ActivityId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("CarePlanId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("FrequencyAmount")
                         .HasColumnType("integer");
-
-                    b.Property<Guid>("ParticipantId")
-                        .HasColumnType("uuid");
 
                     b.Property<TimeOnly?>("Reminder")
                         .HasColumnType("time without time zone");
@@ -333,9 +363,20 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.HasIndex("ParticipantId");
+                    b.HasIndex("CarePlanId");
 
                     b.ToTable("Goals");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Participant", b =>
@@ -376,16 +417,13 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int?>("MaxAnswers")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
                     b.Property<Guid?>("QuestionnaireId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Awnser")
+                    b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -465,6 +503,30 @@ namespace Sonuts.Infrastructure.Migrations
                     b.ToTable("QuestionResponses");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.RefreshToken", b =>
+                {
+                    b.Property<string>("Token")
+                        .HasMaxLength(44)
+                        .HasColumnType("character varying(44)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("IssuedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Token");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.Theme", b =>
                 {
                     b.Property<Guid>("Id")
@@ -509,7 +571,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.ToTable("Themes");
                 });
 
-            modelBuilder.Entity("Sonuts.Infrastructure.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("Sonuts.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -590,7 +652,7 @@ namespace Sonuts.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Sonuts.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("Sonuts.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -599,7 +661,7 @@ namespace Sonuts.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Sonuts.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("Sonuts.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -614,7 +676,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sonuts.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("Sonuts.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -623,7 +685,7 @@ namespace Sonuts.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Sonuts.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("Sonuts.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -656,6 +718,17 @@ namespace Sonuts.Infrastructure.Migrations
                         .HasForeignKey("QuestionId");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.CarePlan", b =>
+                {
+                    b.HasOne("Sonuts.Domain.Entities.Participant", "Participant")
+                        .WithMany("CarePlans")
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Participant");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.Category", b =>
                 {
                     b.HasOne("Sonuts.Domain.Entities.Questionnaire", "Questionnaire")
@@ -671,7 +744,7 @@ namespace Sonuts.Infrastructure.Migrations
                 {
                     b.HasOne("Sonuts.Domain.Entities.Goal", "Goal")
                         .WithMany("Executions")
-                        .HasForeignKey("IntentionId")
+                        .HasForeignKey("GoalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -686,62 +759,41 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sonuts.Domain.Entities.Participant", "Participant")
+                    b.HasOne("Sonuts.Domain.Entities.CarePlan", "CarePlan")
                         .WithMany("Goals")
-                        .HasForeignKey("ParticipantId")
+                        .HasForeignKey("CarePlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Owned.Moment", "Moment", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.Moment", "Moment", b1 =>
                         {
-                            b1.Property<Guid>("IntentionId")
+                            b1.Property<Guid>("GoalId")
                                 .HasColumnType("uuid");
 
                             b1.Property<string>("EventName")
                                 .HasColumnType("text");
 
-                            b1.Property<bool>("OnFriday")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("OnMonday")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("OnSaturday")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("OnSunday")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("OnThursday")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("OnTuesday")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("OnWednesday")
-                                .HasColumnType("boolean");
-
-                            b1.Property<TimeOnly>("Time")
-                                .HasColumnType("time without time zone");
+                            b1.Property<DateTime>("Time")
+                                .HasColumnType("timestamp without time zone");
 
                             b1.Property<string>("Type")
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.HasKey("IntentionId");
+                            b1.HasKey("GoalId");
 
                             b1.ToTable("Goals");
 
                             b1.WithOwner()
-                                .HasForeignKey("IntentionId");
+                                .HasForeignKey("GoalId");
                         });
 
                     b.Navigation("Activity");
 
+                    b.Navigation("CarePlan");
+
                     b.Navigation("Moment")
                         .IsRequired();
-
-                    b.Navigation("Participant");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Question", b =>
@@ -750,16 +802,16 @@ namespace Sonuts.Infrastructure.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("QuestionnaireId");
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Owned.EnableWhen", "EnableWhen", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.EnableWhen", "EnableWhen", b1 =>
                         {
                             b1.Property<Guid>("QuestionId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<string>("Operator")
+                            b1.Property<string>("Answer")
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<string>("Awnser")
+                            b1.Property<string>("Operator")
                                 .IsRequired()
                                 .HasColumnType("text");
 
@@ -812,6 +864,23 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Navigation("QuestionnaireResponse");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("Sonuts.Domain.Entities.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sonuts.Domain.Entities.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.Theme", b =>
                 {
                     b.HasOne("Sonuts.Domain.Entities.Category", "Category")
@@ -826,35 +895,14 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Owned.EnableWhen", "EnableWhen", b1 =>
-                        {
-                            b1.Property<Guid>("ThemeId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Operator")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<Guid>("QuestionId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Awnser")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("ThemeId");
-
-                            b1.ToTable("Themes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ThemeId");
-                        });
-
                     b.Navigation("Category");
 
                     b.Navigation("Image");
+                });
 
-                    b.Navigation("EnableWhen");
+            modelBuilder.Entity("Sonuts.Domain.Entities.CarePlan", b =>
+                {
+                    b.Navigation("Goals");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Category", b =>
@@ -869,7 +917,7 @@ namespace Sonuts.Infrastructure.Migrations
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Participant", b =>
                 {
-                    b.Navigation("Goals");
+                    b.Navigation("CarePlans");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Question", b =>
@@ -890,6 +938,11 @@ namespace Sonuts.Infrastructure.Migrations
             modelBuilder.Entity("Sonuts.Domain.Entities.Theme", b =>
                 {
                     b.Navigation("Activities");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.User", b =>
+                {
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }
