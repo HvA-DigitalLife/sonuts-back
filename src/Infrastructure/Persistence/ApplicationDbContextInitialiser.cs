@@ -84,6 +84,18 @@ public class ApplicationDbContextInitialiser
 				}
 			}
 		}
+
+		if (await _context.Clients.FirstOrDefaultAsync(client => client.Id.Equals(Guid.Parse("05004bd2-18d9-402f-9a1b-673fcf1d46e7"))) is not null)
+		{
+			shouldSave = true;
+
+			_context.Clients.Add(new Client
+			{
+				Id = Guid.Parse("05004bd2-18d9-402f-9a1b-673fcf1d46e7"),
+				Secret = "sonuts",
+				Name = "Mobile App"
+			});
+		}
 		
 		// Default Categories
 		if (!await _context.Content.AnyAsync())
@@ -376,6 +388,43 @@ public class ApplicationDbContextInitialiser
 								Image = new Image()
 							}
 						}
+					},
+					new()
+					{
+						Name = "Fruib",
+						Description = "Dagelijks ten minste 2 stuks fruit",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Amount,
+						FrequencyGoal = 1400,
+						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						Activities = new List<Domain.Entities.Activity>
+						{
+							new()
+							{
+								Name = "Avondeten",
+								Description = "Eet fruit bij het avond eten",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Lunch",
+								Description = "Eet fruit bij de lunch",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Ontbijt",
+								Description = "Eet fruit bij het ontbijt",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Snack",
+								Description = "Eet fruit als snack",
+								Image = new Image()
+							}
+						}
 					}
 				}
 			});
@@ -471,6 +520,55 @@ public class ApplicationDbContextInitialiser
 					new()
 					{
 						Name = "Intensief bewegen",
+						Description = "Minimaal 150 minuten per week bewegen",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Minutes,
+						FrequencyGoal = 150,
+						CurrentQuestion = "Welke beweging doe je al?",
+						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						Activities = new List<Domain.Entities.Activity>
+						{
+							new()
+							{
+								Name = "Geen",
+								Description = "Geen beweging",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Fietsen",
+								Description = "Minuten fietsen",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Wandelen",
+								Description = "Minuten wandelen",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Gymnastiek",
+								Description = "Minuten gymnastiek",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Zwemmen",
+								Description = "Minuten zwemmen",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Dadminton",
+								Description = "Minuten badminton",
+								Image = new Image()
+							}
+						}
+					},
+					new()
+					{
+						Name = "Crossfit",
 						Description = "Minimaal 150 minuten per week bewegen",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
