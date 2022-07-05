@@ -20,7 +20,7 @@ public interface IIdentityService
 
 	Task<Result> DeleteUserAsync(string userId);
 
-	Task<string> CreateAccessTokenAsync(string userId);
+	Task<bool> CheckPasswordAsync(string username, string password);
 
-	string CreateRefreshTokenAsync(string userId);
+	Task<bool> CheckRefreshTokenAsync(string username, string token, Guid clientId);
 }

@@ -1,17 +1,15 @@
+using Sonuts.Application.Oauth2.Commands;
+using Sonuts.Application.Oauth2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sonuts.Application.Token.Commands;
-using Sonuts.Application.Token.Models;
 
 namespace Sonuts.Presentation.Controllers;
 
-public class TokenController : ApiControllerBase
+[Authorize]
+public class Oauth2Controller : ApiControllerBase
 {
-	/// <summary>
-	/// Create a token to access resources the API (admin@local, participant@local)
-	/// </summary>
 	[AllowAnonymous]
-	[HttpPost]
+	[HttpPost("/oauth2/token")]
 	public async Task<ActionResult<TokenVm>> CreateToken(CreateTokenCommand command)
 	{
 		return Ok(await Mediator.Send(command));
