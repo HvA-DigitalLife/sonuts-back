@@ -10,7 +10,7 @@ using Sonuts.Domain.Enums;
 
 namespace Sonuts.Application.Intentions.Commands;
 
-public class CreateIntentionsCommand : IRequest<IntentionDto>
+public class CreateIntentionsCommand : IRequest<GoalDto>
 {
 	public Guid? ActivityId { get; init; }
 	public int? FrequencyAmount { get; init; }
@@ -77,7 +77,7 @@ public class CreateIntentionsCommandValidator : AbstractValidator<CreateIntentio
 	}
 }
 
-public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCommand, IntentionDto>
+public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCommand, GoalDto>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
@@ -90,7 +90,7 @@ public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCo
 		_currentUserService = currentUserService;
 	}
 
-	public async Task<IntentionDto> Handle(CreateIntentionsCommand request, CancellationToken cancellationToken)
+	public async Task<GoalDto> Handle(CreateIntentionsCommand request, CancellationToken cancellationToken)
 	{
 		Goal entity = new()
 		{
@@ -119,6 +119,6 @@ public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCo
 
 		await _context.SaveChangesAsync(cancellationToken);
 
-		return _mapper.Map<IntentionDto>(entity);
+		return _mapper.Map<GoalDto>(entity);
 	}
 }

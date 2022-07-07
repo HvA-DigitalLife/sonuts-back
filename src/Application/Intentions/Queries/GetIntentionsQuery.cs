@@ -7,9 +7,9 @@ using Sonuts.Application.Dtos;
 
 namespace Sonuts.Application.Intentions.Queries;
 
-public record GetIntentionsQuery : IRequest<ICollection<IntentionDto>>;
+public record GetIntentionsQuery : IRequest<ICollection<GoalDto>>;
 
-public class GetIntentionsQueryHandler : IRequestHandler<GetIntentionsQuery, ICollection<IntentionDto>>
+public class GetIntentionsQueryHandler : IRequestHandler<GetIntentionsQuery, ICollection<GoalDto>>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
@@ -22,10 +22,10 @@ public class GetIntentionsQueryHandler : IRequestHandler<GetIntentionsQuery, ICo
 		_currentUserService = currentUserService;
 	}
 
-	public async Task<ICollection<IntentionDto>> Handle(GetIntentionsQuery request, CancellationToken cancellationToken) =>
+	public async Task<ICollection<GoalDto>> Handle(GetIntentionsQuery request, CancellationToken cancellationToken) =>
 		await _context.Goals
 			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
 			.Include(goal => goal.Activity.Image)
 			.Include(goal => goal.Executions)
-			.ProjectToListAsync<IntentionDto>(_mapper.ConfigurationProvider, cancellationToken);
+			.ProjectToListAsync<GoalDto>(_mapper.ConfigurationProvider, cancellationToken);
 }

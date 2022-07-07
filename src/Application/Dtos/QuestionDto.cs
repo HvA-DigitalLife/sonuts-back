@@ -11,7 +11,6 @@ public class QuestionDto : IMapFrom<Question>
 	public string Text { get; set; } = default!;
 	public string? Description { get; set; }
 	public int Order { get; set; } = default!;
-	public int? MaxAnswers { get; set; }
-	public QuestionDependencyDto? QuestionDependency { get; set; }
-	public ICollection<AnswerOptionDto> AnswerOptions { get; set; } = new List<AnswerOptionDto>();
+	public EnableWhenDto? EnableWhen { get; set; }
+	public ICollection<AnswerOptionDto>? AnswerOptions { get; set; } = new List<AnswerOptionDto>();
 }

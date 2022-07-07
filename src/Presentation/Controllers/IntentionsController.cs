@@ -14,7 +14,7 @@ public class IntentionsController : ApiControllerBase
 	/// </summary>
 	[AllowAnonymous] //TODO: [Authorize(Roles = "Participant")]
 	[HttpGet]
-	public async Task<ActionResult<ICollection<IntentionDto>>> GetIntentions()
+	public async Task<ActionResult<ICollection<GoalDto>>> GetIntentions()
 	{
 		return Ok(await Mediator.Send(new GetIntentionsQuery()));
 	}
@@ -24,7 +24,7 @@ public class IntentionsController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Participant")]
 	[HttpPost]
-	public async Task<ActionResult<IntentionDto>> CreateIntentions(CreateIntentionsCommand command)
+	public async Task<ActionResult<GoalDto>> CreateIntentions(CreateIntentionsCommand command)
 	{
 		return Ok(await Mediator.Send(command));
 	}

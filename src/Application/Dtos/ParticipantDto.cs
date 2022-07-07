@@ -12,5 +12,5 @@ public class ParticipantDto : IMapFrom<Participant>
 	public decimal? Height { get; set; }
 	public string? MaritalStatus { get; set; }
 	public bool IsActive { get; set; } = true;
-	public ICollection<IntentionDto> Intentions { get; set; } = new List<IntentionDto>();
+	public ICollection<GoalDto> Intentions { get; set; } = new List<GoalDto>();
 }
