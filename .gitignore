@@ -239,3 +239,6 @@ src/WebUI/ClientApp/package-lock.json
 
 # App settings
 appsettings.*.json
+
+# Test controller
+TestController.cs
