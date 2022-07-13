@@ -1,6 +1,6 @@
-using Sonuts.Infrastructure.Fhir.Models;
+using Sonuts.Domain.Entities;
 
-namespace Sonuts.Infrastructure.Fhir.Interfaces;
+namespace Sonuts.Application.Common.Interfaces.Fhir;
 
 public interface IParticipantDao
 {

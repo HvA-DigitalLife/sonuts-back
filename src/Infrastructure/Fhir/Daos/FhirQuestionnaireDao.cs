@@ -21,6 +21,7 @@ public class FhirQuestionnaireDao : IQuestionnaireDao
 		// load and parse questionnaire instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var result = await client.GetStringAsync("Questionnaire/" + id);
+		Console.WriteLine(result);
 
 		return FhirQuestionnaireAdapter.FromJson(result);
 	}

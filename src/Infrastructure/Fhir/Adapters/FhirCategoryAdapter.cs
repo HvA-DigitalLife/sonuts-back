@@ -1,12 +1,14 @@
 using Hl7.Fhir.Serialization;
+using Sonuts.Domain.Entities;
+using Sonuts.Domain.Enums;
 
 namespace Sonuts.Infrastructure.Fhir.Adapters;
 
-public static class FhirDomainAdapter
+public static class FhirCategoryAdapter
 {
-	public static List<Models.Domain> FromJsonBundle(string json)
+	public static List<Category> FromJsonBundle(string json)
 	{
-		var domainsList = new List<Models.Domain>();
+		var categoriesList = new List<Category>();
 		// create questionnaire instance
             
 		// create fhir parser
@@ -21,13 +23,13 @@ public static class FhirDomainAdapter
 				var vsEntry = (Hl7.Fhir.Model.ValueSet) entry.Resource;
 				foreach (var include in vsEntry.Compose.Include) {
 					foreach (var concept in include.Concept) {
-						Models.Domain domain = new(){Id = concept.Code, Name = concept.Display};
-						domainsList.Add(domain);
+						Category domain = new(){Id = Guid.Parse(concept.Code), Name = concept.Display, Color = "blue"};
+						categoriesList.Add(domain);
 					}
 				}
 			}
 		}
 
-		return domainsList;
+		return categoriesList;
 	}
 }

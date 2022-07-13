@@ -1,15 +1,16 @@
 using Hl7.Fhir.Serialization;
-using Sonuts.Infrastructure.Fhir.Models;
+using Sonuts.Domain.Entities;
+using Sonuts.Domain.Enums;
 
 namespace Sonuts.Infrastructure.Fhir.Adapters;
 
-public static class FhirInterventionPlanAdapter
+public static class FhirCarePlanAdapter
 {
 
-	public static List<InterventionPlan> FromJsonBundle(string json)
+	public static List<CarePlan> FromJsonBundle(string json)
 	{
 		// create list of recommendations
-		var interventionPlanList = new List<InterventionPlan>();
+		var interventionPlanList = new List<CarePlan>();
 
 		// create fhir parser
 		var parser = new FhirJsonParser();
@@ -33,14 +34,14 @@ public static class FhirInterventionPlanAdapter
 
 
 
-	public static InterventionPlan FromJson (string json)
+	public static CarePlan FromJson (string json)
 	{       
 		var parser = new FhirJsonParser();
 		// parse plan definition resource and return Recommendation object
 		return FhirCarePlanToInterventionPlan(parser.Parse<Hl7.Fhir.Model.CarePlan>(json));
 	}
 
-	public static string ToJson ( InterventionPlan interventionPlan )
+	public static string ToJson ( CarePlan carePlan )
 	{
 		// create plan definion and meta data
 		var fhirCarePlan= new Hl7.Fhir.Model.CarePlan();
@@ -100,9 +101,9 @@ public static class FhirInterventionPlanAdapter
 		return serializer.SerializeToString(fhirCarePlan);
 	}
 
-	private static InterventionPlan FhirCarePlanToInterventionPlan(Hl7.Fhir.Model.CarePlan carePlan) {
+	private static CarePlan FhirCarePlanToInterventionPlan(Hl7.Fhir.Model.CarePlan fhirCarePlan) {
 		// create interventionPlan model and add meta data
-		var interventionPlan = new InterventionPlan();
+		var carePlan = new CarePlan();
 		// recommendation.Id = planDefinition.Id;
 		// recommendation.Title = planDefinition.Title;
 		// recommendation.Text = planDefinition.Description.ToString();
@@ -143,7 +144,7 @@ public static class FhirInterventionPlanAdapter
 		//     recommendation.Goals.Add(goal);
 		// }
 		// return object
-		return interventionPlan;
+		return carePlan;
 	}
 
 }

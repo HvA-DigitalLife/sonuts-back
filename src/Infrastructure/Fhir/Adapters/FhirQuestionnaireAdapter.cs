@@ -19,7 +19,20 @@ public static class FhirQuestionnaireAdapter
 		questionnaire.Description = fhirQuestionnaire.Description.ToString();
 
 		// add questionnaire id to questionnaire object
-		questionnaire.Id = Guid.Parse(fhirQuestionnaire.Id);
+
+		foreach (var id in fhirQuestionnaire.Identifier) {
+			if (id.System == "https://mibplatform.nl/fhir/mib/identifier") {
+				questionnaire.Id =  Guid.Parse(id.Value);
+			}
+		}
+		
+
+
+		// to-do adding question dependency tag
+
+
+
+		
 
 		// loop trough fhir questions instance to questionnaire
 		foreach (var item in fhirQuestionnaire.Item)
@@ -30,6 +43,29 @@ public static class FhirQuestionnaireAdapter
 				Id = Guid.Parse(item.LinkId),
 				Text = item.Text
 			};
+
+			foreach (var enableWhen in item.EnableWhen) {
+				question.EnableWhen = new EnableWhen();
+	
+				question.EnableWhen.Operator = enableWhen.Operator.Value switch
+				{
+					// set question type
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.Equal => Operator.Equals,
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterOrEqual => Operator.GreaterOrEquals,
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterThan => Operator.GreaterThan,
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessOrEqual => Operator.LessOrEquals,
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessThan => Operator.LessThan,
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.NotEqual => Operator.NotEquals,
+					_ => question.EnableWhen.Operator
+				};
+						
+
+				question.EnableWhen = new EnableWhen {
+					QuestionId = Guid.Parse(enableWhen.Question),
+					//Operator
+					Answer = enableWhen.Answer.ToString()
+				};
+			}
 
 			// if we have a multiple choice option we need to loop trough all the options
 			if ((item.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice) || (item.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice))
@@ -55,8 +91,8 @@ public static class FhirQuestionnaireAdapter
 				question.Type = item.Type switch
 				{
 					// set question type
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice => QuestionType.MultipleChoice, // multi ? "multiChoice" : "choice",
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice => QuestionType.MultipleOpen, // multi ? "multiOpenChoice" : "openChoice",
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice => QuestionType.MultiChoice,
+					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice => QuestionType.MultiOpenChoice,
 					_ => question.Type
 				};
 
@@ -79,6 +115,9 @@ public static class FhirQuestionnaireAdapter
 						// {
 						// 	question.Text = itemExtension.Value.ToString()!; //What is OpenLable
 						// }
+
+
+
 						// check if we have the single option flag set
 						if (answerOptionExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order")
 						{
@@ -87,6 +126,7 @@ public static class FhirQuestionnaireAdapter
 							qaOption.Order = int.Parse(answerOptionExtension.Value.ToString());
 						}
 					}
+
 
 					question.AnswerOptions!.Add(qaOption);
 				}
@@ -101,6 +141,7 @@ public static class FhirQuestionnaireAdapter
 
 	public static string ToJson(Questionnaire questionnaire)
 	{
+
 		// create questionnaire fhir object
 		var fhirQuestionnaire = new Hl7.Fhir.Model.Questionnaire
 		{
@@ -108,8 +149,14 @@ public static class FhirQuestionnaireAdapter
 			Description = new Hl7.Fhir.Model.Markdown(questionnaire.Description)
 		};
 
-		// loop trough all questions
-		// TODO make recursive!
+		// add identifier
+		fhirQuestionnaire.Identifier.Add(new Hl7.Fhir.Model.Identifier {
+				System = "https://mibplatform.nl/fhir/mib/identifier",
+				Value = questionnaire.Id.ToString()
+			});
+
+		
+
 		foreach (var question in questionnaire.Questions)
 		{
 			// create fhir question item for each question
@@ -118,24 +165,62 @@ public static class FhirQuestionnaireAdapter
 				LinkId = question.Id.ToString(),
 				Text = question.Text
 			};
+
+
+			// todo add operator conversion
+
+			if (question.EnableWhen is not null) {
+				
+
+				var enableWhen = new Hl7.Fhir.Model.Questionnaire.EnableWhenComponent {
+					Question=question.EnableWhen.QuestionId.ToString(),
+					Answer=new Hl7.Fhir.Model.FhirString(question.EnableWhen.Answer) // multiple types?
+				};
+				enableWhen.Operator = question.EnableWhen.Operator switch
+				{
+					// set question type
+					Operator.Equals  => Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.Equal,
+					Operator.GreaterOrEquals => Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterOrEqual,
+					Operator.GreaterThan => Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterThan,
+					Operator.LessOrEquals => Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessOrEqual,
+					Operator.LessThan => Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessThan,
+					Operator.NotEquals => Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.NotEqual,
+					_ => enableWhen.Operator
+				};
+			}
+
+
+
+
+
+
 			// string based question
-			if (question.Type == QuestionType.Open)
+			if (question.Type == QuestionType.String)
 			{
 				// add string reply option to question item
 				item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.String;
 			}
+
+/*
+
+
+TODO, add extra question types
+
+*/
+
+
 			// create multiple choices for question item object
-			if (question.Type is QuestionType.MultipleChoice or QuestionType.MultipleOpen) //(question.Type == "choice") || (question.Type == "openChoice") || (question.Type == "multiChoice") || (question.Type == "multiOpenChoice"))
+			if (question.Type is QuestionType.MultiOpenChoice or QuestionType.MultiChoice or QuestionType.Choice or QuestionType.OpenChoice)
 			{
 
 
 
 
-				if (question.Type is QuestionType.MultipleChoice) //(question.Type == "choice") || (question.Type == "multiChoice"))
+				if (question.Type is QuestionType.Choice or QuestionType.MultiChoice)
 				{
 					item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice;
 				}
-				if (question.Type is QuestionType.MultipleOpen) //(question.Type == "openChoice") || (question.Type == "multiOpenChoice"))
+				if (question.Type is QuestionType.OpenChoice or QuestionType.MultiOpenChoice)
 				{
 					item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice;
 					// add open-choice label extension when open-choice is selected
@@ -153,7 +238,7 @@ public static class FhirQuestionnaireAdapter
 
 				}
 				
-				if (question.Type is QuestionType.MultipleChoice or QuestionType.MultipleOpen) //(question.Type == "choice") || (question.Type == "openChoice"))
+				if (question.Type is QuestionType.Choice or QuestionType.OpenChoice)
 				{
 					// add single option choise extension no multi choice is selected
 					var singleOptionTypeExtension = new Hl7.Fhir.Model.Extension
@@ -176,8 +261,7 @@ public static class FhirQuestionnaireAdapter
 							Display = qaOption.Value
 						};
 						answerOption.Value = answerOptionCoding;
-						//answerOption.InitialSelected = qaOption.Selected;
-
+						
 
 						// answerOrder extension
 						// to-do: check if there is something like this already within SDC
