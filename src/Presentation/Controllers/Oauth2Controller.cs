@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Sonuts.Presentation.Controllers;
 
-[Authorize]
 public class Oauth2Controller : ApiControllerBase
 {
 	[AllowAnonymous]

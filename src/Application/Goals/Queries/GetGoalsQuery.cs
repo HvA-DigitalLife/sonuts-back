@@ -5,11 +5,11 @@ using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Mappings;
 using Sonuts.Application.Dtos;
 
-namespace Sonuts.Application.Intentions.Queries;
+namespace Sonuts.Application.Goals.Queries;
 
-public record GetIntentionsQuery : IRequest<ICollection<GoalDto>>;
+public record GetGoalsQuery : IRequest<ICollection<GoalDto>>;
 
-public class GetIntentionsQueryHandler : IRequestHandler<GetIntentionsQuery, ICollection<GoalDto>>
+public class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollection<GoalDto>>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ public class GetIntentionsQueryHandler : IRequestHandler<GetIntentionsQuery, ICo
 		_currentUserService = currentUserService;
 	}
 
-	public async Task<ICollection<GoalDto>> Handle(GetIntentionsQuery request, CancellationToken cancellationToken) =>
+	public async Task<ICollection<GoalDto>> Handle(GetGoalsQuery request, CancellationToken cancellationToken) =>
 		await _context.Goals
 			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
 			.Include(goal => goal.Activity.Image)
