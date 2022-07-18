@@ -8,9 +8,9 @@ using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
-namespace Sonuts.Application.Intentions.Commands;
+namespace Sonuts.Application.Goals.Commands;
 
-public class CreateIntentionsCommand : IRequest<GoalDto>
+public class CreateGoalsCommand : IRequest<GoalDto>
 {
 	public Guid? ActivityId { get; init; }
 	public int? FrequencyAmount { get; init; }
@@ -32,9 +32,9 @@ public class CreateMoment
 	public string? EventName { get; set; }
 }
 
-public class CreateIntentionsCommandValidator : AbstractValidator<CreateIntentionsCommand>
+public class CreateGoalsCommandValidator : AbstractValidator<CreateGoalsCommand>
 {
-	public CreateIntentionsCommandValidator()
+	public CreateGoalsCommandValidator()
 	{
 		RuleFor(command => command.ActivityId)
 			.NotNull();
@@ -77,20 +77,20 @@ public class CreateIntentionsCommandValidator : AbstractValidator<CreateIntentio
 	}
 }
 
-public class CreateIntentionsCommandHandler : IRequestHandler<CreateIntentionsCommand, GoalDto>
+public class CreateGoalsCommandHandler : IRequestHandler<CreateGoalsCommand, GoalDto>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
 	private readonly ICurrentUserService _currentUserService;
 
-	public CreateIntentionsCommandHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
+	public CreateGoalsCommandHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
 	{
 		_context = context;
 		_mapper = mapper;
 		_currentUserService = currentUserService;
 	}
 
-	public async Task<GoalDto> Handle(CreateIntentionsCommand request, CancellationToken cancellationToken)
+	public async Task<GoalDto> Handle(CreateGoalsCommand request, CancellationToken cancellationToken)
 	{
 		Goal entity = new()
 		{
