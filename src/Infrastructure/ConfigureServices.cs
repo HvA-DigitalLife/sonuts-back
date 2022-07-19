@@ -37,7 +37,7 @@ public static class ConfigureServices
 					builder =>
 					{
 						builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
-						builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
+						builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
 					})
 			);
 		}

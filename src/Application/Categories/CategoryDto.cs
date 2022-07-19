@@ -12,5 +12,5 @@ public class CategoryDto : IMapFrom<Category>
 	public string Name { get; set; } = default!;
 	public string Color { get; set; } = default!;
 	public QuestionnaireDto Questionnaire { get; set; } = default!;
-	public ICollection<ThemeDto> Themes { get; set; } = new List<ThemeDto>();
+	public List<ThemeDto> Themes { get; set; } = new();
 }

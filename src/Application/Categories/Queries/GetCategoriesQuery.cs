@@ -19,9 +19,11 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 		_mapper = mapper;
 	}
 
-	public async Task<ICollection<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken) =>
-		await _context.Categories
-			.Where(category => category.IsActive)
+	public async Task<ICollection<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
+	{
+		return _mapper.Map<ICollection<CategoryDto>>(await _context.Categories
 			.Include(category => category.Themes)
-			.ProjectToListAsync<CategoryDto>(_mapper.ConfigurationProvider, cancellationToken);
+			.Where(category => category.IsActive)
+			.ToListAsync(cancellationToken));
+	}
 }
