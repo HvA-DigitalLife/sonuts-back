@@ -8,6 +8,7 @@ using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Common;
+using Sonuts.Infrastructure.Fhir;
 using Sonuts.Infrastructure.Fhir.Daos;
 using Sonuts.Infrastructure.Files;
 using Sonuts.Infrastructure.Identity;
@@ -64,6 +65,12 @@ public static class ConfigureServices
 			httpClient.DefaultRequestHeaders.Accept.Clear();
 			httpClient.DefaultRequestHeaders.Add("Accept", "application/fhir+json");
 			httpClient.DefaultRequestHeaders.Add("User-Agent", "Mib FHIR client");
+		});
+
+		services.AddFhir(options =>
+		{
+			options.Read = configuration.GetValue<bool>("Fhir:Read");
+			options.Write = configuration.GetValue<bool>("Fhir:Write");
 		});
 
 		return services;
