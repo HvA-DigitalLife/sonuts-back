@@ -19,7 +19,7 @@ public class GoalsController : ApiControllerBase
 	}
 
 	/// <summary>
-	/// Complete a task from agenda
+	/// Change goal moment 
 	/// </summary>
 	[Authorize(Roles = "Participant")]
 	[HttpPatch("{id:guid}")]
