@@ -2,7 +2,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Mappings;
 using Sonuts.Application.Dtos;
 
 namespace Sonuts.Application.Goals.Queries;
@@ -23,9 +22,9 @@ public class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollect
 	}
 
 	public async Task<ICollection<GoalDto>> Handle(GetGoalsQuery request, CancellationToken cancellationToken) =>
-		await _context.Goals
+		_mapper.Map<ICollection<GoalDto>>(await _context.Goals
 			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
 			.Include(goal => goal.Activity.Image)
 			.Include(goal => goal.Executions)
-			.ProjectToListAsync<GoalDto>(_mapper.ConfigurationProvider, cancellationToken);
+			.ToListAsync(cancellationToken));
 }
