@@ -12,19 +12,20 @@ public static class FhirCategoryAdapter
 		// create questionnaire instance
             
 		// create fhir parser
-		var parser = new FhirJsonParser();
+		var fhirJsonParser = new FhirJsonParser();
 
 		// parse as bundle
-		var fhirBundle = parser.Parse<Hl7.Fhir.Model.Bundle>(json);
+		var fhirBundle = fhirJsonParser.Parse<Hl7.Fhir.Model.Bundle>(json);
 
-		foreach (var entry in fhirBundle.Entry) {
+		foreach (var fhirBundleEntry in fhirBundle.Entry) {
 			// parse the valueset
-			if (entry.Resource.GetType() == typeof(Hl7.Fhir.Model.ValueSet)) {
-				var vsEntry = (Hl7.Fhir.Model.ValueSet) entry.Resource;
-				foreach (var include in vsEntry.Compose.Include) {
-					foreach (var concept in include.Concept) {
-						Category domain = new(){Id = Guid.Parse(concept.Code), Name = concept.Display, Color = "blue"};
-						categoriesList.Add(domain);
+			if (fhirBundleEntry.Resource.GetType() == typeof(Hl7.Fhir.Model.ValueSet)) {
+				var fhirValueSetEntry = (Hl7.Fhir.Model.ValueSet) fhirBundleEntry.Resource;
+				foreach (var fhirInclude in fhirValueSetEntry.Compose.Include) {
+					foreach (var fhirConcept in fhirInclude.Concept) {
+						// todo: add color extension
+						Category category = new(){Id = Guid.Parse(fhirConcept.Code), Name = fhirConcept.Display, Color = "blue"};
+						categoriesList.Add(category);
 					}
 				}
 			}

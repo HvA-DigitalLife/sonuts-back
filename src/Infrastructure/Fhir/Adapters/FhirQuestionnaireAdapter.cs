@@ -12,17 +12,17 @@ public static class FhirQuestionnaireAdapter
 		Questionnaire questionnaire = new Questionnaire();
 
 		// create fhir parser
-		var parser = new FhirJsonParser();
-		var fhirQuestionnaire = parser.Parse<Hl7.Fhir.Model.Questionnaire>(json);
+		var fhirJsonParser = new FhirJsonParser();
+		var fhirQuestionnaire = fhirJsonParser.Parse<Hl7.Fhir.Model.Questionnaire>(json);
 
 		questionnaire.Title = fhirQuestionnaire.Title;
 		questionnaire.Description = fhirQuestionnaire.Description.ToString();
 
 		// add questionnaire id to questionnaire object
 
-		foreach (var id in fhirQuestionnaire.Identifier) {
-			if (id.System == "https://mibplatform.nl/fhir/mib/identifier") {
-				questionnaire.Id =  Guid.Parse(id.Value);
+		foreach (var fhirId in fhirQuestionnaire.Identifier) {
+			if (fhirId.System == "https://mibplatform.nl/fhir/mib/identifier") {
+				questionnaire.Id =  Guid.Parse(fhirId.Value);
 			}
 		}
 		
@@ -35,19 +35,19 @@ public static class FhirQuestionnaireAdapter
 		
 
 		// loop trough fhir questions instance to questionnaire
-		foreach (var item in fhirQuestionnaire.Item)
+		foreach (var fhirItem in fhirQuestionnaire.Item)
 		{
 			var multi = true;
 			var question = new Question
 			{
-				Id = Guid.Parse(item.LinkId),
-				Text = item.Text
+				Id = Guid.Parse(fhirItem.LinkId),
+				Text = fhirItem.Text
 			};
 
-			foreach (var enableWhen in item.EnableWhen) {
+			foreach (var fhirEnableWhen in fhirItem.EnableWhen) {
 				question.EnableWhen = new EnableWhen();
 	
-				question.EnableWhen.Operator = enableWhen.Operator.Value switch
+				question.EnableWhen.Operator = fhirEnableWhen.Operator.Value switch
 				{
 					// set question type
 					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.Equal => Operator.Equals,
@@ -61,17 +61,17 @@ public static class FhirQuestionnaireAdapter
 						
 
 				question.EnableWhen = new EnableWhen {
-					QuestionId = Guid.Parse(enableWhen.Question),
+					QuestionId = Guid.Parse(fhirEnableWhen.Question),
 					//Operator
-					Answer = enableWhen.Answer.ToString()
+					Answer = fhirEnableWhen.Answer.ToString()
 				};
 			}
 
 			// if we have a multiple choice option we need to loop trough all the options
-			if ((item.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice) || (item.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice))
+			if ((fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice) || (fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice))
 			{
 
-				foreach (var itemExtension in item.Extension)
+				foreach (var fhirItemExtension in fhirItem.Extension)
 				{
 					
 					// to be replaced by question dependency?
@@ -82,13 +82,13 @@ public static class FhirQuestionnaireAdapter
 					// 	question.Text = itemExtension.Value.ToString()!; //What is OpenLable
 					// }
 					// check if we have the single option flag set
-					if ((itemExtension.Url == "http://hl7.org/fhir/StructureDefinition/questionnaire-optionExclusive") && (itemExtension.Value.Equals(true)))
+					if ((fhirItemExtension.Url == "http://hl7.org/fhir/StructureDefinition/questionnaire-optionExclusive") && (fhirItemExtension.Value.Equals(true)))
 					{
 						multi = false;
 					}
 				}
 
-				question.Type = item.Type switch
+				question.Type = fhirItem.Type switch
 				{
 					// set question type
 					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice => QuestionType.MultiChoice,
@@ -96,16 +96,16 @@ public static class FhirQuestionnaireAdapter
 					_ => question.Type
 				};
 
-				foreach (var answerOption in item.AnswerOption)
+				foreach (var fhirAnswerOption in fhirItem.AnswerOption)
 				{
 					// create option object
-					var qaOption = new AnswerOption();
+					var answerOption = new AnswerOption();
 					// parse coding of the fhir answer option object and store in our own option object
-					var answerOptionCoding = (Hl7.Fhir.Model.Coding)answerOption.Value;
-					qaOption.Id = Guid.Parse(answerOptionCoding.Code);
-					qaOption.Value = answerOptionCoding.Display;
+					var fhirAnswerOptionCoding = (Hl7.Fhir.Model.Coding)fhirAnswerOption.Value;
+					answerOption.Id = Guid.Parse(fhirAnswerOptionCoding.Code);
+					answerOption.Value = fhirAnswerOptionCoding.Display;
 
-					foreach (var answerOptionExtension in answerOption.Extension)
+					foreach (var fhirAnswerOptionExtension in fhirAnswerOption.Extension)
 					{
 						
 						// to be replaced by question dependency?
@@ -119,16 +119,16 @@ public static class FhirQuestionnaireAdapter
 
 
 						// check if we have the single option flag set
-						if (answerOptionExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order")
+						if (fhirAnswerOptionExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order")
 						{
 							// @thomaslem how best to do this?
 							// i want to convert from   (Hl7.Fhir.Model.Integer) answerOptionExtension.Value  to int
-							qaOption.Order = int.Parse(answerOptionExtension.Value.ToString());
+							answerOption.Order = int.Parse(fhirAnswerOptionExtension.Value.ToString());
 						}
 					}
 
 
-					question.AnswerOptions!.Add(qaOption);
+					question.AnswerOptions!.Add(answerOption);
 				}
 
 			}
@@ -160,7 +160,7 @@ public static class FhirQuestionnaireAdapter
 		foreach (var question in questionnaire.Questions)
 		{
 			// create fhir question item for each question
-			var item = new Hl7.Fhir.Model.Questionnaire.ItemComponent
+			var fhirItem = new Hl7.Fhir.Model.Questionnaire.ItemComponent
 			{
 				LinkId = question.Id.ToString(),
 				Text = question.Text
@@ -198,7 +198,7 @@ public static class FhirQuestionnaireAdapter
 			if (question.Type == QuestionType.String)
 			{
 				// add string reply option to question item
-				item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.String;
+				fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.String;
 			}
 
 /*
@@ -218,11 +218,11 @@ TODO, add extra question types
 
 				if (question.Type is QuestionType.Choice or QuestionType.MultiChoice)
 				{
-					item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice;
+					fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice;
 				}
 				if (question.Type is QuestionType.OpenChoice or QuestionType.MultiOpenChoice)
 				{
-					item.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice;
+					fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice;
 					// add open-choice label extension when open-choice is selected
 					
 					
@@ -245,44 +245,44 @@ TODO, add extra question types
 						{
 							Url = "http://hl7.org/fhir/StructureDefinition/questionnaire-optionExclusive", Value = new Hl7.Fhir.Model.FhirBoolean(true)
 						};
-					item.Extension.Add(singleOptionTypeExtension);
+					fhirItem.Extension.Add(singleOptionTypeExtension);
 				}
 
 				if (question.AnswerOptions is not null)
 				{
-					foreach (var qaOption in question.AnswerOptions)
+					foreach (var answerOption in question.AnswerOptions)
 					{
 						// create questionnaire fhir option type object and codeValue object
-						var answerOption = new Hl7.Fhir.Model.Questionnaire.AnswerOptionComponent();
-						var answerOptionCoding = new Hl7.Fhir.Model.Coding
+						var fhirAnswerOption = new Hl7.Fhir.Model.Questionnaire.AnswerOptionComponent();
+						var fhirAnswerOptionCoding = new Hl7.Fhir.Model.Coding
 						{
 							// add questionOption coding
-							Code = qaOption.Id.ToString(),
-							Display = qaOption.Value
+							Code = answerOption.Id.ToString(),
+							Display = answerOption.Value
 						};
-						answerOption.Value = answerOptionCoding;
+						fhirAnswerOption.Value = fhirAnswerOptionCoding;
 						
 
 						// answerOrder extension
 						// to-do: check if there is something like this already within SDC
 						// title extension
-						var answerOptionOrderExtension = new Hl7.Fhir.Model.Extension() { 
+						var fhirAnswerOptionOrderExtension = new Hl7.Fhir.Model.Extension() { 
 							Url = "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order",
-							Value = new Hl7.Fhir.Model.Integer(qaOption.Order)
+							Value = new Hl7.Fhir.Model.Integer(answerOption.Order)
 						};
-						answerOption.Extension.Add(answerOptionOrderExtension);
+						fhirAnswerOption.Extension.Add(fhirAnswerOptionOrderExtension);
 
 
 						// add answeroptions to answer fhir item
-						item.AnswerOption.Add(answerOption);
+						fhirItem.AnswerOption.Add(fhirAnswerOption);
 					}
 				}
 			}
 			// add question item to fhir questionnaire object
-			fhirQuestionnaire.Item.Add(item);
+			fhirQuestionnaire.Item.Add(fhirItem);
 		}
 		// serialize and return fhir object
-		var serializer = new FhirJsonSerializer();
-		return serializer.SerializeToString(fhirQuestionnaire);
+		var fhirJsonSerializer = new FhirJsonSerializer();
+		return fhirJsonSerializer.SerializeToString(fhirQuestionnaire);
 	}
 }

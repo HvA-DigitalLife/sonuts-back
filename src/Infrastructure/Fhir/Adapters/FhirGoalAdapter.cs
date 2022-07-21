@@ -4,13 +4,13 @@ using Sonuts.Domain.Enums;
 
 namespace Sonuts.Infrastructure.Fhir.Adapters;
 
-public static class FhirCarePlanAdapter
+public static class FhirGoalAdapter
 {
 
-	public static List<CarePlan> FromJsonBundle(string json)
+	public static List<Goal> FromJsonBundle(string json)
 	{
 		// create list of recommendations
-		var carePlanList = new List<CarePlan>();
+		var goalList = new List<Goal>();
 
 		// create fhir parser
 		var fhirJsonParser = new FhirJsonParser();
@@ -20,42 +20,43 @@ public static class FhirCarePlanAdapter
 
 		foreach (var fhirBundleEntry in fhirBundle.Entry) {
 			// retrieve the plan definitions
-			if (fhirBundleEntry.Resource.GetType() == typeof(Hl7.Fhir.Model.CarePlan)) {
-				var carePlanEntry = (Hl7.Fhir.Model.CarePlan) fhirBundleEntry.Resource;
+			if (fhirBundleEntry.Resource.GetType() == typeof(Hl7.Fhir.Model.Goal)) {
+				var goalEntry = (Hl7.Fhir.Model.Goal) fhirBundleEntry.Resource;
 				// Convert Fhir plan definition object and add to list
-				carePlanList.Add(FhirCarePlanToCarePlan(carePlanEntry));
+				goalList.Add(FhirGoalToGoal(goalEntry));
 			}
 		}
 
 		// return list of recommendations
-		return carePlanList;
+		return goalList;
 	}
 
 
-
-
-	public static CarePlan FromJson (string json)
+	public static Goal FromJson (string json)
 	{       
 		var fhirJsonParser = new FhirJsonParser();
 		// parse plan definition resource and return Recommendation object
-		return FhirCarePlanToCarePlan(fhirJsonParser.Parse<Hl7.Fhir.Model.CarePlan>(json));
+		return FhirGoalToGoal(fhirJsonParser.Parse<Hl7.Fhir.Model.Goal>(json));
 	}
 
-	public static string ToJson ( CarePlan carePlan )
+	public static string ToJson ( Goal goal )
 	{
 		// create plan definion and meta data
-		var fhirCarePlan= new Hl7.Fhir.Model.CarePlan();
+		var fhirGoal= new Hl7.Fhir.Model.Goal();
 
 		// add identifier
-		fhirCarePlan.Identifier.Add(new Hl7.Fhir.Model.Identifier {
+		fhirGoal.Identifier.Add(new Hl7.Fhir.Model.Identifier {
 				System = "https://mibplatform.nl/fhir/mib/identifier",
-				Value = carePlan.Id.ToString()
+				Value = goal.Id.ToString()
 			});
 
-		fhirCarePlan.Period =  new Hl7.Fhir.Model.Period {
-			Start = carePlan.Start.ToString(),
-			End = carePlan.End.ToString()
-		};
+		var fhirTarget = new Hl7.Fhir.Model.Goal.TargetComponent();
+		// todo check how to parse date
+		//fhirTarget.Due = Hl7.Fhir.Model.Date(goal.Moment.Time);
+		// todo add measure
+
+
+
 
 
 
@@ -102,19 +103,20 @@ public static class FhirCarePlanAdapter
           
 		// serialize and return
 		var serializer = new FhirJsonSerializer();
-		return serializer.SerializeToString(fhirCarePlan);
+		return serializer.SerializeToString(fhirGoal);
 	}
 
-	private static CarePlan FhirCarePlanToCarePlan(Hl7.Fhir.Model.CarePlan fhirCarePlan) {
+	private static Goal FhirGoalToGoal(Hl7.Fhir.Model.Goal fhirGoal) {
 		// create interventionPlan model and add meta data
-		var carePlan = new CarePlan();
+		var goal = new Goal();
 
-		foreach (var fhirId in fhirCarePlan.Identifier) {
+		foreach (var fhirId in fhirGoal.Identifier) {
 			if (fhirId.System == "https://mibplatform.nl/fhir/mib/identifier") {
-				carePlan.Id =  Guid.Parse(fhirId.Value);
+				goal.Id =  Guid.Parse(fhirId.Value);
 			}
 		}
 
+		// todo parse target
     
         
 		// foreach (var action in planDefinition.Action) {
@@ -145,7 +147,7 @@ public static class FhirCarePlanAdapter
 		//     // add goal to recommendation
 		//     recommendation.Goals.Add(goal);
 		// }
-		return carePlan;
+		return goal;
 	}
 
 }

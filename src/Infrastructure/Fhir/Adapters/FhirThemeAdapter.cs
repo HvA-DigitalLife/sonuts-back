@@ -10,140 +10,91 @@ public static class FhirThemeAdapter
 	public static List<Theme> FromJsonBundle(string json)
 	{
 		// create list of guidelines
-		var guidelineList = new List<Theme>();
+		var themeList = new List<Theme>();
 
 		// create fhir parser
-		var parser = new FhirJsonParser();
+		var fhirJsonParser = new FhirJsonParser();
 
 		// parse as bundle
-		var fhirBundle = parser.Parse<Hl7.Fhir.Model.Bundle>(json);
+		var fhirBundle = fhirJsonParser.Parse<Hl7.Fhir.Model.Bundle>(json);
 
-		foreach (var entry in fhirBundle.Entry) {
+		foreach (var fhirBundleEntry in fhirBundle.Entry) {
 			// retrieve the plan definitions
-			if (entry.Resource.GetType() == typeof(Hl7.Fhir.Model.PlanDefinition)) {
-				var pdEntry = (Hl7.Fhir.Model.PlanDefinition) entry.Resource;
+			if (fhirBundleEntry.Resource.GetType() == typeof(Hl7.Fhir.Model.PlanDefinition)) {
+				var planDefinitionEntry = (Hl7.Fhir.Model.PlanDefinition) fhirBundleEntry.Resource;
 				// Convert Fhir plan definition object and add to list
-				guidelineList.Add(FhirPlanDefinitionToTheme(pdEntry));
+				themeList.Add(FhirPlanDefinitionToTheme(planDefinitionEntry));
 			}
 		}
 
 		// return list of guidelines
-		return guidelineList;
+		return themeList;
 	}
-
-
 
 
 	public static Theme FromJson (string json)
 	{       
-		var parser = new FhirJsonParser();
+		var fhirJsonParser = new FhirJsonParser();
 		// parse plan definition resource and return Guideline object
-		return FhirPlanDefinitionToTheme(parser.Parse<Hl7.Fhir.Model.PlanDefinition>(json));
+		return FhirPlanDefinitionToTheme(fhirJsonParser.Parse<Hl7.Fhir.Model.PlanDefinition>(json));
 	}
 
-	public static string ToJson ( Theme guideline )
+	public static string ToJson ( Theme theme )
 	{
 		// create plan definion and meta data
 		var fhirPlanDefinition= new Hl7.Fhir.Model.PlanDefinition();
-		// fhirPlanDefinition.Title = guideline.Title;
-		// fhirPlanDefinition.Description = new Hl7.Fhir.Model.Markdown(guideline.Text);
+		fhirPlanDefinition.Title = theme.Name;
+		fhirPlanDefinition.Description = new Hl7.Fhir.Model.Markdown(theme.Description);
 
-		// // add domain type coding
-		// var fhirTypeConcept = new Hl7.Fhir.Model.CodeableConcept();
-		// var fhirTypeCoding = new Hl7.Fhir.Model.Coding();
-		// fhirTypeCoding.System = "https://mibplatform.nl/fhir/ValueSet/domains";
-		// fhirTypeCoding.Code = guideline.DomainId;
-		// fhirTypeConcept.Coding.Add(fhirTypeCoding);
-		// fhirPlanDefinition.Type = fhirTypeConcept;
+		// add domain type coding
+		var fhirTypeConcept = new Hl7.Fhir.Model.CodeableConcept();
+		var fhirTypeCoding = new Hl7.Fhir.Model.Coding();
 
-		// foreach (var goal in guideline.Goals) {
-		// 	// create action
-		// 	var action = new Hl7.Fhir.Model.PlanDefinition.ActionComponent();
-		// 	action.Title = goal.Title;
-		// 	action.Description = goal.Text;
+		fhirTypeCoding.System = "https://mibplatform.nl/fhir/ValueSet/categories";
+		fhirTypeCoding.Code = theme.Category.Id.ToString();
+		fhirTypeCoding.Display = theme.Category.Name;
+		fhirTypeConcept.Coding.Add(fhirTypeCoding);
+		fhirPlanDefinition.Type = fhirTypeConcept;
 
-		// 	foreach (var dataField in goal.DataFields) {
-		// 		// create data requirement
-		// 		var dataRequirement = new Hl7.Fhir.Model.DataRequirement();
+		foreach (var activity in theme.Activities) {
+			// create action
+			var fhirAction = new Hl7.Fhir.Model.PlanDefinition.ActionComponent();
+			fhirAction.Title = activity.Name;
+			fhirAction.Description = activity.Description;
 
-		// 		// add of type string (will have more datatypes once defined)
-		// 		if (dataField.DataType == "string") {
-		// 			dataRequirement.Type = Hl7.Fhir.Model.FHIRAllTypes.String;
-		// 		}
-                
-		// 		// title extension
-		// 		var titleExtension = new Hl7.Fhir.Model.Extension();
-		// 		titleExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/title";
-		// 		titleExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.Title);
-		// 		dataRequirement.Extension.Add(titleExtension);
-
-		// 		// default value extension
-		// 		var defaultValueExtension = new Hl7.Fhir.Model.Extension();
-		// 		defaultValueExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/defaultValue";
-		// 		defaultValueExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.DefaultValue);
-		// 		dataRequirement.Extension.Add(defaultValueExtension);
-
-		// 		// unit extension
-		// 		var unitExtension = new Hl7.Fhir.Model.Extension();
-		// 		unitExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/unit";
-		// 		unitExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.DataType);
-		// 		dataRequirement.Extension.Add(unitExtension);
-
-		// 		// add requirement to input list
-		// 		action.Input.Add(dataRequirement);
-		// 	}
-		// 	// add action to plan definition
-		// 	fhirPlanDefinition.Action.Add(action);
-		// }
+			// add action to plan definition
+			fhirPlanDefinition.Action.Add(fhirAction);
+		}
           
 		// serialize and return
-		var serializer = new FhirJsonSerializer();
-		return serializer.SerializeToString(fhirPlanDefinition);
+		var fhirJsonSerializer = new FhirJsonSerializer();
+		return fhirJsonSerializer.SerializeToString(fhirPlanDefinition);
 	}
 
-	private static Theme FhirPlanDefinitionToTheme(Hl7.Fhir.Model.PlanDefinition planDefinition) {
+	private static Theme FhirPlanDefinitionToTheme(Hl7.Fhir.Model.PlanDefinition fhirPlanDefinition) {
 		// create guideline model and add meta data
 		var theme = new Theme();
-		// guideline.Id = planDefinition.Id;
-		// guideline.Title = planDefinition.Title;
-		// guideline.Text = planDefinition.Description.ToString();
+		theme.Id = Guid.Parse(fhirPlanDefinition.Id);
+		theme.Name = fhirPlanDefinition.Title;
+		theme.Description = fhirPlanDefinition.Description.ToString();
         
-		// // read domain coding
-		// foreach (var typeCoding in planDefinition.Type.Coding) {
-		// 	if (typeCoding.System == "https://mibplatform.nl/fhir/ValueSet/domains") {
-		// 		guideline.DomainId = typeCoding.Code;
-		// 	}
-		// }
+		// read domain coding
+		foreach (var typeCoding in fhirPlanDefinition.Type.Coding) {
+			if (typeCoding.System == "https://mibplatform.nl/fhir/ValueSet/domains") {
+				theme.Category.Id = Guid.Parse(typeCoding.Code);
+			}
+		}
         
-		// foreach (var action in planDefinition.Action) {
-		// 	// create goal and meta data
-		// 	var goal = new Goal();
-		// 	goal.Title = action.Title;
-		// 	goal.Text = action.Description;
+		foreach (var fhirAction in fhirPlanDefinition.Action) {
+			// create goal and meta data
+			var activity = new Activity();
+			activity.Name = fhirAction.Title;
+			activity.Description = fhirAction.Description;
 
-		// 	foreach (var dataRequirement in action.Input) {
-		// 		// create data field
-		// 		var dataField = new GoalDataField();
+			// add goal to guideline
+			theme.Activities.Add(activity);
+		}
 
-		// 		// parse title, defaultValue and unit extensions
-		// 		foreach (var dataRequirementExtension in dataRequirement.Extension) {
-		// 			if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/title") {
-		// 				dataField.Title = dataRequirementExtension.Value.ToString();
-		// 			}
-		// 			if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/defaultValue") {
-		// 				dataField.DefaultValue = dataRequirementExtension.Value.ToString();
-		// 			}
-		// 			if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/unit") {
-		// 				dataField.DataType = dataRequirementExtension.Value.ToString();
-		// 			}
-		// 		}
-		// 		// add datafields to goal
-		// 		goal.DataFields.Add(dataField);
-		// 	}
-		// 	// add goal to guideline
-		// 	guideline.Goals.Add(goal);
-		// }
-		// return object
 		return theme;
 	}
 
