@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Common.Mappings;
 
 namespace Sonuts.Application.Categories.Queries;
@@ -13,17 +14,23 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
 
-	public GetCategoriesQueryHandler(IApplicationDbContext context, IMapper mapper)
+	private readonly ICategoryDao _dao;
+
+	public GetCategoriesQueryHandler(IApplicationDbContext context, IMapper mapper, ICategoryDao dao)
 	{
 		_context = context;
 		_mapper = mapper;
+		_dao = dao;
 	}
 
 	public async Task<ICollection<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
 	{
-		return _mapper.Map<ICollection<CategoryDto>>(await _context.Categories
+		var categories = await _context.Categories
 			.Include(category => category.Themes)
 			.Where(category => category.IsActive)
-			.ToListAsync(cancellationToken));
+			.ToListAsync(cancellationToken); 
+
+
+		return _mapper.Map<ICollection<CategoryDto>>(categories);
 	}
 }

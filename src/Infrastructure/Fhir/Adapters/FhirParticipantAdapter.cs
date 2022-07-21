@@ -1,5 +1,6 @@
 using Hl7.Fhir.Serialization;
-using Sonuts.Infrastructure.Fhir.Models;
+using Sonuts.Domain.Entities;
+using Sonuts.Domain.Enums;
 
 namespace Sonuts.Infrastructure.Fhir.Adapters;
 

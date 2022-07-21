@@ -1,8 +1,8 @@
 using System.Text;
+using Sonuts.Application.Common.Interfaces.Fhir;
+using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Common;
 using Sonuts.Infrastructure.Fhir.Adapters;
-using Sonuts.Infrastructure.Fhir.Interfaces;
-using Sonuts.Infrastructure.Fhir.Models;
 
 namespace Sonuts.Infrastructure.Fhir.Daos;
 

@@ -1,0 +1,67 @@
+{
+    "resourceType" : "ValueSet",
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/StructureDefinition/valueset-extensible",
+      "valueBoolean" : true
+    }],
+    "identifier" : [{
+        "system" : "https://mibplatform.nl/fhir/Identifiers/ValueSet",
+        "value" : "mib-categories"
+      }],
+    "url" : "https://mibplatform.nl/fhir/ValueSet/categories",
+    "name" : "MiB Domains",
+    "status" : "draft",
+    "experimental" : true,
+    "publisher" : "MiB Platform",
+    "description" : "Categories which will be used in the MiB platorm.",
+    "copyright" : "© 2022 DigitalLife Hogeschool van Amsterdam.",
+    "compose" : {
+      "include" : [{
+        "system" : "https://mibplatform.nl/fhir/ValueSet/categories",
+        "concept" : [
+        {
+          "code" : "fec90234-3163-4f3b-a723-fec8757e273d",
+          "display" : "Intake",
+          "extension" : [
+            {
+              "url" : "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive",
+              "valueBoolean" : true
+            },
+            {
+              "url" : "https://mibplatform.nl/fhir/Extentions/ValueSet/color",
+              "valueString" : "F6B042"
+            }
+          ]
+        },
+        {
+          "code" : "b9d08cc4-604f-4f80-9670-192ec29112ac",
+          "display" : "Voeding",
+          "extension" : [
+            {
+              "url" : "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive",
+              "valueBoolean" : true
+            },
+            {
+              "url" : "https://mibplatform.nl/fhir/Extentions/ValueSet/color",
+              "valueString" : "94BF31"
+            }
+          ]
+        },
+        {
+          "code" : "67a67279-9836-4406-ad8e-a0d0d0c71ec7",
+          "display" : "Bewegen",
+          "extension" : [
+            {
+              "url" : "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive",
+              "valueBoolean" : true
+            },
+            {
+              "url" : "https://mibplatform.nl/fhir/Extentions/ValueSet/color",
+              "valueString" : "3DA9DE"
+            }
+          ]
+        }
+      ]
+      }]
+    }
+  }

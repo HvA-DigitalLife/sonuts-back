@@ -2,8 +2,10 @@ using System.Text;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Sonuts.Infrastructure.Common;
-using Sonuts.Infrastructure.Fhir.Interfaces;
-using Sonuts.Infrastructure.Fhir.Models;
+using Sonuts.Application.Common.Interfaces.Fhir;
+using Sonuts.Domain.Entities;
+
+
 using Task = System.Threading.Tasks.Task;
 
 namespace Sonuts.Infrastructure.Fhir.Daos;
@@ -62,8 +64,8 @@ public class FhirParticipantDao : IParticipantDao
 	{
 		// create patient object
 		Patient fhirObject = new Patient();
-		var fhirName = new HumanName().WithGiven(participant.Pseudonym);
-		fhirObject.Name.Add(fhirName);
+		//var fhirName = new HumanName().WithGiven(participant.Pseudonym);
+		//fhirObject.Name.Add(fhirName);
 
 		// serialize
 		var serializer = new FhirJsonSerializer();
