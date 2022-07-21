@@ -11,19 +11,19 @@ namespace Sonuts.Application.Executions.Commands;
 
 public record CreateExecutionCommand : IRequest<ExecutionDto>
 {
-	public bool? IsDone { get; init; }
 	public Guid? IntentionId { get; init; }
+	public bool? IsDone { get; init; }
 }
 
 public class CreateExecutionCommandValidator : AbstractValidator<CreateExecutionCommand>
 {
 	public CreateExecutionCommandValidator()
 	{
-		RuleFor(query => query.IsDone)
-			.NotNull();
-
 		RuleFor(query => query.IntentionId)
 			.NotEmpty();
+
+		RuleFor(query => query.IsDone)
+			.NotNull();
 	}
 }
 
