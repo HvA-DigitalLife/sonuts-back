@@ -9,7 +9,8 @@ public class Question : BaseEntity
 	public string? Description { get; set; }
 	public int Order { get; set; } = default!;
 	public EnableWhen? EnableWhen { get; set; }
-	public ICollection<AnswerOption>? AnswerOptions { get; set; } = new List<AnswerOption>();
+	public List<AnswerOption>? AnswerOptions { get; set; } = new();
+	public List<RecommendationRule> RecommendationRules { get; set; } = new();
 }
 
 [Owned]
