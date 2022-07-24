@@ -47,20 +47,30 @@ public static class FhirThemeAdapter
 		fhirPlanDefinition.Description = new Hl7.Fhir.Model.Markdown(theme.Description);
 
 		// add domain type coding
-		var fhirTypeConcept = new Hl7.Fhir.Model.CodeableConcept();
+		var fhirTypeCodableConcept = new Hl7.Fhir.Model.CodeableConcept();
 		var fhirTypeCoding = new Hl7.Fhir.Model.Coding();
 
 		fhirTypeCoding.System = "https://mibplatform.nl/fhir/ValueSet/categories";
 		fhirTypeCoding.Code = theme.Category.Id.ToString();
 		fhirTypeCoding.Display = theme.Category.Name;
-		fhirTypeConcept.Coding.Add(fhirTypeCoding);
-		fhirPlanDefinition.Type = fhirTypeConcept;
+		fhirTypeCodableConcept.Coding.Add(fhirTypeCoding);
+		fhirPlanDefinition.Type = fhirTypeCodableConcept;
 
 		foreach (var activity in theme.Activities) {
 			// create action
 			var fhirAction = new Hl7.Fhir.Model.PlanDefinition.ActionComponent();
+			
+			// add identifyer
+			fhirAction.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/mib/identifier", Value = new Hl7.Fhir.Model.FhirString(activity.Id.ToString())
+			});
+
 			fhirAction.Title = activity.Name;
 			fhirAction.Description = activity.Description;
+
+			fhirAction.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video", Value = new Hl7.Fhir.Model.FhirString(activity.Video)
+			});
 
 			// add action to plan definition
 			fhirPlanDefinition.Action.Add(fhirAction);
@@ -88,6 +98,19 @@ public static class FhirThemeAdapter
 		foreach (var fhirAction in fhirPlanDefinition.Action) {
 			// create goal and meta data
 			var activity = new Activity();
+			
+			// parse identifier
+			foreach (var fhirActionExtension in fhirAction.Extension)
+			{
+				if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video") {
+					activity.Video = fhirActionExtension.Value.ToString();
+				}
+				if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/mib/identifier")
+				{
+					activity.Id = Guid.Parse(fhirActionExtension.Value.ToString());
+				}
+			}
+
 			activity.Name = fhirAction.Title;
 			activity.Description = fhirAction.Description;
 

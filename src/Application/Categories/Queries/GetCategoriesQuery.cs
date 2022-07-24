@@ -14,21 +14,28 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
 
+	private readonly IFhirOptions _fhirOptions;
+
 	private readonly ICategoryDao _dao;
 
-	public GetCategoriesQueryHandler(IApplicationDbContext context, IMapper mapper, ICategoryDao dao)
+	public GetCategoriesQueryHandler(IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, ICategoryDao dao)
 	{
 		_context = context;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
 		_dao = dao;
 	}
 
 	public async Task<ICollection<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
 	{
-		var categories = await _context.Categories
+		
+		var categories = _fhirOptions.Read ?  
+			await _dao.SelectAll():
+			await _context.Categories
 			.Include(category => category.Themes)
 			.Where(category => category.IsActive)
-			.ToListAsync(cancellationToken); 
+			.ToListAsync(cancellationToken);
+
 
 
 		return _mapper.Map<ICollection<CategoryDto>>(categories);

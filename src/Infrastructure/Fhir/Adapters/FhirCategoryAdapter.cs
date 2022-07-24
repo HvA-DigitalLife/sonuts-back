@@ -24,7 +24,20 @@ public static class FhirCategoryAdapter
 				foreach (var fhirInclude in fhirValueSetEntry.Compose.Include) {
 					foreach (var fhirConcept in fhirInclude.Concept) {
 						// todo: add color extension
-						Category category = new(){Id = Guid.Parse(fhirConcept.Code), Name = fhirConcept.Display, Color = "blue"};
+						Category category = new(){Id = Guid.Parse(fhirConcept.Code), Name = fhirConcept.Display};
+						foreach (var fhirConceptExtension in fhirConcept.Extension) {
+							if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive") {
+								if (fhirConceptExtension.Value is not null) {
+									category.IsActive = bool.Parse(fhirConceptExtension.Value.ToString());
+								} else {
+									category.IsActive = false;
+								}
+							}
+							if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive") {
+								category.IsActive = bool.Parse(fhirConceptExtension.Value.ToString());
+							}
+							
+						}
 						categoriesList.Add(category);
 					}
 				}
