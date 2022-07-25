@@ -1,9 +1,8 @@
 using Sonuts.Application.Common.Mappings;
-using Sonuts.Application.Dtos;
 using Sonuts.Application.Questionnaires;
 using Sonuts.Domain.Entities;
 
-namespace Sonuts.Application.Categories;
+namespace Sonuts.Application.Dtos;
 
 public class CategoryDto : IMapFrom<Category>
 {

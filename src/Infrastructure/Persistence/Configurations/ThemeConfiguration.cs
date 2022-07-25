@@ -10,10 +10,5 @@ public class ThemeConfiguration : IEntityTypeConfiguration<Theme>
 	{
 		builder.Property(content => content.FrequencyType)
 			.HasConversion<string>();
-
-		//TODO
-		/*builder.OwnsOne(activity => activity.QuestionDependency)
-			.Property(questionDependency => questionDependency.Operator)
-			.HasConversion<string>();*/
 	}
 }

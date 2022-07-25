@@ -1,12 +1,9 @@
-using AutoMapper;
-using Sonuts.Application.Categories;
-using Sonuts.Application.Common.Mappings;
-using Sonuts.Domain.Entities;
+using Sonuts.Application.Dtos;
 using Sonuts.Domain.Enums;
 
-namespace Sonuts.Application.Dtos;
+namespace Sonuts.Application.Themes.Models;
 
-public class ThemeDto : IMapFrom<Theme>
+public class RecommendedThemeVm
 {
 	public Guid Id { get; set; }
 	public string Name { get; set; } = default!;
@@ -16,6 +13,5 @@ public class ThemeDto : IMapFrom<Theme>
 	public int? FrequencyGoal { get; set; }
 	public string CurrentQuestion { get; set; } = default!;
 	public string GoalQuestion { get; set; } = default!;
-	public List<RecommendationRuleDto> RecommendationRules { get; set; } = new();
-	public List<ActivityDto> Activities { get; set; } = new();
+	public bool IsRecommended { get; set; }
 }
