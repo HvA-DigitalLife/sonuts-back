@@ -9,7 +9,6 @@ public class IntentionConfiguration : IEntityTypeConfiguration<Goal>
 	public void Configure(EntityTypeBuilder<Goal> builder)
 	{
 		builder.OwnsOne(intention => intention.Moment)
-			.Property(moment => moment.Type)
-			.HasConversion<string>();
+			.Property(moment => moment.Type);
 	}
 }

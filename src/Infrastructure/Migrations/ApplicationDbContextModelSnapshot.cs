@@ -166,7 +166,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("RecommendationRulesId");
 
-                    b.ToTable("QuestionRecommendationRule");
+                    b.ToTable("QuestionRecommendationRule", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Activity", b =>
@@ -198,7 +198,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.AnswerOption", b =>
@@ -221,7 +221,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("AnswerOptions");
+                    b.ToTable("AnswerOptions", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.CarePlan", b =>
@@ -243,7 +243,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("CarePlans");
+                    b.ToTable("CarePlans", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Category", b =>
@@ -271,7 +271,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Client", b =>
@@ -290,7 +290,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Coach", b =>
@@ -301,7 +301,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coaches");
+                    b.ToTable("Coaches", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Content", b =>
@@ -332,7 +332,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.HasIndex("Type")
                         .IsUnique();
 
-                    b.ToTable("Content");
+                    b.ToTable("Content", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Execution", b =>
@@ -351,7 +351,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("GoalId");
 
-                    b.ToTable("Executions");
+                    b.ToTable("Executions", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
@@ -378,7 +378,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("CarePlanId");
 
-                    b.ToTable("Goals");
+                    b.ToTable("Goals", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Image", b =>
@@ -389,7 +389,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Participant", b =>
@@ -418,7 +418,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Participants");
+                    b.ToTable("Participants", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Question", b =>
@@ -448,7 +448,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Questionnaire", b =>
@@ -467,7 +467,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questionnaires");
+                    b.ToTable("Questionnaires", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.QuestionnaireResponse", b =>
@@ -488,7 +488,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("QuestionnaireResponses");
+                    b.ToTable("QuestionnaireResponses", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.QuestionResponse", b =>
@@ -513,7 +513,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireResponseId");
 
-                    b.ToTable("QuestionResponses");
+                    b.ToTable("QuestionResponses", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.RecommendationRule", b =>
@@ -541,7 +541,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("RecommendationRule");
+                    b.ToTable("RecommendationRule", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.RefreshToken", b =>
@@ -565,7 +565,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Theme", b =>
@@ -609,7 +609,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ImageId");
 
-                    b.ToTable("Themes");
+                    b.ToTable("Themes", (string)null);
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.User", b =>
@@ -821,7 +821,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Moment", "Moment", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.Goal.Moment#Sonuts.Domain.Entities.Moment", "Moment", b1 =>
                         {
                             b1.Property<Guid>("GoalId")
                                 .HasColumnType("uuid");
@@ -838,7 +838,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                             b1.HasKey("GoalId");
 
-                            b1.ToTable("Goals");
+                            b1.ToTable("Goals", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("GoalId");
@@ -858,7 +858,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("QuestionnaireId");
 
-                    b.OwnsOne("Sonuts.Domain.Entities.EnableWhen", "EnableWhen", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.Question.EnableWhen#Sonuts.Domain.Entities.EnableWhen", "EnableWhen", b1 =>
                         {
                             b1.Property<Guid>("QuestionId")
                                 .HasColumnType("uuid");
@@ -873,7 +873,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                             b1.HasKey("QuestionId");
 
-                            b1.ToTable("Questions");
+                            b1.ToTable("Questions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("QuestionId");

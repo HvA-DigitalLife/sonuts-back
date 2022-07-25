@@ -12,8 +12,7 @@ public class ContentConfiguration : IEntityTypeConfiguration<Content>
 			.IsUnique();
 
 		builder.Property(content => content.Type)
-			.IsRequired()
-			.HasConversion<string>();
+			.IsRequired();
 
 		builder.Property(content => content.Title)
 			.HasMaxLength(200)
