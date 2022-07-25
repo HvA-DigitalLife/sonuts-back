@@ -20,18 +20,12 @@ internal static class ModelBuilderExtensions
 
 	internal static ModelBuilder AddEnumStringConversions(this ModelBuilder builder)
 	{
-		foreach (var entityType in builder.Model.GetEntityTypes())
+		foreach (var property in builder.Model.GetEntityTypes().SelectMany(type => type.GetProperties().Where(property => property.ClrType.IsEnum)))
 		{
-			foreach (var property in entityType.GetProperties())
-			{
-				if (property.ClrType.BaseType == typeof(Enum))
-				{
-					var type = typeof(EnumToStringConverter<>).MakeGenericType(property.ClrType);
-					var converter = Activator.CreateInstance(type, new ConverterMappingHints()) as ValueConverter;
+			var type = typeof(EnumToStringConverter<>).MakeGenericType(property.ClrType);
+			var converter = Activator.CreateInstance(type, new ConverterMappingHints()) as ValueConverter;
 
-					property.SetValueConverter(converter);
-				}
-			}
+			property.SetValueConverter(converter);
 		}
 
 		return builder;

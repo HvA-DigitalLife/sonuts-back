@@ -38,7 +38,7 @@ public class TokenService : ITokenService
 		{
 			Subject = new ClaimsIdentity(new Claim[]
 			{
-				new(ClaimTypes.Name, user.Id)
+				new(ClaimTypes.NameIdentifier, user.Id)
 			}),
 			Expires = _dateTime.Now.AddMilliseconds(_configuration.GetValue<int>("Authentication:TokenDuration")),
 			IssuedAt = _dateTime.Now,
