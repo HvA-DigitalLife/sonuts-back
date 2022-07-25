@@ -10,6 +10,6 @@ public class Theme : BaseEntity //http://hl7.org/fhir/R4/plandefinition.html#Pla
 	public int? FrequencyGoal { get; set; } = default!;
 	public string CurrentQuestion { get; set; } = default!;
 	public string GoalQuestion { get; set; } = default!;
-	//public EnableWhen? QuestionDependency { get; set; } //TODO: recommendation
-	public ICollection<Activity> Activities { get; set; } = new List<Activity>();
+	public List<RecommendationRule> RecommendationRules { get; set; } = new();
+	public List<Activity> Activities { get; set; } = new();
 }
