@@ -8,11 +8,7 @@ public class QuestionConfiguration : IEntityTypeConfiguration<Question>
 {
 	public void Configure(EntityTypeBuilder<Question> builder)
 	{
-		builder.Property(question => question.Type)
-			.HasConversion<string>();
-
 		builder.OwnsOne(activity => activity.EnableWhen)
-			.Property(questionDependency => questionDependency.Operator)
-			.HasConversion<string>();
+			.Property(questionDependency => questionDependency.Operator);
 	}
 }
