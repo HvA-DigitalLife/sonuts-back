@@ -13,27 +13,30 @@ namespace Sonuts.Application.Categories.Queries;
 
 public record GetCategoriesQuery : IRequest<ICollection<CategoriesWithRecommendationsVm>>;
 
-public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICollection<CategoriesWithRecommendationsVm>>
+internal class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICollection<CategoriesWithRecommendationsVm>>
 {
+	private readonly ICurrentUserService _currentUserService;
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
-	private readonly ICurrentUserService _currentUserService;
-
+	private readonly IFhirOptions _fhirOptions;
 	private readonly ICategoryDao _dao;
-
-	public GetCategoriesQueryHandler(IApplicationDbContext context, IMapper mapper, ICategoryDao dao, ICurrentUserService currentUserService)
+	
+	public GetCategoriesQueryHandler(ICurrentUserService currentUserService, IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, ICategoryDao dao)
 	{
+		_currentUserService = currentUserService;
 		_context = context;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
 		_dao = dao;
-		_currentUserService = currentUserService;
 	}
 
 	public async Task<ICollection<CategoriesWithRecommendationsVm>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
 	{
 		var userId = _currentUserService.AuthorizedUserId;
 
-		var categories = await _context.Categories
+		var categories = _fhirOptions.Read ?  
+			await _dao.SelectAll():
+			await _context.Categories
 			.Include(category => category.Themes)
 			.ThenInclude(theme => theme.RecommendationRules)
 			.ThenInclude(rule => rule.Questions)

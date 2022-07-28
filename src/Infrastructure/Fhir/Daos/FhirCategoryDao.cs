@@ -10,8 +10,12 @@ public class FhirCategoryDao : ICategoryDao
 {
 
 	private readonly IHttpClientFactory _httpClientFactory;
+	private readonly FhirThemeDao _fhirThemeDao;
 
-	public FhirCategoryDao(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
+	public FhirCategoryDao(IHttpClientFactory httpClientFactory) {
+		_httpClientFactory = httpClientFactory;
+		_fhirThemeDao = new FhirThemeDao(_httpClientFactory);
+	}
 
 
 
@@ -19,9 +23,13 @@ public class FhirCategoryDao : ICategoryDao
 	{
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var result = await client.GetStringAsync("ValueSet/?identifier=mib-categories");
+		var categories = FhirCategoryAdapter.FromJsonBundle(await client.GetStringAsync("ValueSet/?identifier=mib-categories"));
 
-		return FhirCategoryAdapter.FromJsonBundle(result);
+		foreach (var category in categories) {
+			category.Themes =  await _fhirThemeDao.SelectAllByCategoryId(category.Id.ToString());
+		}
+
+		return categories;
 	}
 
 	public async Task<Category> Insert(Category category)
