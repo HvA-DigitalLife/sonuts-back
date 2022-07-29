@@ -2,22 +2,43 @@ namespace Sonuts.Domain.Enums;
 
 public enum QuestionType
 {
-	//TODO: Remove old types
-	Activity,
-	Open,
-	Range,
-	//Integer,
-	//Decimal,
-	MultipleChoice,
-	MultipleOpen,
-	
-	// FHIR
+	/// <summary>
+	/// Yes/No
+	/// </summary>
 	Boolean,
-	Decimal,
-	Integer,
+
+	/// <summary>
+	/// Open
+	/// </summary>
 	String,
+
+	/// <summary>
+	/// Integer number
+	/// </summary>
+	Integer,
+
+	/// <summary>
+	/// Decimal number
+	/// </summary>
+	Decimal,
+
+	/// <summary>
+	/// Choose one
+	/// </summary>
 	Choice,
+
+	/// <summary>
+	/// Choose one including one open
+	/// </summary>
 	OpenChoice,
-	MultiChoice, //TODO: Check in fhir
-	MultiOpenChoice //TODO: Check in fhir
+
+	/// <summary>
+	/// Choose multiple
+	/// </summary>
+	MultiChoice,
+
+	/// <summary>
+	/// Choose multiple including one open
+	/// </summary>
+	MultiOpenChoice
 }
