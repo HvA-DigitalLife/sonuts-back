@@ -10,6 +10,7 @@ public class Question : BaseEntity
 	public int Order { get; set; } = default!;
 	public EnableWhen? EnableWhen { get; set; }
 	public List<AnswerOption>? AnswerOptions { get; set; } = new();
+	public string? OpenAnswerLabel { get; set; }
 	public List<RecommendationRule> RecommendationRules { get; set; } = new();
 }
 
