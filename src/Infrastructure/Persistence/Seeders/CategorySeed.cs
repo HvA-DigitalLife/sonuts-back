@@ -455,22 +455,9 @@ internal static class CategorySeed
 						new()
 						{
 							Id = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
-							Type = QuestionType.MultipleChoice,
-							Text = "Is er spraken van lopen van/naar werk?",
+							Type = QuestionType.Boolean,
+							Text = "Is er sprake van lopen van/naar werk?",
 							Order = 0,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new()
-								{
-									Value = "Nee",
-									Order = 0
-								},
-								new()
-								{
-									Value = "Ja",
-									Order = 1
-								}
-							}
 						},
 						new()
 						{
@@ -481,7 +468,7 @@ internal static class CategorySeed
 							{
 								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
-								Answer = "Ja"
+								Answer = "Yes"
 							}
 						},
 						new()
@@ -493,14 +480,14 @@ internal static class CategorySeed
 							{
 								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
-								Answer = "Ja"
+								Answer = "Yes"
 							}
 						},
 						new()
 						{
-							Type = QuestionType.MultipleChoice,
-							Text = "Hoeveel minuten gemiddeld per dag?",
-							Order = 2,
+							Type = QuestionType.Choice,
+							Text = "Hoe inspannend was deze activiteit?",
+							Order = 3,
 							AnswerOptions = new List<AnswerOption>
 							{
 								new()
@@ -523,8 +510,237 @@ internal static class CategorySeed
 							{
 								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
-								Answer = "Ja"
+								Answer = "Yes"
 							}
+						},
+						new()
+						{
+							Id = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+							Type = QuestionType.Boolean,
+							Text = "Is er sprake van fietsen van/naar werk?",
+							Order = 4,
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel dagen per week?",
+							Order = 5,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 6,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Choice,
+							Text = "Hoe inspannend was deze activiteit?",
+							Order = 7,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new()
+								{
+									Value = "Langzaam",
+									Order = 0
+								},
+								new()
+								{
+									Value = "Gemiddeld",
+									Order = 1
+								},
+								new()
+								{
+									Value = "Snel",
+									Order = 2
+								}
+							},
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Id = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
+							Type = QuestionType.Boolean,
+							Text = "Is er sprake van licht en matig inspannend werk?",
+							Description = "Zittend/staand werk, met af en toe lopen, zoals bureauwerk of lopend werk met lichte lasten.",
+							Order = 8
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 9,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Id = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
+							Type = QuestionType.Boolean,
+							Text = "Is er sprake van zwaar inspannend werk?",
+							Description = "Lopend werk, waarbij regelmatig zware dingen moeten worden opgetild?",
+							Order = 10
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 11,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Id = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+							Type = QuestionType.Boolean,
+							Text = "Is er sprake van licht en matig inspannend huishoudelijk werk?",
+							Description = "Denk aan staand werk, zoals koken, afwassen, strijken, kind eten geven/in bad doen en lopend werk, zoals stofzuigen, boodschappen doen.",
+							Order = 12
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel dagen per week?",
+							Order = 13,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 14,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Id = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+							Type = QuestionType.Boolean,
+							Text = " Is er sprake van zwaar inspannend huishoudelijk werk?",
+							Description = "Denk aan vloer schrobben, tapijt uitkloppen, met zware boodschappen lopen.",
+							Order = 15
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel dagen per week?",
+							Order = 16,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 17,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								Operator = Operator.Equals,
+								Answer = "Yes"
+							}
+						},
+						new()
+						{
+							Id = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+							Type = QuestionType.MultiChoice,
+							Text = "Welk van de onderstaande activiteiten doet u in uw vrije tijd?",
+							Order = 18,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Value = "Wandelen", Order = 0 },
+								new() { Value = "Fietsen", Order = 1 },
+								new() { Value = "Tuinieren", Order = 2 },
+								new() { Value = "Klussen/Doe het zelven", Order = 3 },
+								new() { Value = "Geen van deze activiteiten", Order = 4 }
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel dagen per week?",
+							Order = 19,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								Operator = Operator.NotEquals,
+								Answer = "Geen van deze activiteiten"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel minuten gemiddeld per dag?",
+							Order = 20,
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								Operator = Operator.NotEquals,
+								Answer = "Geen van deze activiteiten"
+							}
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe inspannend was deze activiteit?",
+							Order = 21,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Value = "Langzaam", Order = 0 },
+								new() { Value = "Gemiddeld", Order = 0 },
+								new() { Value = "Snel", Order = 0 }
+							},
+							EnableWhen = new EnableWhen
+							{
+								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								Operator = Operator.NotEquals,
+								Answer = "Geen van deze activiteiten"
+							}
+						},
+						//TODO: 8
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = " Op gemiddeld hoeveel dagen per week ben u, alles bijelkaar opgeteld, tenminste een halfuur bezig met fietsen, klussen, tuinieren of sporten?",
+							Order = 22
 						}
 					}
 				},

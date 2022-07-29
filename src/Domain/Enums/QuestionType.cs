@@ -8,9 +8,9 @@ public enum QuestionType
 	Boolean,
 
 	/// <summary>
-	/// Decimal number
+	/// Open
 	/// </summary>
-	Decimal,
+	String,
 
 	/// <summary>
 	/// Integer number
@@ -18,9 +18,9 @@ public enum QuestionType
 	Integer,
 
 	/// <summary>
-	/// Open
+	/// Decimal number
 	/// </summary>
-	String,
+	Decimal,
 
 	/// <summary>
 	/// Choose one

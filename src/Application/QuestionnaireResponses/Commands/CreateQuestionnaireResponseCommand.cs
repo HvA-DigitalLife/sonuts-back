@@ -66,13 +66,14 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 
 		return question.Type switch
 		{
-			QuestionType.Activity => false,
-			QuestionType.Open => !string.IsNullOrWhiteSpace(response.Answer),
-			QuestionType.Range => int.TryParse(response.Answer, out int rangeAnswer) && rangeAnswer is >= 0 and <= 10,
+			QuestionType.Boolean => !string.IsNullOrWhiteSpace(response.Answer) && (response.Answer.Equals("Yes") || response.Answer.Equals("No")),
+			QuestionType.String => !string.IsNullOrWhiteSpace(response.Answer),
 			QuestionType.Integer => int.TryParse(response.Answer, out int integerAnswer) && integerAnswer >= 0,
 			QuestionType.Decimal => TryParse(response.Answer, out decimal decimalAnswer) && decimalAnswer >= Zero,
-			QuestionType.MultipleChoice => question.AnswerOptions?.FirstOrDefault(option => option.Value.ToLower().Equals(response.Answer!.ToLower())) != null,
-			QuestionType.MultipleOpen => !string.IsNullOrWhiteSpace(response.Answer),
+			QuestionType.Choice => question.AnswerOptions?.FirstOrDefault(option => option.Value.ToLower().Equals(response.Answer!.ToLower())) != null,
+			QuestionType.OpenChoice => !string.IsNullOrWhiteSpace(response.Answer),
+			QuestionType.MultiChoice => true, //TODO
+			QuestionType.MultiOpenChoice => true, //TODO
 			_ => false
 		};
 	}
