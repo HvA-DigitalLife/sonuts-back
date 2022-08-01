@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Extensions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 
 namespace Sonuts.Application.Themes.Queries;
@@ -27,10 +28,15 @@ internal class GetThemeQueryHandler : IRequestHandler<GetThemeQuery, ThemeDto>
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
 
-	public GetThemeQueryHandler(IApplicationDbContext context, IMapper mapper)
+	private readonly IFhirOptions _fhirOptions;
+	private readonly IThemeDao _dao;
+
+	public GetThemeQueryHandler(IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, IThemeDao dao)
 	{
 		_context = context;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
+		_dao = dao;		
 	}
 
 	public async Task<ThemeDto> Handle(GetThemeQuery request, CancellationToken cancellationToken)

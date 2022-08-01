@@ -1,4 +1,5 @@
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
@@ -11,7 +12,7 @@ internal static class CategorySeed
 	private static readonly Guid VoedingId = new("a5997737-7f28-4f5f-92fc-6054023b1248");
 	private static readonly Guid BewegenId = new("33c34b68-0925-4af4-a612-11503c87208f");
 
-	internal static async Task Seed(IApplicationDbContext context)
+	internal static async Task Seed(IApplicationDbContext context, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao)
 	{
 		List<Category> categories = new();
 
@@ -849,8 +850,13 @@ internal static class CategorySeed
 
 		if (categories.Count > 0)
 		{
+			// create fhir valueset with categories
+			await categoryDao.Initialize(categories);	
 			foreach (var category in categories)
 			{
+				//await questionnaireDao.Insert(category.Questionnaire);
+
+				// add categories to entity framework database
 				context.Categories.Add(category);
 			}
 

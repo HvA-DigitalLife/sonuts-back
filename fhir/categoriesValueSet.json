@@ -9,7 +9,7 @@
         "value" : "mib-categories"
       }],
     "url" : "https://mibplatform.nl/fhir/ValueSet/categories",
-    "name" : "MiB Domains",
+    "name" : "MiB categories",
     "status" : "draft",
     "experimental" : true,
     "publisher" : "MiB Platform",
