@@ -854,7 +854,10 @@ internal static class CategorySeed
 			await categoryDao.Initialize(categories);	
 			foreach (var category in categories)
 			{
-				//await questionnaireDao.Insert(category.Questionnaire);
+				if (category.Questionnaire is not null) {
+					await questionnaireDao.Insert(category.Questionnaire);
+				}
+				
 
 				// add categories to entity framework database
 				context.Categories.Add(category);

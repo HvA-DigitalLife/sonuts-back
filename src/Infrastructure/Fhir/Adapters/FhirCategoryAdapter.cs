@@ -59,6 +59,12 @@ public static class FhirCategoryAdapter
 							category.Color = fhirConceptExtension.Value.ToString();
 						}
 					}
+					if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/questionnaireId") {
+						if (fhirConceptExtension.Value is not null) {
+							category.Questionnaire = new Questionnaire();
+							category.Questionnaire.Id = Guid.Parse(fhirConceptExtension.Value.ToString());
+						}
+					}
 					
 				}
 				categoriesList.Add(category);
@@ -114,6 +120,12 @@ public static class FhirCategoryAdapter
 				fhirConceptReference.Extension.Add(new Hl7.Fhir.Model.Extension { 
 					Url = "https://mibplatform.nl/fhir/Extentions/ValueSet/color", 
 					Value = new Hl7.Fhir.Model.FhirString(category.Color)
+				});
+			}
+			if (category.Questionnaire is not null) {
+				fhirConceptReference.Extension.Add(new Hl7.Fhir.Model.Extension { 
+					Url = "https://mibplatform.nl/fhir/Extentions/ValueSet/questionnaireId", 
+					Value = new Hl7.Fhir.Model.FhirString(category.Questionnaire.Id.ToString())
 				});
 			}
 			fhirConceptSet.Concept.Add(fhirConceptReference);
