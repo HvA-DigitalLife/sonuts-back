@@ -649,7 +649,7 @@ internal static class CategorySeed
 						},
 						new()
 						{
-							Id = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+							Id = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
 							Type = QuestionType.Boolean,
 							Text = " Is er sprake van zwaar inspannend huishoudelijk werk?",
 							Description = "Denk aan vloer schrobben, tapijt uitkloppen, met zware boodschappen lopen.",
@@ -662,7 +662,7 @@ internal static class CategorySeed
 							Order = 16,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								QuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -674,7 +674,7 @@ internal static class CategorySeed
 							Order = 17,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								QuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
