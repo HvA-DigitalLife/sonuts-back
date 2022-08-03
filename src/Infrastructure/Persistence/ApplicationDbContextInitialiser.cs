@@ -17,13 +17,16 @@ public class ApplicationDbContextInitialiser
 	private readonly ICategoryDao _categoryDao;
 	private readonly IQuestionnaireDao _questionnaireDao;
 
+	private readonly IThemeDao _themeDao;
+
 	public ApplicationDbContextInitialiser(
 		ILogger<ApplicationDbContextInitialiser> logger, 
 		ApplicationDbContext context, 
 		UserManager<User> userManager, 
 		RoleManager<IdentityRole> roleManager, 
 		ICategoryDao categoryDao,
-		IQuestionnaireDao questionnaireDao)
+		IQuestionnaireDao questionnaireDao,
+		IThemeDao themeDao)
 	{
 		_logger = logger;
 		_context = context;
@@ -31,6 +34,7 @@ public class ApplicationDbContextInitialiser
 		_roleManager = roleManager;
 		_categoryDao = categoryDao;
 		_questionnaireDao = questionnaireDao;
+		_themeDao = themeDao;
 	}
 
 	public async Task InitialiseAsync()
@@ -67,6 +71,6 @@ public class ApplicationDbContextInitialiser
 		await UserSeed.Seed(_userManager, _roleManager, _context);
 		await ClientSeed.Seed(_context);
 		await ContentSeed.Seed(_context);
-		await CategorySeed.Seed(_context, _categoryDao, _questionnaireDao);
+		await CategorySeed.Seed(_context, _categoryDao, _questionnaireDao, _themeDao);
 	}
 }

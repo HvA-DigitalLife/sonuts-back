@@ -43,6 +43,15 @@ public static class FhirThemeAdapter
 	{
 		// create plan definion and meta data
 		var fhirPlanDefinition= new Hl7.Fhir.Model.PlanDefinition();
+
+
+		// add identifier
+		fhirPlanDefinition.Identifier.Add(new Hl7.Fhir.Model.Identifier {
+				System = "https://mibplatform.nl/fhir/mib/identifier",
+				Value = theme.Id.ToString()
+		});
+
+
 		fhirPlanDefinition.Title = theme.Name;
 		fhirPlanDefinition.Description = new Hl7.Fhir.Model.Markdown(theme.Description);
 
@@ -63,6 +72,14 @@ public static class FhirThemeAdapter
 
 		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
 			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/frequencyGoal", Value = new Hl7.Fhir.Model.Integer(theme.FrequencyGoal)
+		});
+
+		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.CurrentQuestion)
+		});
+
+		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.GoalQuestion)
 		});
 
 		foreach (var activity in theme.Activities) {
@@ -93,14 +110,22 @@ public static class FhirThemeAdapter
 	private static Theme FhirPlanDefinitionToTheme(Hl7.Fhir.Model.PlanDefinition fhirPlanDefinition) {
 		// create guideline model and add meta data
 		var theme = new Theme();
-		theme.Id = Guid.Parse(fhirPlanDefinition.Id);
 		theme.Name = fhirPlanDefinition.Title;
 		theme.Description = fhirPlanDefinition.Description.ToString();
         
+
+		foreach (var fhirId in fhirPlanDefinition.Identifier) {
+			if (fhirId.System == "https://mibplatform.nl/fhir/mib/identifier") {
+				theme.Id =  Guid.Parse(fhirId.Value);
+			}
+		}
+
 		// read domain coding
 		foreach (var typeCoding in fhirPlanDefinition.Type.Coding) {
 			if (typeCoding.System == "https://mibplatform.nl/fhir/ValueSet/domains") {
-				theme.Category.Id = Guid.Parse(typeCoding.Code);
+				theme.Category = new Category {
+					Id = Guid.Parse(typeCoding.Code)
+				};
 			}
 		}
 
@@ -112,12 +137,23 @@ public static class FhirThemeAdapter
 				if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/frequencyGoal") {
 					theme.FrequencyGoal = int.Parse(fhirPlanDefinitionExtension.Value.ToString());
 				}
+				if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentQuestion") {
+					theme.CurrentQuestion = fhirPlanDefinitionExtension.Value.ToString();
+				}
+				if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalQuestion") {
+					theme.GoalQuestion = fhirPlanDefinitionExtension.Value.ToString();
+				}
 			}
+
+
         
 		foreach (var fhirAction in fhirPlanDefinition.Action) {
 			// create goal and meta data
 			var activity = new Activity();
 			
+			activity.Name = fhirAction.Title;
+			activity.Description = fhirAction.Description;
+
 			// parse identifier
 			foreach (var fhirActionExtension in fhirAction.Extension)
 			{
@@ -129,9 +165,6 @@ public static class FhirThemeAdapter
 					activity.Id = Guid.Parse(fhirActionExtension.Value.ToString());
 				}
 			}
-
-			activity.Name = fhirAction.Title;
-			activity.Description = fhirAction.Description;
 
 			// add goal to guideline
 			theme.Activities.Add(activity);
