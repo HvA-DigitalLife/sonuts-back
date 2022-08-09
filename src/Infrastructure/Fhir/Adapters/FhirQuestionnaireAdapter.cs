@@ -27,26 +27,31 @@ public static class FhirQuestionnaireAdapter
 		}
 		
 
-
-		// to-do adding question dependency tag
-
-
-
-		
-
 		// loop trough fhir questions instance to questionnaire
 		foreach (var fhirItem in fhirQuestionnaire.Item)
 		{
-			var multi = true;
 			var question = new Question
 			{
 				Id = Guid.Parse(fhirItem.LinkId),
 				Text = fhirItem.Text
 			};
 
-			foreach (var fhirEnableWhen in fhirItem.EnableWhen) {
-				question.EnableWhen = new EnableWhen();
-	
+			foreach (var fhirItemExtension in fhirItem.Extension)
+			{
+				
+				if ((fhirItemExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answerOrder"))
+				{
+					question.Order = int.Parse(fhirItemExtension.Value.ToString());
+				}
+			}
+
+			foreach (var fhirEnableWhen in fhirItem.EnableWhen) {	
+
+				question.EnableWhen = new EnableWhen {
+					QuestionId = Guid.Parse(fhirEnableWhen.Question),
+					Answer = fhirEnableWhen.Answer.ToString()
+				};
+
 				question.EnableWhen.Operator = fhirEnableWhen.Operator.Value switch
 				{
 					// set question type
@@ -58,35 +63,12 @@ public static class FhirQuestionnaireAdapter
 					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.NotEqual => Operator.NotEquals,
 					_ => question.EnableWhen.Operator
 				};
-						
-
-				question.EnableWhen = new EnableWhen {
-					QuestionId = Guid.Parse(fhirEnableWhen.Question),
-					//Operator
-					Answer = fhirEnableWhen.Answer.ToString()
-				};
 			}
+
 
 			// if we have a multiple choice option we need to loop trough all the options
 			if ((fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice) || (fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice))
 			{
-
-				foreach (var fhirItemExtension in fhirItem.Extension)
-				{
-					
-					// to be replaced by question dependency?
-
-					// // check if we have the openLabel extension (for openchoice question answers)
-					// if (itemExtension.Url == "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel")
-					// {
-					// 	question.Text = itemExtension.Value.ToString()!; //What is OpenLable
-					// }
-					// check if we have the single option flag set
-					if ((fhirItemExtension.Url == "http://hl7.org/fhir/StructureDefinition/questionnaire-optionExclusive") && (fhirItemExtension.Value.Equals(true)))
-					{
-						multi = false;
-					}
-				}
 
 				question.Type = fhirItem.Type switch
 				{
@@ -108,18 +90,10 @@ public static class FhirQuestionnaireAdapter
 					foreach (var fhirAnswerOptionExtension in fhirAnswerOption.Extension)
 					{
 						
-						// to be replaced by question dependency?
-
-						// // check if we have the openLabel extension (for openchoice question answers)
-						// if (itemExtension.Url == "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel")
-						// {
-						// 	question.Text = itemExtension.Value.ToString()!; //What is OpenLable
-						// }
-
 
 
 						// check if we have the single option flag set
-						if (fhirAnswerOptionExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order")
+						if (fhirAnswerOptionExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answerOptionOrder")
 						{
 							// @thomaslem how best to do this?
 							// i want to convert from   (Hl7.Fhir.Model.Integer) answerOptionExtension.Value  to int
@@ -132,6 +106,7 @@ public static class FhirQuestionnaireAdapter
 				}
 
 			}
+
 			// add question to questionnaire
 			questionnaire.Questions.Add(question);
 
@@ -166,8 +141,11 @@ public static class FhirQuestionnaireAdapter
 				Text = question.Text
 			};
 
-
-			// todo add operator conversion
+			// add order
+			fhirItem.Extension.Add(new Hl7.Fhir.Model.Extension() { 
+				Url = "https://mibplatform.nl/fhir/extensions/Questionnaire/answerOrder",
+				Value = new Hl7.Fhir.Model.Integer(question.Order)
+			});
 
 			if (question.EnableWhen is not null) {
 				
@@ -190,10 +168,6 @@ public static class FhirQuestionnaireAdapter
 			}
 
 
-
-
-
-
 			// string based question
 			if (question.Type == QuestionType.String)
 			{
@@ -201,19 +175,10 @@ public static class FhirQuestionnaireAdapter
 				fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.String;
 			}
 
-/*
-
-
-TODO, add extra question types
-
-*/
-
 
 			// create multiple choices for question item object
 			if (question.Type is QuestionType.MultiOpenChoice or QuestionType.MultiChoice or QuestionType.Choice or QuestionType.OpenChoice)
 			{
-
-
 
 
 				if (question.Type is QuestionType.Choice or QuestionType.MultiChoice)
@@ -223,19 +188,6 @@ TODO, add extra question types
 				if (question.Type is QuestionType.OpenChoice or QuestionType.MultiOpenChoice)
 				{
 					fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice;
-					// add open-choice label extension when open-choice is selected
-					
-					
-					// to be replaced by question dependency?
-
-					// var answerOptionTypeExtension = new Hl7.Fhir.Model.Extension
-					// 	{
-					// 		Url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-openLabel",
-					// 		Value = new Hl7.Fhir.Model.FhirString(question.Text) //.OpenLabel)
-					// 	};
-					// item.Extension.Add(answerOptionTypeExtension);
-
-
 				}
 				
 				if (question.Type is QuestionType.Choice or QuestionType.OpenChoice)
@@ -263,14 +215,11 @@ TODO, add extra question types
 						fhirAnswerOption.Value = fhirAnswerOptionCoding;
 						
 
-						// answerOrder extension
-						// to-do: check if there is something like this already within SDC
-						// title extension
-						var fhirAnswerOptionOrderExtension = new Hl7.Fhir.Model.Extension() { 
-							Url = "https://mibplatform.nl/fhir/extensions/Questionnaire/answer-option-order",
+						// answer option order
+						fhirAnswerOption.Extension.Add(new Hl7.Fhir.Model.Extension() { 
+							Url = "https://mibplatform.nl/fhir/extensions/Questionnaire/answerOptionOrder",
 							Value = new Hl7.Fhir.Model.Integer(answerOption.Order)
-						};
-						fhirAnswerOption.Extension.Add(fhirAnswerOptionOrderExtension);
+						});
 
 
 						// add answeroptions to answer fhir item

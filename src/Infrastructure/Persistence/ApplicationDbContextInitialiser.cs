@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Persistence.Seeders;
 
@@ -13,12 +14,27 @@ public class ApplicationDbContextInitialiser
 	private readonly UserManager<User> _userManager;
 	private readonly RoleManager<IdentityRole> _roleManager;
 
-	public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+	private readonly ICategoryDao _categoryDao;
+	private readonly IQuestionnaireDao _questionnaireDao;
+
+	private readonly IThemeDao _themeDao;
+
+	public ApplicationDbContextInitialiser(
+		ILogger<ApplicationDbContextInitialiser> logger, 
+		ApplicationDbContext context, 
+		UserManager<User> userManager, 
+		RoleManager<IdentityRole> roleManager, 
+		ICategoryDao categoryDao,
+		IQuestionnaireDao questionnaireDao,
+		IThemeDao themeDao)
 	{
 		_logger = logger;
 		_context = context;
 		_userManager = userManager;
 		_roleManager = roleManager;
+		_categoryDao = categoryDao;
+		_questionnaireDao = questionnaireDao;
+		_themeDao = themeDao;
 	}
 
 	public async Task InitialiseAsync()
@@ -55,6 +71,6 @@ public class ApplicationDbContextInitialiser
 		await UserSeed.Seed(_userManager, _roleManager, _context);
 		await ClientSeed.Seed(_context);
 		await ContentSeed.Seed(_context);
-		await CategorySeed.Seed(_context);
+		await CategorySeed.Seed(_context, _categoryDao, _questionnaireDao, _themeDao);
 	}
 }

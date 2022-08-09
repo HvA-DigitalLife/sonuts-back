@@ -37,15 +37,4 @@ public class FhirQuestionnaireDao : IQuestionnaireDao
 		return FhirQuestionnaireAdapter.FromJson(responseContent);
 	}
 
-	public async Task<bool> Update(Questionnaire questionnaire)
-	{
-		await Task.Delay(1);
-		return true;
-	}
-
-	public async Task<bool> Delete(int id)
-	{
-		await Task.Delay(1);
-		return true;
-	}
 }

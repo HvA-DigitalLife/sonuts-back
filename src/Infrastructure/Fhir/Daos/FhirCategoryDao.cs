@@ -23,7 +23,7 @@ public class FhirCategoryDao : ICategoryDao
 	{
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var categories = FhirCategoryAdapter.FromJsonBundle(await client.GetStringAsync("ValueSet/?identifier=mib-categories"));
+		var categories = FhirCategoryAdapter.FromJsonBundleToList(await client.GetStringAsync("ValueSet/?identifier=mib-categories"));
 
 		foreach (var category in categories) {
 			category.Themes =  await _fhirThemeDao.SelectAllByCategoryId(category.Id.ToString());
@@ -32,21 +32,18 @@ public class FhirCategoryDao : ICategoryDao
 		return categories;
 	}
 
-	public async Task<Category> Insert(Category category)
+	public async Task<List<Category>> Initialize(List<Category> categories)
 	{
-		await Task.Delay(1);
-		return new Category();
+		// load and parse domains instance
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
+		var response = await client.PostAsync("ValueSet", new StringContent(FhirCategoryAdapter.ToJson(categories), Encoding.UTF8, "application/json"));
+
+		var responseContent = await response.Content.ReadAsStringAsync();
+
+		Console.WriteLine(responseContent);
+
+		// todo make non bundle version
+		return FhirCategoryAdapter.FromJsonToList(responseContent);
 	}
 
-	public async Task<bool> Update(Category category)
-	{
-		await Task.Delay(1);
-		return true;
-	}
-
-	public async Task<bool> Delete(int categoryId)
-	{
-		await Task.Delay(1);
-		return true;
-	}
 }
