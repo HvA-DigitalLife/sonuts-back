@@ -12,7 +12,7 @@ internal static class CategorySeed
 	private static readonly Guid VoedingId = new("a5997737-7f28-4f5f-92fc-6054023b1248");
 	private static readonly Guid BewegenId = new("33c34b68-0925-4af4-a612-11503c87208f");
 
-	internal static async Task Seed(IApplicationDbContext context, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao)
+	internal static async Task Seed(IApplicationDbContext context, IFhirOptions fhirOptions, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao)
 	{
 		List<Category> categories = new();
 
@@ -847,33 +847,29 @@ internal static class CategorySeed
 					}
 				}
 			});
-
-		// if there are categories
+		
 		if (categories.Count > 0)
 		{
-			// create fhir valueset containing all categories
-			await categoryDao.Initialize(categories);
+			context.Categories.AddRange(categories);
 
-			//	Loop throug all categories
-			foreach (var category in categories)
+			if (fhirOptions.Write)
 			{
+				// Create fhir value set containing all categories
+				await categoryDao.Initialize(categories);
 
-				// add categories to entity framework database
-				context.Categories.Add(category);
-
-				// add category questionnaire to FHIR database if existent
-				if (category.Questionnaire is not null) 
+				foreach (var category in categories)
 				{
+					// Add category questionnaire to FHIR database
 					await questionnaireDao.Insert(category.Questionnaire);
-				}
-
-				// Loop trough all themes in category
-				foreach (var theme in category.Themes)
-				{
-					// add theme to FHIR database
-					await themeDao.Insert(theme);
+					
+					foreach (var theme in category.Themes)
+					{
+						// Add theme to FHIR database
+						await themeDao.Insert(theme);
+					}
 				}
 			}
+
 			await context.SaveChangesAsync();
 		}
 	}
