@@ -106,9 +106,9 @@ public class CreateGoalsCommandHandler : IRequestHandler<CreateGoalsCommand, Goa
 				//OnFriday = request.Moment.OnFriday!.Value,
 				//OnSaturday = request.Moment.OnSaturday!.Value,
 				//OnSunday = request.Moment.OnSunday!.Value,
-				Time = request.Moment!.Time!.Value,
-				Type = request.Moment.Type!.Value,
-				EventName = request.Moment.EventName
+				//Time = request.Moment!.Time!.Value,
+				//Type = request.Moment.Type!.Value,
+				//EventName = request.Moment.EventName
 			},
 			Reminder = request.Reminder,
 			//Participant = await _context.Participants.FirstOrDefaultAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken) ??

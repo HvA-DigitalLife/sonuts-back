@@ -15,7 +15,8 @@ public class Goal : BaseEntity
 [Owned]
 public class Moment
 {
-	public DateTime Time { get; set; } = default!;
+	public DayOfWeek Day { get; set; } = default!;
+	public TimeOnly? Time { get; set; }
 	public MomentType Type { get; set; } = default!;
 	public string? EventName { get; set; }
 }

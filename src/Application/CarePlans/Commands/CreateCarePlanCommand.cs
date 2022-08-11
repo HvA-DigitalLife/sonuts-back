@@ -25,7 +25,8 @@ public class CreateGoalsCommand
 
 public class CreateMomentCommand
 {
-	public DateTime? Time { get; init; }
+	public DayOfWeek? Day { get; init; }
+	public TimeOnly? Time { get; init; }
 	public MomentType? Type { get; init; }
 	public string? EventName { get; init; }
 }
@@ -65,9 +66,8 @@ internal class CreateMomentCommandValidator : AbstractValidator<CreateMomentComm
 {
 	public CreateMomentCommandValidator()
 	{
-		RuleFor(command => command.Time)
-			.NotNull()
-			.GreaterThan(DateTime.Now);
+		RuleFor(command => command.Day)
+			.NotNull();
 
 		RuleFor(command => command.Type)
 			.NotNull();
@@ -76,6 +76,18 @@ internal class CreateMomentCommandValidator : AbstractValidator<CreateMomentComm
 		{
 			RuleFor(command => command.EventName)
 				.NotEmpty();
+
+			When(command => command.Type == MomentType.Specific, delegate
+			{
+				RuleFor(command => command.Time)
+					.NotNull();
+			});
+
+			When(command => command.Type != MomentType.Specific, delegate
+			{
+				RuleFor(command => command.EventName)
+					.NotNull();
+			});
 		});
 	}
 }
