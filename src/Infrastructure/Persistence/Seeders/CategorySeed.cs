@@ -372,67 +372,84 @@ internal static class CategorySeed
 						FrequencyGoal = 1400,
 						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
 						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
-						Activities = new List<Domain.Entities.Activity>
+						Activities = new List<Activity>
 						{
 							new()
 							{
-								Name = "Avondeten",
-								Description = "Eet groente bij het avond eten",
-								Image = new Image()
-							},
-							new()
-							{
-								Name = "Lunch",
-								Description = "Eet groente bij de lunch",
-								Image = new Image()
-							},
-							new()
-							{
-								Name = "Ontbijt",
-								Description = "Eet groente bij het ontbijt",
-								Image = new Image()
-							},
-							new()
-							{
-								Name = "Snack",
-								Description = "Eet groente als snack",
+								Name = "Groenten",
+								Description = "Een portie groente is 100 gram.",
 								Image = new Image()
 							}
 						}
 					},
 					new()
 					{
-						Name = "Fruib",
-						Description = "Dagelijks ten minste 2 stuks fruit",
+						Name = "Peulvruchten",
+						Description = "Dagelijks ten minste 2 stuks peulvruchten",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1400,
 						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
 						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
-						Activities = new List<Domain.Entities.Activity>
+						Activities = new List<Activity>
 						{
 							new()
 							{
-								Name = "Avondeten",
-								Description = "Eet fruit bij het avond eten",
+								Name = "Peulvruchten",
 								Image = new Image()
-							},
+							}
+						}
+					},
+					new()
+					{
+						Name = "Alcohol",
+						Description = "Niet te veel alcohol",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Amount,
+						FrequencyGoal = 1400,
+						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						Activities = new List<Activity>
+						{
 							new()
 							{
-								Name = "Lunch",
-								Description = "Eet fruit bij de lunch",
+								Name = "Alcohol",
 								Image = new Image()
-							},
+							}
+						}
+					},
+					new()
+					{
+						Name = "Vis",
+						Description = "Eet elke week een keer vis",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Amount,
+						FrequencyGoal = 1400,
+						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						Activities = new List<Activity>
+						{
 							new()
 							{
-								Name = "Ontbijt",
-								Description = "Eet fruit bij het ontbijt",
+								Name = "Vis",
 								Image = new Image()
-							},
+							}
+						}
+					},
+					new()
+					{
+						Name = "Onverzadigde vetten",
+						Description = "Eet genoeg gezonde vetten",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Amount,
+						FrequencyGoal = 1400,
+						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						Activities = new List<Activity>
+						{
 							new()
 							{
-								Name = "Snack",
-								Description = "Eet fruit als snack",
+								Name = "Onverzadigde vetten",
 								Image = new Image()
 							}
 						}
@@ -749,14 +766,14 @@ internal static class CategorySeed
 				{
 					new()
 					{
-						Name = "Intensief bewegen",
+						Name = "Balans",
 						Description = "Minimaal 150 minuten per week bewegen",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
 						CurrentQuestion = "Welke beweging doe je al?",
 						GoalQuestion = "Welke beweging wil je nog meer doen?",
-						Activities = new List<Domain.Entities.Activity>
+						Activities = new List<Activity>
 						{
 							new()
 							{
@@ -798,14 +815,14 @@ internal static class CategorySeed
 					},
 					new()
 					{
-						Name = "Crossfit",
+						Name = "Bewegen",
 						Description = "Minimaal 150 minuten per week bewegen",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
 						CurrentQuestion = "Welke beweging doe je al?",
 						GoalQuestion = "Welke beweging wil je nog meer doen?",
-						Activities = new List<Domain.Entities.Activity>
+						Activities = new List<Activity>
 						{
 							new()
 							{
@@ -841,6 +858,91 @@ internal static class CategorySeed
 							{
 								Name = "Dadminton",
 								Description = "Minuten badminton",
+								Image = new Image()
+							}
+						}
+					},
+					new()
+					{
+						Name = "Spierkracht",
+						Description = "Minimaal 150 minuten per week bewegen",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Minutes,
+						FrequencyGoal = 150,
+						CurrentQuestion = "Welke beweging doe je al?",
+						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						Activities = new List<Activity>
+						{
+							new()
+							{
+								Name = "Geen",
+								Description = "Geen beweging",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Fietsen",
+								Description = "Minuten fietsen",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Wandelen",
+								Description = "Minuten wandelen",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Gymnastiek",
+								Description = "Minuten gymnastiek",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Zwemmen",
+								Description = "Minuten zwemmen",
+								Image = new Image()
+							},
+							new()
+							{
+								Name = "Dadminton",
+								Description = "Minuten badminton",
+								Image = new Image()
+							}
+						}
+					},
+					new()
+					{
+						Name = "Botsterkte",
+						Description = "Sterke botten",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Minutes,
+						FrequencyGoal = 150,
+						CurrentQuestion = "Welke beweging doe je al?",
+						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						Activities = new List<Activity>
+						{
+							new()
+							{
+								Name = "Botsterkte",
+								Image = new Image()
+							}
+						}
+					},
+					new()
+					{
+						Name = "Stilzitten",
+						Description = "Stilzitten",
+						Image = new Image(),
+						FrequencyType = FrequencyType.Minutes,
+						FrequencyGoal = 150,
+						CurrentQuestion = "Welke beweging doe je al?",
+						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						Activities = new List<Activity>
+						{
+							new()
+							{
+								Name = "Stilzitten",
 								Image = new Image()
 							}
 						}
