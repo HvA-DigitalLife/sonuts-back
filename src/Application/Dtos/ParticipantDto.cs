@@ -12,5 +12,4 @@ public class ParticipantDto : IMapFrom<Participant>
 	public decimal? Height { get; set; }
 	public string? MaritalStatus { get; set; }
 	public bool IsActive { get; set; } = true;
-	public ICollection<GoalDto> Goals { get; set; } = new List<GoalDto>();
 }

@@ -10,6 +10,5 @@ public class GoalDto : IMapFrom<Goal>
 	public int FrequencyAmount { get; set; } = default!;
 	public MomentDto Moment { get; set; } = default!;
 	public TimeOnly? Reminder { get; set; }
-	public CarePlanDto CarePlan { get; set; } = default!;
 	public ICollection<ExecutionDto> Executions { get; set; } = new List<ExecutionDto>();
 }

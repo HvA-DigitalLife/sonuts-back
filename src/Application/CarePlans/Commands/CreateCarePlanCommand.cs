@@ -120,19 +120,19 @@ internal class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComm
 				FrequencyAmount = goal.FrequencyAmount!.Value,
 				Moment = new Moment
 				{
-					Time = goal.Moment!.Time!.Value,
+					Time = goal.Moment!.Time,
 					Type = goal.Moment!.Type!.Value,
 					EventName = goal.Moment!.EventName
 				},
 				Reminder = goal.Reminder
 			});
 		}
-
+		
 		var carePlan = new CarePlan
 		{
 			Start = start,
 			End = start.AddMonths(2),
-			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(_currentUserService.AuthorizedUserId), cancellationToken),
+			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken),
 			Goals = goals
 		};
 
