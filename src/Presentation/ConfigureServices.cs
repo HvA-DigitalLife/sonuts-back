@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Infrastructure.Persistence;
+using Sonuts.Presentation.Common.Converters;
 using Sonuts.Presentation.Filters;
 using Sonuts.Presentation.Services;
 
@@ -36,6 +37,8 @@ public static class ConfigureServices
 				{
 					options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 					options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+					options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+					options.JsonSerializerOptions.Converters.Add(new TimeOnlyConverter());
 				});
 
 		services.AddRazorPages();

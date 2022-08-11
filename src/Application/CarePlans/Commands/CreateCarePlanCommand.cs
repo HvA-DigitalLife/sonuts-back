@@ -36,6 +36,7 @@ internal class CreateCarePlanCommandValidator : AbstractValidator<CreateCarePlan
 	public CreateCarePlanCommandValidator()
 	{
 		RuleFor(command => command.Goals)
+			.Cascade(CascadeMode.Stop)
 			.NotEmpty();
 
 		RuleForEach(command => command.Goals)
