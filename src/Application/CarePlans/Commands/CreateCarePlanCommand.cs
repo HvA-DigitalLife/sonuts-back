@@ -120,6 +120,7 @@ internal class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComm
 				FrequencyAmount = goal.FrequencyAmount!.Value,
 				Moment = new Moment
 				{
+					Day = goal.Moment!.Day!.Value,
 					Time = goal.Moment!.Time,
 					Type = goal.Moment!.Type!.Value,
 					EventName = goal.Moment!.EventName
