@@ -42,13 +42,15 @@ public class CreateExecutionCommandHandler : IRequestHandler<CreateExecutionComm
 
 	public async Task<ExecutionDto> Handle(CreateExecutionCommand request, CancellationToken cancellationToken)
 	{
-		var carePlan = await _context.CarePlans.FirstOrDefaultAsync(cp => cp.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken)
-			?? throw new NotFoundException(nameof(Goal), request.GoalId!.Value);
+		var carePlan = await _context.CarePlans
+			               .Include(plan => plan.Goals)
+			               .FirstOrDefaultAsync(cp => cp.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken)
+		               ?? throw new NotFoundException(nameof(Goal), request.GoalId!.Value);
 
 		if (!carePlan.Goals.Any(g => g.Id.Equals(request.GoalId!.Value)))
 			throw new NotFoundException(nameof(Goal), request.GoalId!.Value);
 
-		var goal = await _context.Goals.Include(g => g.Executions).FirstOrDefaultAsync(content => content.Id.Equals(request.GoalId!.Value), cancellationToken) ??
+		var goal = await _context.Goals.Include(g => g.Executions).FirstOrDefaultAsync(g => g.Id.Equals(request.GoalId!.Value), cancellationToken) ??
 		           throw new NotFoundException(nameof(Goal), request.GoalId!.Value);
 
 		var currentExecution = goal.Executions.FirstOrDefault(e => e.Goal.Id.Equals(goal.Id) && e.CreatedAt.Date.Equals(DateTime.Now.Date)); //TODO Check week number instead of day
