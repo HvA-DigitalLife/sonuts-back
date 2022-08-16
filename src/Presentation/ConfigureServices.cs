@@ -36,6 +36,7 @@ public static class ConfigureServices
 				.AddFluentValidation(validationConfiguration => validationConfiguration.AutomaticValidationEnabled = false)
 				.AddJsonOptions(options =>
 				{
+					options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 					options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 					options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 					options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
