@@ -54,6 +54,9 @@ public class CreateExecutionCommandHandler : IRequestHandler<CreateExecutionComm
 		           throw new NotFoundException(nameof(Goal), request.GoalId!.Value);
 
 		var currentExecution = goal.Executions.FirstOrDefault(e => e.Goal.Id.Equals(goal.Id) && e.CreatedAt.Date.Equals(DateTime.Now.Date)); //TODO Check week number instead of day
+		
+		if (currentExecution is not null)
+			currentExecution.IsDone = request.IsDone!.Value;
 
 		var entity = currentExecution ?? new Execution
 		{
