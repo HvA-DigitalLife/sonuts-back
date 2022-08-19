@@ -42,7 +42,7 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 	{
 		var category = await _context.Categories
 			.Include(category => category.Questionnaire.Questions.OrderBy(question => question.Order))
-			.ThenInclude(question => (question.AnswerOptions ?? new List<AnswerOption>()).OrderBy(answerOption => answerOption.Order))
+			.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
 			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId!.Value), cancellationToken);
 
 		if (category == null)
