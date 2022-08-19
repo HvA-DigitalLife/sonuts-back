@@ -9,7 +9,7 @@ namespace Sonuts.Application.Goals.Queries;
 
 public record GetGoalsQuery : IRequest<ICollection<GoalDto>>;
 
-public class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollection<GoalDto>>
+internal class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollection<GoalDto>>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;

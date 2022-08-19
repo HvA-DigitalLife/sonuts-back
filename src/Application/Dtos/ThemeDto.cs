@@ -9,6 +9,7 @@ public class ThemeDto : IMapFrom<Theme>
 	public Guid Id { get; set; }
 	public string Name { get; set; } = default!;
 	public string Description { get; set; } = default!;
+	public CategoryDto Category { get; set; } = default!;
 	public ImageDto Image { get; set; } = default!;
 	public FrequencyType FrequencyType { get; set; }
 	public int? FrequencyGoal { get; set; }
