@@ -767,10 +767,9 @@ internal static class CategorySeed
 					new()
 					{
 						Name = "Balans",
-						Description = "Minimaal 150 minuten per week bewegen",
+						Description = "Aanbeveling: minimaal twee keer per week",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
-						FrequencyGoal = 150,
 						CurrentFrequencyQuestion = "Welke beweging doe je al?",
 						GoalFrequencyQuestion = "Welke beweging wil je nog meer doen?",
 						Activities = new List<Activity>
