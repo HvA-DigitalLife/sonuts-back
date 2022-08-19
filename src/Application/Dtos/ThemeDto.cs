@@ -1,5 +1,3 @@
-using AutoMapper;
-using Sonuts.Application.Categories;
 using Sonuts.Application.Common.Mappings;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
