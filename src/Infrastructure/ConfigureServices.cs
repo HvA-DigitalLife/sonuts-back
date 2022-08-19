@@ -26,27 +26,19 @@ public static class ConfigureServices
 	{
 		services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 
-		if (configuration.GetValue<bool>("UseInMemoryDatabase") || environment.IsEnvironment("Testing"))
-		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseInMemoryDatabase($"{environment.ApplicationName}-{environment.EnvironmentName}"));
-		}
-		else
-		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				{
-					if (configuration.GetValue<bool>("Database:SensitiveDataLogging"))
-						options.EnableSensitiveDataLogging();
+		services.AddDbContext<ApplicationDbContext>(options =>
+			{
+				if (configuration.GetValue<bool>("Database:SensitiveDataLogging"))
+					options.EnableSensitiveDataLogging();
 
-					options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"),
-						builder =>
-						{
-							builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
-							builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
-						});
-				}
-			);
-		}
+				options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"),
+					builder =>
+					{
+						builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+						builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+					});
+			}
+		);
 
 		services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
