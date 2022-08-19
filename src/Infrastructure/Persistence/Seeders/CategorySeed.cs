@@ -370,8 +370,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je groente eten?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -389,8 +389,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je groente eten?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -407,8 +407,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je groente eten?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -425,8 +425,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je groente eten?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -443,8 +443,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je groente eten?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -771,8 +771,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Welke beweging doe je al?",
+						GoalFrequencyQuestion = "Welke beweging wil je nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -820,8 +820,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Welke beweging doe je al?",
+						GoalFrequencyQuestion = "Welke beweging wil je nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -869,8 +869,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Welke beweging doe je al?",
+						GoalFrequencyQuestion = "Welke beweging wil je nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -918,8 +918,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Welke beweging doe je al?",
+						GoalFrequencyQuestion = "Welke beweging wil je nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -936,8 +936,8 @@ internal static class CategorySeed
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Welke beweging doe je al?",
+						GoalFrequencyQuestion = "Welke beweging wil je nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()

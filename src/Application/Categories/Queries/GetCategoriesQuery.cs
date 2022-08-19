@@ -59,8 +59,8 @@ internal class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, I
 					Image = _mapper.Map<ImageDto>(theme.Image),
 					FrequencyType = theme.FrequencyType,
 					FrequencyGoal = theme.FrequencyGoal,
-					CurrentQuestion = theme.CurrentQuestion,
-					GoalQuestion = theme.GoalQuestion,
+					CurrentQuestion = theme.CurrentFrequencyQuestion,
+					GoalQuestion = theme.GoalFrequencyQuestion,
 					IsRecommended = await IsRecommendedTheme(userId, theme.RecommendationRules, cancellationToken)
 				});
 			}

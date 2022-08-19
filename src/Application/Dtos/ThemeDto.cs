@@ -12,8 +12,10 @@ public class ThemeDto : IMapFrom<Theme>
 	public ImageDto Image { get; set; } = default!;
 	public FrequencyType FrequencyType { get; set; }
 	public int? FrequencyGoal { get; set; }
-	public string CurrentQuestion { get; set; } = default!;
-	public string GoalQuestion { get; set; } = default!;
+	public string CurrentFrequencyQuestion { get; set; } = default!;
+	public string GoalFrequencyQuestion { get; set; } = default!;
+	public string? CurrentActivityQuestion { get; set; } = default!;
+	public string? GoalActivityQuestion { get; set; } = default!;
 	public List<RecommendationRuleDto> RecommendationRules { get; set; } = new();
 	public List<ActivityDto> Activities { get; set; } = new();
 }
