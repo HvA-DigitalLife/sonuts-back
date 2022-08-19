@@ -30,7 +30,7 @@ public class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollect
 	public async Task<ICollection<GoalDto>> Handle(GetGoalsQuery request, CancellationToken cancellationToken) =>
 		_mapper.Map<ICollection<GoalDto>>(await _context.Goals
 			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
-			.Include(goal => goal.Activity.Theme)
+			.Include(goal => goal.Activity.Theme.Category)
 			.Include(goal => goal.Activity.Image)
 			.Include(goal => goal.Executions)
 			.ToListAsync(cancellationToken));
