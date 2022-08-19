@@ -29,17 +29,22 @@ public static class ConfigureServices
 		if (configuration.GetValue<bool>("UseInMemoryDatabase") || environment.IsEnvironment("Testing"))
 		{
 			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseInMemoryDatabase($"{environment.ApplicationName}-{environment.EnvironmentName}" ));
+				options.UseInMemoryDatabase($"{environment.ApplicationName}-{environment.EnvironmentName}"));
 		}
 		else
 		{
 			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"),
-					builder =>
-					{
-						builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
-						builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
-					})
+				{
+					if (configuration.GetValue<bool>("Database:SensitiveDataLogging"))
+						options.EnableSensitiveDataLogging();
+
+					options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"),
+						builder =>
+						{
+							builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+							builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+						});
+				}
 			);
 		}
 
