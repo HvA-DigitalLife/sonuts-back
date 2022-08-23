@@ -369,7 +369,7 @@ internal static class CategorySeed
 						Description = "Dagelijks ten minste 200 gram groente",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
+						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
 						GoalFrequencyQuestion = "Hoe vaak in de week wil je groente eten?",
 						Activities = new List<Activity>
@@ -388,7 +388,7 @@ internal static class CategorySeed
 						Description = "Dagelijks ten minste 2 stuks peulvruchten",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
+						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
 						GoalFrequencyQuestion = "Hoe vaak in de week wil je peulvruchten eten?",
 						Activities = new List<Activity>
@@ -406,7 +406,7 @@ internal static class CategorySeed
 						Description = "Eet elke week een keer vis",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
+						FrequencyGoal = 1,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al vis?",
 						GoalFrequencyQuestion = "Hoe vaak in de week wil je vis eten?",
 						Activities = new List<Activity>
@@ -733,7 +733,7 @@ internal static class CategorySeed
 						Name = "Balans",
 						Description = "Aanbeveling: Minimaal twee keer per week",
 						Image = new Image(),
-						FrequencyType = FrequencyType.Minutes,
+						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
 						CurrentFrequencyQuestion = "Hoe vaak per week doe je dit al?",
@@ -832,14 +832,13 @@ internal static class CategorySeed
 					new()
 					{
 						Name = "Spierkracht",
-						Description = "Aanbeveling: Minimaal 150 minuten per week bewegen",
+						Description = "Aanbeveling: Minimaal twee keer per week",
 						Image = new Image(),
-						FrequencyType = FrequencyType.Minutes,
-						FrequencyGoal = 150,
+						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
-						CurrentFrequencyQuestion = "Hoe veel minuten per week doe je dit al?",
-						GoalFrequencyQuestion = "Hoe veel minuten in de week?",
+						CurrentFrequencyQuestion = "Hoe vaak per week doe je dit al?",
+						GoalFrequencyQuestion = "Hoe vaak per week wil je dit nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -885,8 +884,7 @@ internal static class CategorySeed
 						Name = "Botsterkte",
 						Description = "Aanbeveling: Minimaal twee keer per week",
 						Image = new Image(),
-						FrequencyType = FrequencyType.Minutes,
-						FrequencyGoal = 150,
+						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
 						CurrentFrequencyQuestion = "Hoe vaak per week doe je dit al?",
