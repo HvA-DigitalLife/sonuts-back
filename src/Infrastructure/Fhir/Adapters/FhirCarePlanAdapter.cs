@@ -58,47 +58,23 @@ public static class FhirCarePlanAdapter
 		};
 
 
+		foreach (var goal in carePlan.Goals) {
+			var fhirActivity = new Hl7.Fhir.Model.CarePlan.ActivityComponent();
+			fhirActivity.Detail.DailyAmount = new Hl7.Fhir.Model.Quantity{Value = goal.FrequencyAmount};
 
+			var fhirScheduled = new Hl7.Fhir.Model.Timing();
+		    // add moment type extension
+			// add moment eventname extension
 
-		// foreach (var goal in recommendation.Goals) {
-		// 	// create action
-		// 	var action = new Hl7.Fhir.Model.PlanDefinition.ActionComponent();
-		// 	action.Title = goal.Title;
-		// 	action.Description = goal.Text;
+			fhirScheduled.Repeat.TimeOfDayElement.Add(new Hl7.Fhir.Model.Time(goal.Moment.Time.ToString()));
+			fhirActivity.Detail.Scheduled = fhirScheduled;
 
-		// 	foreach (var dataField in goal.DataFields) {
-		// 	// create data requirement
-		// 	var dataRequirement = new Hl7.Fhir.Model.DataRequirement();
+			// reminder is extension
 
-		// 	// add of type string (will have more datatypes once defined)
-		// 	if (dataField.DataType == "string") {
-		// 		dataRequirement.Type = Hl7.Fhir.Model.FHIRAllTypes.String;
-		// 	}
-			
-		// 	// title extension
-		// 	var titleExtension = new Hl7.Fhir.Model.Extension();
-		// 	titleExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/title";
-		// 	titleExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.Title);
-		// 	dataRequirement.Extension.Add(titleExtension);
+			// execution is observation stored in outcomeReference
 
-		// 	// default value extension
-		// 	var defaultValueExtension = new Hl7.Fhir.Model.Extension();
-		// 	defaultValueExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/defaultValue";
-		// 	defaultValueExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.DefaultValue);
-		// 	dataRequirement.Extension.Add(defaultValueExtension);
+		}
 
-		// 	// unit extension
-		// 	var unitExtension = new Hl7.Fhir.Model.Extension();
-		// 	unitExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/unit";
-		// 	unitExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.DataType);
-		// 	dataRequirement.Extension.Add(unitExtension);
-
-		// 	// add requirement to input list
-		// 	action.Input.Add(dataRequirement);
-		// 	}
-		// 	// add action to plan definition
-		// 	fhirPlanDefinition.Action.Add(action);
-		// }
           
 		// serialize and return
 		var serializer = new FhirJsonSerializer();
@@ -114,6 +90,9 @@ public static class FhirCarePlanAdapter
 				carePlan.Id =  Guid.Parse(fhirId.Value);
 			}
 		}
+
+		carePlan.Start = DateOnly.Parse(fhirCarePlan.Period.Start);
+		carePlan.End = DateOnly.Parse(fhirCarePlan.Period.End);
 
     
         
