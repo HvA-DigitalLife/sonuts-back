@@ -7,7 +7,7 @@ public class ActivityDto : IMapFrom<Activity>
 {
 	public Guid Id { get; set; }
 	public string Name { get; set; } = default!;
-	public string Description { get; set; } = default!;
+	public string? Description { get; set; }
 	public string? Video { get; set; }
 	public ImageDto Image { get; set; } = default!;
 }
