@@ -130,7 +130,7 @@ internal static class CategorySeed
 							Order = 9,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
+								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 								Operator = Operator.Equals,
 								Answer = "Werken - voltijds"
 							}
@@ -142,7 +142,7 @@ internal static class CategorySeed
 							Order = 10,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
+								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 								Operator = Operator.Equals,
 								Answer = "Werken - deeltijds"
 							}
@@ -218,7 +218,7 @@ internal static class CategorySeed
 							Order = 2,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = new Guid("eff4185b-c2ad-4746-8802-7ec3b00985d4"),
+								DependentQuestionId = new Guid("eff4185b-c2ad-4746-8802-7ec3b00985d4"),
 								Operator = Operator.Equals,
 								Answer = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)"
 							}
@@ -448,7 +448,7 @@ internal static class CategorySeed
 							Order = 1,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -460,7 +460,7 @@ internal static class CategorySeed
 							Order = 2,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -490,7 +490,7 @@ internal static class CategorySeed
 							},
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -509,7 +509,7 @@ internal static class CategorySeed
 							Order = 5,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -521,7 +521,7 @@ internal static class CategorySeed
 							Order = 6,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -551,7 +551,7 @@ internal static class CategorySeed
 							},
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -571,7 +571,7 @@ internal static class CategorySeed
 							Order = 9,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
+								DependentQuestionId = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -591,7 +591,7 @@ internal static class CategorySeed
 							Order = 11,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
+								DependentQuestionId = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -611,7 +611,7 @@ internal static class CategorySeed
 							Order = 13,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								DependentQuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -623,7 +623,7 @@ internal static class CategorySeed
 							Order = 14,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								DependentQuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -643,7 +643,7 @@ internal static class CategorySeed
 							Order = 16,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
+								DependentQuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -655,7 +655,7 @@ internal static class CategorySeed
 							Order = 17,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
+								DependentQuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -682,7 +682,7 @@ internal static class CategorySeed
 							Order = 19,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
 								Operator = Operator.NotEquals,
 								Answer = "Geen van deze activiteiten"
 							}
@@ -694,7 +694,7 @@ internal static class CategorySeed
 							Order = 20,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
 								Operator = Operator.NotEquals,
 								Answer = "Geen van deze activiteiten"
 							}
@@ -712,7 +712,7 @@ internal static class CategorySeed
 							},
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
 								Operator = Operator.NotEquals,
 								Answer = "Geen van deze activiteiten"
 							}
