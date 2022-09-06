@@ -2,8 +2,8 @@ namespace Sonuts.Domain.Entities;
 
 public class Participant : BaseEntity //TODO
 {
-	public string? FirstName { get; set; }
-	public string? LastName { get; set; }
+	public string FirstName { get; set; } = default!;
+	public string LastName { get; set; } = default!;
 	public DateOnly? Birth { get; set; }
 	public string? Gender { get; set; }
 	public decimal? Weight { get; set; }
