@@ -8,8 +8,10 @@ public class Theme : BaseEntity //http://hl7.org/fhir/R4/plandefinition.html#Pla
 	public Image Image { get; set; } = default!;
 	public FrequencyType FrequencyType { get; set; } = default!;
 	public int? FrequencyGoal { get; set; } = default!;
-	public string CurrentQuestion { get; set; } = default!;
-	public string GoalQuestion { get; set; } = default!;
+	public string CurrentFrequencyQuestion { get; set; } = default!;
+	public string GoalFrequencyQuestion { get; set; } = default!;
+	public string? CurrentActivityQuestion { get; set; } = default!;
+	public string? GoalActivityQuestion { get; set; } = default!;
 	public List<RecommendationRule> RecommendationRules { get; set; } = new();
 	public List<Activity> Activities { get; set; } = new();
 }

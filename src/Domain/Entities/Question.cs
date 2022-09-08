@@ -17,7 +17,7 @@ public class Question : BaseEntity
 [Owned]
 public class EnableWhen
 {
-	public Guid QuestionId { get; set; } = default!;
+	public Guid DependentQuestionId { get; set; } = default!;
 	public Operator Operator { get; set; } = default!;
 	public string Answer { get; set; } = default!;
 }

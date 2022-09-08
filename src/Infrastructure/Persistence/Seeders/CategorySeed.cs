@@ -130,7 +130,7 @@ internal static class CategorySeed
 							Order = 9,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
+								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 								Operator = Operator.Equals,
 								Answer = "Werken - voltijds"
 							}
@@ -142,7 +142,7 @@ internal static class CategorySeed
 							Order = 10,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
+								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 								Operator = Operator.Equals,
 								Answer = "Werken - deeltijds"
 							}
@@ -218,7 +218,7 @@ internal static class CategorySeed
 							Order = 2,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = new Guid("eff4185b-c2ad-4746-8802-7ec3b00985d4"),
+								DependentQuestionId = new Guid("eff4185b-c2ad-4746-8802-7ec3b00985d4"),
 								Operator = Operator.Equals,
 								Answer = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)"
 							}
@@ -369,9 +369,9 @@ internal static class CategorySeed
 						Description = "Dagelijks ten minste 200 gram groente",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						FrequencyGoal = 14,
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je groente eten?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -388,9 +388,9 @@ internal static class CategorySeed
 						Description = "Dagelijks ten minste 2 stuks peulvruchten",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						FrequencyGoal = 14,
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je peulvruchten eten?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -402,54 +402,18 @@ internal static class CategorySeed
 					},
 					new()
 					{
-						Name = "Alcohol",
-						Description = "Niet te veel alcohol",
-						Image = new Image(),
-						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
-						Activities = new List<Activity>
-						{
-							new()
-							{
-								Name = "Alcohol",
-								Image = new Image()
-							}
-						}
-					},
-					new()
-					{
 						Name = "Vis",
 						Description = "Eet elke week een keer vis",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
+						FrequencyGoal = 1,
+						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al vis?",
+						GoalFrequencyQuestion = "Hoe vaak in de week wil je vis eten?",
 						Activities = new List<Activity>
 						{
 							new()
 							{
 								Name = "Vis",
-								Image = new Image()
-							}
-						}
-					},
-					new()
-					{
-						Name = "Onverzadigde vetten",
-						Description = "Eet genoeg gezonde vetten",
-						Image = new Image(),
-						FrequencyType = FrequencyType.Amount,
-						FrequencyGoal = 1400,
-						CurrentQuestion = "Hoe vaak in de week eet je al groente?",
-						GoalQuestion = "Hoe vaak in de week wil je groente eten?",
-						Activities = new List<Activity>
-						{
-							new()
-							{
-								Name = "Onverzadigde vetten",
 								Image = new Image()
 							}
 						}
@@ -484,7 +448,7 @@ internal static class CategorySeed
 							Order = 1,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -496,7 +460,7 @@ internal static class CategorySeed
 							Order = 2,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -526,7 +490,7 @@ internal static class CategorySeed
 							},
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
+								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -545,7 +509,7 @@ internal static class CategorySeed
 							Order = 5,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -557,7 +521,7 @@ internal static class CategorySeed
 							Order = 6,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -587,7 +551,7 @@ internal static class CategorySeed
 							},
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
+								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -607,7 +571,7 @@ internal static class CategorySeed
 							Order = 9,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
+								DependentQuestionId = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -627,7 +591,7 @@ internal static class CategorySeed
 							Order = 11,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
+								DependentQuestionId = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -647,7 +611,7 @@ internal static class CategorySeed
 							Order = 13,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								DependentQuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -659,7 +623,7 @@ internal static class CategorySeed
 							Order = 14,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
+								DependentQuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -679,7 +643,7 @@ internal static class CategorySeed
 							Order = 16,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
+								DependentQuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -691,7 +655,7 @@ internal static class CategorySeed
 							Order = 17,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
+								DependentQuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
 								Operator = Operator.Equals,
 								Answer = "Yes"
 							}
@@ -718,7 +682,7 @@ internal static class CategorySeed
 							Order = 19,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
 								Operator = Operator.NotEquals,
 								Answer = "Geen van deze activiteiten"
 							}
@@ -730,7 +694,7 @@ internal static class CategorySeed
 							Order = 20,
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
 								Operator = Operator.NotEquals,
 								Answer = "Geen van deze activiteiten"
 							}
@@ -748,7 +712,7 @@ internal static class CategorySeed
 							},
 							EnableWhen = new EnableWhen
 							{
-								QuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
+								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
 								Operator = Operator.NotEquals,
 								Answer = "Geen van deze activiteiten"
 							}
@@ -767,12 +731,13 @@ internal static class CategorySeed
 					new()
 					{
 						Name = "Balans",
-						Description = "Minimaal 150 minuten per week bewegen",
+						Description = "Aanbeveling: Minimaal twee keer per week",
 						Image = new Image(),
-						FrequencyType = FrequencyType.Minutes,
-						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						FrequencyType = FrequencyType.Amount,
+						CurrentActivityQuestion = "Welke beweging doe je al?",
+						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Hoe vaak per week doe je dit al?",
+						GoalFrequencyQuestion = "Hoe vaak per week wil je dit nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -816,12 +781,14 @@ internal static class CategorySeed
 					new()
 					{
 						Name = "Bewegen",
-						Description = "Minimaal 150 minuten per week bewegen",
+						Description = "Aanbeveling: Minimaal 150 minuten per week bewegen",
 						Image = new Image(),
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentActivityQuestion = "Welke beweging doe je al?",
+						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Hoe veel minuten per week doe je dit al?",
+						GoalFrequencyQuestion = "Hoe veel minuten in de week?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -865,12 +832,13 @@ internal static class CategorySeed
 					new()
 					{
 						Name = "Spierkracht",
-						Description = "Minimaal 150 minuten per week bewegen",
+						Description = "Aanbeveling: Minimaal twee keer per week",
 						Image = new Image(),
-						FrequencyType = FrequencyType.Minutes,
-						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						FrequencyType = FrequencyType.Amount,
+						CurrentActivityQuestion = "Welke beweging doe je al?",
+						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Hoe vaak per week doe je dit al?",
+						GoalFrequencyQuestion = "Hoe vaak per week wil je dit nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
@@ -914,35 +882,18 @@ internal static class CategorySeed
 					new()
 					{
 						Name = "Botsterkte",
-						Description = "Sterke botten",
+						Description = "Aanbeveling: Minimaal twee keer per week",
 						Image = new Image(),
-						FrequencyType = FrequencyType.Minutes,
-						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
+						FrequencyType = FrequencyType.Amount,
+						CurrentActivityQuestion = "Welke beweging doe je al?",
+						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
+						CurrentFrequencyQuestion = "Hoe vaak per week doe je dit al?",
+						GoalFrequencyQuestion = "Hoe vaak per week wil je dit nog meer doen?",
 						Activities = new List<Activity>
 						{
 							new()
 							{
 								Name = "Botsterkte",
-								Image = new Image()
-							}
-						}
-					},
-					new()
-					{
-						Name = "Stilzitten",
-						Description = "Stilzitten",
-						Image = new Image(),
-						FrequencyType = FrequencyType.Minutes,
-						FrequencyGoal = 150,
-						CurrentQuestion = "Welke beweging doe je al?",
-						GoalQuestion = "Welke beweging wil je nog meer doen?",
-						Activities = new List<Activity>
-						{
-							new()
-							{
-								Name = "Stilzitten",
 								Image = new Image()
 							}
 						}

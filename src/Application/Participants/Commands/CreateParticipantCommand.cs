@@ -13,6 +13,8 @@ public record CreateParticipantCommand : IRequest<ParticipantDto>
 {
 	public string? Email { get; init; }
 	public string? Password { get; init; }
+	public string? FirstName { get; set; }
+	public string? LastName { get; set; }
 	public DateOnly? Birth { get; init; }
 	public string? Gender { get; init; }
 	public decimal? Weight { get; init; }
@@ -31,6 +33,12 @@ public class CreateParticipantCommandValidator : AbstractValidator<CreatePartici
 		RuleFor(query => query.Password)
 			.NotEmpty()
 			.MinimumLength(8);
+
+		RuleFor(query => query.FirstName)
+			.NotEmpty();
+
+		RuleFor(query => query.LastName)
+			.NotEmpty();
 	}
 }
 
@@ -57,11 +65,14 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 		var entity = new Participant
 		{
 			Id = Guid.Parse(userId),
+			FirstName = request.FirstName!,
+			LastName = request.LastName!,
 			Birth = request.Birth,
 			Gender = request.Gender,
 			Weight = request.Weight,
 			Height = request.Height,
-			MaritalStatus = request.MaritalStatus
+			MaritalStatus = request.MaritalStatus,
+			IsActive = true
 		};
 
 		// ReSharper disable once MethodSupportsCancellation

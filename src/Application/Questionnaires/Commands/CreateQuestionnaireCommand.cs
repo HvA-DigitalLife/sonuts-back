@@ -27,7 +27,7 @@ public record CreateQuestionCommand
 
 public record CreateEnableWhenCommand
 {
-	public Guid? QuestionId { get; set; }
+	public Guid? DependentQuestionId { get; set; }
 	public Operator? Operator { get; set; }
 	public string? Answer { get; set; }
 }
@@ -52,7 +52,7 @@ public class CreateQuestionnaireCommandValidator : AbstractValidator<CreateQuest
 			.SetValidator(new CreateQuestionCommandValidator());
 
 		RuleForEach(command => command.Questions)
-			.Must((command, question, _) => question.EnableWhen is null || command.Questions.FirstOrDefault(q => q.Id.Equals(question.EnableWhen.QuestionId)) is not null)
+			.Must((command, question, _) => question.EnableWhen is null || command.Questions.FirstOrDefault(q => q.Id.Equals(question.EnableWhen.DependentQuestionId)) is not null)
 			.WithMessage($"Not all QuestionsIds from {nameof(CreateQuestionCommand.EnableWhen)} are in {nameof(CreateQuestionnaireCommand.Questions)}");
 
 		RuleForEach(command => command.Questions)
@@ -91,7 +91,7 @@ public class CreateQuestionCommandValidator : AbstractValidator<CreateQuestionCo
 
 		When(question => question.EnableWhen is not null, () =>
 		{
-			RuleFor(command => command.EnableWhen!.QuestionId)
+			RuleFor(command => command.EnableWhen!.DependentQuestionId)
 				.NotNull();
 
 			RuleFor(command => command.EnableWhen!.Operator)
@@ -153,7 +153,7 @@ public class CreateQuestionnaireCommandHandler : IRequestHandler<CreateQuestionn
 			            ? null
 			            : new EnableWhen
 			            {
-				            QuestionId = question.EnableWhen.QuestionId!.Value,
+				            DependentQuestionId = question.EnableWhen.DependentQuestionId!.Value,
 				            Operator = question.EnableWhen.Operator!.Value,
 				            Answer = question.EnableWhen.Answer!
 			            },

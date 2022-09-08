@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sonuts.Domain.Entities;
-using Sonuts.Infrastructure.Identity;
 
 namespace Sonuts.Infrastructure.Persistence.Configurations;
 

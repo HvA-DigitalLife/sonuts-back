@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sonuts.Infrastructure.Persistence;
@@ -11,9 +12,10 @@ using Sonuts.Infrastructure.Persistence;
 namespace Sonuts.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220819121521_ActivityQuetions")]
+    partial class ActivityQuetions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,10 +402,6 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<DateOnly?>("Birth")
                         .HasColumnType("date");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Gender")
                         .HasColumnType("text");
 
@@ -412,10 +410,6 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("MaritalStatus")
                         .HasColumnType("text");
@@ -886,9 +880,6 @@ namespace Sonuts.Infrastructure.Migrations
                             b1.Property<string>("Answer")
                                 .IsRequired()
                                 .HasColumnType("text");
-
-                            b1.Property<Guid>("DependentQuestionId")
-                                .HasColumnType("uuid");
 
                             b1.Property<string>("Operator")
                                 .IsRequired()

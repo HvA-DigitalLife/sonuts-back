@@ -11,7 +11,9 @@ public class RecommendedThemeVm
 	public ImageDto Image { get; set; } = default!;
 	public FrequencyType FrequencyType { get; set; }
 	public int? FrequencyGoal { get; set; }
-	public string CurrentQuestion { get; set; } = default!;
-	public string GoalQuestion { get; set; } = default!;
+	public string? CurrentFrequencyQuestion { get; set; } = default!;
+	public string? GoalFrequencyQuestion { get; set; } = default!;
+	public string? CurrentActivityQuestion { get; set; } = default!;
+	public string? GoalActivityQuestion { get; set; } = default!;
 	public bool IsRecommended { get; set; }
 }

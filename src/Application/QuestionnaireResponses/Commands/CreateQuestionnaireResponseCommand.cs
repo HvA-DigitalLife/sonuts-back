@@ -42,6 +42,9 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 
 		RuleForEach(command => command.Responses).ChildRules(validator =>
 		{
+			validator.RuleFor(response => response)
+				.NotNull();
+
 			validator.RuleFor(response => response.QuestionId)
 				.Cascade(CascadeMode.Stop)
 				.NotNull()

@@ -9,7 +9,7 @@ namespace Sonuts.Application.Goals.Queries;
 
 public record GetGoalsQuery : IRequest<ICollection<GoalDto>>;
 
-public class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollection<GoalDto>>
+internal class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollection<GoalDto>>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
@@ -30,6 +30,7 @@ public class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollect
 	public async Task<ICollection<GoalDto>> Handle(GetGoalsQuery request, CancellationToken cancellationToken) =>
 		_mapper.Map<ICollection<GoalDto>>(await _context.Goals
 			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
+			.Include(goal => goal.Activity.Theme.Category)
 			.Include(goal => goal.Activity.Image)
 			.Include(goal => goal.Executions)
 			.ToListAsync(cancellationToken));

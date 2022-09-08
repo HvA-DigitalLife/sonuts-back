@@ -5,9 +5,11 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Infrastructure.Persistence;
+using Sonuts.Presentation.Common.Converters;
 using Sonuts.Presentation.Filters;
 using Sonuts.Presentation.Services;
 
@@ -34,8 +36,13 @@ public static class ConfigureServices
 				.AddFluentValidation(validationConfiguration => validationConfiguration.AutomaticValidationEnabled = false)
 				.AddJsonOptions(options =>
 				{
+					options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 					options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 					options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+					options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+					options.JsonSerializerOptions.Converters.Add(new NullableDateOnlyConverter());
+					options.JsonSerializerOptions.Converters.Add(new TimeOnlyConverter());
+					options.JsonSerializerOptions.Converters.Add(new NullableTimeOnlyConverter());
 				});
 
 		services.AddRazorPages();
@@ -74,6 +81,8 @@ public static class ConfigureServices
 			});
 			options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 			options.CustomOperationIds(api => $"{api.ActionDescriptor.RouteValues["action"]}");
+			options.MapType<DateOnly>(() => new OpenApiSchema { Type = "string", Example = new OpenApiString(DateOnly.FromDateTime(DateTime.Now).ToLongDateString()) });
+			options.MapType<TimeOnly>(() => new OpenApiSchema { Type = "string", Example = new OpenApiString(TimeOnly.FromDateTime(DateTime.Now).ToLongTimeString()) });
 		});
 
 		// Configure JWT authentication

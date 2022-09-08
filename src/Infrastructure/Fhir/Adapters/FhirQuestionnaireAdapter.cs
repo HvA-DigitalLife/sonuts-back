@@ -48,7 +48,7 @@ public static class FhirQuestionnaireAdapter
 			foreach (var fhirEnableWhen in fhirItem.EnableWhen) {	
 
 				question.EnableWhen = new EnableWhen {
-					QuestionId = Guid.Parse(fhirEnableWhen.Question),
+					DependentQuestionId = Guid.Parse(fhirEnableWhen.Question),
 					Answer = fhirEnableWhen.Answer.ToString()
 				};
 
@@ -151,7 +151,7 @@ public static class FhirQuestionnaireAdapter
 				
 
 				var enableWhen = new Hl7.Fhir.Model.Questionnaire.EnableWhenComponent {
-					Question=question.EnableWhen.QuestionId.ToString(),
+					Question=question.EnableWhen.DependentQuestionId.ToString(),
 					Answer=new Hl7.Fhir.Model.FhirString(question.EnableWhen.Answer) // multiple types?
 				};
 				enableWhen.Operator = question.EnableWhen.Operator switch
