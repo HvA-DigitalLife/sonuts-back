@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
@@ -104,7 +105,12 @@ public static class ConfigureServices
 			});
 
 		services.AddAuthorization(options =>
-			options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+			{
+				options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));
+				options.FallbackPolicy = new AuthorizationPolicyBuilder()
+					.RequireAuthenticatedUser()
+					.Build();
+			});
 
 		return services;
 	}
