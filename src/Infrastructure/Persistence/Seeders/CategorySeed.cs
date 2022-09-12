@@ -367,7 +367,11 @@ internal static class CategorySeed
 					{
 						Name = "Groenten",
 						Description = "Dagelijks ten minste 200 gram groente",
-						Image = new Image(),
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "groenten"
+						},
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
@@ -378,7 +382,11 @@ internal static class CategorySeed
 							{
 								Name = "Groenten",
 								Description = "Een portie groente is 100 gram.",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "groenten"
+								}
 							}
 						}
 					},
@@ -386,7 +394,11 @@ internal static class CategorySeed
 					{
 						Name = "Peulvruchten",
 						Description = "Dagelijks ten minste 2 stuks peulvruchten",
-						Image = new Image(),
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "fruit"
+						},
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
@@ -396,7 +408,11 @@ internal static class CategorySeed
 							new()
 							{
 								Name = "Peulvruchten",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "fruit"
+								}
 							}
 						}
 					},
@@ -404,7 +420,11 @@ internal static class CategorySeed
 					{
 						Name = "Vis",
 						Description = "Eet elke week een keer vis",
-						Image = new Image(),
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "vis"
+						},
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al vis?",
@@ -414,7 +434,11 @@ internal static class CategorySeed
 							new()
 							{
 								Name = "Vis",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "vis"
+								}
 							}
 						}
 					}
@@ -732,7 +756,11 @@ internal static class CategorySeed
 					{
 						Name = "Balans",
 						Description = "Aanbeveling: Minimaal twee keer per week",
-						Image = new Image(),
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "bewegen"
+						},
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -744,37 +772,61 @@ internal static class CategorySeed
 							{
 								Name = "Geen",
 								Description = "Geen beweging",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "geen"
+								}
 							},
 							new()
 							{
 								Name = "Fietsen",
 								Description = "Minuten fietsen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "fietsen"
+								}
 							},
 							new()
 							{
 								Name = "Wandelen",
 								Description = "Minuten wandelen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "wandelen"
+								}
 							},
 							new()
 							{
 								Name = "Gymnastiek",
 								Description = "Minuten gymnastiek",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "gymnastiek"
+								}
 							},
 							new()
 							{
 								Name = "Zwemmen",
 								Description = "Minuten zwemmen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "zwemmen"
+								}
 							},
 							new()
 							{
 								Name = "Dadminton",
 								Description = "Minuten badminton",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "badminton"
+								}
 							}
 						}
 					},
@@ -782,7 +834,11 @@ internal static class CategorySeed
 					{
 						Name = "Bewegen",
 						Description = "Aanbeveling: Minimaal 150 minuten per week bewegen",
-						Image = new Image(),
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "bewegen"
+						},
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
@@ -795,37 +851,61 @@ internal static class CategorySeed
 							{
 								Name = "Geen",
 								Description = "Geen beweging",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "geen"
+								}
 							},
 							new()
 							{
 								Name = "Fietsen",
 								Description = "Minuten fietsen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "fietsen"
+								}
 							},
 							new()
 							{
 								Name = "Wandelen",
 								Description = "Minuten wandelen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "wandelen"
+								}
 							},
 							new()
 							{
 								Name = "Gymnastiek",
 								Description = "Minuten gymnastiek",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "gymnastiek"
+								}
 							},
 							new()
 							{
 								Name = "Zwemmen",
 								Description = "Minuten zwemmen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "zwemmen"
+								}
 							},
 							new()
 							{
 								Name = "Dadminton",
 								Description = "Minuten badminton",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "badminton"
+								}
 							}
 						}
 					},
@@ -833,7 +913,11 @@ internal static class CategorySeed
 					{
 						Name = "Spierkracht",
 						Description = "Aanbeveling: Minimaal twee keer per week",
-						Image = new Image(),
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "spierkracht"
+						},
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -845,37 +929,61 @@ internal static class CategorySeed
 							{
 								Name = "Geen",
 								Description = "Geen beweging",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "geen"
+								}
 							},
 							new()
 							{
 								Name = "Fietsen",
 								Description = "Minuten fietsen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "fietsen"
+								}
 							},
 							new()
 							{
 								Name = "Wandelen",
 								Description = "Minuten wandelen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "wandelen"
+								}
 							},
 							new()
 							{
 								Name = "Gymnastiek",
 								Description = "Minuten gymnastiek",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "gymnastiek"
+								}
 							},
 							new()
 							{
 								Name = "Zwemmen",
 								Description = "Minuten zwemmen",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "zwemmen"
+								}
 							},
 							new()
 							{
 								Name = "Dadminton",
 								Description = "Minuten badminton",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "badminton"
+								}
 							}
 						}
 					},
@@ -883,7 +991,11 @@ internal static class CategorySeed
 					{
 						Name = "Botsterkte",
 						Description = "Aanbeveling: Minimaal twee keer per week",
-						Image = new Image(),
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "botsterkte"
+						},
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -894,7 +1006,11 @@ internal static class CategorySeed
 							new()
 							{
 								Name = "Botsterkte",
-								Image = new Image()
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "botsterkte"
+								}
 							}
 						}
 					}

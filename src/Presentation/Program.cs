@@ -1,3 +1,4 @@
+using Microsoft.Extensions.FileProviders;
 using Sonuts.Application;
 using Sonuts.Infrastructure;
 using Sonuts.Presentation;
@@ -37,6 +38,12 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+	FileProvider = new PhysicalFileProvider(builder.Configuration["Files:ImagePath"]),
+	RequestPath = "/Images"
+});
 
 app.UseHealthChecks("/Health");
 app.MapControllers();
