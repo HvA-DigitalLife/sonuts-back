@@ -40,13 +40,25 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 
 	public async Task<QuestionnaireDto> Handle(GetQuestionnaireByCategoryQuery request, CancellationToken cancellationToken)
 	{
-		var category = await _context.Categories
-			.Include(category => category.Questionnaire.Questions.OrderBy(question => question.Order))
-			.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
-			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId!.Value), cancellationToken);
+		// pre init category object
+		var category = new Category{Id = request.CategoryId!.Value};
+		
+		// Fhir query
+		if (_fhirOptions.Read) {
+			category.Questionnaire = await _dao.SelectByCategoryId(request.CategoryId!.Value);
+		}
+		// entity query
+		else {
+			category = await _context.Categories
+				.Include(category => category.Questionnaire.Questions.OrderBy(question => question.Order))
+				.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
+				.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId!.Value), cancellationToken);
 
+		}
+		// exception if category is non existant
 		if (category == null)
 			throw new NotFoundException(nameof(Category), request.CategoryId!.Value);
+
 
 		return _mapper.Map<QuestionnaireDto>(category.Questionnaire);
 	}

@@ -10,17 +10,33 @@ public class FhirQuestionnaireDao : IQuestionnaireDao
 {
 
 	private readonly IHttpClientFactory _httpClientFactory;
+	private readonly ICategoryDao _categoryDao;
 
-	public FhirQuestionnaireDao(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
+	public FhirQuestionnaireDao(IHttpClientFactory httpClientFactory, ICategoryDao categoryDao) {
+		_httpClientFactory = httpClientFactory;
+		_categoryDao = categoryDao;
+	}
 
 
+	public async Task<Questionnaire> SelectByCategoryId(System.Guid id)
+	{
 
-	public async Task<Questionnaire> Select(string id)
+		var category = _categoryDao.Select(id);
+
+		// load and parse questionnaire instance
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
+		var result = await client.GetStringAsync("Questionnaire/?identifier=" + category.Id.ToString());
+		Console.WriteLine(result);
+
+		return FhirQuestionnaireAdapter.FromJson(result);
+	}
+
+	public async Task<Questionnaire> Select(System.Guid id)
 	{
 
 		// load and parse questionnaire instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var result = await client.GetStringAsync("Questionnaire/" + id);
+		var result = await client.GetStringAsync("Questionnaire/?identifier=" + id.ToString());
 		Console.WriteLine(result);
 
 		return FhirQuestionnaireAdapter.FromJson(result);

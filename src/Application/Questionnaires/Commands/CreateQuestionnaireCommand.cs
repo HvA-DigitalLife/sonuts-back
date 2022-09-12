@@ -138,6 +138,8 @@ public class CreateQuestionnaireCommandHandler : IRequestHandler<CreateQuestionn
 
 	public async Task<QuestionnaireDto> Handle(CreateQuestionnaireCommand request, CancellationToken cancellationToken)
 	{
+
+		
 		var questionnaire = new Questionnaire
         {
             Title = request.Title!,
