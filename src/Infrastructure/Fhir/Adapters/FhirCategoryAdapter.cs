@@ -113,16 +113,19 @@ public static class FhirCategoryAdapter
 				Display = category.Name
 			};
 			fhirConceptReference.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				// Description: is category currently activated in the app
 				Url = "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive", 
 				Value = new Hl7.Fhir.Model.FhirBoolean(category.IsActive)
 			});
 			if (category.Color is not null) {
+				// Description: color for the category in the application
 				fhirConceptReference.Extension.Add(new Hl7.Fhir.Model.Extension { 
 					Url = "https://mibplatform.nl/fhir/Extentions/ValueSet/color", 
 					Value = new Hl7.Fhir.Model.FhirString(category.Color)
 				});
 			}
 			if (category.Questionnaire is not null) {
+				// Description: reference to the questionnare attached to this Category
 				fhirConceptReference.Extension.Add(new Hl7.Fhir.Model.Extension { 
 					Url = "https://mibplatform.nl/fhir/Extentions/ValueSet/questionnaireId", 
 					Value = new Hl7.Fhir.Model.FhirString(category.Questionnaire.Id.ToString())
