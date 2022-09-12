@@ -63,15 +63,46 @@ public static class FhirCarePlanAdapter
 			fhirActivity.Detail.DailyAmount = new Hl7.Fhir.Model.Quantity{Value = goal.FrequencyAmount};
 
 			var fhirScheduled = new Hl7.Fhir.Model.Timing();
-		    // add moment type extension
-			// add moment eventname extension
+			
+			var fhirDayOfWeekCode = new Hl7.Fhir.Model.Code<Hl7.Fhir.Model.DaysOfWeek>();
 
+			fhirDayOfWeekCode.Value = goal.Moment.Day switch
+			{
+				// set question type
+				DayOfWeek.Monday => Hl7.Fhir.Model.DaysOfWeek.Mon,
+				DayOfWeek.Tuesday => Hl7.Fhir.Model.DaysOfWeek.Tue,
+				DayOfWeek.Wednesday => Hl7.Fhir.Model.DaysOfWeek.Fri,
+				DayOfWeek.Thursday => Hl7.Fhir.Model.DaysOfWeek.Thu,
+				DayOfWeek.Friday => Hl7.Fhir.Model.DaysOfWeek.Fri,
+				DayOfWeek.Saturday => Hl7.Fhir.Model.DaysOfWeek.Sat,
+				DayOfWeek.Sunday => Hl7.Fhir.Model.DaysOfWeek.Sun,
+				_ => fhirDayOfWeekCode.Value
+			};
+
+			fhirScheduled.Repeat.DayOfWeekElement.Add(fhirDayOfWeekCode);
 			fhirScheduled.Repeat.TimeOfDayElement.Add(new Hl7.Fhir.Model.Time(goal.Moment.Time.ToString()));
+
+
+			fhirScheduled.Repeat.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/Extentions/Timing/MomentType", 
+				Value = new Hl7.Fhir.Model.FhirString(goal.Moment.Type.ToString())
+			});
+
+			fhirScheduled.Repeat.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/Extentions/Timing/EventName", 
+				Value = new Hl7.Fhir.Model.FhirString(goal.Moment.EventName)
+			});
+
+			// add schedule
 			fhirActivity.Detail.Scheduled = fhirScheduled;
 
-			// reminder is extension
 
-			// execution is observation stored in outcomeReference
+			fhirScheduled.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/Extentions/CarePlan/Activity/Reminder", 
+				Value = new Hl7.Fhir.Model.FhirString(goal.Reminder.ToString())
+			});
+
+
 
 		}
 
