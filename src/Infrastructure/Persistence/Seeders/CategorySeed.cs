@@ -109,12 +109,12 @@ internal static class CategorySeed
 							Id = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 							Type = QuestionType.MultiOpenChoice,
 							Text = "Wat is uw arbeidspositie?",
-							Description = "(U mag een kruisje in meer dan een vakje zetten)",
+							Description = "Meerdere antwoorden mogelijk",
 							Order = 8,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Werken - voltijds", Order = 0 },
-								new() { Value = "Werken - deeltijds", Order = 1 },
+								new() { Value = "(Vrijwilligers) werk - voltijds", Order = 0 },
+								new() { Value = "(Vrijwilligers) werk - deeltijds", Order = 1 },
 								new() { Value = "Gepensioneerd", Order = 3 },
 								new() { Value = "Huisman/vrouw", Order = 4 },
 								new() { Value = "Student", Order = 5 },
@@ -132,7 +132,7 @@ internal static class CategorySeed
 							{
 								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 								Operator = Operator.Equals,
-								Answer = "Werken - voltijds"
+								Answer = "(Vrijwilligers) werk - voltijds"
 							}
 						},
 						new()
@@ -144,7 +144,7 @@ internal static class CategorySeed
 							{
 								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
 								Operator = Operator.Equals,
-								Answer = "Werken - deeltijds"
+								Answer = "(Vrijwilligers) werk - deeltijds"
 							}
 						},
 						new()
@@ -201,6 +201,7 @@ internal static class CategorySeed
 							Id = new Guid("eff4185b-c2ad-4746-8802-7ec3b00985d4"),
 							Type = QuestionType.MultiOpenChoice,
 							Text = "Volgt u een speciaal dieet?",
+							Description = "Meerdere antwoorden mogelijk",
 							Order = 1,
 							AnswerOptions = new List<AnswerOption>
 							{
@@ -689,6 +690,7 @@ internal static class CategorySeed
 							Id = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
 							Type = QuestionType.MultiChoice,
 							Text = "Welk van de onderstaande activiteiten doet u in uw vrije tijd?",
+							Description = "Meerdere antwoorden mogelijk",
 							Order = 18,
 							AnswerOptions = new List<AnswerOption>
 							{
@@ -820,7 +822,7 @@ internal static class CategorySeed
 							},
 							new()
 							{
-								Name = "Dadminton",
+								Name = "Badminton",
 								Description = "Minuten badminton",
 								Image = new Image
 								{
@@ -899,7 +901,7 @@ internal static class CategorySeed
 							},
 							new()
 							{
-								Name = "Dadminton",
+								Name = "Badminton",
 								Description = "Minuten badminton",
 								Image = new Image
 								{
@@ -977,7 +979,7 @@ internal static class CategorySeed
 							},
 							new()
 							{
-								Name = "Dadminton",
+								Name = "Badminton",
 								Description = "Minuten badminton",
 								Image = new Image
 								{
