@@ -409,6 +409,7 @@ internal static class CategorySeed
 							new()
 							{
 								Name = "Peulvruchten",
+								Description = "Een portie peulvruchten is 100 gram.",
 								Image = new Image
 								{
 									Extension = "png",
@@ -435,6 +436,7 @@ internal static class CategorySeed
 							new()
 							{
 								Name = "Vis",
+								Description = "Een portie vis is 100 gram.",
 								Image = new Image
 								{
 									Extension = "png",
