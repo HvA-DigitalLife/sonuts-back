@@ -26,11 +26,10 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 
 		base.OnException(context);
 	}
-
-	[System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
+	
 	private void HandleException(ExceptionContext context)
 	{
-		Type type = context.Exception.GetType();
+		var type = context.Exception.GetType();
 		if (_exceptionHandlers.ContainsKey(type))
 		{
 			_exceptionHandlers[type].Invoke(context);
@@ -105,11 +104,14 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 
 	private static void HandleForbiddenAccessException(ExceptionContext context)
 	{
+		var exception = (ForbiddenAccessException)context.Exception;
+
 		var details = new ProblemDetails
 		{
 			Status = StatusCodes.Status403Forbidden,
 			Title = "Forbidden",
-			Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3"
+			Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3",
+			Detail = exception.Message
 		};
 
 		context.Result = new ObjectResult(details)

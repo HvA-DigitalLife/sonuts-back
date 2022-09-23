@@ -12,6 +12,7 @@ namespace Sonuts.Application.Goals.Commands;
 public class ChangeGoalMomentCommand : IRequest<GoalDto>
 {
 	public Guid Id { get; set; }
+	public string? CustomName { get; set; }
 	public UpdateMomentCommand? Moment { get; set; }
 	public TimeOnly? Reminder { get; set; }
 }
@@ -88,6 +89,7 @@ internal class ChangeGoalMomentCommandHandler : IRequestHandler<ChangeGoalMoment
 				goal => goal.Id.Equals(request.Id) && goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken)
 			?? throw new NotFoundException(nameof(Goal), request.Id);
 
+		currentGoal.CustomName = request.CustomName;
 		currentGoal.Moment.Day = request.Moment!.Day!.Value;
 		currentGoal.Moment.Time = request.Moment!.Time;
 		currentGoal.Moment.Type = request.Moment!.Type!.Value;

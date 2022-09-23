@@ -12,7 +12,7 @@ internal static class QueryableExtensions
 	/// <param name="id"></param>
 	/// <param name="cancellationToken"></param>
 	/// <exception cref="NotFoundException"></exception>
-	public async static Task<TEntity> FindOrNotFoundAsync<TEntity>(this IQueryable<TEntity> query, Guid id, CancellationToken cancellationToken = default)
+	public static async Task<TEntity> FindOrNotFoundAsync<TEntity>(this IQueryable<TEntity> query, Guid id, CancellationToken cancellationToken = default)
 		where TEntity : BaseEntity =>
 		await query.FirstOrDefaultAsync(entity => entity.Id.Equals(id), cancellationToken) ?? throw new NotFoundException(typeof(TEntity).Name, id.ToString());
 }

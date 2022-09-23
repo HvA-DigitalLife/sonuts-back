@@ -8,6 +8,7 @@ using Sonuts.Application.QuestionnaireResponses.Models;
 using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.QuestionnaireResponses.Queries;
+
 public class GetQuestionnaireResponsesForParticipantQuery : IRequest<IList<QuestionnaireResponseVm>>
 {
 	public Guid? ParticipantId { get; set; }
