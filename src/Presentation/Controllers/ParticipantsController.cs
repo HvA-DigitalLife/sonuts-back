@@ -28,7 +28,6 @@ public class ParticipantsController : ApiControllerBase
 	[HttpGet("{participantId:guid}/QuestionnaireResponses")]
 	public async Task<ActionResult<IList<QuestionnaireResponseVm>>> GetQuestionnaireResponses(Guid participantId)
 	{
-
 		return Ok(await Mediator.Send(new GetQuestionnaireResponsesForParticipantQuery
 		{
 			ParticipantId = participantId

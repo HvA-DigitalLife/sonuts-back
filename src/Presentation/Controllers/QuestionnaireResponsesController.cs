@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sonuts.Application.Dtos;
 using Sonuts.Application.QuestionnaireResponses.Commands;
+using Sonuts.Application.QuestionnaireResponses.Queries;
 
 namespace Sonuts.Presentation.Controllers;
 
@@ -15,5 +16,16 @@ public class QuestionnaireResponsesController : ApiControllerBase
 	public async Task<ActionResult<QuestionnaireResponseDto>> CreateQuestionnaireResponse([FromBody] CreateQuestionnaireResponseCommand command)
 	{
 		return Ok(await Mediator.Send(command));
+	}
+
+	/// <summary>
+	/// Get questionnaire response for questionnaire 
+	/// </summary>
+	public async Task<ActionResult<QuestionnaireResponseDto>> GetQuestionnaireResponseForQuestionnaire([FromQuery] Guid questionnaireId)
+	{
+		return Ok(await Mediator.Send(new GetQuestionnaireResponseForQuestionnaireQuery
+		{
+			QuestionnaireId = questionnaireId
+		}));
 	}
 }
