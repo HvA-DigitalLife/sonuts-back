@@ -31,6 +31,7 @@ internal class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, IColle
 		_mapper.Map<ICollection<GoalDto>>(await _context.Goals
 			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
 			.Include(goal => goal.Activity.Theme.Category)
+			.Include(goal => goal.Activity.Theme.Image)
 			.Include(goal => goal.Activity.Image)
 			.Include(goal => goal.Executions)
 			.ToListAsync(cancellationToken));
