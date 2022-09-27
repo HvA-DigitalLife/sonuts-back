@@ -38,7 +38,7 @@ internal class GetQuestionnaireResponseForQuestionnaireQueryHandler : IRequestHa
 	public async Task<QuestionnaireResponseDto> Handle(GetQuestionnaireResponseForQuestionnaireQuery request, CancellationToken cancellationToken)
 	{
 		return _mapper.Map<QuestionnaireResponseDto>(await _context.QuestionnaireResponses
-			.Include(questionnaireResponse => questionnaireResponse.Responses).ThenInclude(questionResponse => questionResponse.Answer)
+			.Include(questionnaireResponse => questionnaireResponse.Responses)
 			.OrderByDescending(questionnaireResponse => questionnaireResponse.CreatedAt)
 			.FirstOrDefaultAsync(
 				questionnaireResponse => questionnaireResponse.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)) &&
