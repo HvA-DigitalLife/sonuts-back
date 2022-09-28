@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Common.Models;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
@@ -47,12 +48,16 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 	private readonly IIdentityService _identityService;
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
+	private readonly IFhirOptions _fhirOptions;
+	private readonly IParticipantDao _dao;
 
-	public CreateParticipantCommandHandler(IIdentityService identityService, IApplicationDbContext context, IMapper mapper)
+	public CreateParticipantCommandHandler(IIdentityService identityService, IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, IParticipantDao dao)
 	{
 		_identityService = identityService;
 		_context = context;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<ParticipantDto> Handle(CreateParticipantCommand request, CancellationToken cancellationToken)
