@@ -42,7 +42,7 @@ internal class GetThemeQueryHandler : IRequestHandler<GetThemeQuery, ThemeDto>
 	public async Task<ThemeDto> Handle(GetThemeQuery request, CancellationToken cancellationToken)
 	{
 		return _mapper.Map<ThemeDto>(await _context.Themes
-			.Include(theme => theme.Activities)
+			.Include(theme => theme.Activities).ThenInclude(activity => activity.Image)
 			.FindOrNotFoundAsync(request.Id!.Value, cancellationToken));
 	}
 }

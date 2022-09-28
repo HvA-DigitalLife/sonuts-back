@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sonuts.Application.CarePlans.Queries;
 using Sonuts.Application.Dtos;
 using Sonuts.Application.Participants.Commands;
 using Sonuts.Application.Participants.Queries;
@@ -28,6 +29,20 @@ public class ParticipantsController : ApiControllerBase
 	public async Task<ActionResult<IList<QuestionnaireResponseVm>>> GetQuestionnaireResponses(Guid participantId)
 	{
 		return Ok(await Mediator.Send(new GetQuestionnaireResponsesForParticipantQuery
+		{
+			ParticipantId = participantId
+		}));
+	}
+
+	/// <summary>
+	/// Get 
+	/// </summary>
+	/// <returns></returns>
+	[Authorize(Roles = "Participant")]
+	[HttpGet("{participantId:guid}/CarePlan")]
+	public async Task<ActionResult<CarePlanDto>> GetCurrentCarePlan(Guid participantId)
+	{
+		return Ok(await Mediator.Send(new GetCurrentCarePlanQuery
 		{
 			ParticipantId = participantId
 		}));

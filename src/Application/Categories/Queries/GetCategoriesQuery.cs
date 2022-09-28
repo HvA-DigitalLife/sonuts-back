@@ -37,10 +37,9 @@ internal class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, I
 		var categories = _fhirOptions.Read ?  
 			await _dao.SelectAll():
 			await _context.Categories
-			.Include(category => category.Themes)
-			.ThenInclude(theme => theme.RecommendationRules)
-			.ThenInclude(rule => rule.Questions)
-			.Where(category => category.IsActive)
+				.Include(category => category.Themes).ThenInclude(theme => theme.Image)
+				.Include(category => category.Themes).ThenInclude(theme => theme.RecommendationRules).ThenInclude(rule => rule.Questions)
+				.Where(category => category.IsActive)
 			.ToListAsync(cancellationToken);
 
 		var response = new List<CategoriesWithRecommendationsVm>();

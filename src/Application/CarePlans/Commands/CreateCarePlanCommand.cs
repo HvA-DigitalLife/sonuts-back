@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Extensions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Dtos;
@@ -108,6 +109,11 @@ internal class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComm
 
 	public async Task<CarePlanDto> Handle(CreateCarePlanCommand request, CancellationToken cancellationToken)
 	{
+		var currentCarePlan = await _context.CarePlans.Current(Guid.Parse(_currentUserService.AuthorizedUserId), cancellationToken);
+
+		if (currentCarePlan is not null && currentCarePlan.End > DateOnly.FromDateTime(DateTime.Now))
+			throw new ForbiddenAccessException("Current care plan has not ended");
+
 		var start = DateOnly.FromDateTime(DateTime.Today.AddDays(1));
 
 		List<Goal> goals = new();
@@ -132,7 +138,7 @@ internal class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComm
 		var carePlan = new CarePlan
 		{
 			Start = start,
-			End = start.AddMonths(2),
+			End = start.AddMonths(1),
 			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken),
 			Goals = goals
 		};

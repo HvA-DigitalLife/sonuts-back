@@ -11,5 +11,5 @@ public class ImageDto : IMapFrom<Image>
 	public void Mapping(Profile profile) =>
 		profile.CreateMap<Image, ImageDto>()
 			.ForMember(imageDto => imageDto.Uri,
-				member => member.MapFrom(image => $"/{image.Name ?? image.Id.ToString()}.{image.Extension}"));
+				member => member.MapFrom(image => $"/images/{image.Name ?? image.Id.ToString()}.{image.Extension}"));
 }

@@ -32,18 +32,18 @@ if (app.Configuration.GetValue<bool>("Swagger"))
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseStaticFiles(new StaticFileOptions
 {
 	FileProvider = new PhysicalFileProvider(builder.Configuration["Files:ImagePath"]),
 	RequestPath = "/Images"
 });
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHealthChecks("/Health");
 app.MapControllers();

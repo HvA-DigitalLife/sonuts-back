@@ -97,6 +97,14 @@ public class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQ
 
 	public async Task<QuestionnaireResponseDto> Handle(CreateQuestionnaireResponseCommand request, CancellationToken cancellationToken)
 	{
+		var lastCarePlan = await _context
+			.CarePlans
+			.OrderByDescending(carePlan => carePlan.Start)
+			.FirstOrDefaultAsync(carePlan => carePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken);
+
+		if (lastCarePlan is not null && lastCarePlan.End > DateOnly.FromDateTime(DateTime.Now))
+			throw new ForbiddenAccessException("Current care plan has not ended");
+
 		var entity = new QuestionnaireResponse
 		{
 			Questionnaire = await _context.Questionnaires.FirstOrDefaultAsync(questionnaire => questionnaire.Id.Equals(request.QuestionnaireId!.Value), cancellationToken)

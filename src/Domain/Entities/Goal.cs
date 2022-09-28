@@ -4,6 +4,7 @@ namespace Sonuts.Domain.Entities;
 
 public class Goal : BaseEntity
 {
+	public string? CustomName { get; set; }
 	public Activity Activity { get; set; } = default!;
 	public int FrequencyAmount { get; set; } = default!;
 	public Moment Moment { get; set; } = default!;
