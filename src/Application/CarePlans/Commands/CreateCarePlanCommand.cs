@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Extensions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
@@ -100,11 +101,16 @@ internal class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComm
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IMapper _mapper;
 
-	public CreateCarePlanCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper)
+	private readonly IFhirOptions _fhirOptions;
+	private readonly ICarePlanDao _dao;
+
+	public CreateCarePlanCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper, IFhirOptions fhirOptions, ICarePlanDao dao)
 	{
 		_context = context;
 		_currentUserService = currentUserService;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<CarePlanDto> Handle(CreateCarePlanCommand request, CancellationToken cancellationToken)
