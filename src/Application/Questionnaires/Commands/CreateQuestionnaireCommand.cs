@@ -168,6 +168,11 @@ public class CreateQuestionnaireCommandHandler : IRequestHandler<CreateQuestionn
 	            .ToList()
 		};
 
+		// FHIR query
+		if (_fhirOptions.Write == true) {
+			await _dao.Insert(questionnaire);
+		}
+
 		_context.Questionnaires.Add(questionnaire);
 		await _context.SaveChangesAsync(cancellationToken);
 
