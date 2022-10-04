@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
@@ -7,7 +8,7 @@ namespace Sonuts.Infrastructure.Persistence.Seeders;
 
 internal class UserSeed
 {
-	internal static async Task Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IApplicationDbContext context)
+	internal static async Task Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IApplicationDbContext context, IFhirOptions fhirOptions, IParticipantDao participantDao)
 	{
 		var shouldSave = false;
 
@@ -35,8 +36,16 @@ internal class UserSeed
 
 				if (roleName.Equals(Role.Participant.ToString()))
 				{
+					// Dummy participant
+					var participant = new Participant { Id = Guid.Parse(applicationUser.Id), FirstName = "FirstName", LastName = "LastName"};
+
+					// FHIR query			
+					if (fhirOptions.Write)
+					{
+						await participantDao.Insert(participant);
+					}
 					shouldSave = true;
-					await context.Participants.AddAsync(new Participant { Id = Guid.Parse(applicationUser.Id), FirstName = "FirstName", LastName = "LastName"});
+					await context.Participants.AddAsync(participant);
 				}
 			}
 		}

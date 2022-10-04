@@ -1025,6 +1025,7 @@ internal static class CategorySeed
 		{
 			context.Categories.AddRange(categories);
 
+			// FHIR query			
 			if (fhirOptions.Write)
 			{
 				// Create fhir value set containing all categories
