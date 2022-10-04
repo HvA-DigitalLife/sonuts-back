@@ -43,7 +43,7 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 		// pre init category object
 		var category = new Category{Id = request.CategoryId!.Value};
 		
-		// Fhir query
+		// FHIR query
 		if (_fhirOptions.Read) {
 			category.Questionnaire = await _dao.SelectByCategoryId(request.CategoryId!.Value);
 		}
