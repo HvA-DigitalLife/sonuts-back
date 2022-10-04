@@ -4,35 +4,82 @@ using Sonuts.Domain.Enums;
 
 namespace Sonuts.Infrastructure.Fhir.Adapters;
 
+
 public static class FhirParticipantAdapter
 {
-	// public static Questionnaire FromJson (string json)
-	// { 
-	// 	// create questionnaire instance
-	// 	Questionnaire questionnaire = new Questionnaire();
+	public static Participant FromJson (string json)
+	{ 
+		// create questionnaire instance
+		Participant participant = new Participant();
          
         
-	// 	var parser = new FhirJsonParser();
-	// 	var fhirQuestionnaire = parser.Parse<Hl7.Fhir.Model.Questionnaire>(json);
+		var parser = new FhirJsonParser();
+		var fhirParticipant = parser.Parse<Hl7.Fhir.Model.Patient>(json);
 
-	// 	// add questionnaire id to questionnaire object
-	// 	questionnaire.Id =  fhirQuestionnaire.Id;
+		foreach (var fhirId in fhirParticipant.Identifier) {
+			if (fhirId.System == "https://mibplatform.nl/fhir/mib/identifier") {
+				participant.Id =  Guid.Parse(fhirId.Value);
+			}
+		}
 
-	// 	// loop trough fhir questions instance to questionnaire
-	// 	foreach (var item in fhirQuestionnaire.Item) {
-	// 		var oq = new Question();
-	// 		oq.Id = item.LinkId;
-	// 		oq.Text = item.Text;
-	// 		oq.Type = item.TypeElement.ToString();
-	// 		questionnaire.Questions.Add(oq);
-	// 	}
+		foreach (var fhirName in fhirParticipant.Name) {
+			foreach (var fhirGivenName in fhirName.Given) {
+				participant.FirstName = fhirGivenName;
+			}
+			participant.LastName = fhirName.Family;
+		}
 
-	// 	return questionnaire;
-	// }
+		participant.Birth = DateOnly.Parse(fhirParticipant.BirthDate);
 
-	// public static string ToJson ( Questionnaire questionnaire )
-	// { 
- 
-	// 	return "";
-	// }
+		participant.MaritalStatus = "M";
+
+		participant.IsActive = fhirParticipant.Active ?? false;
+
+		return participant;
+	}
+
+	public static string ToJson (Participant participant)
+	{ 
+ 		// create questionnaire fhir object
+		var fhirParticipant = new Hl7.Fhir.Model.Patient
+		{
+	
+		};
+
+				// add identifier
+		fhirParticipant.Identifier.Add(new Hl7.Fhir.Model.Identifier {
+				System = "https://mibplatform.nl/fhir/mib/identifier",
+				Value = participant.Id.ToString()
+			});
+
+
+		var fhirParticipantName = new Hl7.Fhir.Model.HumanName();
+		fhirParticipantName.Given.Append(participant.FirstName);
+		fhirParticipantName.Family = participant.LastName;
+		fhirParticipant.Name.Add(fhirParticipantName);
+
+		fhirParticipant.BirthDate = participant.Birth.ToString();
+		// todo parse entity string to enum
+		fhirParticipant.Gender = Hl7.Fhir.Model.AdministrativeGender.Unknown;
+		
+		/*
+		* Weight needs to be an observation https://www.hl7.org/fhir/observation-example.json.html
+		* Height needs to be an observation 
+		*/
+
+		fhirParticipant.MaritalStatus = new Hl7.Fhir.Model.CodeableConcept();
+		fhirParticipant.MaritalStatus.Coding.Add(new Hl7.Fhir.Model.Coding{
+				System = "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+				Code = "M",
+				Display = "Maried"
+
+		});
+
+		fhirParticipant.Active = participant.IsActive;
+
+		// serialize and return fhir object
+		var fhirJsonSerializer = new FhirJsonSerializer();
+		return fhirJsonSerializer.SerializeToString(fhirParticipant);
+	}
+
 }
