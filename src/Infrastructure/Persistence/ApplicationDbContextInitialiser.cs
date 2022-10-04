@@ -17,6 +17,7 @@ public class ApplicationDbContextInitialiser
 	private readonly IFhirOptions _fhirOptions;
 
 	private readonly ICategoryDao _categoryDao;
+	private readonly IParticipantDao _participantDao;
 	private readonly IQuestionnaireDao _questionnaireDao;
 	private readonly IThemeDao _themeDao;
 
@@ -27,6 +28,7 @@ public class ApplicationDbContextInitialiser
 		RoleManager<IdentityRole> roleManager,
 		IFhirOptions fhirOptions,
 		ICategoryDao categoryDao,
+		IParticipantDao participantDao,
 		IQuestionnaireDao questionnaireDao,
 		IThemeDao themeDao)
 	{
@@ -35,6 +37,7 @@ public class ApplicationDbContextInitialiser
 		_userManager = userManager;
 		_roleManager = roleManager;
 		_categoryDao = categoryDao;
+		_participantDao = participantDao;
 		_questionnaireDao = questionnaireDao;
 		_themeDao = themeDao;
 		_fhirOptions = fhirOptions;
@@ -71,7 +74,7 @@ public class ApplicationDbContextInitialiser
 
 	public async Task TrySeedAsync()
 	{
-		await UserSeed.Seed(_userManager, _roleManager, _context);
+		await UserSeed.Seed(_userManager, _roleManager, _context, _fhirOptions, _participantDao);
 		await ClientSeed.Seed(_context);
 		await ContentSeed.Seed(_context);
 		await CategorySeed.Seed(_context, _fhirOptions, _categoryDao, _questionnaireDao, _themeDao);
