@@ -4,6 +4,7 @@ using Hl7.Fhir.Serialization;
 using Sonuts.Infrastructure.Common;
 using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
+using Sonuts.Infrastructure.Fhir.Adapters;
 
 
 using Task = System.Threading.Tasks.Task;
@@ -17,68 +18,28 @@ public class FhirParticipantDao : IParticipantDao
 
 	public FhirParticipantDao(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
-	// var identifier = "bla"; // keycloak identifier
-
-	// // fhir json payload created from post
-	// var payload = new JsonObject
-	// {
-
-	//     ["resourceType"] = "Patient",
-	//     ["text"] =  new JsonObject
-	//     {
-	//         ["status"] = "generated",
-	//         ["div"] = "<div xmlns=\"http://www.w3.org/1999/xhtml\">MiB Patient</div>"
-	//     },
-	//     ["identifier"] = new JsonArray(
-	//         new JsonObject 
-	//         {
-	//             ["use"] = "usual",
-	//             ["system"] = "urn:ietf:rfc:3986",
-	//             ["value"] = "urn:uuid:" + identifier,
-	//         }
-	//     ),
-	//     ["active"] = true,
-	//     ["name"] = new JsonArray(
-	//         new JsonObject 
-	//         {
-	//             ["use"] = "anonymous",
-	//             ["text"] = participantDTO.Pseudonym
-	//         }
-	//     ),
-	//     ["maritalStatus"] = new JsonObject {
-	//         ["coding"] = new JsonArray(
-	//             new JsonObject {
-	//                 ["system"] = "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
-	//                 ["code"] = "M",
-	//                 ["display"] = participantDTO.MaritalStatus
-	//             }
-	//         ),
-	//         ["text"] = participantDTO.MaritalStatus
-	//     },
-	//     ["gender"] = participantDTO.Gender,
-	//     // ["birthDate"] = participantDTO.Age, CALCULATE
-	//     //["generalPractitioner"] = new JsonArray(..list of caregivers..)
-	// };    
+  
 
 	public async Task<Participant> Insert(Participant participant)
 	{
-		// create patient object
-		Patient fhirObject = new Patient();
-		//var fhirName = new HumanName().WithGiven(participant.Pseudonym);
-		//fhirObject.Name.Add(fhirName);
-
-		// serialize
-		var serializer = new FhirJsonSerializer();
-		var payload = await serializer.SerializeToStringAsync(fhirObject);
-
-		// send to fhir server
-		var fhirClient = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var response = await fhirClient.PostAsync("Patient", new StringContent(payload, Encoding.UTF8, "application/json"));
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
+		var response = await client.PostAsync("Patient", new StringContent(FhirParticipantAdapter.ToJson(participant), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();
 
-		return participant;
+		return FhirParticipantAdapter.FromJson(responseContent);
 	}
+
+
+	public async Task<Participant> Select(string id)
+	{
+		// load and parse questionnaire response instance
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
+		var result = await client.GetStringAsync("Patient/" + id);
+
+		return FhirParticipantAdapter.FromJson(result);
+	}
+
 
 	public async Task<bool> Update(Participant participant)
 	{

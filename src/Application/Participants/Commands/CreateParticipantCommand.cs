@@ -79,7 +79,8 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 			MaritalStatus = request.MaritalStatus,
 			IsActive = true
 		};
-
+	
+		await _dao.Insert(entity);
 		// ReSharper disable once MethodSupportsCancellation
 		// Do not stop creating participant when user is already created
 		await _context.Participants.AddAsync(entity);
