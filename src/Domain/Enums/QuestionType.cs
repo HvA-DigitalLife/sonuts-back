@@ -1,5 +1,8 @@
 namespace Sonuts.Domain.Enums;
 
+/// <summary>
+/// Question Type
+/// </summary>
 public enum QuestionType
 {
 	/// <summary>

@@ -29,6 +29,11 @@ if (app.Configuration.GetValue<bool>("Swagger"))
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
+    app.UseReDoc(options =>
+    {
+        options.DocumentTitle = "Swagger Demo Documentation";
+        options.SpecUrl = "/swagger/v1/swagger.json";
+    });
 }
 
 app.UseHttpsRedirection();

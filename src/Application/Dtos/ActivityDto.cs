@@ -3,6 +3,7 @@ using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Dtos;
 
+
 public class ActivityDto : IMapFrom<Activity>
 {
 	public Guid Id { get; set; }

@@ -165,6 +165,7 @@ public static class FhirQuestionnaireAdapter
 					Operator.NotEquals => Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.NotEqual,
 					_ => enableWhen.Operator
 				};
+				fhirItem.EnableWhen.Add(enableWhen);
 			}
 
 

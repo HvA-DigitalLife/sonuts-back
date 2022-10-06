@@ -80,7 +80,10 @@ public static class ConfigureServices
 					Array.Empty<string>()
 				}
 			});
-			options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+
+			List<string> xmlFiles = Directory.GetFiles(AppContext.BaseDirectory,"*.xml",SearchOption.TopDirectoryOnly).ToList();
+			xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
+			//options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 			options.CustomOperationIds(api => $"{api.ActionDescriptor.RouteValues["action"]}");
 			options.MapType<DateOnly>(() => new OpenApiSchema { Type = "string", Example = new OpenApiString(DateOnly.FromDateTime(DateTime.Now).ToLongDateString()) });
 			options.MapType<TimeOnly>(() => new OpenApiSchema { Type = "string", Example = new OpenApiString(TimeOnly.FromDateTime(DateTime.Now).ToLongTimeString()) });
