@@ -13,7 +13,7 @@ public class GetQuestionnaireResponseForQuestionnaireQuery : IRequest<Questionna
 	public Guid? QuestionnaireId { get; set; }
 }
 
-internal class GetQuestionnaireResponseForQuestionnaireQueryValidator : AbstractValidator<GetQuestionnaireResponseForQuestionnaireQuery>
+public class GetQuestionnaireResponseForQuestionnaireQueryValidator : AbstractValidator<GetQuestionnaireResponseForQuestionnaireQuery>
 {
 	public GetQuestionnaireResponseForQuestionnaireQueryValidator()
 	{
@@ -22,7 +22,7 @@ internal class GetQuestionnaireResponseForQuestionnaireQueryValidator : Abstract
 	}
 }
 
-internal class GetQuestionnaireResponseForQuestionnaireQueryHandler : IRequestHandler<GetQuestionnaireResponseForQuestionnaireQuery, QuestionnaireResponseDto>
+public class GetQuestionnaireResponseForQuestionnaireQueryHandler : IRequestHandler<GetQuestionnaireResponseForQuestionnaireQuery, QuestionnaireResponseDto>
 {
 	private readonly IMapper _mapper;
 	private readonly IApplicationDbContext _context;

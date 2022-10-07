@@ -13,7 +13,7 @@ namespace Sonuts.Application.Logic.Categories.Queries;
 
 public record GetCategoriesQuery : IRequest<ICollection<CategoriesWithRecommendationsVm>>;
 
-internal class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICollection<CategoriesWithRecommendationsVm>>
+public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICollection<CategoriesWithRecommendationsVm>>
 {
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IApplicationDbContext _context;

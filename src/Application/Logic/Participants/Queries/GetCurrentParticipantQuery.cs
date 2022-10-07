@@ -9,7 +9,7 @@ public class GetCurrentParticipantQuery : IRequest<ParticipantDto>
 {
 }
 
-internal class GetCurrentParticipantQueryHandler : IRequestHandler<GetCurrentParticipantQuery, ParticipantDto>
+public class GetCurrentParticipantQueryHandler : IRequestHandler<GetCurrentParticipantQuery, ParticipantDto>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;

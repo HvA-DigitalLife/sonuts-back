@@ -14,7 +14,7 @@ public class GetQuestionnaireResponsesForParticipantQuery : IRequest<IList<Quest
 	public Guid? ParticipantId { get; set; }
 }
 
-internal class GetQuestionnaireResponsesForParticipantQueryValidator : AbstractValidator<GetQuestionnaireResponsesForParticipantQuery>
+public class GetQuestionnaireResponsesForParticipantQueryValidator : AbstractValidator<GetQuestionnaireResponsesForParticipantQuery>
 {
 	public GetQuestionnaireResponsesForParticipantQueryValidator(ICurrentUserService currentUserService)
 	{
@@ -27,7 +27,7 @@ internal class GetQuestionnaireResponsesForParticipantQueryValidator : AbstractV
 	}
 }
 
-internal class GetQuestionnaireResponsesForParticipantQueryHandler : IRequestHandler<GetQuestionnaireResponsesForParticipantQuery, IList<QuestionnaireResponseVm>>
+public class GetQuestionnaireResponsesForParticipantQueryHandler : IRequestHandler<GetQuestionnaireResponsesForParticipantQuery, IList<QuestionnaireResponseVm>>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;

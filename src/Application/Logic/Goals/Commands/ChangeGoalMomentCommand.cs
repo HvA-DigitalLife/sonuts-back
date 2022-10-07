@@ -25,7 +25,7 @@ public class UpdateMomentCommand
 	public string? EventName { get; init; }
 }
 
-internal class ChangeGoalMomentCommandValidator : AbstractValidator<ChangeGoalMomentCommand>
+public class ChangeGoalMomentCommandValidator : AbstractValidator<ChangeGoalMomentCommand>
 {
 	public ChangeGoalMomentCommandValidator()
 	{
@@ -39,7 +39,7 @@ internal class ChangeGoalMomentCommandValidator : AbstractValidator<ChangeGoalMo
 	}
 }
 
-internal class UpdateMomentCommandValidator : AbstractValidator<UpdateMomentCommand>
+public class UpdateMomentCommandValidator : AbstractValidator<UpdateMomentCommand>
 {
 	public UpdateMomentCommandValidator()
 	{
@@ -69,7 +69,7 @@ internal class UpdateMomentCommandValidator : AbstractValidator<UpdateMomentComm
 	}
 }
 
-internal class ChangeGoalMomentCommandHandler : IRequestHandler<ChangeGoalMomentCommand, GoalDto>
+public class ChangeGoalMomentCommandHandler : IRequestHandler<ChangeGoalMomentCommand, GoalDto>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;

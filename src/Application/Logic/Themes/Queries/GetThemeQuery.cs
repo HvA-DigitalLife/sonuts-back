@@ -13,8 +13,7 @@ public class GetThemeQuery : IRequest<ThemeDto>
 	public Guid? Id { get; set; }
 }
 
-
-internal class GetThemeQueryValidator : AbstractValidator<GetThemeQuery>
+public class GetThemeQueryValidator : AbstractValidator<GetThemeQuery>
 {
 	public GetThemeQueryValidator()
 	{
@@ -23,7 +22,7 @@ internal class GetThemeQueryValidator : AbstractValidator<GetThemeQuery>
 	}
 }
 
-internal class GetThemeQueryHandler : IRequestHandler<GetThemeQuery, ThemeDto>
+public class GetThemeQueryHandler : IRequestHandler<GetThemeQuery, ThemeDto>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;

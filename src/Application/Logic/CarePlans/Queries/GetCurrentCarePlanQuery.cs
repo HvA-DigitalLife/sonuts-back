@@ -13,7 +13,7 @@ public class GetCurrentCarePlanQuery : IRequest<CarePlanDto>
 	public Guid? ParticipantId { get; set; }
 }
 
-internal class GetCurrentCarePlanQueryValidator : AbstractValidator<GetCurrentCarePlanQuery>
+public class GetCurrentCarePlanQueryValidator : AbstractValidator<GetCurrentCarePlanQuery>
 {
 	public GetCurrentCarePlanQueryValidator(ICurrentUserService currentUserService)
 	{
@@ -26,7 +26,7 @@ internal class GetCurrentCarePlanQueryValidator : AbstractValidator<GetCurrentCa
 	}
 }
 
-internal class GetCurrentCarePlanQueryHandler : IRequestHandler<GetCurrentCarePlanQuery, CarePlanDto>
+public class GetCurrentCarePlanQueryHandler : IRequestHandler<GetCurrentCarePlanQuery, CarePlanDto>
 {
 	private readonly IMapper _mapper;
 	private readonly IApplicationDbContext _context;
