@@ -42,10 +42,11 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseRouting();
 
+app.UseHealthChecks("/Health");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseHealthChecks("/Health");
 app.MapControllers();
 app.MapRazorPages();
 

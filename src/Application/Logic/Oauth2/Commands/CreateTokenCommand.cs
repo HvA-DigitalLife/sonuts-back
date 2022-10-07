@@ -19,7 +19,6 @@ public class CreateTokenCommand : IRequest<TokenVm>
 	public List<ScopeType>? Scope { get; set; }
 }
 
-
 public class CreateTokenCommandValidator : AbstractValidator<CreateTokenCommand>
 {
 	public CreateTokenCommandValidator(IApplicationDbContext context, IIdentityService identityService)

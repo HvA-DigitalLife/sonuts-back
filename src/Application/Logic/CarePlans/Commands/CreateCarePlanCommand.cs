@@ -32,7 +32,7 @@ public class CreateMomentCommand
 	public string? EventName { get; init; }
 }
 
-internal class CreateCarePlanCommandValidator : AbstractValidator<CreateCarePlanCommand>
+public class CreateCarePlanCommandValidator : AbstractValidator<CreateCarePlanCommand>
 {
 	public CreateCarePlanCommandValidator()
 	{
@@ -45,7 +45,7 @@ internal class CreateCarePlanCommandValidator : AbstractValidator<CreateCarePlan
 	}
 }
 
-internal class CreateGoalsCommandValidator : AbstractValidator<CreateGoalsCommand>
+public class CreateGoalsCommandValidator : AbstractValidator<CreateGoalsCommand>
 {
 	public CreateGoalsCommandValidator()
 	{
@@ -64,7 +64,7 @@ internal class CreateGoalsCommandValidator : AbstractValidator<CreateGoalsComman
 	}
 }
 
-internal class CreateMomentCommandValidator : AbstractValidator<CreateMomentCommand>
+public class CreateMomentCommandValidator : AbstractValidator<CreateMomentCommand>
 {
 	public CreateMomentCommandValidator()
 	{
@@ -94,7 +94,7 @@ internal class CreateMomentCommandValidator : AbstractValidator<CreateMomentComm
 	}
 }
 
-internal class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanCommand, CarePlanDto>
+public class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanCommand, CarePlanDto>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;
