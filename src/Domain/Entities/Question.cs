@@ -12,6 +12,7 @@ public class Question : BaseEntity
 	public List<AnswerOption>? AnswerOptions { get; set; } = new();
 	public string? OpenAnswerLabel { get; set; }
 	public List<RecommendationRule> RecommendationRules { get; set; } = new();
+	public bool IsRequired { get; set; }
 }
 
 [Owned]

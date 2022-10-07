@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sonuts.Application.Dtos;
-using Sonuts.Application.QuestionnaireResponses.Commands;
-using Sonuts.Application.QuestionnaireResponses.Queries;
+using Sonuts.Application.Logic.QuestionnaireResponses.Commands;
+using Sonuts.Application.Logic.QuestionnaireResponses.Queries;
 
 namespace Sonuts.Presentation.Controllers;
 

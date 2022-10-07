@@ -1,7 +1,7 @@
 using System.Globalization;
 using CsvHelper;
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Executions.Models;
+using Sonuts.Application.Logic.Executions.Models;
 using Sonuts.Infrastructure.Files.Maps;
 
 namespace Sonuts.Infrastructure.Files;

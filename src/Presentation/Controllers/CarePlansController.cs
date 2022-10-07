@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sonuts.Application.CarePlans.Commands;
 using Sonuts.Application.Dtos;
+using Sonuts.Application.Logic.CarePlans.Commands;
 
 namespace Sonuts.Presentation.Controllers;
 

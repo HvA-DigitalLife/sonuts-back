@@ -188,9 +188,6 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<Guid>("ThemeId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Video")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ImageId");
@@ -353,6 +350,30 @@ namespace Sonuts.Infrastructure.Migrations
                     b.ToTable("Executions");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.Faq", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ThemeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ThemeId");
+
+                    b.ToTable("Faq");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
                 {
                     b.Property<Guid>("Id")
@@ -447,6 +468,9 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsRequired")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("OpenAnswerLabel")
                         .HasColumnType("text");
 
@@ -536,6 +560,74 @@ namespace Sonuts.Infrastructure.Migrations
                     b.ToTable("QuestionResponses");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.Recipe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ThemeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("ThemeId");
+
+                    b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.RecipeIngredient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Ingredient")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("RecipeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeIngredients");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.RecipeStep", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("RecipeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeSteps");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.RecommendationRule", b =>
                 {
                     b.Property<Guid>("Id")
@@ -561,7 +653,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("RecommendationRule");
+                    b.ToTable("RecommendationRules");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.RefreshToken", b =>
@@ -708,6 +800,26 @@ namespace Sonuts.Infrastructure.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.Video", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ActivityId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
+
+                    b.ToTable("Videos");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -833,6 +945,17 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Navigation("Goal");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.Faq", b =>
+                {
+                    b.HasOne("Sonuts.Domain.Entities.Theme", "Theme")
+                        .WithMany("Faq")
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Theme");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
                 {
                     b.HasOne("Sonuts.Domain.Entities.Activity", "Activity")
@@ -953,6 +1076,39 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Navigation("QuestionnaireResponse");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.Recipe", b =>
+                {
+                    b.HasOne("Sonuts.Domain.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sonuts.Domain.Entities.Theme", "Theme")
+                        .WithMany()
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Theme");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.RecipeIngredient", b =>
+                {
+                    b.HasOne("Sonuts.Domain.Entities.Recipe", null)
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.RecipeStep", b =>
+                {
+                    b.HasOne("Sonuts.Domain.Entities.Recipe", null)
+                        .WithMany("Steps")
+                        .HasForeignKey("RecipeId");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.RecommendationRule", b =>
                 {
                     b.HasOne("Sonuts.Domain.Entities.Theme", null)
@@ -996,6 +1152,18 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Navigation("Image");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.Video", b =>
+                {
+                    b.HasOne("Sonuts.Domain.Entities.Activity", null)
+                        .WithMany("Video")
+                        .HasForeignKey("ActivityId");
+                });
+
+            modelBuilder.Entity("Sonuts.Domain.Entities.Activity", b =>
+                {
+                    b.Navigation("Video");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.CarePlan", b =>
                 {
                     b.Navigation("Goals");
@@ -1031,9 +1199,18 @@ namespace Sonuts.Infrastructure.Migrations
                     b.Navigation("Responses");
                 });
 
+            modelBuilder.Entity("Sonuts.Domain.Entities.Recipe", b =>
+                {
+                    b.Navigation("Ingredients");
+
+                    b.Navigation("Steps");
+                });
+
             modelBuilder.Entity("Sonuts.Domain.Entities.Theme", b =>
                 {
                     b.Navigation("Activities");
+
+                    b.Navigation("Faq");
 
                     b.Navigation("RecommendationRules");
                 });

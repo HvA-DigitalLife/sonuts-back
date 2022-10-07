@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sonuts.Application.CarePlans.Queries;
 using Sonuts.Application.Dtos;
-using Sonuts.Application.Participants.Commands;
-using Sonuts.Application.Participants.Queries;
-using Sonuts.Application.QuestionnaireResponses.Models;
-using Sonuts.Application.QuestionnaireResponses.Queries;
+using Sonuts.Application.Logic.CarePlans.Queries;
+using Sonuts.Application.Logic.Participants.Commands;
+using Sonuts.Application.Logic.Participants.Queries;
+using Sonuts.Application.Logic.QuestionnaireResponses.Models;
+using Sonuts.Application.Logic.QuestionnaireResponses.Queries;
 
 namespace Sonuts.Presentation.Controllers;
 

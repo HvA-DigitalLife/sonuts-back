@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sonuts.Application.Activities.Queries;
 using Sonuts.Application.Dtos;
+using Sonuts.Application.Logic.Activities.Queries;
 
 namespace Sonuts.Presentation.Controllers;
 
