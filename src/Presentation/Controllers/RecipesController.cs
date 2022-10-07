@@ -9,7 +9,7 @@ public class RecipesController : ApiControllerBase
 {
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{recipeId:guid}")]
-	public async Task<ActionResult<ThemeDto>> GetRecipe(Guid recipeId)
+	public async Task<ActionResult<RecipeDto>> GetRecipe(Guid recipeId)
 	{
 		return Ok(await Mediator.Send(new GetRecipeQuery
 		{

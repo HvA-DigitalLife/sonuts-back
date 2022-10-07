@@ -21,7 +21,7 @@ public class ThemesController : ApiControllerBase
 
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{themeId:guid}/Faq")]
-	public async Task<ActionResult<ThemeDto>> GetFaq(Guid themeId)
+	public async Task<ActionResult<List<FaqDto>>> GetFaq(Guid themeId)
 	{
 		return Ok(await Mediator.Send(new GetFaqQuery
 		{
@@ -32,7 +32,7 @@ public class ThemesController : ApiControllerBase
 
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{themeId:guid}/Recipes")]
-	public async Task<ActionResult<ThemeDto>> GetRecipes(Guid themeId)
+	public async Task<ActionResult<List<RecipeDto>>> GetRecipes(Guid themeId)
 	{
 		return Ok(await Mediator.Send(new GetRecipesQuery
 		{
