@@ -27,7 +27,7 @@ public class FhirCarePlanDao : ICarePlanDao
 	public async Task<CarePlan> Insert(CarePlan carePlan)
 	{
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var response = await client.PostAsync("PlanDefinition", new StringContent(FhirCarePlanAdapter.ToJson(carePlan), Encoding.UTF8, "application/json"));
+		var response = await client.PutAsync("PlanDefinition/" + carePlan.Id.ToString(), new StringContent(FhirCarePlanAdapter.ToJson(carePlan), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();
 

@@ -28,7 +28,7 @@ public class FhirThemeDao : IThemeDao
 	public async Task<Theme> Insert(Theme theme)
 	{
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var response = await client.PostAsync("PlanDefinition", new StringContent(FhirThemeAdapter.ToJson(theme), Encoding.UTF8, "application/json"));
+		var response = await client.PutAsync("PlanDefinition/" + theme.Id.ToString(), new StringContent(FhirThemeAdapter.ToJson(theme), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();
 

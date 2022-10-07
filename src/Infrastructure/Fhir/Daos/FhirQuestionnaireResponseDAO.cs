@@ -27,7 +27,7 @@ public class FhirQuestionnaireResponseDao : IQuestionnaireResponseDao
 	public async Task<QuestionnaireResponse> Insert(QuestionnaireResponse questionnaireResponse)
 	{
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var response = await client.PostAsync("QuestionnaireResponse", new StringContent(FhirQuestionnaireResponseAdapter.ToJson(questionnaireResponse), Encoding.UTF8, "application/json"));
+		var response = await client.PutAsync("QuestionnaireResponse/" + questionnaireResponse.Id.ToString(), new StringContent(FhirQuestionnaireResponseAdapter.ToJson(questionnaireResponse), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();
 

@@ -23,7 +23,7 @@ public class FhirParticipantDao : IParticipantDao
 	public async Task<Participant> Insert(Participant participant)
 	{
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var response = await client.PostAsync("Patient", new StringContent(FhirParticipantAdapter.ToJson(participant), Encoding.UTF8, "application/json"));
+		var response = await client.PutAsync("Patient/" + participant.Id.ToString(), new StringContent(FhirParticipantAdapter.ToJson(participant), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();
 
