@@ -9,12 +9,13 @@ public static class FhirParticipantAdapter
 {
 	public static Participant FromJson (string json)
 	{ 
-		// create questionnaire instance
-		Participant participant = new Participant();
-         
-        
+
 		var parser = new FhirJsonParser();
 		var fhirPatient = parser.Parse<Hl7.Fhir.Model.Patient>(json);
+
+		Participant participant = new Participant{
+			Id = Guid.Parse(fhirPatient.Id)
+		};
 
 		foreach (var fhirId in fhirPatient.Identifier) {
 			if (fhirId.System == "https://mibplatform.nl/fhir/mib/identifier") {
@@ -29,7 +30,7 @@ public static class FhirParticipantAdapter
 			participant.LastName = fhirName.Family;
 		}
 
-		participant.Birth = DateOnly.Parse(fhirPatient.BirthDate);
+		//participant.Birth = DateOnly.Parse(fhirPatient.BirthDate);
 
 		participant.MaritalStatus = "M";
 
@@ -43,14 +44,8 @@ public static class FhirParticipantAdapter
  		// create questionnaire fhir object
 		var fhirPatient = new Hl7.Fhir.Model.Patient
 		{
-	
+			Id = participant.Id.ToString()
 		};
-
-				// add identifier
-		fhirPatient.Identifier.Add(new Hl7.Fhir.Model.Identifier {
-				System = "https://mibplatform.nl/fhir/mib/identifier",
-				Value = participant.Id.ToString()
-			});
 
 
 		var fhirPatientName = new Hl7.Fhir.Model.HumanName();
@@ -58,7 +53,7 @@ public static class FhirParticipantAdapter
 		fhirPatientName.Family = participant.LastName;
 		fhirPatient.Name.Add(fhirPatientName);
 
-		fhirPatient.BirthDate = participant.Birth.ToString();
+		//fhirPatient.BirthDate = participant.Birth.ToString();
 		// todo parse entity string to enum
 		fhirPatient.Gender = Hl7.Fhir.Model.AdministrativeGender.Unknown;
 		

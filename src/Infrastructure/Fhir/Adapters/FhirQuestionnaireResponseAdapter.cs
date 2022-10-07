@@ -8,12 +8,14 @@ public static class FhirQuestionnaireResponseAdapter
 {
 	public static QuestionnaireResponse FromJson (string json)
 	{ 
-		// create questionnaire instance
-		QuestionnaireResponse questionnaireResponse = new QuestionnaireResponse();
-         
-        
+
 		var fhirJsonParser = new FhirJsonParser();
 		var fhirQuestionnaireResponse = fhirJsonParser.Parse<Hl7.Fhir.Model.QuestionnaireResponse>(json);
+		
+		// create questionnaire instance
+		QuestionnaireResponse questionnaireResponse = new QuestionnaireResponse{
+			Id = Guid.Parse(fhirQuestionnaireResponse.Id)
+		};
 
 		// add questionnaire id to questionnaire object
 		questionnaireResponse.Id =  Guid.Parse(fhirQuestionnaireResponse.Identifier.Value);

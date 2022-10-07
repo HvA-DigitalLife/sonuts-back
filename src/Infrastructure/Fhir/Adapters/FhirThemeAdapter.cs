@@ -42,14 +42,9 @@ public static class FhirThemeAdapter
 	public static string ToJson ( Theme theme )
 	{
 		// create plan definion and meta data
-		var fhirPlanDefinition= new Hl7.Fhir.Model.PlanDefinition();
-
-
-		// add identifier
-		fhirPlanDefinition.Identifier.Add(new Hl7.Fhir.Model.Identifier {
-				System = "https://mibplatform.nl/fhir/mib/identifier",
-				Value = theme.Id.ToString()
-		});
+		var fhirPlanDefinition = new Hl7.Fhir.Model.PlanDefinition {
+			Id = theme.Id.ToString()
+		};
 
 
 		fhirPlanDefinition.Title = theme.Name;
@@ -109,7 +104,10 @@ public static class FhirThemeAdapter
 
 	private static Theme FhirPlanDefinitionToTheme(Hl7.Fhir.Model.PlanDefinition fhirPlanDefinition) {
 		// create guideline model and add meta data
-		var theme = new Theme();
+		var theme = new Theme{
+			Id = Guid.Parse(fhirPlanDefinition.Id)
+		};
+		
 		theme.Name = fhirPlanDefinition.Title;
 		theme.Description = fhirPlanDefinition.Description.ToString();
         

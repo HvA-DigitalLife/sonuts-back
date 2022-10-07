@@ -42,13 +42,10 @@ public static class FhirGoalAdapter
 	public static string ToJson ( Goal goal )
 	{
 		// create plan definion and meta data
-		var fhirGoal= new Hl7.Fhir.Model.Goal();
+		var fhirGoal= new Hl7.Fhir.Model.Goal{
+			Id = goal.Id.ToString()
+		};
 
-		// add identifier
-		fhirGoal.Identifier.Add(new Hl7.Fhir.Model.Identifier {
-				System = "https://mibplatform.nl/fhir/mib/identifier",
-				Value = goal.Id.ToString()
-			});
 
 		var fhirTarget = new Hl7.Fhir.Model.Goal.TargetComponent();
 		// todo check how to parse date
@@ -108,13 +105,10 @@ public static class FhirGoalAdapter
 
 	private static Goal FhirGoalToGoal(Hl7.Fhir.Model.Goal fhirGoal) {
 		// create interventionPlan model and add meta data
-		var goal = new Goal();
+		var goal = new Goal{
+			Id = Guid.Parse(fhirGoal.Id)
+		};
 
-		foreach (var fhirId in fhirGoal.Identifier) {
-			if (fhirId.System == "https://mibplatform.nl/fhir/mib/identifier") {
-				goal.Id =  Guid.Parse(fhirId.Value);
-			}
-		}
 
 		// todo parse target
     

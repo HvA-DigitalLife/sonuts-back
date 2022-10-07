@@ -8,12 +8,14 @@ public static class FhirQuestionnaireAdapter
 {
 	public static Questionnaire FromJson(string json)
 	{
-		// create questionnaire instance
-		Questionnaire questionnaire = new Questionnaire();
-
 		// create fhir parser
 		var fhirJsonParser = new FhirJsonParser();
 		var fhirQuestionnaire = fhirJsonParser.Parse<Hl7.Fhir.Model.Questionnaire>(json);
+
+		// create questionnaire instance
+		Questionnaire questionnaire = new Questionnaire{
+			Id = Guid.Parse(fhirQuestionnaire.Id)
+		};
 
 		questionnaire.Title = fhirQuestionnaire.Title;
 		questionnaire.Description = fhirQuestionnaire.Description.ToString();
@@ -120,17 +122,11 @@ public static class FhirQuestionnaireAdapter
 		// create questionnaire fhir object
 		var fhirQuestionnaire = new Hl7.Fhir.Model.Questionnaire
 		{
+			Id = questionnaire.Id.ToString(),
 			Title = questionnaire.Title,
 			Description = new Hl7.Fhir.Model.Markdown(questionnaire.Description)
 		};
 
-		// add identifier
-		fhirQuestionnaire.Identifier.Add(new Hl7.Fhir.Model.Identifier {
-				System = "https://mibplatform.nl/fhir/mib/identifier",
-				Value = questionnaire.Id.ToString()
-			});
-
-		
 
 		foreach (var question in questionnaire.Questions)
 		{

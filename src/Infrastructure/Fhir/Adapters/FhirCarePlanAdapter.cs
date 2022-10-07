@@ -44,13 +44,9 @@ public static class FhirCarePlanAdapter
 	public static string ToJson ( CarePlan carePlan )
 	{
 		// create plan definion and meta data
-		var fhirCarePlan= new Hl7.Fhir.Model.CarePlan();
-
-		// add identifier
-		fhirCarePlan.Identifier.Add(new Hl7.Fhir.Model.Identifier {
-				System = "https://mibplatform.nl/fhir/mib/identifier",
-				Value = carePlan.Id.ToString()
-			});
+		var fhirCarePlan= new Hl7.Fhir.Model.CarePlan{
+			Id = carePlan.Id.ToString()
+		};
 
 		fhirCarePlan.Period =  new Hl7.Fhir.Model.Period {
 			Start = carePlan.Start.ToString(),
@@ -114,13 +110,9 @@ public static class FhirCarePlanAdapter
 
 	private static CarePlan FhirCarePlanToCarePlan(Hl7.Fhir.Model.CarePlan fhirCarePlan) {
 		// create interventionPlan model and add meta data
-		var carePlan = new CarePlan();
-
-		foreach (var fhirId in fhirCarePlan.Identifier) {
-			if (fhirId.System == "https://mibplatform.nl/fhir/mib/identifier") {
-				carePlan.Id =  Guid.Parse(fhirId.Value);
-			}
-		}
+		var carePlan = new CarePlan{
+			Id = Guid.Parse(fhirCarePlan.Id)
+		};
 
 		carePlan.Start = DateOnly.Parse(fhirCarePlan.Period.Start);
 		carePlan.End = DateOnly.Parse(fhirCarePlan.Period.End);

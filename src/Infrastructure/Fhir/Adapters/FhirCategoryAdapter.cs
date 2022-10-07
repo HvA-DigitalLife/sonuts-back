@@ -40,6 +40,7 @@ public static class FhirCategoryAdapter
 	public static List<Category> FhirValueSetToCategoryList(Hl7.Fhir.Model.ValueSet fhirValueSet)
 	{
 		var categoriesList = new List<Category>();
+		
 		// create questionnaire instance
             
 		foreach (var fhirInclude in fhirValueSet.Compose.Include) {
@@ -79,18 +80,14 @@ public static class FhirCategoryAdapter
 	public static string ToJson ( List<Category> categories )
 	{
 		// create plan definion and meta data
-		var fhirValueSet= new Hl7.Fhir.Model.ValueSet();
+		var fhirValueSet= new Hl7.Fhir.Model.ValueSet{
+			Id = "mib-categories"
+		};
 
 		fhirValueSet.Extension.Add(new Hl7.Fhir.Model.Extension { 
 			Url = "http://hl7.org/fhir/StructureDefinition/valueset-extensible", 
 			Value = new Hl7.Fhir.Model.FhirBoolean(true)
 		});
-
-		// add identifier
-		fhirValueSet.Identifier.Add(new Hl7.Fhir.Model.Identifier {
-				System = "https://mibplatform.nl/fhir/Identifiers/Valueset",
-				Value = "mib-categories"
-			});
 
 		fhirValueSet.Url = "https://mibplatform.nl/fhir/ValueSet/categories";
 		fhirValueSet.Name = "MiB Categories";

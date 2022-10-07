@@ -21,7 +21,7 @@ public class FhirCategoryDao : ICategoryDao
 	{
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var categories = FhirCategoryAdapter.FromJsonBundleToList(await client.GetStringAsync("ValueSet/?identifier=mib-categories"));
+		var categories = FhirCategoryAdapter.FromJsonBundleToList(await client.GetStringAsync("ValueSet/mib-categories"));
 		var selectedCategory = new Category();
 		foreach (var category in categories) {
 			if (category.Id == id) {
@@ -38,7 +38,7 @@ public class FhirCategoryDao : ICategoryDao
 	{
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var categories = FhirCategoryAdapter.FromJsonBundleToList(await client.GetStringAsync("ValueSet/?identifier=mib-categories"));
+		var categories = FhirCategoryAdapter.FromJsonBundleToList(await client.GetStringAsync("ValueSet/mib-categories"));
 
 		foreach (var category in categories) {
 			category.Themes =  await _themeDao.SelectAllByCategoryId(category.Id.ToString());
@@ -51,7 +51,7 @@ public class FhirCategoryDao : ICategoryDao
 	{
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var response = await client.PostAsync("ValueSet", new StringContent(FhirCategoryAdapter.ToJson(categories), Encoding.UTF8, "application/json"));
+		var response = await client.PutAsync("ValueSet/mib-categories", new StringContent(FhirCategoryAdapter.ToJson(categories), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();
 
