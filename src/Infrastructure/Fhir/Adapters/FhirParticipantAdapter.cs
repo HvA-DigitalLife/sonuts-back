@@ -5,7 +5,7 @@ using Sonuts.Domain.Enums;
 namespace Sonuts.Infrastructure.Fhir.Adapters;
 
 
-public static class fhirParticipantAdapter
+public static class FhirParticipantAdapter
 {
 	public static Participant FromJson (string json)
 	{ 
