@@ -37,13 +37,12 @@ public class GetQuestionnaireResponseForQuestionnaireQueryHandler : IRequestHand
 
 	public async Task<QuestionnaireResponseDto> Handle(GetQuestionnaireResponseForQuestionnaireQuery request, CancellationToken cancellationToken)
 	{
-		return _mapper.Map<QuestionnaireResponseDto>((await _context.QuestionnaireResponses
+		return _mapper.Map<QuestionnaireResponseDto>(await _context.QuestionnaireResponses
 			.Include(questionnaireResponse => questionnaireResponse.Responses)
+			.ThenInclude(response => response.Question)
 			.OrderByDescending(questionnaireResponse => questionnaireResponse.CreatedAt)
-			.Where(questionnaireResponse => questionnaireResponse.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)) && questionnaireResponse.Questionnaire.Id.Equals(request.QuestionnaireId))
-			.Take(1)
-			.ToListAsync(cancellationToken))
-			.FirstOrDefault()
-			?? throw new NotFoundException());
+			.FirstOrDefaultAsync(questionnaireResponse => questionnaireResponse.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId))
+			                                              && questionnaireResponse.Questionnaire.Id.Equals(request.QuestionnaireId), cancellationToken)
+		                                             ?? throw new NotFoundException());
 	}
 }
