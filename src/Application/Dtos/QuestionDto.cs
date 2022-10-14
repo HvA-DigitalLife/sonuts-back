@@ -20,7 +20,7 @@ public class QuestionDto : IMapFrom<Question>
 	/// </summary>
 	public string? Description { get; set; }
 	/// <summary>
-	/// Question number
+	/// Question number for ordering
 	/// </summary>
 	public int Order { get; set; } = default!;
 	public EnableWhenDto? EnableWhen { get; set; }
