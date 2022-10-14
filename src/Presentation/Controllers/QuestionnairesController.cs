@@ -19,7 +19,7 @@ public class QuestionnairesController : ApiControllerBase
 	/// Get questionnaire response for questionnaire 
 	/// </summary>
 	[HttpGet("{questionnaireId:guid}/QuestionnaireResponse")]
-	public async Task<ActionResult<QuestionnaireResponseDto>> GetQuestionnaireResponseForQuestionnaire([FromQuery] Guid questionnaireId)
+	public async Task<ActionResult<QuestionnaireResponseDto>> GetQuestionnaireResponseForQuestionnaire([FromRoute] Guid questionnaireId)
 	{
 		return Ok(await Mediator.Send(new GetQuestionnaireResponseForQuestionnaireQuery
 		{
