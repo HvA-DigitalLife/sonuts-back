@@ -37,6 +37,6 @@ public class GetActivityQueryHandler : IRequestHandler<GetActivityQuery, Activit
 	public async Task<ActivityDto> Handle(GetActivityQuery request, CancellationToken cancellationToken) =>
 		_mapper.Map<ActivityDto>(await _context.Activities
 			.Include(activity => activity.Image)
-			.Include(activity => activity.Video)
+			.Include(activity => activity.Videos)
 			.FirstOrDefaultAsync(activity => activity.Id.Equals(request.Id!.Value), cancellationToken) ?? throw new NotFoundException(nameof(Activity), request.Id!));
 }

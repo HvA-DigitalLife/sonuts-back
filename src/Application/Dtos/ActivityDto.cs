@@ -10,5 +10,5 @@ public class ActivityDto : IMapFrom<Activity>
 	public string? Description { get; set; }
 	public ImageDto Image { get; set; } = default!;
 	public ThemeDto Theme { get; set; } = default!;
-	public List<VideoDto> Video { get; set; } = new();
+	public List<VideoDto> Videos { get; set; } = new();
 }
