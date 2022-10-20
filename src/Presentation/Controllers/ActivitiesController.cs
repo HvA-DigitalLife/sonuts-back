@@ -5,7 +5,7 @@ using Sonuts.Application.Logic.Activities.Queries;
 
 namespace Sonuts.Presentation.Controllers;
 
-public class ActivityController : ApiControllerBase
+public class ActivitiesController : ApiControllerBase
 {
 	[Authorize(Roles = "Admin, Participant")]
 	[HttpGet("{activityId:guid}")]
