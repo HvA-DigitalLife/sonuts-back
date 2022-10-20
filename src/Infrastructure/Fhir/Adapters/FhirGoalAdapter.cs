@@ -43,104 +43,95 @@ public static class FhirGoalAdapter
 	{
 		// create plan definion and meta data
 		var fhirGoal= new Hl7.Fhir.Model.Goal{
-			Id = goal.Id.ToString()
+			Id = goal.Id.ToString(),
+			LifecycleStatus = Hl7.Fhir.Model.Goal.GoalLifecycleStatus.Active
 		};
+		// add custom name
+		fhirGoal.Description = new Hl7.Fhir.Model.CodeableConcept();
+		fhirGoal.Description.Coding.Add(new Hl7.Fhir.Model.Coding{ Code = "custom-name", Display = goal.CustomName });
+		
+		fhirGoal.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extensions/Goal/ActivityDefinitionReference", Value = new Hl7.Fhir.Model.ResourceReference{ Reference = "ActivityDefinition/" + goal.Activity.Id.ToString() }
+		});
 
+		var fhirGoalTarget = new Hl7.Fhir.Model.Goal.TargetComponent();
+		fhirGoalTarget.Measure = new Hl7.Fhir.Model.CodeableConcept();
+		fhirGoalTarget.Measure.Coding.Add(new Hl7.Fhir.Model.Coding{ Code = "default-measure", Display = "default-measure" });
 
-		var fhirTarget = new Hl7.Fhir.Model.Goal.TargetComponent();
-		// todo check how to parse date
-		//fhirTarget.Due = Hl7.Fhir.Model.Date(goal.Moment.Time);
-		// todo add measure
+		fhirGoalTarget.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Day", 
+			Value = new Hl7.Fhir.Model.FhirString(goal.Moment.Day.ToString())
+		});
 
+		fhirGoalTarget.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Time", 
+			Value = new Hl7.Fhir.Model.Time(goal.Moment.Time.ToString())
+		});
+		fhirGoalTarget.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Type", 
+			Value = new Hl7.Fhir.Model.FhirString(goal.Moment.Type.ToString())
+		});
 
+		fhirGoalTarget.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extentions/Goal/Moment/EventName", 
+			Value = new Hl7.Fhir.Model.FhirString(goal.Moment.EventName is not null?goal.Moment.EventName.ToString():"")
+		});
 
+		fhirGoalTarget.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extentions/Goal/FrequencyAmount", 
+			Value = new Hl7.Fhir.Model.Integer(goal.FrequencyAmount)
+		});
 
+		goal.FrequencyAmount.ToString();
+	
 
-
-
-		// foreach (var goal in recommendation.Goals) {
-		// 	// create action
-		// 	var action = new Hl7.Fhir.Model.PlanDefinition.ActionComponent();
-		// 	action.Title = goal.Title;
-		// 	action.Description = goal.Text;
-
-		// 	foreach (var dataField in goal.DataFields) {
-		// 	// create data requirement
-		// 	var dataRequirement = new Hl7.Fhir.Model.DataRequirement();
-
-		// 	// add of type string (will have more datatypes once defined)
-		// 	if (dataField.DataType == "string") {
-		// 		dataRequirement.Type = Hl7.Fhir.Model.FHIRAllTypes.String;
-		// 	}
-			
-		// 	// title extension
-		// 	var titleExtension = new Hl7.Fhir.Model.Extension();
-		// 	titleExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/title";
-		// 	titleExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.Title);
-		// 	dataRequirement.Extension.Add(titleExtension);
-
-		// 	// default value extension
-		// 	var defaultValueExtension = new Hl7.Fhir.Model.Extension();
-		// 	defaultValueExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/defaultValue";
-		// 	defaultValueExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.DefaultValue);
-		// 	dataRequirement.Extension.Add(defaultValueExtension);
-
-		// 	// unit extension
-		// 	var unitExtension = new Hl7.Fhir.Model.Extension();
-		// 	unitExtension.Url = "https://mibplatform.nl/fhir/extensions/DataRequirement/unit";
-		// 	unitExtension.Value = new Hl7.Fhir.Model.FhirString(dataField.DataType);
-		// 	dataRequirement.Extension.Add(unitExtension);
-
-		// 	// add requirement to input list
-		// 	action.Input.Add(dataRequirement);
-		// 	}
-		// 	// add action to plan definition
-		// 	fhirPlanDefinition.Action.Add(action);
-		// }
-          
 		// serialize and return
 		var serializer = new FhirJsonSerializer();
 		return serializer.SerializeToString(fhirGoal);
 	}
 
 	private static Goal FhirGoalToGoal(Hl7.Fhir.Model.Goal fhirGoal) {
-		// create interventionPlan model and add meta data
+
 		var goal = new Goal{
-			Id = Guid.Parse(fhirGoal.Id)
+			Id = Guid.Parse(fhirGoal.Id), 
+			CustomName = fhirGoal.Description.Coding.First().Display
 		};
 
 
-		// todo parse target
-    
-        
-		// foreach (var action in planDefinition.Action) {
-		//     // create goal and meta data
-		//     var goal = new Goal();
-		//     goal.Title = action.Title;
-		//     goal.Text = action.Description;
+		foreach (var fhirGoalExtension in fhirGoal.Extension)
+			{
+				if (fhirGoalExtension.Url == "https://mibplatform.nl/fhir/Extensions/Goal/ActivityDefinitionReference") {
+					Hl7.Fhir.Model.ResourceReference fhirGoalActivityDefinitionReference = (Hl7.Fhir.Model.ResourceReference) fhirGoalExtension.Value;
+					goal.Activity.Id = Guid.Parse(fhirGoalActivityDefinitionReference.Reference.Replace("ActivityDefinition/", ""));
+				}
+			}
 
-		//     foreach (var dataRequirement in action.Input) {
-		//         // create data field
-		//         var dataField = new GoalDataField();
+		var fhirGoalTarget = fhirGoal.Target.First();
 
-		//         // parse title, defaultValue and unit extensions
-		//         foreach (var dataRequirementExtension in dataRequirement.Extension) {
-		//             if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/title") {
-		//                 dataField.Title = dataRequirementExtension.Value.ToString();
-		//             }
-		//             if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/defaultValue") {
-		//                 dataField.DefaultValue = dataRequirementExtension.Value.ToString();
-		//             }
-		//             if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/unit") {
-		//                 dataField.DataType = dataRequirementExtension.Value.ToString();
-		//             }
-		//         }
-		//         // add datafields to goal
-		//         goal.DataFields.Add(dataField);
-		//     }
-		//     // add goal to recommendation
-		//     recommendation.Goals.Add(goal);
-		// }
+		foreach (var fhirGoalTargetExtension in fhirGoalTarget.Extension)
+			{
+				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Day") {
+					goal.Moment.Day = (DayOfWeek) Enum.Parse(typeof(DayOfWeek), fhirGoalTargetExtension.Value.ToString());
+				}
+				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Time") {
+					goal.Moment.Time = TimeOnly.Parse(fhirGoalTargetExtension.Value.ToString());
+					
+				}
+				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Type") {
+					goal.Moment.Type = (MomentType) Enum.Parse(typeof(MomentType), fhirGoalTargetExtension.Value.ToString());
+				}
+				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/EventName") {
+					goal.Moment.EventName = fhirGoalTargetExtension.Value.ToString();
+				}
+				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/FrequencyAmount") {
+					Hl7.Fhir.Model.Integer fhirGoalFrequencyAmount = (Hl7.Fhir.Model.Integer) fhirGoalTargetExtension.Value;
+					goal.FrequencyAmount = fhirGoalFrequencyAmount.Value.HasValue?((int)fhirGoalFrequencyAmount.Value):0;
+				}
+			}
+
+
+
+	
 		return goal;
 	}
 

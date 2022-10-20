@@ -81,7 +81,7 @@ public static class FhirActivityAdapter
 				activity.Image.Extension = fhirActionExtension.Value.ToString();
 			}
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-name") {
-				activity.Video = fhirActionExtension.Value.ToString();
+				activity.Image.Name = fhirActionExtension.Value.ToString();
 			}
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video") {
 				activity.Video = fhirActionExtension.Value.ToString();
