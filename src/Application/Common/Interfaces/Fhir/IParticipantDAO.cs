@@ -6,5 +6,5 @@ public interface IParticipantDao
 {
 	Task<Participant> Insert ( Participant participant );
 	Task<bool> Update ( Participant participant );
-	Task<bool> Delete ( int participantId );
+	Task<bool> Delete ( Guid id );
 }

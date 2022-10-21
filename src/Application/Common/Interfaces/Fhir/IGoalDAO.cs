@@ -4,8 +4,8 @@ namespace Sonuts.Application.Common.Interfaces.Fhir;
 
 public interface IGoalDao
 {
-	Task<Goal> Select (System.Guid id);
+	Task<Goal> Select ( Guid id);
 	Task<Goal> Insert ( Goal goal );
 	Task<Goal> Update ( Goal goal );
-	Task<bool> Delete ( System.Guid id );
+	Task<bool> Delete ( Guid id );
 }

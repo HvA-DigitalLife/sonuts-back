@@ -14,12 +14,12 @@ public class FhirCarePlanDao : ICarePlanDao
 
 
 
-	public async Task<List<CarePlan>> SelectAllByParticipantId(string participantId)
+	public async Task<List<CarePlan>> SelectAllByParticipantId(Guid participantId)
 	{
 
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var result = await client.GetStringAsync("PlanDefinition?type=" + participantId); // todo, add extension and search parameter for mib domain id valueset to FHIR, will get all of them for now
+		var result = await client.GetStringAsync("PlanDefinition?type=" + participantId.ToString()); // todo, add extension and search parameter for mib domain id valueset to FHIR, will get all of them for now
 
 		return FhirCarePlanAdapter.FromJsonBundle(result);
 	}
@@ -40,7 +40,7 @@ public class FhirCarePlanDao : ICarePlanDao
 		return true;
 	}
 
-	public async Task<bool> Delete(int carePlanId)
+	public async Task<bool> Delete(Guid id)
 	{
 		await Task.Delay(1);
 		return true;

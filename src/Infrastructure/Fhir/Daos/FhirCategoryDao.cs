@@ -17,7 +17,7 @@ public class FhirCategoryDao : ICategoryDao
 		_themeDao = themeDao;
 	}
 
-	public async Task<Category> Select(System.Guid id)
+	public async Task<Category> Select(Guid id)
 	{
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
@@ -25,7 +25,7 @@ public class FhirCategoryDao : ICategoryDao
 		var selectedCategory = new Category();
 		foreach (var category in categories) {
 			if (category.Id == id) {
-				category.Themes =  await _themeDao.SelectAllByCategoryId(category.Id.ToString());
+				category.Themes =  await _themeDao.SelectAllByCategoryId(category.Id);
 				selectedCategory = category;
 			}
 			
@@ -41,7 +41,7 @@ public class FhirCategoryDao : ICategoryDao
 		var categories = FhirCategoryAdapter.FromJsonBundleToList(await client.GetStringAsync("ValueSet/mib-categories"));
 
 		foreach (var category in categories) {
-			category.Themes =  await _themeDao.SelectAllByCategoryId(category.Id.ToString());
+			category.Themes =  await _themeDao.SelectAllByCategoryId(category.Id);
 		}
 
 		return categories;

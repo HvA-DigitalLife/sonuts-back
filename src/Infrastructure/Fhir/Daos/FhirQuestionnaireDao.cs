@@ -18,10 +18,10 @@ public class FhirQuestionnaireDao : IQuestionnaireDao
 	}
 
 
-	public async Task<Questionnaire> SelectByCategoryId(System.Guid id)
+	public async Task<Questionnaire> SelectByCategoryId(Guid categoryId)
 	{
 
-		var category = _categoryDao.Select(id);
+		var category = _categoryDao.Select(categoryId);
 
 		// load and parse questionnaire instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
@@ -31,7 +31,7 @@ public class FhirQuestionnaireDao : IQuestionnaireDao
 		return FhirQuestionnaireAdapter.FromJson(result);
 	}
 
-	public async Task<Questionnaire> Select(System.Guid id)
+	public async Task<Questionnaire> Select(Guid id)
 	{
 
 		// load and parse questionnaire instance

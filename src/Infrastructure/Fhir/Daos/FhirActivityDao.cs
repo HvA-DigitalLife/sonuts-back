@@ -15,7 +15,7 @@ public class FhirActivityDao : IActivityDao
 
 
 
-	public async Task<Activity> Select(System.Guid id)
+	public async Task<Activity> Select(Guid id)
 	{
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var result = await client.GetStringAsync("PlanDefinition/" + id.ToString());
@@ -39,7 +39,7 @@ public class FhirActivityDao : IActivityDao
 		return activity;
 	}
 
-	public async Task<bool> Delete(System.Guid id)
+	public async Task<bool> Delete(Guid id)
 	{
 		await Task.Delay(1);
 		return true;

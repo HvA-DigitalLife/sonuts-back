@@ -15,12 +15,12 @@ public class FhirThemeDao : IThemeDao
 
 
 
-	public async Task<List<Theme>> SelectAllByCategoryId(string categoryId)
+	public async Task<List<Theme>> SelectAllByCategoryId(Guid categoryId)
 	{
 
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var result = await client.GetStringAsync("PlanDefinition?type=" + categoryId); // todo, add extension and search parameter for mib domain id valueset to FHIR, will get all of them for now
+		var result = await client.GetStringAsync("PlanDefinition?type=" + categoryId.ToString()); // todo, add extension and search parameter for mib domain id valueset to FHIR, will get all of them for now
 
 		return FhirThemeAdapter.FromJsonBundle(result);
 	}
@@ -41,7 +41,7 @@ public class FhirThemeDao : IThemeDao
 		return true;
 	}
 
-	public async Task<bool> Delete(int themeId)
+	public async Task<bool> Delete(Guid themeId)
 	{
 		await Task.Delay(1);
 		return true;

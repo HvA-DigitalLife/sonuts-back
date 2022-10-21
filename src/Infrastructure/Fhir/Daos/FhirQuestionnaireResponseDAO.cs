@@ -15,11 +15,11 @@ public class FhirQuestionnaireResponseDao : IQuestionnaireResponseDao
 
 
 
-	public async Task<QuestionnaireResponse> Select(string id)
+	public async Task<QuestionnaireResponse> Select(Guid id)
 	{
 		// load and parse questionnaire response instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var result = await client.GetStringAsync("QuestionnaireResponse/" + id);
+		var result = await client.GetStringAsync("QuestionnaireResponse/" + id.ToString());
 
 		return FhirQuestionnaireResponseAdapter.FromJson(result);
 	}
@@ -40,7 +40,7 @@ public class FhirQuestionnaireResponseDao : IQuestionnaireResponseDao
 		return true;
 	}
 
-	public async Task<bool> Delete(int id)
+	public async Task<bool> Delete(Guid id)
 	{
 		await Task.Delay(1);
 		return true;

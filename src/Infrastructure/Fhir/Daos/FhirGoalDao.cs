@@ -15,7 +15,7 @@ public class FhirGoalDao : IGoalDao
 
 
 
-	public async Task<Goal> Select(System.Guid id)
+	public async Task<Goal> Select(Guid id)
 	{
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var result = await client.GetStringAsync("Goal/" + id.ToString());
@@ -39,7 +39,7 @@ public class FhirGoalDao : IGoalDao
 		return goal;
 	}
 
-	public async Task<bool> Delete(System.Guid id)
+	public async Task<bool> Delete(Guid id)
 	{
 		await Task.Delay(1);
 		return true;

@@ -47,7 +47,7 @@ public class FhirParticipantDao : IParticipantDao
 		return true;
 	}
 
-	public async Task<bool> Delete(int participantId)
+	public async Task<bool> Delete(Guid id)
 	{
 		await Task.Delay(1);
 		return true;
