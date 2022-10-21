@@ -40,7 +40,7 @@ public class GetRecipeQueryHandler : IRequestHandler<GetRecipeQuery, RecipeDto>
 			.Include(recipe => recipe.Image)
 			.Include(recipe => recipe.Ingredients)
 			.Include(recipe => recipe.Steps)
-			.FirstOrDefaultAsync(x => x.Id.Equals(request.Id!.Value), cancellationToken))
+			.FirstOrDefaultAsync(recipe => recipe.Id.Equals(request.Id!.Value), cancellationToken))
 			?? throw new NotFoundException(nameof(Recipe), request.Id!.Value);
 	}
 }
