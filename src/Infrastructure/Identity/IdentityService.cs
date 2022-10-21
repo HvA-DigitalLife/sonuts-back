@@ -90,7 +90,7 @@ public class IdentityService : IIdentityService
 	{
 		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-		if (user == null)
+		if (user is null)
 		{
 			return false;
 		}

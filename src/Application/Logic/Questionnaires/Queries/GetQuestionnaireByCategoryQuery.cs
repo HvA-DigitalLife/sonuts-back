@@ -46,7 +46,7 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 			.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
 			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId), cancellationToken);
 
-		if (category == null)
+		if (category is null)
 			throw new NotFoundException(nameof(Category), request.CategoryId);
 
 		return _mapper.Map<QuestionnaireDto>(category.Questionnaire);
