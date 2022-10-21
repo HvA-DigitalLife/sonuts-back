@@ -14,6 +14,8 @@ public interface IIdentityService
 
 	Task<bool> IsUser(string userId);
 
+	Task<Result> AddToRole(string userId, string role);
+
 	Task<bool> AuthorizeAsync(string userId, string policyName);
 
 	Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);

@@ -5,6 +5,7 @@ using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Models;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
+using Sonuts.Domain.Enums;
 using ValidationException = Sonuts.Application.Common.Exceptions.ValidationException;
 
 namespace Sonuts.Application.Logic.Participants.Commands;
@@ -61,6 +62,8 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 
 		if (!result.Succeeded)
 			throw new ValidationException();
+
+		await _identityService.AddToRole(userId, Role.Participant.ToString());
 
 		var entity = new Participant
 		{
