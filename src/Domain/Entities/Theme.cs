@@ -15,4 +15,5 @@ public class Theme : BaseEntity //http://hl7.org/fhir/R4/plandefinition.html#Pla
 	public List<RecommendationRule> RecommendationRules { get; set; } = new();
 	public List<Activity> Activities { get; set; } = new();
 	public List<Faq> Faq { get; set; } = new();
+	public List<Recipe> Recipes { get; set; } = new();
 }
