@@ -1,5 +1,6 @@
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Interfaces.Fhir;
+using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
@@ -404,6 +405,19 @@ internal static class CategorySeed
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
 						GoalFrequencyQuestion = "Hoe vaak in de week wil je peulvruchten eten?",
+						Faq = new()
+						{
+							new()
+							{
+								Question = "Wat zijn peulvruchten?", 
+								Answer = "Peulvruchten zijn bijvoorbeeld bonen, erwten, linzen, kikkererwten en sojabonen.",
+							},
+							new()
+							{
+								Question = "Hoeveel peulvruchten moet ik eten?",
+								Answer = "Een portie peulvruchten is 200 gram. Dat is ongeveer 4 opscheplepels. Een portie peulvruchten is dus 4 keer zoveel als een portie groente.",
+							},
+						},
 						Activities = new List<Activity>
 						{
 							new()
@@ -414,6 +428,42 @@ internal static class CategorySeed
 								{
 									Extension = "png",
 									Name = "fruit"
+								}
+								
+							}
+						},
+						Recipes = new() 
+						{ 
+							new()
+							{
+								Name = "Pasta met peulvruchten",
+								Image = new Image { Extension = "png", Name = "fc5fcc51-e19c-4e14-8647-82cff962ba83" },
+								Steps = new() 
+								{
+									new () { Description = "Zet water op het vuur", Order = 0 },
+									new () { Description = "Laat het water koken", Order = 1 },
+									new () { Description = "Doe de paste in het water", Order = 2 }
+								},
+								Ingredients = new()
+								{
+									new() { Ingredient = "500ml water" },
+									new() { Ingredient = "100 Gram pasta" }
+								}
+							},
+							new()
+							{
+								Name = "Vis met peulvruchten",
+								Image = new Image { Extension = "png", Name = "a25515a3-9383-4f44-9597-488ba6393a14" },
+								Steps = new()
+								{
+									new () { Description = "Zet water op het vuur", Order = 0 },
+									new () { Description = "Laat het water koken", Order = 1 },
+									new () { Description = "Doe de paste in het water", Order = 2 }
+								},
+								Ingredients = new()
+								{
+									new() { Ingredient = "500ml water" },
+									new() { Ingredient = "100 Gram pasta" }
 								}
 							}
 						}
@@ -869,6 +919,11 @@ internal static class CategorySeed
 								{
 									Extension = "png",
 									Name = "fietsen"
+								},
+								Videos = new List<Video>
+								{
+									new(){ Url = "https://www.youtube.com/watch?v=7VRLk9zUc4Q&t=1s" },
+									new(){ Url = "https://www.youtube.com/watch?v=GN9Hhv-3o98" }
 								}
 							},
 							new()
