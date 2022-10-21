@@ -12,7 +12,7 @@ namespace Sonuts.Application.Logic.Questionnaires.Queries;
 
 public record GetQuestionnaireByCategoryQuery : IRequest<QuestionnaireDto>
 {
-	public Guid? CategoryId { get; set; }
+	public Guid CategoryId { get; set; }
 }
 
 public class GetQuestionnaireByTypeQueryValidator : AbstractValidator<GetQuestionnaireByCategoryQuery>
@@ -20,7 +20,7 @@ public class GetQuestionnaireByTypeQueryValidator : AbstractValidator<GetQuestio
 	public GetQuestionnaireByTypeQueryValidator()
 	{
 		RuleFor(query => query.CategoryId)
-			.NotNull();
+			.NotEmpty();
 	}
 }
 
@@ -44,10 +44,10 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 		var category = await _context.Categories
 			.Include(category => category.Questionnaire.Questions.OrderBy(question => question.Order))
 			.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
-			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId!.Value), cancellationToken);
+			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId), cancellationToken);
 
 		if (category == null)
-			throw new NotFoundException(nameof(Category), request.CategoryId!.Value);
+			throw new NotFoundException(nameof(Category), request.CategoryId);
 
 		return _mapper.Map<QuestionnaireDto>(category.Questionnaire);
 	}
