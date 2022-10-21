@@ -9,7 +9,7 @@ public class DateOnlyConverter : JsonConverter<DateOnly>
 		DateOnly.Parse(reader.GetString()!);
 
 	public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
-		=> writer.WriteStringValue(value.ToShortDateString());
+		=> writer.WriteStringValue(value.ToString("yyyy/MM/dd"));
 }
 
 public class NullableDateOnlyConverter : JsonConverter<DateOnly?>
@@ -21,5 +21,6 @@ public class NullableDateOnlyConverter : JsonConverter<DateOnly?>
 	}
 
 	public override void Write(Utf8JsonWriter writer, DateOnly? value, JsonSerializerOptions options)
-		=> writer.WriteStringValue(value?.ToShortDateString());
+		=> writer.WriteStringValue(value?.ToString("yyyy/MM/dd"));
+
 }
