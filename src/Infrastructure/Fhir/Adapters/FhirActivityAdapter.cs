@@ -56,9 +56,12 @@ public static class FhirActivityAdapter
 			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-name", Value = new Hl7.Fhir.Model.FhirString(activity.Image.Name)
 		});
 
-		fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
-			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video", Value = new Hl7.Fhir.Model.FhirString(activity.Video)
-		});
+		foreach (var activityVideo in activity.Videos) {
+			fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video", Value = new Hl7.Fhir.Model.FhirString(activityVideo.Url)
+			});
+		}
+
 
           
 		// serialize and return
@@ -84,7 +87,7 @@ public static class FhirActivityAdapter
 				activity.Image.Name = fhirActionExtension.Value.ToString();
 			}
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video") {
-				activity.Video = fhirActionExtension.Value.ToString();
+				activity.Videos.Add(new Video{Url = fhirActionExtension.Value.ToString()});
 			}
 		}
 
