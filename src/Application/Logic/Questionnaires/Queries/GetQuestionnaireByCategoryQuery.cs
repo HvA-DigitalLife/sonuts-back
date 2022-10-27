@@ -41,11 +41,18 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 
 	public async Task<QuestionnaireDto> Handle(GetQuestionnaireByCategoryQuery request, CancellationToken cancellationToken)
 	{
-		var category = await _context.Categories
-			.Include(category => category.Questionnaire.Questions.OrderBy(question => question.Order))
-			.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
-			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId), cancellationToken);
-
+		// pre init category object
+		var category = new Category{Id = request.CategoryId};
+		// FHIR query
+		if (_fhirOptions.Read) {
+			category.Questionnaire = await _dao.SelectByCategoryId(request.CategoryId);
+		}
+		else {
+			category = await _context.Categories
+				.Include(category => category.Questionnaire.Questions.OrderBy(question => question.Order))
+				.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
+				.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId), cancellationToken);
+		}
 		if (category is null)
 			throw new NotFoundException(nameof(Category), request.CategoryId);
 
