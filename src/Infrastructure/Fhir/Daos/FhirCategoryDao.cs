@@ -55,8 +55,6 @@ public class FhirCategoryDao : ICategoryDao
 
 		var responseContent = await response.Content.ReadAsStringAsync();
 
-		Console.WriteLine(responseContent);
-
 		// todo make non bundle version
 		return FhirCategoryAdapter.FromJsonToList(responseContent);
 	}
