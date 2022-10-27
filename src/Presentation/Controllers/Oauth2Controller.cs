@@ -1,7 +1,7 @@
-using Sonuts.Application.Oauth2.Commands;
-using Sonuts.Application.Oauth2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sonuts.Application.Logic.Oauth2.Commands;
+using Sonuts.Application.Logic.Oauth2.Models;
 
 namespace Sonuts.Presentation.Controllers;
 

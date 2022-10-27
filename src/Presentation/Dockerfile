@@ -8,8 +8,6 @@ EXPOSE 5000
 EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt install -y nodejs
 WORKDIR /src
 COPY ["src/Presentation/Presentation.csproj", "src/Presentation/"]
 COPY ["src/Application/Application.csproj", "src/Application/"]

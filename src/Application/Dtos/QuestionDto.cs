@@ -25,4 +25,5 @@ public class QuestionDto : IMapFrom<Question>
 	public int Order { get; set; } = default!;
 	public EnableWhenDto? EnableWhen { get; set; }
 	public ICollection<AnswerOptionDto>? AnswerOptions { get; set; } = new List<AnswerOptionDto>();
+	public bool IsRequired { get; set; }
 }

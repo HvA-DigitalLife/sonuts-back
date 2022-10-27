@@ -28,6 +28,7 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
 	public DbSet<Activity> Activities => Set<Activity>();
 
 	public DbSet<AnswerOption> AnswerOptions => Set<AnswerOption>();
+
 	public DbSet<CarePlan> CarePlans => Set<CarePlan>();
 
 	public DbSet<Category> Categories => Set<Category>();
@@ -39,6 +40,8 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
 	public DbSet<Content> Content => Set<Content>();
 
 	public DbSet<Execution> Executions => Set<Execution>();
+
+	public DbSet<Faq> Faq => Set<Faq>();
 
 	public DbSet<Goal> Goals => Set<Goal>();
 
@@ -54,9 +57,19 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
 
 	public DbSet<QuestionResponse> QuestionResponses => Set<QuestionResponse>();
 
+	public DbSet<Recipe> Recipes => Set<Recipe>();
+
+	public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
+
+	public DbSet<RecipeStep> RecipeSteps => Set<RecipeStep>();
+
+	public DbSet<RecommendationRule> RecommendationRules => Set<RecommendationRule>();
+
 	public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
 	public DbSet<Theme> Themes => Set<Theme>();
+
+	public DbSet<Video> Videos => Set<Video>();
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{

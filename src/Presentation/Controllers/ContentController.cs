@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sonuts.Application.Content;
-using Sonuts.Application.Content.Commands;
-using Sonuts.Application.Content.Queries;
+using Sonuts.Application.Dtos;
+using Sonuts.Application.Logic.Content.Commands;
+using Sonuts.Application.Logic.Content.Queries;
 using Sonuts.Domain.Enums;
 
 namespace Sonuts.Presentation.Controllers;

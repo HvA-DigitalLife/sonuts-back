@@ -8,6 +8,7 @@ public interface IApplicationDbContext
 	DbSet<Activity> Activities { get; }
 
 	DbSet<AnswerOption> AnswerOptions { get; }
+
 	DbSet<CarePlan> CarePlans { get; }
 
 	DbSet<Category> Categories { get; }
@@ -19,6 +20,8 @@ public interface IApplicationDbContext
 	DbSet<Domain.Entities.Content> Content { get; }
 
 	DbSet<Execution> Executions { get; }
+
+	DbSet<Faq> Faq { get; }
 
 	DbSet<Goal> Goals { get; }
 
@@ -34,9 +37,19 @@ public interface IApplicationDbContext
 
 	DbSet<QuestionResponse> QuestionResponses { get; }
 
+	DbSet<Recipe> Recipes { get; }
+
+	DbSet<RecipeIngredient> RecipeIngredients { get; }
+
+	DbSet<RecipeStep> RecipeSteps { get; }
+
+	DbSet<RecommendationRule> RecommendationRules { get; }
+
 	DbSet<RefreshToken> RefreshTokens { get; }
 
 	DbSet<Theme> Themes { get; }
+
+	DbSet<Video> Videos { get; }
 
 	Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

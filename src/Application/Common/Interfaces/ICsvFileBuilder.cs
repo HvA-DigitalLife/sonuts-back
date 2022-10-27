@@ -1,4 +1,4 @@
-using Sonuts.Application.Executions.Models;
+using Sonuts.Application.Logic.Executions.Models;
 
 namespace Sonuts.Application.Common.Interfaces;
 

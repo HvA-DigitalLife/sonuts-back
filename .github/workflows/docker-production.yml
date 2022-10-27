@@ -1,0 +1,15 @@
+name: Docker production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [self-hosted, production]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: docker build . --tag ${{ github.event.repository.name }}:${GITHUB_REF##*/} --file src/Presentation/Dockerfile
