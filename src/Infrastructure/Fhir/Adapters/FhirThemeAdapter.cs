@@ -144,7 +144,7 @@ public static class FhirThemeAdapter
 			}
 
 
-        
+        // TODO: create references to activities
 		foreach (var fhirAction in fhirPlanDefinition.Action) {
 			// create goal and meta data
 			var activity = new Activity();
