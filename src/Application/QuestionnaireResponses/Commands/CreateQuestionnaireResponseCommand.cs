@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using static System.Decimal;
@@ -87,12 +88,16 @@ public class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQ
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
 	private readonly ICurrentUserService _currentUserService;
+	private readonly IFhirOptions _fhirOptions;
+	private readonly IQuestionnaireResponseDao _dao;
 
-	public CreateQuestionnaireResponseCommandHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
+	public CreateQuestionnaireResponseCommandHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService, IFhirOptions fhirOptions, IQuestionnaireResponseDao dao)
 	{
 		_context = context;
 		_mapper = mapper;
 		_currentUserService = currentUserService;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<QuestionnaireResponseDto> Handle(CreateQuestionnaireResponseCommand request, CancellationToken cancellationToken)
@@ -117,6 +122,11 @@ public class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQ
 				Answer = response.Answer!
 			}).ToList()
 		};
+
+		// FHIR query
+		if (_fhirOptions.Write == true) {
+			await _dao.Insert(entity);
+		}		
 
 		await _context.QuestionnaireResponses.AddAsync(entity, cancellationToken);
 		
