@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 
@@ -27,11 +28,15 @@ public class GetActivityQueryHandler : IRequestHandler<GetActivityQuery, Activit
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
+	private readonly IFhirOptions _fhirOptions;
+	private readonly IActivityDao _dao;
 
-	public GetActivityQueryHandler(IApplicationDbContext context, IMapper mapper)
+	public GetActivityQueryHandler(IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, IActivityDao dao)
 	{
 		_context = context;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<ActivityDto> Handle(GetActivityQuery request, CancellationToken cancellationToken) =>

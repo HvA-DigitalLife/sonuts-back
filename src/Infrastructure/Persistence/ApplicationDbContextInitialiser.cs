@@ -20,6 +20,7 @@ public class ApplicationDbContextInitialiser
 	private readonly IParticipantDao _participantDao;
 	private readonly IQuestionnaireDao _questionnaireDao;
 	private readonly IThemeDao _themeDao;
+	private readonly IActivityDao _activityDao;
 
 	public ApplicationDbContextInitialiser(
 		ILogger<ApplicationDbContextInitialiser> logger, 
@@ -30,7 +31,8 @@ public class ApplicationDbContextInitialiser
 		ICategoryDao categoryDao,
 		IParticipantDao participantDao,
 		IQuestionnaireDao questionnaireDao,
-		IThemeDao themeDao)
+		IThemeDao themeDao,
+		IActivityDao activityDao)
 	{
 		_logger = logger;
 		_context = context;
@@ -40,6 +42,7 @@ public class ApplicationDbContextInitialiser
 		_participantDao = participantDao;
 		_questionnaireDao = questionnaireDao;
 		_themeDao = themeDao;
+		_activityDao = activityDao;
 		_fhirOptions = fhirOptions;
 	}
 
@@ -77,6 +80,6 @@ public class ApplicationDbContextInitialiser
 		await UserSeed.Seed(_userManager, _roleManager, _context, _fhirOptions, _participantDao);
 		await ClientSeed.Seed(_context);
 		await ContentSeed.Seed(_context);
-		await CategorySeed.Seed(_context, _fhirOptions, _categoryDao, _questionnaireDao, _themeDao);
+		await CategorySeed.Seed(_context, _fhirOptions, _categoryDao, _questionnaireDao, _themeDao, _activityDao);
 	}
 }

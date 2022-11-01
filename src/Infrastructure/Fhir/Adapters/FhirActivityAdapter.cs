@@ -48,14 +48,15 @@ public static class FhirActivityAdapter
 			Description = new Hl7.Fhir.Model.Markdown(activity.Description)
 		};
 
-		fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
-			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-extension", Value = new Hl7.Fhir.Model.FhirString(activity.Image.Extension)
-		});
+		if (activity.Image is not null) {
+			fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-extension", Value = new Hl7.Fhir.Model.FhirString(activity.Image.Extension)
+			});
 
-		fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
-			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-name", Value = new Hl7.Fhir.Model.FhirString(activity.Image.Name)
-		});
-
+			fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
+				Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-name", Value = new Hl7.Fhir.Model.FhirString(activity.Image.Name)
+			});
+		}
 		foreach (var activityVideo in activity.Videos) {
 			fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
 				Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video", Value = new Hl7.Fhir.Model.FhirString(activityVideo.Url)
@@ -74,20 +75,22 @@ public static class FhirActivityAdapter
 		var activity = new Activity{
 			Id = Guid.Parse(fhirActivityDefinition.Id),
 			Name = fhirActivityDefinition.Title,
-			Description = fhirActivityDefinition.Description.ToString()
+			Description = fhirActivityDefinition.Description?.ToString()
 		};
 
 		// parse extensions
 		foreach (var fhirActionExtension in fhirActivityDefinition.Extension)
 		{
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-extension") {
-				activity.Image.Extension = fhirActionExtension.Value.ToString();
+				if (activity.Image is null) { activity.Image = new Image(); }
+				activity.Image.Extension = fhirActionExtension.Value.ToString() ?? "";
 			}
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-name") {
-				activity.Image.Name = fhirActionExtension.Value.ToString();
+				if (activity.Image is null) { activity.Image = new Image(); }
+				activity.Image.Name = fhirActionExtension.Value.ToString() ?? "";
 			}
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video") {
-				activity.Videos.Add(new Video{Url = fhirActionExtension.Value.ToString()});
+				activity.Videos.Add(new Video{Url = fhirActionExtension.Value.ToString() ?? ""});
 			}
 		}
 

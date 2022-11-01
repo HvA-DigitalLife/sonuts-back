@@ -13,7 +13,7 @@ internal static class CategorySeed
 	private static readonly Guid VoedingId = new("a5997737-7f28-4f5f-92fc-6054023b1248");
 	private static readonly Guid BewegenId = new("33c34b68-0925-4af4-a612-11503c87208f");
 
-	internal static async Task Seed(IApplicationDbContext context, IFhirOptions fhirOptions, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao)
+	internal static async Task Seed(IApplicationDbContext context, IFhirOptions fhirOptions, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao, IActivityDao activityDao)
 	{
 		List<Category> categories = new();
 
@@ -1088,11 +1088,18 @@ internal static class CategorySeed
 
 				foreach (var category in categories)
 				{
+
 					// Add category questionnaire to FHIR database
 					await questionnaireDao.Insert(category.Questionnaire);
 					
 					foreach (var theme in category.Themes)
 					{
+						// Add activities to FHIR database separately
+						foreach (var activity in theme.Activities) {
+							await activityDao.Insert(activity);
+						}
+
+
 						// Add theme to FHIR database
 						await themeDao.Insert(theme);
 					}
