@@ -43,7 +43,7 @@ public static class FhirQuestionnaireAdapter
 				
 				if ((fhirItemExtension.Url == "https://mibplatform.nl/fhir/extensions/Questionnaire/answerOrder"))
 				{
-					question.Order = int.Parse(fhirItemExtension.Value.ToString());
+					question.Order = int.Parse(fhirItemExtension.Value.ToString() ?? "0");
 				}
 			}
 
@@ -51,20 +51,21 @@ public static class FhirQuestionnaireAdapter
 
 				question.EnableWhen = new EnableWhen {
 					DependentQuestionId = Guid.Parse(fhirEnableWhen.Question),
-					Answer = fhirEnableWhen.Answer.ToString()
+					Answer = fhirEnableWhen.Answer.ToString() ?? ""
 				};
-
-				question.EnableWhen.Operator = fhirEnableWhen.Operator.Value switch
-				{
-					// set question type
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.Equal => Operator.Equals,
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterOrEqual => Operator.GreaterOrEquals,
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterThan => Operator.GreaterThan,
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessOrEqual => Operator.LessOrEquals,
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessThan => Operator.LessThan,
-					Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.NotEqual => Operator.NotEquals,
-					_ => question.EnableWhen.Operator
-				};
+				if (fhirEnableWhen.Operator is not null) {
+					question.EnableWhen.Operator = fhirEnableWhen.Operator.Value switch
+					{
+						// set question type
+						Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.Equal => Operator.Equals,
+						Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterOrEqual => Operator.GreaterOrEquals,
+						Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.GreaterThan => Operator.GreaterThan,
+						Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessOrEqual => Operator.LessOrEquals,
+						Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.LessThan => Operator.LessThan,
+						Hl7.Fhir.Model.Questionnaire.QuestionnaireItemOperator.NotEqual => Operator.NotEquals,
+						_ => question.EnableWhen.Operator
+					};
+				}
 			}
 
 
@@ -99,7 +100,7 @@ public static class FhirQuestionnaireAdapter
 						{
 							// @thomaslem how best to do this?
 							// i want to convert from   (Hl7.Fhir.Model.Integer) answerOptionExtension.Value  to int
-							answerOption.Order = int.Parse(fhirAnswerOptionExtension.Value.ToString());
+							answerOption.Order = int.Parse(fhirAnswerOptionExtension.Value.ToString() ?? "0");
 						}
 					}
 

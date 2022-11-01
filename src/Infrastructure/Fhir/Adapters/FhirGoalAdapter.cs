@@ -111,14 +111,14 @@ public static class FhirGoalAdapter
 		foreach (var fhirGoalTargetExtension in fhirGoalTarget.Extension)
 			{
 				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Day") {
-					goal.Moment.Day = (DayOfWeek) Enum.Parse(typeof(DayOfWeek), fhirGoalTargetExtension.Value.ToString());
+					goal.Moment.Day = (DayOfWeek) Enum.Parse(typeof(DayOfWeek), fhirGoalTargetExtension.Value.ToString() ?? "Sunday");
 				}
 				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Time") {
-					goal.Moment.Time = TimeOnly.Parse(fhirGoalTargetExtension.Value.ToString());
+					goal.Moment.Time = TimeOnly.Parse(fhirGoalTargetExtension.Value.ToString() ?? "");
 					
 				}
 				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Type") {
-					goal.Moment.Type = (MomentType) Enum.Parse(typeof(MomentType), fhirGoalTargetExtension.Value.ToString());
+					goal.Moment.Type = (MomentType) Enum.Parse(typeof(MomentType), fhirGoalTargetExtension.Value.ToString() ?? "Before");
 				}
 				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/EventName") {
 					goal.Moment.EventName = fhirGoalTargetExtension.Value.ToString();

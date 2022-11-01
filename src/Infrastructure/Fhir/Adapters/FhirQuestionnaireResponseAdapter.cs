@@ -33,7 +33,7 @@ public static class FhirQuestionnaireResponseAdapter
 			// parse responses
 			foreach (var fhirQuestionResponse in fhirItem.Answer) {
 				if (fhirQuestionResponse.Value.GetType() == typeof(Hl7.Fhir.Model.FhirString)) {
-					questionResponse.Answer = fhirQuestionResponse.Value.ToString();
+					questionResponse.Answer = fhirQuestionResponse.Value.ToString() ?? "";
 				}
 
 			}

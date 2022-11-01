@@ -50,20 +50,20 @@ public static class FhirCategoryAdapter
 				foreach (var fhirConceptExtension in fhirConcept.Extension) {
 					if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive") {
 						if (fhirConceptExtension.Value is not null) {
-							category.IsActive = bool.Parse(fhirConceptExtension.Value.ToString());
+							category.IsActive = bool.Parse(fhirConceptExtension.Value.ToString() ?? "False");
 						} else {
 							category.IsActive = false;
 						}
 					}
 					if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/color") {
 						if (fhirConceptExtension.Value is not null) {
-							category.Color = fhirConceptExtension.Value.ToString();
+							category.Color = fhirConceptExtension.Value.ToString() ?? "";
 						}
 					}
 					if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/questionnaireId") {
 						if (fhirConceptExtension.Value is not null) {
 							category.Questionnaire = new Questionnaire();
-							category.Questionnaire.Id = Guid.Parse(fhirConceptExtension.Value.ToString());
+							category.Questionnaire.Id = Guid.Parse(fhirConceptExtension.Value.ToString() ?? "");
 						}
 					}
 					
