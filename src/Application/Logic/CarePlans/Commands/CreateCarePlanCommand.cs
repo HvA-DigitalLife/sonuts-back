@@ -102,15 +102,17 @@ public class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComman
 	private readonly IMapper _mapper;
 
 	private readonly IFhirOptions _fhirOptions;
-	private readonly ICarePlanDao _dao;
+	private readonly IGoalDao _goalDao;
+	private readonly ICarePlanDao _carePlanDao;
 
-	public CreateCarePlanCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper, IFhirOptions fhirOptions, ICarePlanDao dao)
+	public CreateCarePlanCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper, IFhirOptions fhirOptions, IGoalDao goalDao, ICarePlanDao carePlanDao)
 	{
 		_context = context;
 		_currentUserService = currentUserService;
 		_mapper = mapper;
 		_fhirOptions = fhirOptions;
-		_dao = dao;
+		_goalDao = goalDao;
+		_carePlanDao = carePlanDao;
 	}
 
 	public async Task<CarePlanDto> Handle(CreateCarePlanCommand request, CancellationToken cancellationToken)
@@ -148,6 +150,13 @@ public class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComman
 			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken),
 			Goals = goals
 		};
+
+		if (_fhirOptions.Write) {
+			foreach (var goal in goals) {
+				await _goalDao.Insert(goal);
+			}
+			await _carePlanDao.Insert(carePlan);
+		}
 
 		_context.CarePlans.Add(carePlan);
 		await _context.SaveChangesAsync(cancellationToken);

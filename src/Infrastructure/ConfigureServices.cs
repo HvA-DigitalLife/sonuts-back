@@ -53,9 +53,12 @@ public static class ConfigureServices
 		services.AddTransient<IIdentityService, IdentityService>();
 		services.AddTransient<ITokenService, TokenService>();
 		services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
-		
+
+		services.AddTransient<IActivityDao, FhirActivityDao>();		
 		services.AddTransient<ICarePlanDao, FhirCarePlanDao>();
 		services.AddTransient<ICategoryDao, FhirCategoryDao>();
+		services.AddTransient<IExecutionDao, FhirExecutionDao>();	
+		services.AddTransient<IGoalDao, FhirGoalDao>();
 		services.AddTransient<IParticipantDao, FhirParticipantDao>();
 		services.AddTransient<IQuestionnaireDao, FhirQuestionnaireDao>();
 		services.AddTransient<IQuestionnaireResponseDao, FhirQuestionnaireResponseDao>();
