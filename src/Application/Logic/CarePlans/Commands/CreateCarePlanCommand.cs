@@ -100,7 +100,6 @@ public class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComman
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IMapper _mapper;
-
 	private readonly IFhirOptions _fhirOptions;
 	private readonly IGoalDao _goalDao;
 	private readonly ICarePlanDao _carePlanDao;

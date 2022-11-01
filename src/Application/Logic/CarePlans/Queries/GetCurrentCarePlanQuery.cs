@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 
@@ -31,12 +32,16 @@ public class GetCurrentCarePlanQueryHandler : IRequestHandler<GetCurrentCarePlan
 	private readonly IMapper _mapper;
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;
+	private readonly IFhirOptions _fhirOptions;
+	private readonly ICarePlanDao _dao;
 
-	public GetCurrentCarePlanQueryHandler(IMapper mapper, IApplicationDbContext context, ICurrentUserService currentUserService)
+	public GetCurrentCarePlanQueryHandler(IMapper mapper, IApplicationDbContext context, ICurrentUserService currentUserService, IFhirOptions fhirOptions, ICarePlanDao dao)
 	{
 		_mapper = mapper;
 		_context = context;
 		_currentUserService = currentUserService;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<CarePlanDto> Handle(GetCurrentCarePlanQuery request, CancellationToken cancellationToken)
