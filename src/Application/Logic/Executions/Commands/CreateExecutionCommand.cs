@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 
@@ -32,12 +33,16 @@ public class CreateExecutionCommandHandler : IRequestHandler<CreateExecutionComm
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IMapper _mapper;
+	private readonly IFhirOptions _fhirOptions;
+	private readonly IExecutionDao _dao;
 
-	public CreateExecutionCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper)
+	public CreateExecutionCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper, IFhirOptions fhirOptions, IExecutionDao dao)
 	{
 		_context = context;
 		_currentUserService = currentUserService;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<ExecutionDto> Handle(CreateExecutionCommand request, CancellationToken cancellationToken)
@@ -64,8 +69,13 @@ public class CreateExecutionCommandHandler : IRequestHandler<CreateExecutionComm
 			Goal = goal
 		};
 
-		if (currentExecution is null)
+		if (currentExecution is null) {
+			if (_fhirOptions.Write) {
+				await _dao.Insert(entity);
+			}
+
 			_context.Executions.Add(entity);
+		}
 
 		await _context.SaveChangesAsync(cancellationToken);
 
