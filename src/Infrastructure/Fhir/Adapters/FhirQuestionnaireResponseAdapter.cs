@@ -11,18 +11,15 @@ public static class FhirQuestionnaireResponseAdapter
 
 		var fhirJsonParser = new FhirJsonParser();
 		var fhirQuestionnaireResponse = fhirJsonParser.Parse<Hl7.Fhir.Model.QuestionnaireResponse>(json);
-		
+
 		// create questionnaire instance
 		QuestionnaireResponse questionnaireResponse = new QuestionnaireResponse{
 			Id = Guid.Parse(fhirQuestionnaireResponse.Id)
 		};
 
-		// add questionnaire id to questionnaire object
-		questionnaireResponse.Id =  Guid.Parse(fhirQuestionnaireResponse.Identifier.Value);
-
 		// to-do use separate identifiers fields
-		//questionnaireResponse.Questionnaire.Id = fhirQuestionnaireResponse.Questionnaire.ToString().Replace("Questionnaire/", "");
-		//questionnaireResponse.Participant.Id = fhirQuestionnaireResponse.Author.Reference.ToString().Replace("Patient/", "");
+		questionnaireResponse.Questionnaire = new Questionnaire{Id = Guid.Parse(fhirQuestionnaireResponse.Questionnaire.ToString().Replace("Questionnaire/", ""))};
+		questionnaireResponse.Participant = new Participant{Id = Guid.Parse(fhirQuestionnaireResponse.Author.Reference.ToString().Replace("Patient/", ""))};
          
 
 		// loop trough fhir questions instance to questionnaire
@@ -46,15 +43,14 @@ public static class FhirQuestionnaireResponseAdapter
 	public static string ToJson ( QuestionnaireResponse questionnaireResponse )
 	{ 
 		// create fhir questionnaire response
-		var fhirQuestionnaireResponse = new Hl7.Fhir.Model.QuestionnaireResponse();
-		
-		fhirQuestionnaireResponse.Identifier.System = "https://mibplatform.nl/fhir/mib/identifier";
-		fhirQuestionnaireResponse.Identifier.Value = questionnaireResponse.Id.ToString();
-
+		var fhirQuestionnaireResponse = new Hl7.Fhir.Model.QuestionnaireResponse{
+			Id = questionnaireResponse.Id.ToString()
+		};
+	
 
 		//// to-do use separate identifiers fields
-		//fhirQuestionnaireResponse.Questionnaire = "Questionnaire/" + questionnaireResponse;
-		//fhirQuestionnaireResponse.Author = new Hl7.Fhir.Model.ResourceReference("Patient/" + questionnaireResponse.ParticipantId);
+		fhirQuestionnaireResponse.Questionnaire = "Questionnaire/" + questionnaireResponse.Questionnaire.Id.ToString();
+		fhirQuestionnaireResponse.Author = new Hl7.Fhir.Model.ResourceReference("Patient/" + questionnaireResponse.Participant.Id.ToString());
           
 		foreach (var questionReponse in questionnaireResponse.Responses) {
 			// create and fill response
