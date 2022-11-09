@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
@@ -74,18 +75,22 @@ public class ChangeGoalMomentCommandHandler : IRequestHandler<ChangeGoalMomentCo
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IMapper _mapper;
+	private readonly IFhirOptions _fhirOptions;
+	private readonly IGoalDao _dao;
 
-	public ChangeGoalMomentCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper)
+	public ChangeGoalMomentCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IMapper mapper, IFhirOptions fhirOptions, IGoalDao dao)
 	{
 		_context = context;
 		_currentUserService = currentUserService;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<GoalDto> Handle(ChangeGoalMomentCommand request, CancellationToken cancellationToken)
 	{
 		var currentGoal =
-			await _context.Goals.FirstOrDefaultAsync(
+			await _context.Goals.Include(goal => goal.Activity).Include(goal => goal.Executions).FirstOrDefaultAsync(
 				goal => goal.Id.Equals(request.Id) && goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken)
 			?? throw new NotFoundException(nameof(Goal), request.Id);
 
@@ -96,6 +101,10 @@ public class ChangeGoalMomentCommandHandler : IRequestHandler<ChangeGoalMomentCo
 		currentGoal.Moment.EventName = request.Moment!.EventName;
 		currentGoal.Reminder = request.Reminder;
 
+		// FHIR query
+		if (_fhirOptions.Write == true) {
+			await _dao.Update(currentGoal);
+		}
 		await _context.SaveChangesAsync(cancellationToken);
 
 		return _mapper.Map<GoalDto>(currentGoal);

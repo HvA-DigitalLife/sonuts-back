@@ -35,8 +35,12 @@ public class FhirGoalDao : IGoalDao
 
 	public async Task<Goal> Update(Goal goal)
 	{
-		await Task.Delay(1);
-		return goal;
+		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
+		var response = await client.PutAsync("Goal/" + goal.Id.ToString(), new StringContent(FhirGoalAdapter.ToJson(goal), Encoding.UTF8, "application/json"));
+
+		var responseContent = await response.Content.ReadAsStringAsync();
+
+		return FhirGoalAdapter.FromJson(responseContent);
 	}
 
 	public async Task<bool> Delete(Guid id)
