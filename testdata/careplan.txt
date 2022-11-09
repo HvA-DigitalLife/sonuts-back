@@ -1,0 +1,86 @@
+{
+  "start": "Tuesday, 8 November 2022",
+  "end": "Tuesday, 22 November 2022",
+  "goals": [
+    {
+      "activityId": "f216151c-bec9-4504-99cd-a78adbd20859",
+      "frequencyAmount": 100,
+      "moment": {
+        "day": "Sunday",
+        "time": "11:51:55",
+        "type": "Before",
+        "eventName": "Lunch"
+      },
+      "reminder": "11:51:55"
+    }
+  ]
+}
+
+
+
+{
+  "id": "0faf658a-3015-4e96-85c5-0a510aa32a6f",
+  "name": "Balans",
+  "description": "Aanbeveling: Minimaal twee keer per week",
+  "frequencyType": "Amount",
+  "currentFrequencyQuestion": "Hoe vaak per week doe je dit al?",
+  "goalFrequencyQuestion": "Hoe vaak per week wil je dit nog meer doen?",
+  "currentActivityQuestion": "Welke beweging doe je al?",
+  "goalActivityQuestion": "Welke beweging wil je nog meer doen?",
+  "recommendationRules": [],
+  "activities": [
+    {
+      "id": "2046ca48-a7b0-469e-a3ea-4dc8119857fd",
+      "name": "Geen",
+      "description": "Geen beweging",
+      "image": {
+        "uri": "/images/geen.png"
+      },
+      "videos": []
+    },
+    {
+      "id": "61a62bcc-b6ec-4b08-b259-1c4bdfa8b9db",
+      "name": "Badminton",
+      "description": "Minuten badminton",
+      "image": {
+        "uri": "/images/badminton.png"
+      },
+      "videos": []
+    },
+    {
+      "id": "68200471-8ccd-42d4-99c9-ee70afe180c8",
+      "name": "Gymnastiek",
+      "description": "Minuten gymnastiek",
+      "image": {
+        "uri": "/images/gymnastiek.png"
+      },
+      "videos": []
+    },
+    {
+      "id": "88710b04-ea4e-4d81-bfc7-a3291e483c23",
+      "name": "Fietsen",
+      "description": "Minuten fietsen",
+      "image": {
+        "uri": "/images/fietsen.png"
+      },
+      "videos": []
+    },
+    {
+      "id": "f216151c-bec9-4504-99cd-a78adbd20859",
+      "name": "Zwemmen",
+      "description": "Minuten zwemmen",
+      "image": {
+        "uri": "/images/zwemmen.png"
+      },
+      "videos": []
+    },
+    {
+      "id": "f457f63c-b31b-4654-86ec-2710f7fd5389",
+      "name": "Wandelen",
+      "description": "Minuten wandelen",
+      "image": {
+        "uri": "/images/wandelen.png"
+      },
+      "videos": []
+    }
+  ]

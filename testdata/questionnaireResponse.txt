@@ -29,7 +29,7 @@
     },
     {
       "questionId": "584d44d9-e19c-4b0b-999c-02447cb974a7",
-      "answer": "True"
+      "answer": "Yes"
     },
     {
       "questionId": "222f3d77-58ab-4740-92f4-2590e3e36059",

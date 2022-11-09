@@ -82,7 +82,9 @@ public static class FhirGoalAdapter
 			Value = new Hl7.Fhir.Model.Integer(goal.FrequencyAmount)
 		});
 
-		goal.FrequencyAmount.ToString();
+		fhirGoal.Target.Add(fhirGoalTarget);
+
+		
 	
 
 		// serialize and return
@@ -102,12 +104,12 @@ public static class FhirGoalAdapter
 			{
 				if (fhirGoalExtension.Url == "https://mibplatform.nl/fhir/Extensions/Goal/ActivityDefinitionReference") {
 					Hl7.Fhir.Model.ResourceReference fhirGoalActivityDefinitionReference = (Hl7.Fhir.Model.ResourceReference) fhirGoalExtension.Value;
-					goal.Activity.Id = Guid.Parse(fhirGoalActivityDefinitionReference.Reference.Replace("ActivityDefinition/", ""));
+					goal.Activity = new Activity{Id = Guid.Parse(fhirGoalActivityDefinitionReference.Reference.Replace("ActivityDefinition/", ""))};
 				}
 			}
 
 		var fhirGoalTarget = fhirGoal.Target.First();
-
+		goal.Moment = new Moment();
 		foreach (var fhirGoalTargetExtension in fhirGoalTarget.Extension)
 			{
 				if (fhirGoalTargetExtension.Url == "https://mibplatform.nl/fhir/Extentions/Goal/Moment/Day") {

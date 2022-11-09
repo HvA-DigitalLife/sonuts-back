@@ -49,57 +49,16 @@ public static class FhirCarePlanAdapter
 		};
 
 		fhirCarePlan.Period =  new Hl7.Fhir.Model.Period {
-			Start = carePlan.Start.ToString(),
-			End = carePlan.End.ToString()
+			Start = carePlan.Start.ToString("yyyy-MM-dd"),
+			End = carePlan.End.ToString("yyyy-MM-dd")
 		};
 
 
 		foreach (var goal in carePlan.Goals) {
 			var fhirActivity = new Hl7.Fhir.Model.CarePlan.ActivityComponent();
-			fhirActivity.Detail.DailyAmount = new Hl7.Fhir.Model.Quantity{Value = goal.FrequencyAmount};
-
-			var fhirScheduled = new Hl7.Fhir.Model.Timing();
-			
-			var fhirDayOfWeekCode = new Hl7.Fhir.Model.Code<Hl7.Fhir.Model.DaysOfWeek>();
-
-			fhirDayOfWeekCode.Value = goal.Moment.Day switch
-			{
-				// set question type
-				DayOfWeek.Monday => Hl7.Fhir.Model.DaysOfWeek.Mon,
-				DayOfWeek.Tuesday => Hl7.Fhir.Model.DaysOfWeek.Tue,
-				DayOfWeek.Wednesday => Hl7.Fhir.Model.DaysOfWeek.Fri,
-				DayOfWeek.Thursday => Hl7.Fhir.Model.DaysOfWeek.Thu,
-				DayOfWeek.Friday => Hl7.Fhir.Model.DaysOfWeek.Fri,
-				DayOfWeek.Saturday => Hl7.Fhir.Model.DaysOfWeek.Sat,
-				DayOfWeek.Sunday => Hl7.Fhir.Model.DaysOfWeek.Sun,
-				_ => fhirDayOfWeekCode.Value
-			};
-
-			fhirScheduled.Repeat.DayOfWeekElement.Add(fhirDayOfWeekCode);
-			fhirScheduled.Repeat.TimeOfDayElement.Add(new Hl7.Fhir.Model.Time(goal.Moment.Time.ToString()));
-
-
-			fhirScheduled.Repeat.Extension.Add(new Hl7.Fhir.Model.Extension { 
-				Url = "https://mibplatform.nl/fhir/Extentions/Timing/MomentType", 
-				Value = new Hl7.Fhir.Model.FhirString(goal.Moment.Type.ToString())
-			});
-
-			fhirScheduled.Repeat.Extension.Add(new Hl7.Fhir.Model.Extension { 
-				Url = "https://mibplatform.nl/fhir/Extentions/Timing/EventName", 
-				Value = new Hl7.Fhir.Model.FhirString(goal.Moment.EventName)
-			});
-
-			// add schedule
-			fhirActivity.Detail.Scheduled = fhirScheduled;
-
-
-			fhirScheduled.Extension.Add(new Hl7.Fhir.Model.Extension { 
-				Url = "https://mibplatform.nl/fhir/Extentions/CarePlan/Activity/Reminder", 
-				Value = new Hl7.Fhir.Model.FhirString(goal.Reminder.ToString())
-			});
-
-
-
+			fhirActivity.Detail = new Hl7.Fhir.Model.CarePlan.DetailComponent();
+			fhirActivity.Detail.Goal.Add(new Hl7.Fhir.Model.ResourceReference{Reference = "Goal/" + goal.Id});
+			fhirCarePlan.Activity.Add(fhirActivity);
 		}
 
           
@@ -116,37 +75,15 @@ public static class FhirCarePlanAdapter
 
 		carePlan.Start = DateOnly.Parse(fhirCarePlan.Period.Start);
 		carePlan.End = DateOnly.Parse(fhirCarePlan.Period.End);
-
-    
         
-		// foreach (var action in planDefinition.Action) {
-		//     // create goal and meta data
-		//     var goal = new Goal();
-		//     goal.Title = action.Title;
-		//     goal.Text = action.Description;
-
-		//     foreach (var dataRequirement in action.Input) {
-		//         // create data field
-		//         var dataField = new GoalDataField();
-
-		//         // parse title, defaultValue and unit extensions
-		//         foreach (var dataRequirementExtension in dataRequirement.Extension) {
-		//             if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/title") {
-		//                 dataField.Title = dataRequirementExtension.Value.ToString();
-		//             }
-		//             if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/defaultValue") {
-		//                 dataField.DefaultValue = dataRequirementExtension.Value.ToString();
-		//             }
-		//             if (dataRequirementExtension.Url == "https://mibplatform.nl/fhir/extensions/DataRequirement/unit") {
-		//                 dataField.DataType = dataRequirementExtension.Value.ToString();
-		//             }
-		//         }
-		//         // add datafields to goal
-		//         goal.DataFields.Add(dataField);
-		//     }
-		//     // add goal to recommendation
-		//     recommendation.Goals.Add(goal);
-		// }
+		foreach (var fhirActivity in fhirCarePlan.Activity) {
+		    foreach (var fhirGoal in fhirActivity.Detail.Goal) {
+				var goal = new Goal();
+				goal.Id = Guid.Parse(fhirGoal.Reference.ToString().Replace("Goal/", ""));
+				carePlan.Goals.Add(goal);
+			}
+		
+		}
 		return carePlan;
 	}
 
