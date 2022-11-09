@@ -49,8 +49,6 @@ public static class FhirExecutionAdapter
 		};
 
 		
-
-
 		var serializer = new FhirJsonSerializer();
 		return serializer.SerializeToString(fhirObservation);
 	}
@@ -59,8 +57,8 @@ public static class FhirExecutionAdapter
 
 		var execution = new Execution {
 			Id = Guid.Parse(fhirObservation.Id),
-			//CreatedAt = fhirObservation.Issued,
-			IsDone = fhirObservation.Status == Hl7.Fhir.Model.ObservationStatus.Final?true:false
+			CreatedAt = DateTime.Parse(fhirObservation.IssuedElement.ToString()),
+			IsDone = fhirObservation.Status == Hl7.Fhir.Model.ObservationStatus.Final
 		};
 	
 		return execution;
