@@ -245,3 +245,6 @@ TestController.cs
 
 # Develop images
 /images
+
+# DC_Store MaC
+.DS_Store
