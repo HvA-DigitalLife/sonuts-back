@@ -43,9 +43,9 @@ internal static class CategorySeed
 							Order = 1,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Man", Order = 0 },
-								new() { Value = "Vrouw", Order = 1 },
-								new() { Value = "Anders", Order = 2 }
+								new() { Name = "Man", Value = "Man", Order = 0 },
+								new() { Name = "Vrouw", Value = "Vrouw", Order = 1 },
+								new() { Name = "Anders", Value = "Anders", Order = 2 }
 							}
 						},
 						new()
@@ -74,12 +74,12 @@ internal static class CategorySeed
 							Order = 5,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Alleenstaand", Order = 0 },
-								new() { Value = "Getrouwd", Order = 1 },
-								new() { Value = "Samenwonend", Order = 2 },
-								new() { Value = "Apart wonend", Order = 3 },
-								new() { Value = "Weduwnaar", Order = 4 },
-								new() { Value = "Gescheiden", Order = 5 }
+								new() { Name = "Alleenstaand", Value = "Alleenstaand", Order = 0 },
+								new() { Name = "Getrouwd", Value = "Getrouwd", Order = 1 },
+								new() { Name = "Samenwonend", Value = "Samenwonend", Order = 2 },
+								new() { Name = "Apart wonend", Value = "Apart wonend", Order = 3 },
+								new() { Name = "Weduwnaar", Value = "Weduwnaar", Order = 4 },
+								new() { Name = "Gescheiden", Value = "Gescheiden", Order = 5 }
 							},
 							OpenAnswerLabel = "Anders, namelijk"
 						},
@@ -96,12 +96,12 @@ internal static class CategorySeed
 							Order = 7,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Geen opleiding afgemaakt", Order = 0 },
-								new() { Value = "Basisschool of lager beroepsonderwijs (LEAO, LTS)", Order = 1 },
-								new() { Value = "Voorbereidend Middelbaar Beroepsonderwijs (VMBO); middelbaar algemeen voortgezet onderwijs (MAVO/MULO)", Order = 3 },
-								new() { Value = "Middelbaar beroepsonderwijs (MBO / MTS / MEAO); hoger algemeen voortgezet onderwijs (HAVO); voorbereidend wetenschappelijk onderwijs(VWO)", Order = 4 },
-								new() { Value = "Hoger beroepsonderwijs (bijvoorbeeld HBO / HEAO / PABO)", Order = 5 },
-								new() { Value = "Wetenschappelijk onderwijs / universiteit", Order = 6 }
+								new() { Name = "Geen opleiding afgemaakt", Value = "Geen opleiding afgemaakt", Order = 0 },
+								new() { Name = "Basisschool of lager beroepsonderwijs (LEAO, LTS)", Value = "Basisschool of lager beroepsonderwijs (LEAO, LTS)", Order = 1 },
+								new() { Name = "Voorbereidend Middelbaar Beroepsonderwijs (VMBO); middelbaar algemeen voortgezet onderwijs (MAVO/MULO)", Value = "Voorbereidend Middelbaar Beroepsonderwijs (VMBO); middelbaar algemeen voortgezet onderwijs (MAVO/MULO)", Order = 3 },
+								new() { Name = "Middelbaar beroepsonderwijs (MBO / MTS / MEAO); hoger algemeen voortgezet onderwijs (HAVO); voorbereidend wetenschappelijk onderwijs(VWO)", Value = "Middelbaar beroepsonderwijs (MBO / MTS / MEAO); hoger algemeen voortgezet onderwijs (HAVO); voorbereidend wetenschappelijk onderwijs(VWO)", Order = 4 },
+								new() { Name = "Hoger beroepsonderwijs (bijvoorbeeld HBO / HEAO / PABO)", Value = "Hoger beroepsonderwijs (bijvoorbeeld HBO / HEAO / PABO)", Order = 5 },
+								new() { Name = "Wetenschappelijk onderwijs / universiteit", Value = "Wetenschappelijk onderwijs / universiteit", Order = 6 }
 							},
 							OpenAnswerLabel = "Anders, namelijk"
 						},
@@ -114,13 +114,13 @@ internal static class CategorySeed
 							Order = 8,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "(Vrijwilligers) werk - voltijds", Order = 0 },
-								new() { Value = "(Vrijwilligers) werk - deeltijds", Order = 1 },
-								new() { Value = "Gepensioneerd", Order = 3 },
-								new() { Value = "Huisman/vrouw", Order = 4 },
-								new() { Value = "Student", Order = 5 },
-								new() { Value = "Niet werkzaam (maar ook niet gepensioneerd)", Order = 6 },
-								new() { Value = "Blijvend arbeidsongeschikt / ziek", Order = 7 }
+								new() { Name = "(Vrijwilligers) werk - voltijds", Value = "(Vrijwilligers) werk - voltijds", Order = 0 },
+								new() { Name = "(Vrijwilligers) werk - deeltijds", Value = "(Vrijwilligers) werk - deeltijds", Order = 1 },
+								new() { Name = "Gepensioneerd", Value = "Gepensioneerd", Order = 3 },
+								new() { Name = "Huisman/vrouw", Value = "Huisman/vrouw", Order = 4 },
+								new() { Name = "Student", Value = "Student", Order = 5 },
+								new() { Name = "Niet werkzaam (maar ook niet gepensioneerd)", Value = "Niet werkzaam (maar ook niet gepensioneerd)", Order = 6 },
+								new() { Name = "Blijvend arbeidsongeschikt / ziek", Value = "Blijvend arbeidsongeschikt / ziek", Order = 7 }
 							},
 							OpenAnswerLabel = "Anders, Namelijk"
 						},
@@ -187,13 +187,13 @@ internal static class CategorySeed
 							Order = 0,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Nee", Order = 0 },
-								new() { Value = "Ik eet vegetarisch (geen vis, geen vlees)", Order = 1 },
-								new() { Value = "Ik eet geen vlees, maar wel vis", Order = 2 },
-								new() { Value = "Ik eet veganistisch", Order = 3 },
-								new() { Value = "Ik eet geen varkensvlees", Order = 4 },
-								new() { Value = "Ik eet geen koeienvlees", Order = 5 },
-								new() { Value = "Ik eet flexitarisch", Order = 6 }
+								new() { Name = "Nee", Value = "Nee", Order = 0 },
+								new() { Name = "Ik eet vegetarisch (geen vis, geen vlees)", Value = "Ik eet vegetarisch (geen vis, geen vlees)", Order = 1 },
+								new() { Name = "Ik eet geen vlees, maar wel vis", Value = "Ik eet geen vlees, maar wel vis", Order = 2 },
+								new() { Name = "Ik eet veganistisch", Value = "Ik eet veganistisch", Order = 3 },
+								new() { Name = "Ik eet geen varkensvlees", Value = "Ik eet geen varkensvlees", Order = 4 },
+								new() { Name = "Ik eet geen koeienvlees", Value = "Ik eet geen koeienvlees", Order = 5 },
+								new() { Name = "Ik eet flexitarisch", Value = "Ik eet flexitarisch", Order = 6 }
 							},
 							OpenAnswerLabel = "Ja, anders namelijk"
 						},
@@ -206,10 +206,10 @@ internal static class CategorySeed
 							Order = 1,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Glutenvrij", Order = 0 },
-								new() { Value = "Lactosebeperkt/lactosevrij", Order = 1 },
-								new() { Value = "Zoutbeperkt", Order = 2 },
-								new() { Value = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)", Order = 3 },
+								new() { Name = "Glutenvrij", Value = "Glutenvrij", Order = 0 },
+								new() { Name = "Lactosebeperkt/lactosevrij", Value = "Lactosebeperkt/lactosevrij", Order = 1 },
+								new() { Name = "Zoutbeperkt", Value = "Zoutbeperkt", Order = 2 },
+								new() { Name = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)", Value = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)", Order = 3 },
 							},
 							OpenAnswerLabel = "Anders, namelijk"
 						},
@@ -233,14 +233,14 @@ internal static class CategorySeed
 							Order = 3,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
+								new () { Name = "Nooit", Value = "0", Order = 0 },
+								new () { Name = "1", Value = "1", Order = 1 },
+								new () { Name = "2", Value = "2", Order = 2 },
+								new () { Name = "3", Value = "3", Order = 3 },
+								new () { Name = "4", Value = "4", Order = 4 },
+								new () { Name = "5", Value = "5", Order = 5 },
+								new () { Name = "6", Value = "6", Order = 6 },
+								new () { Name = "Elke dag", Value = "7", Order = 7 }
 							}
 						},
 						new()
@@ -250,14 +250,14 @@ internal static class CategorySeed
 							Order = 4,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
+								new () { Name = "Nooit", Value = "0", Order = 0 },
+								new () { Name = "1", Value = "1", Order = 1 },
+								new () { Name = "2", Value = "2", Order = 2 },
+								new () { Name = "3", Value = "3", Order = 3 },
+								new () { Name = "4", Value = "4", Order = 4 },
+								new () { Name = "5", Value = "5", Order = 5 },
+								new () { Name = "6", Value = "6", Order = 6 },
+								new () { Name = "Elke dag", Value = "7", Order = 7 }
 							}
 						},
 						new()
@@ -268,46 +268,48 @@ internal static class CategorySeed
 							Order = 5,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "1", Order = 0 },
-								new () { Value = "2", Order = 1 },
-								new () { Value = "3", Order = 2 },
-								new () { Value = "4", Order = 3 },
-								new () { Value = "5", Order = 4 },
-								new () { Value = "6", Order = 5 },
-								new () { Value = "Meer porties per dag", Order = 6 }
+								new () { Name = "1", Value = "1", Order = 0 },
+								new () { Name = "2", Value = "2", Order = 1 },
+								new () { Name = "3", Value = "3", Order = 2 },
+								new () { Name = "4", Value = "4", Order = 3 },
+								new () { Name = "5", Value = "5", Order = 4 },
+								new () { Name = "6", Value = "6", Order = 5 },
+								new () { Name = "Meer porties per dag", Value = "10", Order = 6 }
 							}
 						},
 						new()
 						{
+							Id = new Guid("c05d9393-328c-4e54-a504-7330445fd8cf"),
 							Type = QuestionType.Choice,
 							Text = "Hoe vaak per week eet u, gemiddeld gezien, groente of rauwkost?",
 							Description = "Zowel verse, diepvries als groente in conservenblik tellen mee.",
 							Order = 6,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
+								new () { Name = "Nooit", Value = "0", Order = 0 },
+								new () { Name = "1", Value = "1", Order = 1 },
+								new () { Name = "2", Value = "2", Order = 2 },
+								new () { Name = "3", Value = "3", Order = 3 },
+								new () { Name = "4", Value = "4", Order = 4 },
+								new () { Name = "5", Value = "5", Order = 5 },
+								new () { Name = "6", Value = "6", Order = 6 },
+								new () { Name = "Elke dag", Value = "7", Order = 7 }
 							}
 						},
 						new()
 						{
+							Id = new Guid("d14f00d4-32f2-4a22-8829-7d7ed86a127c"),
 							Type = QuestionType.Choice,
 							Text = "Hoeveel opscheplepels/porties groente of rauwkost (circa 50 gram) eet u gemiddeld op een dag dat u groente eet?",
 							Order = 7,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "1", Order = 0 },
-								new () { Value = "2", Order = 1 },
-								new () { Value = "3", Order = 2 },
-								new () { Value = "4", Order = 3 },
-								new () { Value = "5", Order = 4 },
-								new () { Value = "6", Order = 5 }
+								new () { Name = "1", Value = "1", Order = 0 },
+								new () { Name = "2", Value = "2", Order = 1 },
+								new () { Name = "3", Value = "3", Order = 2 },
+								new () { Name = "4", Value = "4", Order = 3 },
+								new () { Name = "5", Value = "5", Order = 4 },
+								new () { Name = "6", Value = "6", Order = 5 }
 							}
 						},
 						new()
@@ -318,12 +320,12 @@ internal static class CategorySeed
 							Order = 8,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "Een keer per maand", Order = 1 },
-								new () { Value = "2-3 keer per maand", Order = 2 },
-								new () { Value = "1 keer per week", Order = 3 },
-								new () { Value = "2-3 keer per week", Order = 4 },
-								new () { Value = "Meer dan 3 keer per week", Order = 5 }
+								new () { Name = "Nooit", Value = "0", Order = 0 },
+								new () { Name = "Een keer per maand", Value = "1", Order = 1 },
+								new () { Name = "2-3 keer per maand", Value = "2", Order = 2 },
+								new () { Name = "1 keer per week", Value = "4", Order = 3 },
+								new () { Name = "2-3 keer per week", Value = "8", Order = 4 },
+								new () { Name = "Meer dan 3 keer per week", Value = "15", Order = 5 }
 							}
 						},
 						new()
@@ -334,12 +336,12 @@ internal static class CategorySeed
 							Order = 8,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "1", Order = 0 },
-								new () { Value = "2", Order = 1 },
-								new () { Value = "3", Order = 2 },
-								new () { Value = "4", Order = 3 },
-								new () { Value = "5", Order = 4 },
-								new () { Value = "6", Order = 5 }
+								new () { Name = "1", Value = "1", Order = 0 },
+								new () { Name = "2", Value = "2", Order = 1 },
+								new () { Name = "3", Value = "3", Order = 2 },
+								new () { Name = "4", Value = "4", Order = 3 },
+								new () { Name = "5", Value = "5", Order = 4 },
+								new () { Name = "6", Value = "6", Order = 5 }
 							}
 						},
 						//TODO: 6.
@@ -351,14 +353,14 @@ internal static class CategorySeed
 							Order = 9,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
+								new () { Name = "Nooit", Value = "0", Order = 0 },
+								new () { Name = "1", Value = "1", Order = 1 },
+								new () { Name = "2", Value = "2", Order = 2 },
+								new () { Name = "3", Value = "3", Order = 3 },
+								new () { Name = "4", Value = "4", Order = 4 },
+								new () { Name = "5", Value = "5", Order = 5 },
+								new () { Name = "6", Value = "6", Order = 6 },
+								new () { Name = "Elke dag", Value = "7", Order = 7 }
 							}
 						}
 					}
@@ -367,6 +369,7 @@ internal static class CategorySeed
 				{
 					new()
 					{
+						Id = new Guid("7e1e494e-4dad-4c0f-b448-128552f7869f"),
 						Name = "Groenten",
 						Description = "Dagelijks ten minste 200 gram groente",
 						Image = new Image
@@ -549,21 +552,9 @@ internal static class CategorySeed
 							Order = 3,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new()
-								{
-									Value = "Langzaam",
-									Order = 0
-								},
-								new()
-								{
-									Value = "Gemiddeld",
-									Order = 1
-								},
-								new()
-								{
-									Value = "Snel",
-									Order = 2
-								}
+								new() { Name = "Langzaam", Value = "Langzaam", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "Gemiddeld", Order = 1 },
+								new() { Name = "Snel", Value = "Snel", Order = 2 }
 							},
 							EnableWhen = new EnableWhen
 							{
@@ -610,21 +601,9 @@ internal static class CategorySeed
 							Order = 7,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new()
-								{
-									Value = "Langzaam",
-									Order = 0
-								},
-								new()
-								{
-									Value = "Gemiddeld",
-									Order = 1
-								},
-								new()
-								{
-									Value = "Snel",
-									Order = 2
-								}
+								new() { Name = "Langzaam", Value = "Langzaam", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "Gemiddeld", Order = 1 },
+								new() { Name = "Snel", Value = "Snel", Order = 2 }
 							},
 							EnableWhen = new EnableWhen
 							{
@@ -746,11 +725,11 @@ internal static class CategorySeed
 							Order = 18,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Wandelen", Order = 0 },
-								new() { Value = "Fietsen", Order = 1 },
-								new() { Value = "Tuinieren", Order = 2 },
-								new() { Value = "Klussen/Doe het zelven", Order = 3 },
-								new() { Value = "Geen van deze activiteiten", Order = 4 }
+								new() { Name = "Wandelen", Value = "Wandelen", Order = 0 },
+								new() { Name = "Fietsen", Value = "Fietsen", Order = 1 },
+								new() { Name = "Tuinieren", Value = "Tuinieren", Order = 2 },
+								new() { Name = "Klussen/Doe het zelven", Value = "Klussen/Doe het zelven", Order = 3 },
+								new() { Name = "Geen van deze activiteiten", Value = "Geen van deze activiteiten", Order = 4 }
 							}
 						},
 						new()
@@ -784,9 +763,9 @@ internal static class CategorySeed
 							Order = 21,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Langzaam", Order = 0 },
-								new() { Value = "Gemiddeld", Order = 0 },
-								new() { Value = "Snel", Order = 0 }
+								new() { Name = "Langzaam", Value = "Langzaam", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "Gemiddeld", Order = 0 },
+								new() { Name = "Snel", Value = "Snel", Order = 0 }
 							},
 							EnableWhen = new EnableWhen
 							{

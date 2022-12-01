@@ -75,5 +75,6 @@ public class ApplicationDbContextInitialiser
 		await ClientSeed.Seed(_context);
 		await ContentSeed.Seed(_context);
 		await CategorySeed.Seed(_context, _fhirOptions, _categoryDao, _questionnaireDao, _themeDao);
+		await RecommendationRuleSeed.Seed(_context);
 	}
 }
