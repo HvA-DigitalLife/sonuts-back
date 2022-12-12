@@ -6,21 +6,20 @@ using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
-using static System.Decimal;
-using QuestionType = Sonuts.Domain.Enums.QuestionType;
+using Sonuts.Domain.Enums;
 
 namespace Sonuts.Application.Logic.QuestionnaireResponses.Commands;
 
 public record CreateQuestionnaireResponseCommand : IRequest<QuestionnaireResponseDto>
 {
-	public Guid? QuestionnaireId { get; set; }
-	public ICollection<CreateQuestionResponse> Responses { get; set; } = new List<CreateQuestionResponse>();
+	public Guid? QuestionnaireId { get; init; }
+	public List<CreateQuestionResponse> Responses { get; init; } = new();
 }
 
 public record CreateQuestionResponse
 {
-	public Guid? QuestionId { get; set; }
-	public string? Answer { get; set; }
+	public Guid? QuestionId { get; init; }
+	public string? Answer { get; init; }
 }
 
 public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<CreateQuestionnaireResponseCommand>
@@ -71,8 +70,8 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 		{
 			QuestionType.Boolean => !string.IsNullOrWhiteSpace(response.Answer) && (response.Answer.Equals("Yes") || response.Answer.Equals("No")),
 			QuestionType.String => !string.IsNullOrWhiteSpace(response.Answer),
-			QuestionType.Integer => int.TryParse(response.Answer, out int integerAnswer) && integerAnswer >= 0,
-			QuestionType.Decimal => TryParse(response.Answer, out decimal decimalAnswer) && decimalAnswer >= Zero,
+			QuestionType.Integer => int.TryParse(response.Answer, out var integerAnswer) && integerAnswer >= 0,
+			QuestionType.Decimal => decimal.TryParse(response.Answer, out var decimalAnswer) && decimalAnswer >= decimal.Zero,
 			QuestionType.Choice => question.AnswerOptions?.FirstOrDefault(option => option.Value.ToLower().Equals(response.Answer!.ToLower())) != null,
 			QuestionType.OpenChoice => !string.IsNullOrWhiteSpace(response.Answer),
 			QuestionType.MultiChoice => true, //TODO
@@ -82,7 +81,7 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 	}
 }
 
-public class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQuestionnaireResponseCommand, QuestionnaireResponseDto>
+internal class CreateQuestionnaireResponseCommandHandler : IRequestHandler<CreateQuestionnaireResponseCommand, QuestionnaireResponseDto>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
