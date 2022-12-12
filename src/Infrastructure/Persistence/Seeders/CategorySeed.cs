@@ -803,16 +803,6 @@ internal static class CategorySeed
 						{
 							new()
 							{
-								Name = "Geen",
-								Description = "Geen beweging",
-								Image = new Image
-								{
-									Extension = "png",
-									Name = "geen"
-								}
-							},
-							new()
-							{
 								Name = "Fietsen",
 								Description = "Minuten fietsen",
 								Image = new Image
@@ -880,16 +870,6 @@ internal static class CategorySeed
 						GoalFrequencyQuestion = "Hoe veel minuten in de week?",
 						Activities = new List<Activity>
 						{
-							new()
-							{
-								Name = "Geen",
-								Description = "Geen beweging",
-								Image = new Image
-								{
-									Extension = "png",
-									Name = "geen"
-								}
-							},
 							new()
 							{
 								Name = "Fietsen",
@@ -963,16 +943,6 @@ internal static class CategorySeed
 						GoalFrequencyQuestion = "Hoe vaak per week wil je dit nog meer doen?",
 						Activities = new List<Activity>
 						{
-							new()
-							{
-								Name = "Geen",
-								Description = "Geen beweging",
-								Image = new Image
-								{
-									Extension = "png",
-									Name = "geen"
-								}
-							},
 							new()
 							{
 								Name = "Fietsen",
