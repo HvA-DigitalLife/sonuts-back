@@ -14,6 +14,7 @@ public record CreateOrUpdateExecutionCommand : IRequest<ExecutionDto>
 	public Guid? GoalId { get; init; }
 	public bool? IsDone { get; init; }
 	public Guid? ExecutionId { get; init; }
+	public DateOnly? PastDate { get; init; }
 }
 
 public class CreateOrUpdateExecutionCommandValidator : AbstractValidator<CreateOrUpdateExecutionCommand>
@@ -25,6 +26,9 @@ public class CreateOrUpdateExecutionCommandValidator : AbstractValidator<CreateO
 
 		RuleFor(query => query.IsDone)
 			.NotNull();
+
+		RuleFor(query => query.PastDate)
+			.LessThan(DateOnly.FromDateTime(DateTime.Now));
 	}
 }
 
@@ -68,7 +72,8 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 		var entity = existingExecution ?? new Execution
 		{
 			IsDone = request.IsDone!.Value,
-			Goal = goal
+			Goal = goal,
+			CreatedAt = request.PastDate?.ToDateTime(TimeOnly.MinValue) ?? DateTime.Now
 		};
 
 		if (existingExecution is null)
