@@ -11,8 +11,8 @@ public class ExecutionsController : ApiControllerBase
 	/// Complete a task from agenda
 	/// </summary>
 	[Authorize(Roles = "Participant")]
-	[HttpPost]
-	public async Task<ActionResult<ExecutionDto>> CreateExecution(CreateExecutionCommand command)
+	[HttpPut]
+	public async Task<ActionResult<ExecutionDto>> CreateExecution(CreateOrUpdateExecutionCommand command)
 	{
 		return Ok(await Mediator.Send(command));
 	}
