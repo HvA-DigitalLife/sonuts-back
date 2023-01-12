@@ -7,9 +7,9 @@ public class GoalDto : IMapFrom<Goal>
 {
 	public Guid Id { get; set; }
 	public string? CustomName { get; set; }
-	public ActivityDto Activity { get; set; } = default!;
-	public int FrequencyAmount { get; set; } = default!;
-	public MomentDto Moment { get; set; } = default!;
+	public required ActivityDto Activity { get; set; }
+	public required int FrequencyAmount { get; set; }
+	public required MomentDto Moment { get; set; }
 	public TimeOnly? Reminder { get; set; }
 	public ICollection<ExecutionDto> Executions { get; set; } = new List<ExecutionDto>();
 }

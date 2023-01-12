@@ -2,9 +2,9 @@ namespace Sonuts.Domain.Entities;
 
 public class Activity : BaseEntity
 {
-	public string Name { get; set; } = default!;
+	public required string Name { get; set; }
 	public string? Description { get; set; }
-	public Image Image { get; set; } = default!;
+	public required Image Image { get; set; }
 	public Theme Theme { get; set; } = default!;
 	public List<Video> Videos { get; set; } = new();
 }

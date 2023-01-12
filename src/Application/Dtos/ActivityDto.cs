@@ -6,9 +6,9 @@ namespace Sonuts.Application.Dtos;
 public class ActivityDto : IMapFrom<Activity>
 {
 	public Guid Id { get; set; }
-	public string Name { get; set; } = default!;
+	public required string Name { get; set; }
 	public string? Description { get; set; }
-	public ImageDto Image { get; set; } = default!;
-	public ThemeDto Theme { get; set; } = default!;
+	public required ImageDto Image { get; set; }
+	public required ThemeDto Theme { get; set; }
 	public List<VideoDto> Videos { get; set; } = new();
 }

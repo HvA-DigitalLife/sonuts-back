@@ -2,8 +2,7 @@ namespace Sonuts.Domain.Entities;
 
 public class Faq : BaseEntity
 {
-	public string Question { get; set; } = default!;
-	public string Answer { get; set; } = default!;
-
+	public required string Question { get; set; }
+	public required string Answer { get; set; }
 	public Theme Theme { get; set; } = default!;
 }

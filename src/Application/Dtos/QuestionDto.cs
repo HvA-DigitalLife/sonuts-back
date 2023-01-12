@@ -7,10 +7,10 @@ namespace Sonuts.Application.Dtos;
 public class QuestionDto : IMapFrom<Question>
 {
 	public Guid Id { get; set; }
-	public QuestionType Type { get; set; } = default!;
-	public string Text { get; set; } = default!;
+	public required QuestionType Type { get; set; }
+	public required string Text { get; set; }
 	public string? Description { get; set; }
-	public int Order { get; set; } = default!;
+	public required int Order { get; set; }
 	public EnableWhenDto? EnableWhen { get; set; }
 	public ICollection<AnswerOptionDto>? AnswerOptions { get; set; } = new List<AnswerOptionDto>();
 	public bool IsRequired { get; set; }

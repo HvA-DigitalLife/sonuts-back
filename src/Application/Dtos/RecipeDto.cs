@@ -6,9 +6,9 @@ namespace Sonuts.Application.Dtos;
 public class RecipeDto : IMapFrom<Recipe>
 {
 	public Guid Id { get; set; }
-	public string Name { get; set; } = default!;
+	public required string Name { get; set; }
 
-	public ImageDto Image { get; set; } = default!;
+	public required ImageDto Image { get; set; }
 	public List<RecipeIngredientDto> Ingredients { get; set; } = new();
 	public List<RecipeStepDto> Steps { get; set; } = new();
 }

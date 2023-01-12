@@ -5,7 +5,9 @@ namespace Sonuts.Application.Dtos;
 
 public class ExecutionDto : IMapFrom<Execution>
 {
-	public Guid Id { get; set; }
-	public bool IsDone { get; set; } = default!;
-	public DateTime CreatedAt { get; set; } = default!;
+	public Guid Id { get; init; }
+	public required bool IsDone { get; init; }
+	public required int Amount { get; init; }
+	public string? Reason { get; init; }
+	public required DateTime CreatedAt { get; init; }
 }

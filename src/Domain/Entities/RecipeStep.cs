@@ -2,6 +2,6 @@ namespace Sonuts.Domain.Entities;
 
 public class RecipeStep : BaseEntity
 {
-	public string Description { get; set; } = default!;
+	public required string Description { get; set; }
 	public int Order { get; set; }
 }

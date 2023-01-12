@@ -6,7 +6,7 @@ public class CategoriesWithRecommendationsVm
 {
 	public Guid Id { get; set; }
 	public bool IsActive { get; set; } = false;
-	public string Name { get; set; } = default!;
-	public string Color { get; set; } = default!;
+	public required string Name { get; set; }
+	public required string Color { get; set; }
 	public List<RecommendedThemeVm> Themes { get; set; } = new();
 }

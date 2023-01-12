@@ -1,8 +1,8 @@
-using Sonuts.Application.Logic.Executions.Models;
+using Sonuts.Application.Logic.Participants.Queries;
 
 namespace Sonuts.Application.Common.Interfaces;
 
 public interface ICsvFileBuilder
 {
-	byte[] BuildExecutionsFile(IEnumerable<ExecutionRecord> records);
+	Task<byte[]> BuildParticipantsFile(IEnumerable<OverviewParticipantDto> participants);
 }

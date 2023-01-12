@@ -5,6 +5,6 @@ namespace Sonuts.Application.Dtos;
 
 public class FaqDto : IMapFrom<Faq>
 {
-	public string Question { get; set; } = default!;
-	public string Answer { get; set; } = default!;
+	public required string Question { get; set; }
+	public required string Answer { get; set; }
 }

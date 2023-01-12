@@ -6,6 +6,6 @@ namespace Sonuts.Application.Dtos;
 public class QuestionResponseDto : IMapFrom<QuestionResponse>
 {
 	public Guid Id { get; set; }
-	public QuestionDto Question { get; set; } = default!;
-	public string Answer { get; set; } = default!;
+	public required QuestionDto Question { get; set; }
+	public required string Answer { get; set; }
 }

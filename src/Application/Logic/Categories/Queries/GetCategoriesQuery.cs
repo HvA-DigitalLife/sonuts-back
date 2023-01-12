@@ -2,7 +2,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Application.Logic.Categories.Models;
 using Sonuts.Application.Logic.Themes.Models;
@@ -18,28 +17,22 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
-	private readonly IFhirOptions _fhirOptions;
-	private readonly ICategoryDao _dao;
 	
-	public GetCategoriesQueryHandler(ICurrentUserService currentUserService, IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, ICategoryDao dao)
+	public GetCategoriesQueryHandler(ICurrentUserService currentUserService, IApplicationDbContext context, IMapper mapper)
 	{
 		_currentUserService = currentUserService;
 		_context = context;
 		_mapper = mapper;
-		_fhirOptions = fhirOptions;
-		_dao = dao;
 	}
 
 	public async Task<ICollection<CategoriesWithRecommendationsVm>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
 	{
 		var userId = _currentUserService.AuthorizedUserId;
 
-		var categories = _fhirOptions.Read ?  
-			await _dao.SelectAll():
-			await _context.Categories
-				.Include(category => category.Themes).ThenInclude(theme => theme.Image)
-				.Include(category => category.Themes).ThenInclude(theme => theme.RecommendationRules).ThenInclude(rule => rule.Questions)
-				.Where(category => category.IsActive)
+		var categories = await _context.Categories
+			.Include(category => category.Themes).ThenInclude(theme => theme.Image)
+			.Include(category => category.Themes).ThenInclude(theme => theme.RecommendationRules).ThenInclude(rule => rule.Questions)
+			.Where(category => category.IsActive)
 			.ToListAsync(cancellationToken);
 
 		var response = new List<CategoriesWithRecommendationsVm>();
