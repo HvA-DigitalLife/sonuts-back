@@ -31,9 +31,7 @@ public static class ConfigureServices
 					});
 			}
 		);
-
 		services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-
 		services.AddScoped<ApplicationDbContextInitialiser>();
 
 		services.AddIdentity<User, IdentityRole>()
