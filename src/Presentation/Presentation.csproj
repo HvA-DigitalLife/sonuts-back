@@ -4,9 +4,8 @@
         <TargetFramework>net7.0</TargetFramework>
         <RootNamespace>Sonuts.Presentation</RootNamespace>
         <AssemblyName>Sonuts.Presentation</AssemblyName>
-        <Nullable>enable</Nullable>
-        <IsPackable>true</IsPackable>
-        <ImplicitUsings>enable</ImplicitUsings>
+	    <ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
     </PropertyGroup>
 
 	<ItemGroup>

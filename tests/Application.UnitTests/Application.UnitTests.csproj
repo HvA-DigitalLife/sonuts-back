@@ -4,8 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <RootNamespace>Sonuts.Application.UnitTests</RootNamespace>
         <AssemblyName>Sonuts.Application.UnitTests</AssemblyName>
-
-        <IsPackable>false</IsPackable>
+	    <IsPackable>false</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
