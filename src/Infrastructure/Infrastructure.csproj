@@ -6,7 +6,6 @@
 		<AssemblyName>Sonuts.Infrastructure</AssemblyName>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<DefaultItemExcludes>$(DefaultItemExcludes);Fhir\**\*</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -1,4 +1,5 @@
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 

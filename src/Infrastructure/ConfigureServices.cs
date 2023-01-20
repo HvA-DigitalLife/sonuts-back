@@ -3,12 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
+using Sonuts.Infrastructure.Fhir.Daos;
 using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Files;
 using Sonuts.Infrastructure.Identity;
 using Sonuts.Infrastructure.Persistence;
 using Sonuts.Infrastructure.Persistence.Interceptors;
 using Sonuts.Infrastructure.Services;
+using Sonuts.Infrastructure.Common;
+using Sonuts.Infrastructure.Fhir;
 
 namespace Sonuts.Infrastructure;
 

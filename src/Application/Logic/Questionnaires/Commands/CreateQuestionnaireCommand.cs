@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
@@ -130,11 +131,15 @@ public class CreateQuestionnaireCommandHandler : IRequestHandler<CreateQuestionn
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
+	private readonly IFhirOptions _fhirOptions;
+	private readonly IQuestionnaireDao _dao;
 
-	public CreateQuestionnaireCommandHandler(IApplicationDbContext context, IMapper mapper)
+	public CreateQuestionnaireCommandHandler(IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, IQuestionnaireDao dao)
 	{
 		_context = context;
 		_mapper = mapper;
+		_fhirOptions = fhirOptions;
+		_dao = dao;
 	}
 
 	public async Task<QuestionnaireDto> Handle(CreateQuestionnaireCommand request, CancellationToken cancellationToken)
