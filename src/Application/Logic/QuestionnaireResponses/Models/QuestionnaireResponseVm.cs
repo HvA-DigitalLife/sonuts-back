@@ -8,5 +8,5 @@ public class QuestionnaireResponseVm : IMapFrom<QuestionnaireResponse>
 {
 	public Guid Id { get; set; }
 	public DateTime CreatedAt { get; set; }
-	public QuestionnaireIdVm Questionnaire { get; set; } = default!;
+	public required QuestionnaireIdVm Questionnaire { get; set; }
 }

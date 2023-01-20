@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -34,7 +33,6 @@ public static class ConfigureServices
 
 		services.AddControllersWithViews(options =>
 			options.Filters.Add<ApiExceptionFilterAttribute>())
-				.AddFluentValidation(validationConfiguration => validationConfiguration.AutomaticValidationEnabled = false)
 				.AddJsonOptions(options =>
 				{
 					options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -45,12 +43,9 @@ public static class ConfigureServices
 					options.JsonSerializerOptions.Converters.Add(new TimeOnlyConverter());
 					options.JsonSerializerOptions.Converters.Add(new NullableTimeOnlyConverter());
 				});
+		services.AddFluentValidationClientsideAdapters();
 
 		services.AddRazorPages();
-
-		// Customise default API behaviour
-		services.Configure<ApiBehaviorOptions>(options =>
-			options.SuppressModelStateInvalidFilter = true);
 
 		// Configure swagger API Docs
 		services.AddSwaggerGen(options =>

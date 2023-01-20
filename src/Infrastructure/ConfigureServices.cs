@@ -1,15 +1,9 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
-using Sonuts.Infrastructure.Common;
-using Sonuts.Infrastructure.Fhir;
-using Sonuts.Infrastructure.Fhir.Daos;
 using Sonuts.Infrastructure.Files;
 using Sonuts.Infrastructure.Identity;
 using Sonuts.Infrastructure.Persistence;
@@ -20,9 +14,7 @@ namespace Sonuts.Infrastructure;
 
 public static class ConfigureServices
 {
-	public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
-		IConfiguration configuration,
-		IWebHostEnvironment environment)
+	public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
 	{
 		services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 

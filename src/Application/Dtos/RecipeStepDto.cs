@@ -5,6 +5,6 @@ namespace Sonuts.Application.Dtos;
 
 public class RecipeStepDto : IMapFrom<RecipeStep>
 {
-	public string Description { get; set; } = default!;
+	public required string Description { get; set; }
 	public int Order { get; set; }
 }

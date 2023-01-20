@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Persistence.Seeders;
 
@@ -14,6 +13,7 @@ public class ApplicationDbContextInitialiser
 	private readonly UserManager<User> _userManager;
 	private readonly RoleManager<IdentityRole> _roleManager;
 
+<<<<<<< HEAD
 	private readonly IFhirOptions _fhirOptions;
 
 	private readonly ICategoryDao _categoryDao;
@@ -22,10 +22,13 @@ public class ApplicationDbContextInitialiser
 	private readonly IThemeDao _themeDao;
 	private readonly IActivityDao _activityDao;
 
+=======
+>>>>>>> origin/develop
 	public ApplicationDbContextInitialiser(
 		ILogger<ApplicationDbContextInitialiser> logger, 
 		ApplicationDbContext context, 
 		UserManager<User> userManager, 
+<<<<<<< HEAD
 		RoleManager<IdentityRole> roleManager,
 		IFhirOptions fhirOptions,
 		ICategoryDao categoryDao,
@@ -33,17 +36,23 @@ public class ApplicationDbContextInitialiser
 		IQuestionnaireDao questionnaireDao,
 		IThemeDao themeDao,
 		IActivityDao activityDao)
+=======
+		RoleManager<IdentityRole> roleManager)
+>>>>>>> origin/develop
 	{
 		_logger = logger;
 		_context = context;
 		_userManager = userManager;
 		_roleManager = roleManager;
+<<<<<<< HEAD
 		_categoryDao = categoryDao;
 		_participantDao = participantDao;
 		_questionnaireDao = questionnaireDao;
 		_themeDao = themeDao;
 		_activityDao = activityDao;
 		_fhirOptions = fhirOptions;
+=======
+>>>>>>> origin/develop
 	}
 
 	public async Task InitialiseAsync()

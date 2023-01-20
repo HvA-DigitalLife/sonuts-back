@@ -2,8 +2,8 @@ namespace Sonuts.Domain.Entities;
 
 public class RefreshToken
 {
-	public string Token { get; set; } = default!;
+	public required string Token { get; set; }
 	public DateTime IssuedAt { get; set; }
-	public User User { get; set; } = default!;
-	public Client Client { get; set; } = default!;
+	public required User User { get; set; }
+	public required Client Client { get; set; } 
 }

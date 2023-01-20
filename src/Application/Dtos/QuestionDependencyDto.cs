@@ -6,7 +6,7 @@ namespace Sonuts.Application.Dtos;
 
 public class QuestionDependencyDto : IMapFrom<EnableWhen>
 {
-	public Guid QuestionId { get; set; } = default!;
-	public Operator Operator { get; set; } = default!;
-	public string Value { get; set; } = default!;
+	public required Guid QuestionId { get; set; }
+	public required Operator Operator { get; set; }
+	public required string Value { get; set; }
 }

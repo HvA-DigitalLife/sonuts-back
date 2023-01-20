@@ -1,10 +1,7 @@
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Interfaces.Fhir;
-using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
-// ReSharper disable StringLiteralTypo
 namespace Sonuts.Infrastructure.Persistence.Seeders;
 
 internal static class CategorySeed
@@ -408,7 +405,7 @@ internal static class CategorySeed
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
 						GoalFrequencyQuestion = "Hoe vaak in de week wil je peulvruchten eten?",
-						Faq = new()
+						Faq = new List<Faq>
 						{
 							new()
 							{
@@ -435,7 +432,7 @@ internal static class CategorySeed
 								
 							}
 						},
-						Recipes = new() 
+						Recipes = new List<Recipe>
 						{ 
 							new()
 							{
