@@ -149,7 +149,7 @@ public static class FhirThemeAdapter
         
 		foreach (var fhirAction in fhirPlanDefinition.Action) {
 			// create goal and meta data
-			var activity = new Activity();
+			//var activity = new Activity();
 			
 			activity.Name = fhirAction.Title;
 			activity.Description = fhirAction.Description;

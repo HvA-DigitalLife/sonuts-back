@@ -1,10 +1,7 @@
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Interfaces.Fhir;
-using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
-// ReSharper disable StringLiteralTypo
 namespace Sonuts.Infrastructure.Persistence.Seeders;
 
 internal static class CategorySeed
@@ -13,7 +10,7 @@ internal static class CategorySeed
 	private static readonly Guid VoedingId = new("a5997737-7f28-4f5f-92fc-6054023b1248");
 	private static readonly Guid BewegenId = new("33c34b68-0925-4af4-a612-11503c87208f");
 
-	internal static async Task Seed(IApplicationDbContext context, IFhirOptions fhirOptions, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao)
+	internal static async Task Seed(IApplicationDbContext context /*, IFhirOptions fhirOptions, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao*/)
 	{
 		List<Category> categories = new();
 
@@ -408,7 +405,7 @@ internal static class CategorySeed
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
 						GoalFrequencyQuestion = "Hoe vaak in de week wil je peulvruchten eten?",
-						Faq = new()
+						Faq = new List<Faq>
 						{
 							new()
 							{
@@ -435,7 +432,7 @@ internal static class CategorySeed
 								
 							}
 						},
-						Recipes = new() 
+						Recipes = new List<Recipe>
 						{ 
 							new()
 							{
@@ -1029,23 +1026,23 @@ internal static class CategorySeed
 		{
 			context.Categories.AddRange(categories);
 
-			if (fhirOptions.Write)
-			{
-				// Create fhir value set containing all categories
-				await categoryDao.Initialize(categories);
-
-				foreach (var category in categories)
-				{
-					// Add category questionnaire to FHIR database
-					await questionnaireDao.Insert(category.Questionnaire);
-					
-					foreach (var theme in category.Themes)
-					{
-						// Add theme to FHIR database
-						await themeDao.Insert(theme);
-					}
-				}
-			}
+			// if (fhirOptions.Write)
+			// {
+			// 	// Create fhir value set containing all categories
+			// 	await categoryDao.Initialize(categories);
+			//
+			// 	foreach (var category in categories)
+			// 	{
+			// 		// Add category questionnaire to FHIR database
+			// 		await questionnaireDao.Insert(category.Questionnaire);
+			// 		
+			// 		foreach (var theme in category.Themes)
+			// 		{
+			// 			// Add theme to FHIR database
+			// 			await themeDao.Insert(theme);
+			// 		}
+			// 	}
+			// }
 
 			await context.SaveChangesAsync();
 		}

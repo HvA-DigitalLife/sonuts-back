@@ -6,8 +6,8 @@ namespace Sonuts.Application.Dtos;
 
 public class MomentDto : IMapFrom<Moment>
 {
-	public DayOfWeek Day { get; set; } = default!;
+	public required DayOfWeek Day { get; set; }
 	public TimeOnly? Time { get; set; }
-	public MomentType Type { get; set; } = default!;
+	public required MomentType Type { get; set; }
 	public string? EventName { get; set; }
 }

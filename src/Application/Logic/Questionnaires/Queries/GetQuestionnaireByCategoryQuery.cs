@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 
@@ -28,15 +27,11 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
-	private readonly IFhirOptions _fhirOptions;
-	private readonly IQuestionnaireDao _dao;
 
-	public GetQuestionnaireByTypeQueryHandler(IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, IQuestionnaireDao dao)
+	public GetQuestionnaireByTypeQueryHandler(IApplicationDbContext context, IMapper mapper)
 	{
 		_context = context;
 		_mapper = mapper;
-		_fhirOptions = fhirOptions;
-		_dao = dao;
 	}
 
 	public async Task<QuestionnaireDto> Handle(GetQuestionnaireByCategoryQuery request, CancellationToken cancellationToken)

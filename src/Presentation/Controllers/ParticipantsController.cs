@@ -12,6 +12,26 @@ namespace Sonuts.Presentation.Controllers;
 public class ParticipantsController : ApiControllerBase
 {
 	/// <summary>
+	/// Get all participants
+	/// </summary>
+	[Authorize(Roles = "Admin")]
+	[HttpGet]
+	public async Task<ActionResult<IEnumerable<OverviewParticipantDto>>> GetAllParticipants()
+	{
+		return Ok(await Mediator.Send(new GetAllParticipantsQuery()));
+	}
+
+	/// <summary>
+	/// Export all participants
+	/// </summary>
+	[Authorize(Roles = "Admin")]
+	[HttpGet("csv")]
+	public async Task<ActionResult> GetParticipantsCsv()
+	{
+		return File(await Mediator.Send(new GetParticipantsCsvQuery()), "text/csv", $"Participants-{DateOnly.FromDateTime(DateTime.Now):yyyy-MM-dd}");
+	}
+
+	/// <summary>
 	/// Get the currently logged in participant
 	/// </summary>
 	[Authorize(Roles = "Participant")]

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <RootNamespace>Sonuts.Domain</RootNamespace>
         <AssemblyName>Sonuts.Domain</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -9,9 +9,9 @@
     </PropertyGroup>
 
 	<ItemGroup>
-      <PackageReference Include="MediatR" Version="10.0.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.8" />
+      <PackageReference Include="MediatR" Version="11.1.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.2" />
     </ItemGroup>
 
 </Project>

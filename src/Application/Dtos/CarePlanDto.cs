@@ -7,6 +7,6 @@ public class CarePlanDto : IMapFrom<CarePlan>
 {
 	public DateOnly Start { get; set; }
 	public DateOnly End { get; set; }
-	public ParticipantDto Participant { get; set; } = default!;
+	public required ParticipantDto Participant { get; set; }
 	public ICollection<GoalDto> Goals { get; set; } = new List<GoalDto>();
 }

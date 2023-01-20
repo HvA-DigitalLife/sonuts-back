@@ -1,33 +1,34 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Sonuts.Infrastructure</RootNamespace>
-        <AssemblyName>Sonuts.Infrastructure</AssemblyName>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<RootNamespace>Sonuts.Infrastructure</RootNamespace>
+		<AssemblyName>Sonuts.Infrastructure</AssemblyName>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<DefaultItemExcludes>$(DefaultItemExcludes);Fhir\**\*</DefaultItemExcludes>
+	</PropertyGroup>
 
-    <ItemGroup>
-	    <PackageReference Include="Hl7.Fhir.R4" Version="4.2.1" />
-	    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
-		    <PrivateAssets>all</PrivateAssets>
-		    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	    </PackageReference>
-		<PackageReference Include="CsvHelper" Version="15.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.8" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.8" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="CsvHelper" Version="30.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.2" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Application\Application.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Application\Application.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Migrations\" />
-    </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Migrations\" />
+	</ItemGroup>
 
 </Project>

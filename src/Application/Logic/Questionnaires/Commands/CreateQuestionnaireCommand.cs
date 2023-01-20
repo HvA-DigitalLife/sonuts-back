@@ -2,15 +2,15 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
 namespace Sonuts.Application.Logic.Questionnaires.Commands;
+
 public record CreateQuestionnaireCommand : IRequest<QuestionnaireDto>
 {
-	public string? Title { get; init; } = default!;
+	public required string? Title { get; init; }
 	public string? Description { get; init; }
 	public ICollection<CreateQuestionCommand> Questions { get; init; } = new List<CreateQuestionCommand>();
 }
@@ -35,6 +35,7 @@ public record CreateEnableWhenCommand
 
 public record CreateAnswerOptionCommand
 {
+	public string? Name { get; init; }
 	public string? Value { get; init; }
 	public int? Order { get; init; }
 }
@@ -114,6 +115,9 @@ public class CreateAnswerOptionCommandValidator : AbstractValidator<CreateAnswer
 {
 	public CreateAnswerOptionCommandValidator()
 	{
+		RuleFor(command => command.Name)
+			.NotEmpty();
+
 		RuleFor(command => command.Value)
 			.NotEmpty();
 
@@ -126,15 +130,11 @@ public class CreateQuestionnaireCommandHandler : IRequestHandler<CreateQuestionn
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
-	private readonly IFhirOptions _fhirOptions;
-	private readonly IQuestionnaireDao _dao;
 
-	public CreateQuestionnaireCommandHandler(IApplicationDbContext context, IMapper mapper, IFhirOptions fhirOptions, IQuestionnaireDao dao)
+	public CreateQuestionnaireCommandHandler(IApplicationDbContext context, IMapper mapper)
 	{
 		_context = context;
 		_mapper = mapper;
-		_fhirOptions = fhirOptions;
-		_dao = dao;
 	}
 
 	public async Task<QuestionnaireDto> Handle(CreateQuestionnaireCommand request, CancellationToken cancellationToken)
@@ -160,6 +160,7 @@ public class CreateQuestionnaireCommandHandler : IRequestHandler<CreateQuestionn
 			            },
 		            AnswerOptions = question.AnswerOptions!.Select(answerOption => new AnswerOption
 		            {
+						Name = answerOption.Name!,
 			            Value = answerOption.Value!,
 			            Order = answerOption.Order!.Value,
 		            }).ToList()

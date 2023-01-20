@@ -6,7 +6,7 @@ namespace Sonuts.Application.Dtos;
 
 public class ImageDto : IMapFrom<Image>
 {
-	public string Uri { get; set; } = default!;
+	public required string Uri { get; set; }
 
 	public void Mapping(Profile profile) =>
 		profile.CreateMap<Image, ImageDto>()
