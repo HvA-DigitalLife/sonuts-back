@@ -26,4 +26,16 @@ public class QuestionnairesController : ApiControllerBase
 			QuestionnaireId = questionnaireId
 		}));
 	}
+
+	[Authorize(Roles = "Admin")]
+	[HttpGet("{questionnaireId:guid}/Csv")]
+	public async Task<ActionResult> GetFile(Guid questionnaireId)
+	{
+		var file = await Mediator.Send(new ExportQuestionnaireResponsesQuery
+		{
+			QuestionnaireId = questionnaireId
+		});
+
+		return File(file.Content, file.ContentType, file.FileName);
+	}
 }
