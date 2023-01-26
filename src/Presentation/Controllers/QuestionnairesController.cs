@@ -12,7 +12,10 @@ public class QuestionnairesController : ApiControllerBase
 	[HttpGet]
 	public async Task<ActionResult<QuestionnaireDto>> GetQuestionnaireByCategory([FromQuery] Guid categoryId)
 	{
-		return Ok(await Mediator.Send(new GetQuestionnaireByCategoryQuery { CategoryId = categoryId }));
+		return Ok(await Mediator.Send(new GetQuestionnaireByCategoryQuery
+		{
+			CategoryId = categoryId
+		}));
 	}
 
 	/// <summary>

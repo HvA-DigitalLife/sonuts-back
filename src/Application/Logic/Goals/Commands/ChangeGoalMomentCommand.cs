@@ -9,6 +9,7 @@ using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
 namespace Sonuts.Application.Logic.Goals.Commands;
+
 public class ChangeGoalMomentCommand : IRequest<GoalDto>
 {
 	public Guid Id { get; set; }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Extensions;
 using Sonuts.Application.Common.Interfaces;
+using Sonuts.Application.Common.Validators;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
@@ -34,28 +35,30 @@ public class CreateMomentCommand
 
 public class CreateCarePlanCommandValidator : AbstractValidator<CreateCarePlanCommand>
 {
-	public CreateCarePlanCommandValidator()
+	public CreateCarePlanCommandValidator(IApplicationDbContext context)
 	{
 		RuleFor(command => command.Goals)
 			.Cascade(CascadeMode.Stop)
 			.NotEmpty();
 
 		RuleForEach(command => command.Goals)
-			.SetValidator(new CreateGoalsCommandValidator());
+			.SetValidator(new CreateGoalsCommandValidator(context));
 	}
 }
 
 public class CreateGoalsCommandValidator : AbstractValidator<CreateGoalsCommand>
 {
-	public CreateGoalsCommandValidator()
+	public CreateGoalsCommandValidator(IApplicationDbContext context)
 	{
 		RuleFor(command => command.ActivityId)
-			.NotNull();
+			.NotNull()
+			.Exists(context.Activities);
+
 
 		RuleFor(command => command.FrequencyAmount)
 			.Cascade(CascadeMode.Stop)
 			.NotNull()
-			.GreaterThan(0);
+			.GreaterThanOrEqualTo(0);
 
 		RuleFor(command => command.Moment)
 			.Cascade(CascadeMode.Stop)

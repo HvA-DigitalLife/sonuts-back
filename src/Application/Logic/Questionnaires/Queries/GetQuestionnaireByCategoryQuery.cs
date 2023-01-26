@@ -2,10 +2,9 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Sonuts.Application.Common.Exceptions;
+using Sonuts.Application.Common.Extensions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Dtos;
-using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Logic.Questionnaires.Queries;
 
@@ -39,10 +38,7 @@ public class GetQuestionnaireByTypeQueryHandler : IRequestHandler<GetQuestionnai
 		var category = await _context.Categories
 			.Include(category => category.Questionnaire.Questions.OrderBy(question => question.Order))
 			.ThenInclude(question => question.AnswerOptions!.OrderBy(answerOption => answerOption.Order))
-			.FirstOrDefaultAsync(category => category.Id.Equals(request.CategoryId), cancellationToken);
-
-		if (category is null)
-			throw new NotFoundException(nameof(Category), request.CategoryId);
+			.FindOrNotFoundAsync(request.CategoryId, cancellationToken);
 
 		return _mapper.Map<QuestionnaireDto>(category.Questionnaire);
 	}

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
@@ -6,6 +6,8 @@
         <AssemblyName>Sonuts.Presentation</AssemblyName>
 	    <ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+	    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	    <NoWarn>1701;1702;1591</NoWarn>
     </PropertyGroup>
 
 	<ItemGroup>
@@ -14,7 +16,6 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -28,14 +29,6 @@
 	<PropertyGroup>
 		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <NoWarn>1701;1702;1591</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 
 </Project>
