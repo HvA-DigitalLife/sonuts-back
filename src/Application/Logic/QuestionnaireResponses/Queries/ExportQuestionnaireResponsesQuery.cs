@@ -34,7 +34,7 @@ internal class ExportQuestionnaireResponsesQueryHandler : IRequestHandler<Export
 			.Include(qr => qr.Participant)
 			.Include(qr => qr.Responses).ThenInclude(qr => qr.Question)
 			.Where(qr => qr.Questionnaire.Id.Equals(request.QuestionnaireId));
-
+		
 		List<string> headers = new()
 		{
 			nameof(Participant.FirstName),
@@ -45,19 +45,19 @@ internal class ExportQuestionnaireResponsesQueryHandler : IRequestHandler<Export
 		};
 		headers.AddRange(questionnaire.Questions.Select(question => question.Text));
 
-		List<List<string>> rows = new();
+		List<List<string?>> rows = new();
 
 		foreach (var questionnaireResponse in questionnaireResponses)
 		{
-			var row = new List<string>
+			var row = new List<string?>
 			{
 				questionnaireResponse.Participant.FirstName,
 				questionnaireResponse.Participant.LastName,
-				questionnaireResponse.Participant.Height.ToString() ?? "",
-				questionnaireResponse.Participant.Weight.ToString() ?? "",
-				questionnaireResponse.Participant.Birth.ToString() ?? "",
+				questionnaireResponse.Participant.Height.ToString(),
+				questionnaireResponse.Participant.Weight.ToString(),
+				questionnaireResponse.Participant.Birth.ToString()
 			};
-			row.AddRange(questionnaire.Questions.Select(question => questionnaireResponse.Responses.FirstOrDefault(qr => qr.Question.Id == question.Id)?.Answer ?? ""));
+			row.AddRange(questionnaire.Questions.Select(question => questionnaireResponse.Responses.FirstOrDefault(qr => qr.Question.Id == question.Id)?.Answer));
 
 			rows.Add(row);
 		}

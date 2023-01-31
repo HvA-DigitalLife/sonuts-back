@@ -9,7 +9,7 @@ namespace Sonuts.Infrastructure.Files;
 
 public class CsvFileBuilder : ICsvFileBuilder
 {
-	public async Task<byte[]> BuildDynamicFile(List<string> headers, List<List<string>> rows)
+	public async Task<byte[]> BuildDynamicFile(List<string> headers, List<List<string?>> rows)
 	{
 		using var memoryStream = new MemoryStream();
 		await using (var streamWriter = new StreamWriter(memoryStream))
@@ -23,7 +23,7 @@ public class CsvFileBuilder : ICsvFileBuilder
 			{
 				foreach (var column in row)
 				{
-					csvWriter.WriteField(column);
+					csvWriter.WriteField(column ?? string.Empty);
 				}
 				await csvWriter.NextRecordAsync();
 			}
