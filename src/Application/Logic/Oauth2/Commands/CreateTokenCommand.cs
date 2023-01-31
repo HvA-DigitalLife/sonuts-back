@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Sonuts.Application.Common.Documentation;
 using Sonuts.Application.Common.Extensions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Logic.Oauth2.Models;
@@ -9,13 +10,22 @@ namespace Sonuts.Application.Logic.Oauth2.Commands;
 public class CreateTokenCommand : IRequest<TokenVm>
 {
 	public GrantType? GrantType { get; set; }
+
 	public string? Username { get; set; }
+
 	public string? Password { get; set; }
+
 	public string? RefreshToken { get; set; }
+
 	public string? RedirectUri { get; set; }
+
+	[Example("05004bd2-18d9-402f-9a1b-673fcf1d46e7")]
 	public Guid? ClientId { get; set; }
+
 	public string? ClientSecret { get; set; }
+
 	public string? Code { get; set; }
+
 	public List<ScopeType>? Scope { get; set; }
 }
 
