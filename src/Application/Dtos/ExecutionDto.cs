@@ -9,5 +9,5 @@ public class ExecutionDto : IMapFrom<Execution>
 	public required bool IsDone { get; init; }
 	public required int Amount { get; init; }
 	public string? Reason { get; init; }
-	public required DateTime CreatedAt { get; init; }
+	public required DateOnly CreatedAt { get; init; }
 }

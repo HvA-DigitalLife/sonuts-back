@@ -72,6 +72,8 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 			                    ?? throw new NotFoundException(nameof(Execution), request.ExecutionId.Value);
 
 			existingExecution.IsDone = request.IsDone!.Value;
+			existingExecution.Amount = request.Amount!.Value;
+			existingExecution.Reason = request.Reason;
 		}
 
 		var entity = existingExecution ?? new Execution
@@ -80,7 +82,7 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 			Amount = request.Amount!.Value,
 			Reason = request.Reason,
 			Goal = goal,
-			CreatedAt = request.PastDate?.ToDateTime(TimeOnly.MinValue) ?? DateTime.Now
+			CreatedAt = request.PastDate ?? DateOnly.FromDateTime(DateTime.Now)
 		};
 
 		if (existingExecution is null)
