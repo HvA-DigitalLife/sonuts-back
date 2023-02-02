@@ -542,6 +542,34 @@ internal static class CategorySeed
 							}
 						},
 						Type = ThemeType.Default
+					},
+					new()
+					{
+						Name = "Alcohol",
+						Description = "Drink minder alcohol",
+						Type = ThemeType.Negative,
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "dansen"
+						},
+						FrequencyType = FrequencyType.Amount,
+						FrequencyGoal = 0,
+						CurrentFrequencyQuestion = "Hoeveel glazen alcohol drink je per week?",
+						GoalFrequencyQuestion = "Hoeveel glazen alcohol wil je maximaal drinken per week?",
+						Activities = new List<Activity>
+						{
+							new()
+							{
+								Name = "Alcohol",
+								Description = "Minder alcohol drinken",
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "geen"
+								}
+							}
+						}
 					}
 				}
 			});
