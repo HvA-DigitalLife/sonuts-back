@@ -96,7 +96,7 @@ public static class ConfigureServices
 					ValidIssuer = configuration["Authentication:Issuer"],
 					ValidAudience = configuration["Authentication:Audience"],
 					ValidateIssuerSigningKey = true,
-					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Authentication:SecurityKey"]))
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Authentication:SecurityKey"]!))
 				};
 			});
 

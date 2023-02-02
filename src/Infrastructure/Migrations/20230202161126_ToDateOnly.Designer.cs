@@ -12,8 +12,8 @@ using Sonuts.Infrastructure.Persistence;
 namespace Sonuts.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230202101835_DateOnly")]
-    partial class DateOnly
+    [Migration("20230202161126_ToDateOnly")]
+    partial class ToDateOnly
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

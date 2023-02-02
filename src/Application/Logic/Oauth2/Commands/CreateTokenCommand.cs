@@ -88,7 +88,7 @@ public class CreateTokenCommandHandler : IRequestHandler<CreateTokenCommand, Tok
 		{
 			AccessToken = await _tokenService.CreateAccessTokenAsync(request.Username!),
 			TokenType = TokenType.Bearer,
-			ExpiresIn = int.Parse(_configuration["Authentication:TokenDuration"]),
+			ExpiresIn = int.Parse(_configuration["Authentication:TokenDuration"]!),
 			RefreshToken = await _tokenService.CreateRefreshTokenAsync(request.Username!, request.ClientId!.Value),
 			Roles = await _identityService.GetRolesAsync(request.Username!) 
 		};

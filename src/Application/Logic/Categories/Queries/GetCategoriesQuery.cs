@@ -73,7 +73,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 		return response;
 	}
 
-	private async Task<bool> IsRecommendedTheme(string userId, List<RecommendationRule> rules, CancellationToken cancellationToken)
+	private async Task<bool> IsRecommendedTheme(string userId, IEnumerable<RecommendationRule> rules, CancellationToken cancellationToken)
 	{
 		foreach (var rule in rules)
 		{

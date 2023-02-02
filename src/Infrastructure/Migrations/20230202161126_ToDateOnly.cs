@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Sonuts.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class DateOnly : Migration
+    public partial class ToDateOnly : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,6 +18,14 @@ namespace Sonuts.Infrastructure.Migrations
                 nullable: false,
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone");
+
+            migrationBuilder.AlterColumn<DateOnly>(
+                name: "Birth",
+                table: "Participants",
+                type: "date",
+                nullable: true,
+                oldClrType: typeof(DateOnly),
+                oldType: "date");
 
             migrationBuilder.AlterColumn<DateOnly>(
                 name: "CreatedAt",
@@ -38,6 +46,16 @@ namespace Sonuts.Infrastructure.Migrations
                 nullable: false,
                 oldClrType: typeof(DateOnly),
                 oldType: "date");
+
+            migrationBuilder.AlterColumn<DateOnly>(
+                name: "Birth",
+                table: "Participants",
+                type: "date",
+                nullable: false,
+                defaultValue: new DateOnly(1, 1, 1),
+                oldClrType: typeof(DateOnly),
+                oldType: "date",
+                oldNullable: true);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedAt",
