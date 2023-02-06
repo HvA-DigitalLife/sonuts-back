@@ -13,16 +13,16 @@ public class CategoryDto : IMapFrom<Category>
 	/// <summary>
 	/// Category name
 	/// </summary>
-	public string Name { get; set; } = default!;
+	public required string Name { get; set; }
 	/// <summary>
 	/// User interface color
 	/// </summary>
-	public string Color { get; set; } = default!;
+	public required string Color { get; set; }
 	/// <summary>
 	/// Reference to questionnaire linked to this Category
 	/// </summary>
 	/// <value></value>
-	public QuestionnaireDto Questionnaire { get; set; } = default!;
+	public required QuestionnaireDto Questionnaire { get; set; }
 	/// <summary>
 	/// List of themes related to this category: ie biking, walking.
 	/// </summary>

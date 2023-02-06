@@ -14,18 +14,29 @@ public static class FhirQuestionnaireResponseAdapter
 
 		// create questionnaire instance
 		QuestionnaireResponse questionnaireResponse = new QuestionnaireResponse{
-			Id = Guid.Parse(fhirQuestionnaireResponse.Id)
+			Id = Guid.Parse(fhirQuestionnaireResponse.Id),
+			Questionnaire = new Questionnaire{
+				Id = Guid.Parse(fhirQuestionnaireResponse.Questionnaire.ToString().Replace("Questionnaire/", "")),
+				Title = ""
+			},
+			Participant = new Participant{
+				Id = Guid.Parse(fhirQuestionnaireResponse.Author.Reference.ToString().Replace("Patient/", "")),
+				FirstName = "",
+				LastName = ""
+			}
+         
 		};
 
 		// to-do use separate identifiers fields
-		questionnaireResponse.Questionnaire = new Questionnaire{Id = Guid.Parse(fhirQuestionnaireResponse.Questionnaire.ToString().Replace("Questionnaire/", ""))};
-		questionnaireResponse.Participant = new Participant{Id = Guid.Parse(fhirQuestionnaireResponse.Author.Reference.ToString().Replace("Patient/", ""))};
-         
+
 
 		// loop trough fhir questions instance to questionnaire
 		foreach (var fhirItem in fhirQuestionnaireResponse.Item) {
-			var questionResponse = new QuestionResponse();
-			questionResponse.Id = Guid.Parse(fhirItem.LinkId);
+			var questionResponse = new QuestionResponse{
+					Id = Guid.Parse(fhirItem.LinkId),
+					Answer = ""
+			};
+			
 
 			// parse responses
 			foreach (var fhirQuestionResponse in fhirItem.Answer) {

@@ -70,7 +70,11 @@ public static class FhirCarePlanAdapter
 	private static CarePlan FhirCarePlanToCarePlan(Hl7.Fhir.Model.CarePlan fhirCarePlan) {
 		// create interventionPlan model and add meta data
 		var carePlan = new CarePlan{
-			Id = Guid.Parse(fhirCarePlan.Id)
+			Id = Guid.Parse(fhirCarePlan.Id),
+			Participant = new Participant{
+				FirstName = "",
+				LastName = ""
+			}
 		};
 
 		carePlan.Start = DateOnly.Parse(fhirCarePlan.Period.Start);
@@ -78,7 +82,20 @@ public static class FhirCarePlanAdapter
         
 		foreach (var fhirActivity in fhirCarePlan.Activity) {
 		    foreach (var fhirGoal in fhirActivity.Detail.Goal) {
-				var goal = new Goal();
+				// to-do, see if we can do something different with this.
+				var goal = new Goal{
+					Activity = new Activity{
+						Name = "",
+						Image = new Image {
+							Extension = "NA"
+						}
+					},
+					FrequencyAmount = 0,
+					Moment = new Moment {
+						Day = DayOfWeek.Monday,
+						Type = MomentType.During
+					}
+				};
 				goal.Id = Guid.Parse(fhirGoal.Reference.ToString().Replace("Goal/", ""));
 				carePlan.Goals.Add(goal);
 			}

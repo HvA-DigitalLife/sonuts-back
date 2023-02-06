@@ -46,7 +46,15 @@ public static class FhirCategoryAdapter
 		foreach (var fhirInclude in fhirValueSet.Compose.Include) {
 			foreach (var fhirConcept in fhirInclude.Concept) {
 				// todo: add color extension
-				Category category = new(){Id = Guid.Parse(fhirConcept.Code), Name = fhirConcept.Display};
+				var category = new Category {
+					Id = Guid.Parse(fhirConcept.Code), 
+					Name = fhirConcept.Display,
+					Color = "",
+					Questionnaire = new Questionnaire {
+						Title = "NA"
+					}
+					
+					};
 				foreach (var fhirConceptExtension in fhirConcept.Extension) {
 					if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/isActive") {
 						if (fhirConceptExtension.Value is not null) {
@@ -62,7 +70,6 @@ public static class FhirCategoryAdapter
 					}
 					if (fhirConceptExtension.Url == "https://mibplatform.nl/fhir/Extentions/ValueSet/questionnaireId") {
 						if (fhirConceptExtension.Value is not null) {
-							category.Questionnaire = new Questionnaire();
 							category.Questionnaire.Id = Guid.Parse(fhirConceptExtension.Value.ToString() ?? "");
 						}
 					}
@@ -79,7 +86,7 @@ public static class FhirCategoryAdapter
 
 	public static string ToJson ( List<Category> categories )
 	{
-		// create plan definion and meta data
+		// create plan definition and meta data
 		var fhirValueSet= new Hl7.Fhir.Model.ValueSet{
 			Id = "mib-categories"
 		};
@@ -94,7 +101,7 @@ public static class FhirCategoryAdapter
 		fhirValueSet.Status = Hl7.Fhir.Model.PublicationStatus.Draft;
 		fhirValueSet.Experimental = true;
 		fhirValueSet.Publisher = "MiB Platform";
-		fhirValueSet.Description = new Hl7.Fhir.Model.Markdown("Categories which will be used in the MiB platorm.");
+		fhirValueSet.Description = new Hl7.Fhir.Model.Markdown("Categories which will be used in the MiB platform.");
 		fhirValueSet.Copyright = new Hl7.Fhir.Model.Markdown("© 2022 DigitalLife Hogeschool van Amsterdam.");
 		fhirValueSet.Compose = new Hl7.Fhir.Model.ValueSet.ComposeComponent();
 
@@ -122,7 +129,7 @@ public static class FhirCategoryAdapter
 				});
 			}
 			if (category.Questionnaire is not null) {
-				// Description: reference to the questionnare attached to this Category
+				// Description: reference to the questionnaire attached to this Category
 				fhirConceptReference.Extension.Add(new Hl7.Fhir.Model.Extension { 
 					Url = "https://mibplatform.nl/fhir/Extentions/ValueSet/questionnaireId", 
 					Value = new Hl7.Fhir.Model.FhirString(category.Questionnaire.Id.ToString())

@@ -14,7 +14,9 @@ public static class FhirParticipantAdapter
 		var fhirPatient = parser.Parse<Hl7.Fhir.Model.Patient>(json);
 
 		Participant participant = new Participant{
-			Id = Guid.Parse(fhirPatient.Id)
+			Id = Guid.Parse(fhirPatient.Id),
+			FirstName = "",
+			LastName = ""
 		};
 
 		foreach (var fhirId in fhirPatient.Identifier) {

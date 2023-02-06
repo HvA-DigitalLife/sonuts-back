@@ -10,11 +10,11 @@ namespace Sonuts.Application.Dtos;
 public class QuestionDto : IMapFrom<Question>
 {
 	public Guid Id { get; set; }
-	public QuestionType Type { get; set; } = default!;
+	public required QuestionType Type { get; set; }
 	/// <summary>
 	/// Question Title
 	/// </summary>
-	public string Text { get; set; } = default!;
+	public required string Text { get; set; }
 	/// <summary>
 	/// Question description
 	/// </summary>
@@ -22,7 +22,7 @@ public class QuestionDto : IMapFrom<Question>
 	/// <summary>
 	/// Question number for ordering
 	/// </summary>
-	public int Order { get; set; } = default!;
+	public required int Order { get; set; }
 	public EnableWhenDto? EnableWhen { get; set; }
 	public ICollection<AnswerOptionDto>? AnswerOptions { get; set; } = new List<AnswerOptionDto>();
 	public bool IsRequired { get; set; }

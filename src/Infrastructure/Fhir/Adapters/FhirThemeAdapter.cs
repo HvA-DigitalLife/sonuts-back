@@ -105,11 +105,18 @@ public static class FhirThemeAdapter
 	private static Theme FhirPlanDefinitionToTheme(Hl7.Fhir.Model.PlanDefinition fhirPlanDefinition) {
 		// create guideline model and add meta data
 		var theme = new Theme{
-			Id = Guid.Parse(fhirPlanDefinition.Id)
+			Id = Guid.Parse(fhirPlanDefinition.Id),
+			Name = fhirPlanDefinition.Title,
+			Description = fhirPlanDefinition.Description.ToString() ?? string.Empty,
+			Image = new Image {
+				Extension = "NA"
+			},
+			FrequencyType = FrequencyType.Amount, // to-do implement
+			CurrentFrequencyQuestion = "",
+			CurrentActivityQuestion = "",
+			GoalFrequencyQuestion = ""
 		};
 		
-		theme.Name = fhirPlanDefinition.Title;
-		theme.Description = fhirPlanDefinition.Description.ToString() ?? string.Empty;
         
 
 		foreach (var fhirId in fhirPlanDefinition.Identifier) {
@@ -122,7 +129,12 @@ public static class FhirThemeAdapter
 		foreach (var typeCoding in fhirPlanDefinition.Type.Coding) {
 			if (typeCoding.System == "https://mibplatform.nl/fhir/ValueSet/domains") {
 				theme.Category = new Category {
-					Id = Guid.Parse(typeCoding.Code)
+					Id = Guid.Parse(typeCoding.Code),
+					Name = "",
+					Color = "",
+					Questionnaire = new Questionnaire{
+						Title = ""
+					},					
 				};
 			}
 		}
@@ -147,10 +159,14 @@ public static class FhirThemeAdapter
         // TODO: create references to activities
 		foreach (var fhirAction in fhirPlanDefinition.Action) {
 			// create goal and meta data
-			//var activity = new Activity();
+			var activity = new Activity{
+				Name = fhirAction.Title,
+				Description = fhirAction.Description,
+				Image = new Image{
+					Extension = "NA"
+				}
+			};
 			
-			activity.Name = fhirAction.Title;
-			activity.Description = fhirAction.Description;
 
 			// parse identifier
 			foreach (var fhirActionExtension in fhirAction.Extension)

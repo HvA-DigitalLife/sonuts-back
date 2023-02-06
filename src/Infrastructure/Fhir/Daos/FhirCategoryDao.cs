@@ -22,16 +22,13 @@ public class FhirCategoryDao : ICategoryDao
 		// load and parse domains instance
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
 		var categories = FhirCategoryAdapter.FromJsonToList(await client.GetStringAsync("ValueSet/mib-categories"));
-		var selectedCategory = new Category();
 		foreach (var category in categories) {
 			if (category.Id == id) {
 				category.Themes =  await _themeDao.SelectAllByCategoryId(category.Id);
-				selectedCategory = category;
+				return category;
 			}
-			
 		}
-
-		return selectedCategory;
+		throw new InvalidDataException("No category with this id found.");
 	}
 
 	public async Task<List<Category>> SelectAll()

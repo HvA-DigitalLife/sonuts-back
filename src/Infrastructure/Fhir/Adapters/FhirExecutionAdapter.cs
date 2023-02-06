@@ -58,7 +58,21 @@ public static class FhirExecutionAdapter
 		var execution = new Execution {
 			Id = Guid.Parse(fhirObservation.Id),
 			CreatedAt = DateTime.Parse(fhirObservation.IssuedElement.ToString()),
-			IsDone = fhirObservation.Status == Hl7.Fhir.Model.ObservationStatus.Final
+			IsDone = fhirObservation.Status == Hl7.Fhir.Model.ObservationStatus.Final,
+			Amount = 0, // to-do: implement
+			Goal = new Goal{ // to-do: add identifier from reference
+				Activity = new Activity{
+					Name = "",
+					Image = new Image {
+						Extension = "NA"
+					}
+				},
+				FrequencyAmount = 0,
+				Moment = new Moment {
+					Day = DayOfWeek.Monday,
+					Type = MomentType.During
+				}
+			}
 		};
 	
 		return execution;

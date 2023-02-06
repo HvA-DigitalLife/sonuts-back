@@ -14,7 +14,9 @@ public static class FhirQuestionnaireAdapter
 
 		// create questionnaire instance
 		Questionnaire questionnaire = new Questionnaire{
-			Id = Guid.Parse(fhirQuestionnaire.Id)
+			Id = Guid.Parse(fhirQuestionnaire.Id),
+			Title = fhirQuestionnaire.Title,
+			Description = fhirQuestionnaire.Description.ToString()
 		};
 
 		questionnaire.Title = fhirQuestionnaire.Title;
@@ -35,7 +37,10 @@ public static class FhirQuestionnaireAdapter
 			var question = new Question
 			{
 				Id = Guid.Parse(fhirItem.LinkId),
-				Text = fhirItem.Text
+				Text = fhirItem.Text,
+				Order = 0,
+				Type = QuestionType.MultiChoice
+
 			};
 
 			foreach (var fhirItemExtension in fhirItem.Extension)
@@ -51,7 +56,8 @@ public static class FhirQuestionnaireAdapter
 
 				question.EnableWhen = new EnableWhen {
 					DependentQuestionId = Guid.Parse(fhirEnableWhen.Question),
-					Answer = fhirEnableWhen.Answer.ToString() ?? ""
+					Answer = fhirEnableWhen.Answer.ToString() ?? "",
+					Operator = Operator.Equals
 				};
 				if (fhirEnableWhen.Operator is not null) {
 					question.EnableWhen.Operator = fhirEnableWhen.Operator.Value switch
@@ -83,12 +89,18 @@ public static class FhirQuestionnaireAdapter
 
 				foreach (var fhirAnswerOption in fhirItem.AnswerOption)
 				{
-					// create option object
-					var answerOption = new AnswerOption();
-					// parse coding of the fhir answer option object and store in our own option object
 					var fhirAnswerOptionCoding = (Hl7.Fhir.Model.Coding)fhirAnswerOption.Value;
-					answerOption.Id = Guid.Parse(fhirAnswerOptionCoding.Code);
-					answerOption.Value = fhirAnswerOptionCoding.Display;
+					// create option object
+					var answerOption = new AnswerOption{
+						Id = Guid.Parse(fhirAnswerOptionCoding.Code),
+						Name = "", // to-do: implement
+						Value = fhirAnswerOptionCoding.Display,
+						Order = 0 // to-do: implement
+
+					};
+					// parse coding of the fhir answer option object and store in our own option object
+					
+
 
 					foreach (var fhirAnswerOptionExtension in fhirAnswerOption.Extension)
 					{

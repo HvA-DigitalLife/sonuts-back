@@ -41,7 +41,7 @@ public static class FhirActivityAdapter
 
 	public static string ToJson ( Activity activity )
 	{
-		// create plan definion and meta data
+		// create plan definition and meta data
 		var fhirActivityDefinition = new Hl7.Fhir.Model.ActivityDefinition {
 			Id = activity.Id.ToString(), 
 			Name = activity.Name,
@@ -75,18 +75,19 @@ public static class FhirActivityAdapter
 		var activity = new Activity{
 			Id = Guid.Parse(fhirActivityDefinition.Id),
 			Name = fhirActivityDefinition.Title,
-			Description = fhirActivityDefinition.Description?.ToString()
+			Description = fhirActivityDefinition.Description?.ToString(),
+			Image = new Image{
+				Extension = "NA"
+			}
 		};
 
 		// parse extensions
 		foreach (var fhirActionExtension in fhirActivityDefinition.Extension)
 		{
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-extension") {
-				if (activity.Image is null) { activity.Image = new Image(); }
 				activity.Image.Extension = fhirActionExtension.Value.ToString() ?? "";
 			}
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/image-name") {
-				if (activity.Image is null) { activity.Image = new Image(); }
 				activity.Image.Name = fhirActionExtension.Value.ToString() ?? "";
 			}
 			if (fhirActionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/video") {
