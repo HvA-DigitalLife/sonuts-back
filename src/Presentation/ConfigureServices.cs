@@ -38,10 +38,6 @@ public static class ConfigureServices
 					options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 					options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 					options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-					options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
-					options.JsonSerializerOptions.Converters.Add(new NullableDateOnlyConverter());
-					options.JsonSerializerOptions.Converters.Add(new TimeOnlyConverter());
-					options.JsonSerializerOptions.Converters.Add(new NullableTimeOnlyConverter());
 				});
 		services.AddFluentValidationClientsideAdapters();
 

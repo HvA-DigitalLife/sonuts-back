@@ -9,7 +9,7 @@ internal class RecommendationRuleSeed
 {
 	internal static async Task Seed(IApplicationDbContext context)
 	{
-		if (await context.RecommendationRules.AnyAsync())
+		if (!await context.RecommendationRules.AnyAsync())
 		{
 			var recommendationRule = new RecommendationRule
 			{

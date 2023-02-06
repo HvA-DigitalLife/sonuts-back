@@ -25,7 +25,7 @@ public class ParticipantsController : ApiControllerBase
 	/// Export all participants
 	/// </summary>
 	[Authorize(Roles = "Admin")]
-	[HttpGet("csv")]
+	[HttpGet("Csv")]
 	public async Task<ActionResult> GetParticipantsCsv()
 	{
 		return File(await Mediator.Send(new GetParticipantsCsvQuery()), "text/csv", $"Participants-{DateOnly.FromDateTime(DateTime.Now):yyyy-MM-dd}");
@@ -35,7 +35,7 @@ public class ParticipantsController : ApiControllerBase
 	/// Get the currently logged in participant
 	/// </summary>
 	[Authorize(Roles = "Participant")]
-	[HttpGet("current")]
+	[HttpGet("Current")]
 	public async Task<ActionResult<ParticipantDto>> GetCurrentParticipant()
 	{
 		return Ok(await Mediator.Send(new GetCurrentParticipantQuery()));

@@ -75,7 +75,12 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 
 	private async Task<bool> IsRecommendedTheme(string userId, IEnumerable<RecommendationRule> rules, CancellationToken cancellationToken)
 	{
-		foreach (var rule in rules)
+		var ruleArray = rules.ToArray();
+
+		if (!ruleArray.Any())
+			return false;
+
+		foreach (var rule in ruleArray)
 		{
 			var questionResponses = await _context.QuestionResponses
 				.Where(questionResponse =>
@@ -142,6 +147,8 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 							return false;
 					}
 					break;
+				case RecommendationRuleType.Any:
+					return false; //TODO
 				default:
 					return false;
 			}
