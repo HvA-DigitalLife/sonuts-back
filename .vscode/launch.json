@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Presentation/bin/Debug/net6.0/Sonuts.Presentation.dll",
+            "program": "${workspaceFolder}/src/Presentation/bin/Debug/net7.0/Sonuts.Presentation.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/Presentation",
             "stopAtEntry": false,
