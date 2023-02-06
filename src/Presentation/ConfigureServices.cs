@@ -10,14 +10,14 @@ using Microsoft.OpenApi.Models;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Infrastructure.Persistence;
 using Sonuts.Presentation.Common;
-using Sonuts.Presentation.Common.Converters;
 using Sonuts.Presentation.Services;
 
 namespace Sonuts.Presentation;
 
 public static class ConfigureServices
 {
-	public static IServiceCollection AddPresentationServices(this IServiceCollection services,
+	public static IServiceCollection AddPresentationServices(
+		this IServiceCollection services,
 		IConfiguration configuration,
 		IWebHostEnvironment environment)
 	{ 
