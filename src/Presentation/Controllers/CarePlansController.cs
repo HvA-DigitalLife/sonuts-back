@@ -19,6 +19,7 @@ public class CarePlansController : ApiControllerBase
 	}
 
 	[Authorize(Roles = "Admin")]
+	[HttpGet("Csv")]
 	public async Task<ActionResult> ExportCarePlans()
 	{
 		var file = await Mediator.Send(new ExportCarePlansQuery());
