@@ -1,52 +1,7 @@
+{"questionnaireId": "385e45dc-5f80-4192-9e27-1fc19c6fd38d", "responses": [{"questionId":"28f95ae2-8042-4fbd-9f0e-e88c9e0f11ae","answer":"Man"}, {"questionId":"cee5864e-bfd1-4860-ad22-cfd9c438c970","answer":"70"}, {"questionId":"e37774d8-0343-4fde-9451-9184905a29fb","answer":"182"}, {"questionId":"cd33ab78-4601-42ff-9cd4-150216108430","answer":"100"}]}
 
 
-{
-  "questionnaireId": "0c2e8771-7ec0-4210-ac35-5bd5d20be9a5",
-  "responses": [
-    {
-      "questionId": "418ed840-2cef-4d1e-b10f-bcc9da5238da",
-      "answer": "20"
-    },
-    {
-      "questionId": "7d193c1f-c6b5-4d87-9e86-4d5cd9673edb",
-      "answer": "Man"
-    },
-    {
-      "questionId": "629b27d3-ebda-4ae5-951c-ee1b77f6ecf2",
-      "answer": "Nederland"
-    },  
-    {
-      "questionId": "299d2ce1-c311-4612-921a-94d84127abea",
-      "answer": "Nederland"
-    },  
-    {
-      "questionId": "c6bf3aa3-edbc-43a9-a0db-028e579468ca",
-      "answer": "Nederland"
-    },
-    {
-      "questionId": "d984445e-7357-4d99-8780-faadfc4be3fe",
-      "answer": "Alleenstaand"
-    },
-    {
-      "questionId": "584d44d9-e19c-4b0b-999c-02447cb974a7",
-      "answer": "Yes"
-    },
-    {
-      "questionId": "222f3d77-58ab-4740-92f4-2590e3e36059",
-      "answer": "Wetenschappelijk onderwijs / universiteit"
-    },  
-    {
-      "questionId": "e9efcf8e-955d-4017-9ab3-d57f2238cd02",
-      "answer": "Student"
-    },  
-    {
-      "questionId": "a0371aa2-b98e-4805-8fb5-1506a235b082",
-      "answer": "180"
-    },
-    {
-      "questionId": "ec6795b8-3331-4922-bb12-f6c732ebd4c9",
-      "answer": "100"
-    }
-  ]
-}
+{"questionnaireId": "9c9f7e93-8b3b-4b88-ac37-4b46634fb82a", "responses": [{"questionId":"a73a5978-af89-424b-aaf4-2f257842b8e8","answer":"1"}, {"questionId":"54a4f3c3-2f67-4856-9a91-35b5607265b0","answer":"0"}, {"questionId":"236bc754-1b01-4e1d-a47e-92a9bf0aeace","answer":"3"}, {"questionId":"c05d9393-328c-4e54-a504-7330445fd8cf","answer":"1"}, {"questionId":"d14f00d4-32f2-4a22-8829-7d7ed86a127c","answer":"1"}, {"questionId":"26e4ebee-39e7-49a4-a144-eb9f3fe148f8","answer":"0"}, {"questionId":"a8859783-22da-4883-93d5-3184d75e4291","answer":"3"}, {"questionId":"d051c9d7-df8c-4a0f-a1bc-ee4b5d225c0c","answer":"1"}, {"questionId":"625fa824-7c4c-49de-a4e0-b3954f28c961","answer":"1"}, {"questionId":"ecb8ce69-b195-4499-8c97-af29bc402d94","answer":"1"}, {"questionId":"f68569d3-2f2d-4e7b-9656-43f874139569","answer":"3"}, {"questionId":"61328ff8-385f-4d4e-b726-1420e71d540a","answer":"1"}, {"questionId":"b00a33a2-ed41-4363-9c3d-04b85dd04a46","answer":"2"}, {"questionId":"c8bafb55-8b12-46cd-8340-48a8fea9b182","answer":"Bijna altijd met (dieet) halvarine, (dieet)margarine"}, {"questionId":"06173f1b-279b-47f1-bc6d-90f7fd943e15","answer":"2"}, {"questionId":"448773b9-8af1-4e61-b922-818d90234d9e","answer":"2"}, {"questionId":"0ed03717-e555-42a0-9274-231d037010b4","answer":"0"}, {"questionId":"4216fdeb-fcd4-41c4-ac59-ab437fe36ad0","answer":"1"}]}
 
+
+{"questionnaireId": "75a9b5ea-c9a0-4731-bb5e-d17ea65ed917", "responses": [{"questionId":"261e4fab-2094-42af-8a6f-808b9a7506cd","answer":"Yes"}, {"questionId":"04318866-4247-4585-8c27-fd366ef4b129","answer":"Langzaam"}, {"questionId":"2b35733d-1a23-45e4-9185-90e140219bd6","answer":"No"}, {"questionId":"f38ae8ff-bc85-4440-8f57-65187fe1eec7","answer":"Yes"}, {"questionId":"b8219b70-fef3-4ad5-a04c-f7a08b7d9631","answer":"No"}, {"questionId":"514b7d7f-1c8e-482d-b35a-d1d5de2092ad","answer":"No"}, {"questionId":"6165ce04-e468-47d5-bddd-84a4e86894da","answer":"No"}, {"questionId":"e759eb53-606d-4b1c-9467-7a6d78e28405","answer":"5"}, {"questionId":"af072f55-09b8-4537-a38c-2f7fef901b6e","answer":"7"}, {"questionId":"3321d5ea-7db9-405a-a4eb-ab5a811b53af","answer":"2"}, {"questionId":"0fc1b9ee-2203-4f1f-968b-24c015245762","answer":"10"}, {"questionId":"72d3ae14-2040-47c5-a490-4277cedb4e50","answer":"3"}]}
