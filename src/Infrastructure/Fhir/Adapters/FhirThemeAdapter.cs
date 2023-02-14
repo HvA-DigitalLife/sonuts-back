@@ -114,7 +114,8 @@ public static class FhirThemeAdapter
 			FrequencyType = FrequencyType.Amount, // to-do implement
 			CurrentFrequencyQuestion = "",
 			CurrentActivityQuestion = "",
-			GoalFrequencyQuestion = ""
+			GoalFrequencyQuestion = "",
+			Type = ThemeType.Default
 		};
 		
         

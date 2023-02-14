@@ -44,9 +44,10 @@ public static class FhirExecutionAdapter
 		// create plan definion and meta data
 		var fhirObservation= new Hl7.Fhir.Model.Observation{
 			Id = execution.Id.ToString(),
-			Issued = execution.CreatedAt,
+			Issued =new DateTimeOffset(execution.CreatedAt.Year, execution.CreatedAt.Month, execution.CreatedAt.Day, 0, 0, 0, TimeSpan.FromHours(10)),
 			Status = execution.IsDone?Hl7.Fhir.Model.ObservationStatus.Final:Hl7.Fhir.Model.ObservationStatus.Preliminary
 		};
+		
 
 		
 		var serializer = new FhirJsonSerializer();
@@ -57,7 +58,7 @@ public static class FhirExecutionAdapter
 
 		var execution = new Execution {
 			Id = Guid.Parse(fhirObservation.Id),
-			CreatedAt = DateTime.Parse(fhirObservation.IssuedElement.ToString()),
+			CreatedAt = new DateOnly(fhirObservation.Issued.Value.Year, fhirObservation.Issued.Value.Day, fhirObservation.Issued.Value.Month),
 			IsDone = fhirObservation.Status == Hl7.Fhir.Model.ObservationStatus.Final,
 			Amount = 0, // to-do: implement
 			Goal = new Goal{ // to-do: add identifier from reference
