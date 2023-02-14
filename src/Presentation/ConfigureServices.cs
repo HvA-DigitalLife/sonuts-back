@@ -9,15 +9,15 @@ using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Infrastructure.Persistence;
-using Sonuts.Presentation.Common.Converters;
-using Sonuts.Presentation.Filters;
+using Sonuts.Presentation.Common;
 using Sonuts.Presentation.Services;
 
 namespace Sonuts.Presentation;
 
 public static class ConfigureServices
 {
-	public static IServiceCollection AddPresentationServices(this IServiceCollection services,
+	public static IServiceCollection AddPresentationServices(
+		this IServiceCollection services,
 		IConfiguration configuration,
 		IWebHostEnvironment environment)
 	{ 
@@ -82,6 +82,7 @@ public static class ConfigureServices
 			options.CustomOperationIds(api => $"{api.ActionDescriptor.RouteValues["action"]}");
 			options.MapType<DateOnly>(() => new OpenApiSchema { Type = "string", Example = new OpenApiString(DateOnly.FromDateTime(DateTime.Now).ToLongDateString()) });
 			options.MapType<TimeOnly>(() => new OpenApiSchema { Type = "string", Example = new OpenApiString(TimeOnly.FromDateTime(DateTime.Now).ToLongTimeString()) });
+			options.SchemaFilter<CustomSchemaFilter>();
 		});
 
 		// Configure JWT authentication
@@ -98,7 +99,7 @@ public static class ConfigureServices
 					ValidIssuer = configuration["Authentication:Issuer"],
 					ValidAudience = configuration["Authentication:Audience"],
 					ValidateIssuerSigningKey = true,
-					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Authentication:SecurityKey"]))
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Authentication:SecurityKey"]!))
 				};
 			});
 

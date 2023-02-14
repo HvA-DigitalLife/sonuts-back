@@ -38,7 +38,7 @@ public class IdentityService : IIdentityService
 	{
 		var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
-		return user.UserName;
+		return user.UserName!;
 	}
 
 	public async Task<IList<string>> GetRolesAsync(string userId)
@@ -130,6 +130,6 @@ public class IdentityService : IIdentityService
 			.Include(rt => rt.Client)
 			.FirstOrDefaultAsync(rt => rt.Token.Equals(token));
 
-		return refreshToken is not null && refreshToken.User.NormalizedUserName.Equals(username.ToUpper()) && refreshToken.Client.Id.Equals(clientId);
+		return refreshToken is not null && refreshToken.User.NormalizedUserName!.Equals(username.ToUpper()) && refreshToken.Client.Id.Equals(clientId);
 	}
 }

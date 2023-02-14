@@ -2,11 +2,10 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Sonuts.Application.Common.Exceptions;
+using Sonuts.Application.Common.Extensions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Application.Dtos;
-using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Logic.Questionnaires.Queries;
 

@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Sonuts.Presentation.Common.Converters;
+namespace Sonuts.Presentation.Common;
 
 public class TimeOnlyConverter : JsonConverter<TimeOnly>
 {

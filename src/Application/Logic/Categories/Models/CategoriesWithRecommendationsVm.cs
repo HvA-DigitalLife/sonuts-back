@@ -2,11 +2,11 @@ using Sonuts.Application.Logic.Themes.Models;
 
 namespace Sonuts.Application.Logic.Categories.Models;
 
-public class CategoriesWithRecommendationsVm
+public record CategoriesWithRecommendationsVm
 {
-	public Guid Id { get; set; }
-	public bool IsActive { get; set; } = false;
-	public required string Name { get; set; }
-	public required string Color { get; set; }
-	public List<RecommendedThemeVm> Themes { get; set; } = new();
+	public Guid Id { get; init; }
+	public bool IsActive { get; init; } = false;
+	public required string Name { get; init; }
+	public required string Color { get; init; }
+	public IList<RecommendedThemeVm> Themes { get; init; } = Array.Empty<RecommendedThemeVm>();
 }

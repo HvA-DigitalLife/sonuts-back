@@ -47,6 +47,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 				{
 					Id = theme.Id,
 					Name = theme.Name,
+					Type = theme.Type,
 					Description = theme.Description,
 					Image = _mapper.Map<ImageDto>(theme.Image),
 					FrequencyType = theme.FrequencyType,
@@ -72,9 +73,14 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 		return response;
 	}
 
-	private async Task<bool> IsRecommendedTheme(string userId, List<RecommendationRule> rules, CancellationToken cancellationToken)
+	private async Task<bool> IsRecommendedTheme(string userId, IEnumerable<RecommendationRule> rules, CancellationToken cancellationToken)
 	{
-		foreach (var rule in rules)
+		var ruleArray = rules.ToArray();
+
+		if (!ruleArray.Any())
+			return false;
+
+		foreach (var rule in ruleArray)
 		{
 			var questionResponses = await _context.QuestionResponses
 				.Where(questionResponse =>
@@ -141,6 +147,8 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 							return false;
 					}
 					break;
+				case RecommendationRuleType.Any:
+					return false; //TODO
 				default:
 					return false;
 			}

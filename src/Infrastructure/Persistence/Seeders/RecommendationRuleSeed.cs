@@ -9,12 +9,8 @@ internal class RecommendationRuleSeed
 {
 	internal static async Task Seed(IApplicationDbContext context)
 	{
-		var shouldSave = false;
-
-		if (await context.RecommendationRules.FirstOrDefaultAsync(rule => rule.Id.Equals(Guid.Parse("fa05caf6-d202-430d-8b32-0561f8113160"))) is null)
+		if (!await context.RecommendationRules.AnyAsync())
 		{
-			shouldSave = true;
-
 			var recommendationRule = new RecommendationRule
 			{
 				Id = Guid.Parse("fa05caf6-d202-430d-8b32-0561f8113160"),
@@ -29,8 +25,8 @@ internal class RecommendationRuleSeed
 			};
 			context.RecommendationRules.Add(recommendationRule);
 			(await context.Themes.FirstAsync(t => t.Id.Equals(new Guid("7e1e494e-4dad-4c0f-b448-128552f7869f")))).RecommendationRules.Add(recommendationRule);
-		}
 
-		if (shouldSave) await context.SaveChangesAsync();
+			await context.SaveChangesAsync();
+		}
 	}
 }

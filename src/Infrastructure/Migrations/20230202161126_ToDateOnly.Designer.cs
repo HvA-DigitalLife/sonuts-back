@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sonuts.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using Sonuts.Infrastructure.Persistence;
 namespace Sonuts.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230202161126_ToDateOnly")]
+    partial class ToDateOnly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("RecommendationRulesId");
 
-                    b.ToTable("QuestionRecommendationRule", (string)null);
+                    b.ToTable("QuestionRecommendationRule");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Activity", b =>
@@ -194,7 +197,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Activities", (string)null);
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.AnswerOption", b =>
@@ -221,7 +224,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("AnswerOptions", (string)null);
+                    b.ToTable("AnswerOptions");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.CarePlan", b =>
@@ -243,7 +246,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("CarePlans", (string)null);
+                    b.ToTable("CarePlans");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Category", b =>
@@ -271,7 +274,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Client", b =>
@@ -290,7 +293,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Coach", b =>
@@ -301,7 +304,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coaches", (string)null);
+                    b.ToTable("Coaches");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Content", b =>
@@ -332,7 +335,7 @@ namespace Sonuts.Infrastructure.Migrations
                     b.HasIndex("Type")
                         .IsUnique();
 
-                    b.ToTable("Content", (string)null);
+                    b.ToTable("Content");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Execution", b =>
@@ -360,7 +363,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("GoalId");
 
-                    b.ToTable("Executions", (string)null);
+                    b.ToTable("Executions");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Faq", b =>
@@ -384,7 +387,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Faq", (string)null);
+                    b.ToTable("Faq");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Goal", b =>
@@ -414,7 +417,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("CarePlanId");
 
-                    b.ToTable("Goals", (string)null);
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Image", b =>
@@ -432,7 +435,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Participant", b =>
@@ -469,7 +472,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Participants", (string)null);
+                    b.ToTable("Participants");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Question", b =>
@@ -505,7 +508,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.QuestionResponse", b =>
@@ -530,7 +533,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireResponseId");
 
-                    b.ToTable("QuestionResponses", (string)null);
+                    b.ToTable("QuestionResponses");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Questionnaire", b =>
@@ -549,7 +552,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questionnaires", (string)null);
+                    b.ToTable("Questionnaires");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.QuestionnaireResponse", b =>
@@ -573,7 +576,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("QuestionnaireResponses", (string)null);
+                    b.ToTable("QuestionnaireResponses");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Recipe", b =>
@@ -598,7 +601,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.RecipeIngredient", b =>
@@ -618,7 +621,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("RecipeIngredients", (string)null);
+                    b.ToTable("RecipeIngredients");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.RecipeStep", b =>
@@ -641,7 +644,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("RecipeSteps", (string)null);
+                    b.ToTable("RecipeSteps");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.RecommendationRule", b =>
@@ -669,7 +672,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("RecommendationRules", (string)null);
+                    b.ToTable("RecommendationRules");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.RefreshToken", b =>
@@ -693,7 +696,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.Theme", b =>
@@ -747,7 +750,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ImageId");
 
-                    b.ToTable("Themes", (string)null);
+                    b.ToTable("Themes");
                 });
 
             modelBuilder.Entity("Sonuts.Domain.Entities.User", b =>
@@ -837,7 +840,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.ToTable("Videos", (string)null);
+                    b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -990,7 +993,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Goal.Moment#Sonuts.Domain.Entities.Moment", "Moment", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.Moment", "Moment", b1 =>
                         {
                             b1.Property<Guid>("GoalId")
                                 .HasColumnType("uuid");
@@ -1011,7 +1014,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                             b1.HasKey("GoalId");
 
-                            b1.ToTable("Goals", (string)null);
+                            b1.ToTable("Goals");
 
                             b1.WithOwner()
                                 .HasForeignKey("GoalId");
@@ -1031,7 +1034,7 @@ namespace Sonuts.Infrastructure.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("QuestionnaireId");
 
-                    b.OwnsOne("Sonuts.Domain.Entities.Question.EnableWhen#Sonuts.Domain.Entities.EnableWhen", "EnableWhen", b1 =>
+                    b.OwnsOne("Sonuts.Domain.Entities.EnableWhen", "EnableWhen", b1 =>
                         {
                             b1.Property<Guid>("QuestionId")
                                 .HasColumnType("uuid");
@@ -1049,7 +1052,7 @@ namespace Sonuts.Infrastructure.Migrations
 
                             b1.HasKey("QuestionId");
 
-                            b1.ToTable("Questions", (string)null);
+                            b1.ToTable("Questions");
 
                             b1.WithOwner()
                                 .HasForeignKey("QuestionId");

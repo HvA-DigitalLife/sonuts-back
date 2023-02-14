@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Sonuts.Presentation.Common.Converters;
+namespace Sonuts.Presentation.Common;
 
 public class DateOnlyConverter : JsonConverter<DateOnly>
 {
@@ -9,7 +9,7 @@ public class DateOnlyConverter : JsonConverter<DateOnly>
 		DateOnly.Parse(reader.GetString()!);
 
 	public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
-		=> writer.WriteStringValue(value.ToString("yyyy/MM/dd"));
+		=> writer.WriteStringValue(value.ToString("yyyy-MM-dd"));
 }
 
 public class NullableDateOnlyConverter : JsonConverter<DateOnly?>
@@ -21,6 +21,6 @@ public class NullableDateOnlyConverter : JsonConverter<DateOnly?>
 	}
 
 	public override void Write(Utf8JsonWriter writer, DateOnly? value, JsonSerializerOptions options)
-		=> writer.WriteStringValue(value?.ToString("yyyy/MM/dd"));
+		=> writer.WriteStringValue(value?.ToString("yyyy-MM-dd"));
 
 }

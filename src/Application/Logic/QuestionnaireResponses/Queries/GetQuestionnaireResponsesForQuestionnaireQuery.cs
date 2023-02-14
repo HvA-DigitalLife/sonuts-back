@@ -8,34 +8,34 @@ using Sonuts.Application.Dtos;
 
 namespace Sonuts.Application.Logic.QuestionnaireResponses.Queries;
 
-public class GetQuestionnaireResponseForQuestionnaireQuery : IRequest<QuestionnaireResponseDto>
+public class GetQuestionnaireResponsesForQuestionnaireQuery : IRequest<QuestionnaireResponseDto>
 {
 	public Guid? QuestionnaireId { get; set; }
 }
 
-public class GetQuestionnaireResponseForQuestionnaireQueryValidator : AbstractValidator<GetQuestionnaireResponseForQuestionnaireQuery>
+public class GetQuestionnaireResponsesForQuestionnaireQueryValidator : AbstractValidator<GetQuestionnaireResponsesForQuestionnaireQuery>
 {
-	public GetQuestionnaireResponseForQuestionnaireQueryValidator()
+	public GetQuestionnaireResponsesForQuestionnaireQueryValidator()
 	{
 		RuleFor(query => query.QuestionnaireId)
 			.NotNull();
 	}
 }
 
-public class GetQuestionnaireResponseForQuestionnaireQueryHandler : IRequestHandler<GetQuestionnaireResponseForQuestionnaireQuery, QuestionnaireResponseDto>
+public class GetQuestionnaireResponsesForQuestionnaireQueryHandler : IRequestHandler<GetQuestionnaireResponsesForQuestionnaireQuery, QuestionnaireResponseDto>
 {
 	private readonly IMapper _mapper;
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;
 
-	public GetQuestionnaireResponseForQuestionnaireQueryHandler(IMapper mapper, IApplicationDbContext context, ICurrentUserService currentUserService)
+	public GetQuestionnaireResponsesForQuestionnaireQueryHandler(IMapper mapper, IApplicationDbContext context, ICurrentUserService currentUserService)
 	{
 		_mapper = mapper;
 		_context = context;
 		_currentUserService = currentUserService;
 	}
 
-	public async Task<QuestionnaireResponseDto> Handle(GetQuestionnaireResponseForQuestionnaireQuery request, CancellationToken cancellationToken)
+	public async Task<QuestionnaireResponseDto> Handle(GetQuestionnaireResponsesForQuestionnaireQuery request, CancellationToken cancellationToken)
 	{
 		return _mapper.Map<QuestionnaireResponseDto>(await _context.QuestionnaireResponses
 			.Include(questionnaireResponse => questionnaireResponse.Responses)

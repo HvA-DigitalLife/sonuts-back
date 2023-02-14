@@ -6,7 +6,7 @@ namespace Sonuts.Presentation.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("api/[controller]")]
+[Route("Api/[controller]")]
 public abstract class ApiControllerBase : ControllerBase
 {
 	private ISender? _mediator;

@@ -36,7 +36,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
-	FileProvider = new PhysicalFileProvider(builder.Configuration["Files:ImagePath"]),
+	FileProvider = new PhysicalFileProvider(app.Configuration["Files:ImagePath"]!),
 	RequestPath = "/Images"
 });
 

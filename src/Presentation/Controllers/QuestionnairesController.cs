@@ -12,7 +12,10 @@ public class QuestionnairesController : ApiControllerBase
 	[HttpGet]
 	public async Task<ActionResult<QuestionnaireDto>> GetQuestionnaireByCategory([FromQuery] Guid categoryId)
 	{
-		return Ok(await Mediator.Send(new GetQuestionnaireByCategoryQuery { CategoryId = categoryId }));
+		return Ok(await Mediator.Send(new GetQuestionnaireByCategoryQuery
+		{
+			CategoryId = categoryId
+		}));
 	}
 
 	/// <summary>
@@ -21,9 +24,21 @@ public class QuestionnairesController : ApiControllerBase
 	[HttpGet("{questionnaireId:guid}/QuestionnaireResponse")]
 	public async Task<ActionResult<QuestionnaireResponseDto>> GetQuestionnaireResponseForQuestionnaire([FromRoute] Guid questionnaireId)
 	{
-		return Ok(await Mediator.Send(new GetQuestionnaireResponseForQuestionnaireQuery
+		return Ok(await Mediator.Send(new GetQuestionnaireResponsesForQuestionnaireQuery
 		{
 			QuestionnaireId = questionnaireId
 		}));
+	}
+
+	[Authorize(Roles = "Admin")]
+	[HttpGet("{questionnaireId:guid}/QuestionnaireResponse/Csv")]
+	public async Task<ActionResult> GetFile(Guid questionnaireId)
+	{
+		var file = await Mediator.Send(new ExportQuestionnaireResponsesQuery
+		{
+			QuestionnaireId = questionnaireId
+		});
+
+		return File(file.Content, file.ContentType, file.FileName);
 	}
 }
