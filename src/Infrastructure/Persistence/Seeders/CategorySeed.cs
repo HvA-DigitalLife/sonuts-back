@@ -24,12 +24,14 @@ internal static class CategorySeed
 				Color = "F6B042",
 				Questionnaire = new Questionnaire
 				{
+					Id = new Guid("385e45dc-5f80-4192-9e27-1fc19c6fd38d"),
 					Title = "Persoonlijke gegevens",
 					Description = "De volgende vragen gaan over uzelf.",
 					Questions = new List<Question>
 					{
 						new()
 						{
+							Id = new Guid("28f95ae2-8042-4fbd-9f0e-e88c9e0f11ae"),
 							Type = QuestionType.Choice,
 							Text = "Wat is uw geslacht?",
 							Order = 0,
@@ -43,12 +45,14 @@ internal static class CategorySeed
 						},
 						new()
 						{
+							Id = new Guid("cee5864e-bfd1-4860-ad22-cfd9c438c970"),
 							Type = QuestionType.Integer,
 							Text = "Wat is uw leeftijd?",
 							Order = 1
 						},
 						new()
 						{
+							Id = new Guid("e37774d8-0343-4fde-9451-9184905a29fb"),
 							Type = QuestionType.Integer,
 							Text = "Wat is uw lengte?",
 							Description = "In centimeters",
@@ -56,6 +60,7 @@ internal static class CategorySeed
 						},
 						new()
 						{
+							Id = new Guid("cd33ab78-4601-42ff-9cd4-150216108430"),
 							Type = QuestionType.Integer,
 							Text = "Wat is uw gewicht?",
 							Description = "In kilogram",
