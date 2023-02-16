@@ -18,7 +18,7 @@ public class FhirActivityDao : IActivityDao
 	public async Task<Activity> Select(Guid id)
 	{
 		var client = _httpClientFactory.CreateClient(HttpClientName.Fhir);
-		var result = await client.GetStringAsync("PlanDefinition/" + id.ToString());
+		var result = await client.GetStringAsync("ActivityDefinition/" + id.ToString());
 		return FhirActivityAdapter.FromJson(result);
 	}
 
@@ -28,14 +28,13 @@ public class FhirActivityDao : IActivityDao
 		var response = await client.PutAsync("ActivityDefinition/" + activity.Id.ToString(), new StringContent(FhirActivityAdapter.ToJson(activity), Encoding.UTF8, "application/json"));
 
 		var responseContent = await response.Content.ReadAsStringAsync();
-		Console.Write(responseContent);
 		return FhirActivityAdapter.FromJson(responseContent);
 	}
 
 	public async Task<Activity> Update(Activity activity)
 	{
-		await Task.Delay(1);
-		return activity;
+		// update and insert are the same in this class
+		return await this.Insert(activity);
 	}
 
 	public async Task<bool> Delete(Guid id)

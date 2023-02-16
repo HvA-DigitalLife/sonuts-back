@@ -46,7 +46,9 @@ public static class FhirActivityAdapter
 			Id = activity.Id.ToString(), 
 			Name = activity.Name,
 			Description = new Hl7.Fhir.Model.Markdown(activity.Description)
-		};
+		}; 
+
+		// todo add theme reference
 
 		if (activity.Image is not null) {
 			fhirActivityDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 

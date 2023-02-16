@@ -35,8 +35,8 @@ public class FhirExecutionDao : IExecutionDao
 
 	public async Task<Execution> Update(Execution execution)
 	{
-		await Task.Delay(1);
-		return execution;
+		// update and insert are the same in this class
+		return await this.Insert(execution);
 	}
 
 	public async Task<bool> Delete(Guid id)
