@@ -11,10 +11,13 @@ public static class FhirQuestionnaireResponseAdapter
 
 		var fhirJsonParser = new FhirJsonParser();
 		var fhirQuestionnaireResponse = fhirJsonParser.Parse<Hl7.Fhir.Model.QuestionnaireResponse>(json);
+		var authoredDateTimeOffset  = fhirQuestionnaireResponse.AuthoredElement.ToDateTimeOffset(TimeSpan.FromHours(10));
 
 		// create questionnaire instance
 		QuestionnaireResponse questionnaireResponse = new QuestionnaireResponse{
 			Id = Guid.Parse(fhirQuestionnaireResponse.Id),
+			CreatedAt = new DateOnly(authoredDateTimeOffset.Year, authoredDateTimeOffset.Day, authoredDateTimeOffset.Month),
+			
 			Questionnaire = new Questionnaire{
 				Id = Guid.Parse(fhirQuestionnaireResponse.Questionnaire.ToString().Replace("Questionnaire/", "")),
 				Title = ""
@@ -55,7 +58,8 @@ public static class FhirQuestionnaireResponseAdapter
 	{ 
 		// create fhir questionnaire response
 		var fhirQuestionnaireResponse = new Hl7.Fhir.Model.QuestionnaireResponse{
-			Id = questionnaireResponse.Id.ToString()
+			Id = questionnaireResponse.Id.ToString(),
+			AuthoredElement = new Hl7.Fhir.Model.FhirDateTime(new DateTimeOffset(questionnaireResponse.CreatedAt.Year, questionnaireResponse.CreatedAt.Month, questionnaireResponse.CreatedAt.Day, 0, 0, 0, TimeSpan.FromHours(10))) 
 		};
 	
 
