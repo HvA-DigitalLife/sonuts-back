@@ -75,6 +75,19 @@ public static class FhirQuestionnaireAdapter
 			}
 
 
+			// set question types
+			if (fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.String)
+				question.Type = QuestionType.String;
+
+			if (fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Boolean)
+				question.Type = QuestionType.Boolean;
+
+			if (fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Integer)
+				question.Type = QuestionType.Integer;
+			
+			if (fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Decimal)
+				question.Type = QuestionType.Decimal;
+
 			// if we have a multiple choice option we need to loop trough all the options
 			if ((fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Choice) || (fhirItem.Type == Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.OpenChoice))
 			{
@@ -178,13 +191,18 @@ public static class FhirQuestionnaireAdapter
 			}
 
 
-			// string based question
+			// set question types
 			if (question.Type == QuestionType.String)
-			{
-				// add string reply option to question item
 				fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.String;
-			}
 
+			if (question.Type == QuestionType.Boolean)
+				fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Boolean;
+
+			if (question.Type == QuestionType.Integer)
+				fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Integer;
+			
+			if (question.Type == QuestionType.Decimal)
+				fhirItem.Type = Hl7.Fhir.Model.Questionnaire.QuestionnaireItemType.Decimal;
 
 			// create multiple choices for question item object
 			if (question.Type is QuestionType.MultiOpenChoice or QuestionType.MultiChoice or QuestionType.Choice or QuestionType.OpenChoice)
