@@ -44,21 +44,24 @@ internal static class CategorySeed
 						{
 							Type = QuestionType.Integer,
 							Text = "Wat is uw leeftijd?",
-							Order = 1
+							Order = 1,
+							Min = 1
 						},
 						new()
 						{
 							Type = QuestionType.Integer,
 							Text = "Wat is uw lengte?",
 							Description = "In centimeters",
-							Order = 2
+							Order = 2,
+							Min = 1
 						},
 						new()
 						{
 							Type = QuestionType.Integer,
 							Text = "Wat is uw gewicht?",
 							Description = "In kilogram",
-							Order = 3
+							Order = 3,
+							Min = 1
 						}
 					}
 				}

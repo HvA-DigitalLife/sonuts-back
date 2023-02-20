@@ -13,6 +13,8 @@ public class Question : BaseEntity
 	public string? OpenAnswerLabel { get; set; }
 	public List<RecommendationRule> RecommendationRules { get; set; } = new();
 	public bool IsRequired { get; set; }
+	public int? Min { get; set; }
+	public int? Max { get; set; }
 }
 
 [Owned]

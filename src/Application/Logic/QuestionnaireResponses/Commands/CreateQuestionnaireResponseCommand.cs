@@ -53,13 +53,13 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 			validator.RuleFor(response => response.Answer)
 				.Cascade(CascadeMode.Stop)
 				.NotNull()
-				.MustAsync((response, _, _) => IsValidAnswer(response))
+				.MustAsync((response, _, _) => IsValidAnswerAsync(response))
 				.WithMessage("'{PropertyName}' is not valid");
 		});
 
 	}
 
-	private async Task<bool> IsValidAnswer(CreateQuestionResponse response)
+	private async Task<bool> IsValidAnswerAsync(CreateQuestionResponse response)
 	{
 		var question = await _context.Questions
 			               .Include(question => question.AnswerOptions)
@@ -68,14 +68,38 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 
 		return question.Type switch
 		{
-			QuestionType.Boolean => !string.IsNullOrWhiteSpace(response.Answer) && (response.Answer.Equals("Yes") || response.Answer.Equals("No")),
-			QuestionType.String => !string.IsNullOrWhiteSpace(response.Answer),
-			QuestionType.Integer => int.TryParse(response.Answer, out var integerAnswer) && integerAnswer >= 0,
-			QuestionType.Decimal => decimal.TryParse(response.Answer, out var decimalAnswer) && decimalAnswer >= decimal.Zero,
-			QuestionType.Choice => question.AnswerOptions?.FirstOrDefault(option => option.Value.ToLower().Equals(response.Answer!.ToLower())) != null,
-			QuestionType.OpenChoice => !string.IsNullOrWhiteSpace(response.Answer),
-			QuestionType.MultiChoice => true, //TODO
-			QuestionType.MultiOpenChoice => true, //TODO
+			QuestionType.Boolean =>
+				!string.IsNullOrWhiteSpace(response.Answer) && (response.Answer.Equals("Yes") || response.Answer.Equals("No")),
+
+			QuestionType.String =>
+				!string.IsNullOrWhiteSpace(response.Answer),
+
+			QuestionType.Integer =>
+				int.TryParse(response.Answer, out var integerAnswer)
+				&& integerAnswer >= 0
+				&& (question.Min is null || integerAnswer >= question.Min)
+				&& (question.Max is null || integerAnswer <= question.Max),
+
+			QuestionType.Decimal =>
+				decimal.TryParse(response.Answer, out var decimalAnswer) && decimalAnswer >= decimal.Zero,
+
+			QuestionType.Duration =>
+				response.Answer!.Split(':').Length == 2
+				&& int.TryParse(response.Answer!.Split(':')[0], out var hours)
+				&& int.TryParse(response.Answer!.Split(':')[1], out var minutes),
+
+			QuestionType.Choice =>
+				question.AnswerOptions?.FirstOrDefault(option => option.Value.ToLower().Equals(response.Answer!.ToLower())) != null,
+
+			QuestionType.OpenChoice =>
+				!string.IsNullOrWhiteSpace(response.Answer),
+
+			QuestionType.MultiChoice =>
+				true, //TODO
+
+			QuestionType.MultiOpenChoice =>
+				true, //TODO
+
 			_ => false
 		};
 	}
