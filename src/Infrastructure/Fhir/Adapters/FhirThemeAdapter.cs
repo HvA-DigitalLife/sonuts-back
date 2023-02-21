@@ -70,11 +70,11 @@ public static class FhirThemeAdapter
 		});
 
 		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
-			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.CurrentFrequencyQuestion)
+			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentFrequencyQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.CurrentFrequencyQuestion)
 		});
 
 		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
-			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.GoalFrequencyQuestion)
+			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalFrequencyQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.GoalFrequencyQuestion)
 		});
 
 		foreach (var activity in theme.Activities) {
@@ -148,10 +148,10 @@ public static class FhirThemeAdapter
 			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/frequencyGoal") {
 				theme.FrequencyGoal = int.Parse(fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty);
 			}
-			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentQuestion") {
+			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentFrequencyQuestion") {
 				theme.CurrentFrequencyQuestion = fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty;
 			}
-			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalQuestion") {
+			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalFrequencyQuestion") {
 				theme.GoalFrequencyQuestion = fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty;
 			}
 		}
