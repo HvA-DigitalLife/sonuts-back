@@ -7,6 +7,7 @@ public class Question : BaseEntity
 	public required QuestionType Type { get; set; }
 	public required string Text { get; set; }
 	public string? Description { get; set; }
+	public string? Information { get; set; }
 	public required int Order { get; set; }
 	public EnableWhen? EnableWhen { get; set; }
 	public List<AnswerOption>? AnswerOptions { get; set; } = new();

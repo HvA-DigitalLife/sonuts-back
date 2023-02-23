@@ -1154,6 +1154,7 @@ internal static class CategorySeed
 							Type = QuestionType.Display,
 							Text = "Woon-(vrijwilligers)werk verkeer (heen en terug)",
 							Description = "Het gaat hierbij om de activiteit (lopen, fietsen) om naar terugkerende, geplande activiteiten te gaan. Zoals bijvoorbeeld (vrijwilligers)werk, mantel-zorg, oppassen, het volgen van een cursus volgen.",
+							Information = "Voorbeeld 1: U fietst 1 dag per week 15 min heen, en 15 min terug om op uw kleinkinderen te passen. U vult dan in 1 dag, totaal 30 minuten fietsen)\r\nVoorbeeld 2: U helpt vrijwillig 3 keer in de week in het buurthuis en loopt hiervoor 10 minuten van huis naar de bus, en op de terug weg loopt u weer 10 minuten van de bus naar huis. U vult dan in 3 dagen in de week, 20 minuten lopen. ",
 							Order = 1,
 							IsRequired = false
 						},
@@ -1246,6 +1247,7 @@ internal static class CategorySeed
 							Type = QuestionType.Display,
 							Text = "Lichamelijke activiteit tijdens (vrijwilligers)werk (niet zijnde huishoudelijk activiteiten en vrijetijdsbestedingen)",
 							Description = "Het gaat hierbij om fysieke activiteit tijdens terugkerende, geplande activiteiten te gaan. Zoals bijvoorbeeld (vrijwilligers)werk, mantel-zorg, oppassen, het volgen van een cursus volgen.\r\n\r\nLet op: tel alle activiteiten bij elkaar op.",
+							Information = "Voorbeeld 1: Tijdens de 4 uur oppassen op uw kleinkinderen speelt u af en toe actief met ze buiten en bent u zittend of staan met hen bezig. U kunt nu invullen 4 uur licht en matig inspannende activiteit. \r\nVoorbeeld 2: Tijdens de in totaal 6 uur per week (vrijwilligers)werk in het buurthuis bent u ongeveer de helft van de tijd druk bezig met spullen klaar zetten, sjouwen en schoonmaken. De andere helft van de tijd staat u achter de bar. U vult dan bij licht en matig inspannende activiteit 3 uur in, en bij zwaar inspannende activiteit ook drie uur.",
 							Order = 8,
 							IsRequired = false
 						},

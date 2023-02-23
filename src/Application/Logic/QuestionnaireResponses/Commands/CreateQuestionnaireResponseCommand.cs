@@ -34,7 +34,7 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 			.Cascade(CascadeMode.Stop)
 			.NotNull()
 			.Must(command => _context.Questionnaires.FirstOrDefault(questionnaire => questionnaire.Id.Equals(command!.Value)) is not null)
-			.WithMessage($"{nameof(CreateQuestionnaireResponseCommand.QuestionnaireId)} not found");
+			.WithMessage("'{PropertyName}' not found");
 
 		RuleFor(command => command.Responses)
 			.NotEmpty();
@@ -135,8 +135,8 @@ internal class CreateQuestionnaireResponseCommandHandler : IRequestHandler<Creat
 			Participant = (await _context.Participants.FirstOrDefaultAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken))!,
 			Responses = request.Responses.Select(response => new QuestionResponse
 			{
-				Question = _context.Questions.FirstOrDefault(question => question.Id.Equals(response.QuestionId)) ??
-				           throw new NotFoundException(nameof(Question), response.QuestionId!),
+				Question = _context.Questions.FirstOrDefault(question => question.Id.Equals(response.QuestionId))
+				           ?? throw new NotFoundException(nameof(Question), response.QuestionId!),
 				Answer = response.Answer!
 			}).ToList()
 		};
