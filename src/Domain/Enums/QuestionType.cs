@@ -6,6 +6,11 @@ namespace Sonuts.Domain.Enums;
 public enum QuestionType
 {
 	/// <summary>
+	/// Display information
+	/// </summary>
+	Display,
+
+	/// <summary>
 	/// Yes/No
 	/// </summary>
 	Boolean,
@@ -24,6 +29,11 @@ public enum QuestionType
 	/// Decimal number
 	/// </summary>
 	Decimal,
+
+	/// <summary>
+	/// Time (hour:minute)
+	/// </summary>
+	Duration,
 
 	/// <summary>
 	/// Choose one
