@@ -60,19 +60,27 @@ public static class FhirThemeAdapter
 		fhirTypeCodableConcept.Coding.Add(fhirTypeCoding);
 		fhirPlanDefinition.Type = fhirTypeCodableConcept;
 
+		// theme type, positive/negative
+		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
+			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/themeType", Value = new Hl7.Fhir.Model.FhirString(theme.Type.ToString())
+		});
 
+		// frequency type
 		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
 			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/frequencyType", Value = new Hl7.Fhir.Model.FhirString(theme.FrequencyType.ToString())
 		});
 
+		// frequency goal
 		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
 			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/frequencyGoal", Value = new Hl7.Fhir.Model.Integer(theme.FrequencyGoal)
 		});
 
+		// current frequency question
 		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
 			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentFrequencyQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.CurrentFrequencyQuestion)
 		});
 
+		// goal frequency question
 		fhirPlanDefinition.Extension.Add(new Hl7.Fhir.Model.Extension { 
 			Url = "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalFrequencyQuestion", Value = new Hl7.Fhir.Model.FhirString(theme.GoalFrequencyQuestion)
 		});
@@ -142,15 +150,23 @@ public static class FhirThemeAdapter
 
 		foreach (var fhirPlanDefinitionExtension in fhirPlanDefinition.Extension)
 		{
+			// theme type, positive/negative
+			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/themeType") {
+				theme.Type = (ThemeType) Enum.Parse(typeof(ThemeType), fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty);
+			}
+			// frequency type
 			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/frequencyType") {
 				theme.FrequencyType = (FrequencyType) Enum.Parse(typeof(FrequencyType), fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty);
 			}
+			// frequency goal
 			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/frequencyGoal") {
 				theme.FrequencyGoal = int.Parse(fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty);
 			}
+			// current frequency question
 			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/currentFrequencyQuestion") {
 				theme.CurrentFrequencyQuestion = fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty;
 			}
+			// goal frequency question
 			if (fhirPlanDefinitionExtension.Url == "https://mibplatform.nl/fhir/Extensions/PlanDefinition/goalFrequencyQuestion") {
 				theme.GoalFrequencyQuestion = fhirPlanDefinitionExtension.Value.ToString() ?? string.Empty;
 			}
