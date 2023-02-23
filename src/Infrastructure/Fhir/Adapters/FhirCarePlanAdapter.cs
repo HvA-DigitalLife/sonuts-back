@@ -49,8 +49,8 @@ public static class FhirCarePlanAdapter
 		};
 
 		fhirCarePlan.Period =  new Hl7.Fhir.Model.Period {
-			Start = carePlan.Start.ToString("yyyy-MM-dd"),
-			End = carePlan.End.ToString("yyyy-MM-dd")
+			StartElement = new Hl7.Fhir.Model.FhirDateTime(new DateTimeOffset(carePlan.Start.Year, carePlan.Start.Month, carePlan.Start.Day, 0, 0, 0, TimeSpan.FromHours(0))),
+			EndElement = new Hl7.Fhir.Model.FhirDateTime(new DateTimeOffset(carePlan.End.Year, carePlan.End.Month, carePlan.End.Day, 0, 0, 0, TimeSpan.FromHours(0)))
 		};
 
 
@@ -76,9 +76,11 @@ public static class FhirCarePlanAdapter
 				LastName = ""
 			}
 		};
+		var fhirCarePlanStartDateTimeOffset = fhirCarePlan.Period.StartElement.ToDateTimeOffset(TimeSpan.FromHours(0));
+		var fhirCarePlanEndDateTimeOffset = fhirCarePlan.Period.EndElement.ToDateTimeOffset(TimeSpan.FromHours(0));
 
-		carePlan.Start = DateOnly.Parse(fhirCarePlan.Period.Start);
-		carePlan.End = DateOnly.Parse(fhirCarePlan.Period.End);
+		carePlan.Start = new DateOnly(fhirCarePlanStartDateTimeOffset.Year, fhirCarePlanStartDateTimeOffset.Month, fhirCarePlanStartDateTimeOffset.Day);
+		carePlan.End = new DateOnly(fhirCarePlanEndDateTimeOffset.Year, fhirCarePlanEndDateTimeOffset.Month, fhirCarePlanEndDateTimeOffset.Day);
         
 		foreach (var fhirActivity in fhirCarePlan.Activity) {
 		    foreach (var fhirGoal in fhirActivity.Detail.Goal) {
