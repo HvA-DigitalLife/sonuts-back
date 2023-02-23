@@ -45,7 +45,7 @@ public static class FhirExecutionAdapter
 		var fhirObservation= new Hl7.Fhir.Model.Observation{
 			Id = execution.Id.ToString(),
 			// created at
-			Issued = new DateTimeOffset(execution.CreatedAt.Year, execution.CreatedAt.Month, execution.CreatedAt.Day, 0, 0, 0, TimeSpan.FromHours(10)),
+			Issued = new DateTimeOffset(execution.CreatedAt.Year, execution.CreatedAt.Month, execution.CreatedAt.Day, 0, 0, 0, TimeSpan.FromHours(0)),
 			// is done
 			Status = execution.IsDone?Hl7.Fhir.Model.ObservationStatus.Final:Hl7.Fhir.Model.ObservationStatus.Preliminary,
 			// reason annotation
@@ -96,7 +96,7 @@ public static class FhirExecutionAdapter
 		// build execution object
 		var execution = new Execution {
 			Id = Guid.Parse(fhirObservation.Id),
-			CreatedAt = new DateOnly(fhirObservation.Issued.Value.Year, fhirObservation.Issued.Value.Day, fhirObservation.Issued.Value.Month),
+			CreatedAt = new DateOnly(fhirObservation.Issued.Value.Year, fhirObservation.Issued.Value.Month, fhirObservation.Issued.Value.Day),
 			IsDone = fhirObservation.Status == Hl7.Fhir.Model.ObservationStatus.Final,
 			Amount = amount,
 			Reason = reason,
