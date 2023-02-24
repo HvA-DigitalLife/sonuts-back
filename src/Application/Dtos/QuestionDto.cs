@@ -10,6 +10,7 @@ public class QuestionDto : IMapFrom<Question>
 	public required QuestionType Type { get; set; }
 	public required string Text { get; set; }
 	public string? Description { get; set; }
+	public string? Information { get; set; }
 	public required int Order { get; set; }
 	public EnableWhenDto? EnableWhen { get; set; }
 	public ICollection<AnswerOptionDto>? AnswerOptions { get; set; } = new List<AnswerOptionDto>();
