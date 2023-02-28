@@ -9,13 +9,18 @@ using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Logic.Executions.Commands;
 
-public record CreateOrUpdateExecutionCommand : IRequest<ExecutionDto>
+public record CreateOrUpdateExecutionCommand : IRequest<ExecutionWithMotivationalMessageVm>
 {
 	public Guid? GoalId { get; init; }
+
 	public bool? IsDone { get; init; }
+
 	public int? Amount { get; init; }
+
 	public string? Reason { get; init; }
+
 	public Guid? ExecutionId { get; init; }
+
 	public DateOnly? PastDate { get; init; }
 }
 
@@ -30,14 +35,15 @@ public class CreateOrUpdateExecutionCommandValidator : AbstractValidator<CreateO
 			.NotNull();
 
 		RuleFor(query => query.Amount)
-			.NotNull();
+			.NotNull()
+			.InclusiveBetween(0, 100);
 
 		RuleFor(query => query.PastDate)
 			.LessThan(DateOnly.FromDateTime(DateTime.Now));
 	}
 }
 
-internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrUpdateExecutionCommand, ExecutionDto>
+internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrUpdateExecutionCommand, ExecutionWithMotivationalMessageVm>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly ICurrentUserService _currentUserService;
@@ -50,7 +56,7 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 		_mapper = mapper;
 	}
 
-	public async Task<ExecutionDto> Handle(CreateOrUpdateExecutionCommand request, CancellationToken cancellationToken)
+	public async Task<ExecutionWithMotivationalMessageVm> Handle(CreateOrUpdateExecutionCommand request, CancellationToken cancellationToken)
 	{
 		var carePlan = await _context.CarePlans
 			               .Include(plan => plan.Goals)
@@ -90,6 +96,18 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 
 		await _context.SaveChangesAsync(cancellationToken);
 
-		return _mapper.Map<ExecutionDto>(entity);
+		var motivationalMessages = await _context.MotivationalMessages.Where(mm => mm.MinPercentage >= request.Amount && mm.MaxPercentage >= request.Amount).ToArrayAsync(cancellationToken);
+
+		return new ExecutionWithMotivationalMessageVm
+		{
+			Execution = _mapper.Map<ExecutionDto>(entity),
+			MotivationalMessage = _mapper.Map<MotivationalMessageDto>(motivationalMessages.MinBy(_ => Guid.NewGuid()))
+		};
 	}
+}
+
+public record ExecutionWithMotivationalMessageVm
+{
+	public required ExecutionDto Execution { get; init; }
+	public required MotivationalMessageDto? MotivationalMessage { get; init; }
 }
