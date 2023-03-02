@@ -37,11 +37,10 @@ internal class ExportQuestionnaireResponsesQueryHandler : IRequestHandler<Export
 		
 		List<string> headers = new()
 		{
-			nameof(Participant.FirstName),
-			nameof(Participant.LastName),
-			nameof(Participant.Height),
-			nameof(Participant.Weight),
-			nameof(Participant.Birth)
+			$"{nameof(Participant)}.{nameof(Participant.Id)}",
+			$"{nameof(Participant)}.{nameof(Participant.Height)}",
+			$"{nameof(Participant)}.{nameof(Participant.Weight)}",
+			$"{nameof(Participant)}.{nameof(Participant.Birth)}"
 		};
 		headers.AddRange(questionnaire.Questions.Select(question => question.Text));
 
@@ -51,8 +50,7 @@ internal class ExportQuestionnaireResponsesQueryHandler : IRequestHandler<Export
 		{
 			var row = new List<string?>
 			{
-				questionnaireResponse.Participant.FirstName,
-				questionnaireResponse.Participant.LastName,
+				questionnaireResponse.Participant.Id.ToString(),
 				questionnaireResponse.Participant.Height.ToString(),
 				questionnaireResponse.Participant.Weight.ToString(),
 				questionnaireResponse.Participant.Birth.ToString()

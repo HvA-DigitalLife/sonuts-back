@@ -11,4 +11,6 @@ public interface ICsvFileBuilder
 	Task<byte[]> BuildExecutionsFileAsync(IEnumerable<Execution> executions, CancellationToken cancellationToken = default);
 
 	Task<byte[]> BuildGoalsFileAsync(IEnumerable<Goal> goals, CancellationToken cancellationToken = default);
+
+	Task<byte[]> BuildQuestionResponseFileAsync(IEnumerable<QuestionResponse> questionResponses, CancellationToken cancellationToken = default);
 }

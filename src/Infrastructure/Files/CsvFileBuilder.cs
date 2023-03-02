@@ -41,6 +41,9 @@ public class CsvFileBuilder : ICsvFileBuilder
 	public async Task<byte[]> BuildGoalsFileAsync(IEnumerable<Goal> goals, CancellationToken cancellationToken = default) =>
 		await BuildCsvFile<Goal, GoalMap>(goals, cancellationToken);
 
+	public async Task<byte[]> BuildQuestionResponseFileAsync(IEnumerable<QuestionResponse> questionResponses, CancellationToken cancellationToken = default) =>
+		await BuildCsvFile<QuestionResponse, QuestionResponseMap>(questionResponses, cancellationToken);
+
 	private static async Task<byte[]> BuildCsvFile<TInput, TClassMap>(IEnumerable<TInput> records, CancellationToken cancellationToken = default) where TClassMap : ClassMap<TInput>
 	{
 		using var memoryStream = new MemoryStream();
