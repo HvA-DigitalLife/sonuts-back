@@ -1,10 +1,10 @@
 using System.Globalization;
 using CsvHelper.Configuration;
-using Sonuts.Application.Logic.Participants.Queries;
+using Sonuts.Domain.Entities;
 
 namespace Sonuts.Infrastructure.Files.Maps;
 
-public sealed class ParticipantMap : ClassMap<OverviewParticipantDto>
+public sealed class ParticipantMap : ClassMap<Participant>
 {
 	public ParticipantMap()
 	{

@@ -14,18 +14,22 @@ public class ContentController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Admin, Participant")]
 	[HttpGet("{type}")]
-	public async Task<ActionResult<ContentDto>> GetContentByType(ContentType? type)
+	public async Task<ActionResult<ContentDto>> GetContentByType(ContentType? type, CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(new GetContentByTypeQuery { Type = type }));
+		return Ok(await Mediator.Send(new GetContentByTypeQuery
+		{
+			Type = type
+		}, cancellationToken));
 	}
 
 	[ApiExplorerSettings(IgnoreApi = true)]
 	[Authorize(Roles = "Admin")]
 	[HttpPatch("{type}")]
-	public async Task<ActionResult<ContentDto>> UpdateContent(ContentType type, UpdateContentCommand command)
+	public async Task<ActionResult<ContentDto>> UpdateContent(ContentType type, UpdateContentCommand command, CancellationToken cancellationToken)
 	{
-		if (!type.Equals(command.Type)) BadRequest();
+		if (!type.Equals(command.Type))
+			return BadRequest();
 
-		return Ok(await Mediator.Send(command));
+		return Ok(await Mediator.Send(command, cancellationToken));
 	}
 }

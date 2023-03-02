@@ -13,17 +13,8 @@ public class CarePlansController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Participant")]
 	[HttpPost]
-	public async Task<ActionResult<CarePlanDto>> CreateCarePlan(CreateCarePlanCommand command)
+	public async Task<ActionResult<CarePlanDto>> CreateCarePlan(CreateCarePlanCommand command, CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(command));
-	}
-
-	[Authorize(Roles = "Admin")]
-	[HttpGet("Csv")]
-	public async Task<ActionResult> ExportCarePlans()
-	{
-		var file = await Mediator.Send(new ExportCarePlansQuery());
-
-		return File(file.Content, file.ContentType, file.FileName);
+		return Ok(await Mediator.Send(command, cancellationToken));
 	}
 }

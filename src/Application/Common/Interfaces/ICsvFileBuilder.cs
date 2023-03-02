@@ -1,9 +1,12 @@
-using Sonuts.Application.Logic.Participants.Queries;
+using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Common.Interfaces;
 
 public interface ICsvFileBuilder
 {
-	Task<byte[]> BuildDynamicFile(List<string> headers, List<List<string?>> rows);
-	Task<byte[]> BuildParticipantsFile(IEnumerable<OverviewParticipantDto> participants);
+	Task<byte[]> BuildDynamicFileAsync(List<string> headers, List<List<string?>> rows);
+
+	Task<byte[]> BuildParticipantsFileAsync(IEnumerable<Participant> participants, CancellationToken cancellationToken = default);
+
+	Task<byte[]> BuildExecutionsFileAsync(IEnumerable<Execution> executions, CancellationToken cancellationToken = default);
 }

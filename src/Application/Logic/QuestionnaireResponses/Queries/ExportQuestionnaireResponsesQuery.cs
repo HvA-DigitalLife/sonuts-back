@@ -64,7 +64,7 @@ internal class ExportQuestionnaireResponsesQueryHandler : IRequestHandler<Export
 
 		return new ExportFile
 		{
-			Content = await _fileBuilder.BuildDynamicFile(headers, rows),
+			Content = await _fileBuilder.BuildDynamicFileAsync(headers, rows),
 			FileName = $"{DateTime.Now.ToShortDateString()} {questionnaire.Title}.csv"
 		};
 	}

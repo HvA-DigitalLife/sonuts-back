@@ -928,6 +928,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "groenten"
 						},
+						Unit = ThemeUnit.Grams,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
@@ -956,6 +957,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "fruit"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
@@ -1078,6 +1080,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "vis"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al vis?",
@@ -1106,6 +1109,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "dansen"
 						},
+						Unit = ThemeUnit.Glasses,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 0,
 						CurrentFrequencyQuestion = "Hoeveel glazen alcohol drink je per week?",
@@ -1597,6 +1601,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "bewegen"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -1666,6 +1671,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "bewegen"
 						},
+						Unit = ThemeUnit.Minutes,
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
@@ -1747,6 +1753,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "spierkracht"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -1816,6 +1823,7 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "botsterkte"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",

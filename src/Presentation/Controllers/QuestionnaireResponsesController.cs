@@ -12,8 +12,8 @@ public class QuestionnaireResponsesController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Participant")]
 	[HttpPost]
-	public async Task<ActionResult<QuestionnaireResponseDto>> CreateQuestionnaireResponse([FromBody] CreateQuestionnaireResponseCommand command)
+	public async Task<ActionResult<QuestionnaireResponseDto>> CreateQuestionnaireResponse([FromBody] CreateQuestionnaireResponseCommand command, CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(command));
+		return Ok(await Mediator.Send(command, cancellationToken));
 	}
 }
