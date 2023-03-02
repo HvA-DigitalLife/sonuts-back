@@ -2,14 +2,14 @@ using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Logic.Participants.Queries;
+using Sonuts.Domain.Entities;
 using Sonuts.Infrastructure.Files.Maps;
 
 namespace Sonuts.Infrastructure.Files;
 
 public class CsvFileBuilder : ICsvFileBuilder
 {
-	public async Task<byte[]> BuildDynamicFile(List<string> headers, List<List<string?>> rows)
+	public async Task<byte[]> BuildDynamicFileAsync(List<string> headers, List<List<string?>> rows)
 	{
 		using var memoryStream = new MemoryStream();
 		await using (var streamWriter = new StreamWriter(memoryStream))
@@ -32,10 +32,13 @@ public class CsvFileBuilder : ICsvFileBuilder
 		return memoryStream.ToArray();
 	}
 
-	public async Task<byte[]> BuildParticipantsFile(IEnumerable<OverviewParticipantDto> participants) =>
-		await BuildCsvFile<OverviewParticipantDto, ParticipantMap>(participants);
+	public async Task<byte[]> BuildParticipantsFileAsync(IEnumerable<Participant> participants, CancellationToken cancellationToken = default) =>
+		await BuildCsvFile<Participant, ParticipantMap>(participants, cancellationToken);
 
-	private static async Task<byte[]> BuildCsvFile<TInput, TClassMap>(IEnumerable<TInput> records) where TClassMap : ClassMap<TInput>
+	public async Task<byte[]> BuildExecutionsFileAsync(IEnumerable<Execution> executions, CancellationToken cancellationToken = default) =>
+		await BuildCsvFile<Execution, ExecutionMap>(executions, cancellationToken);
+
+	private static async Task<byte[]> BuildCsvFile<TInput, TClassMap>(IEnumerable<TInput> records, CancellationToken cancellationToken = default) where TClassMap : ClassMap<TInput>
 	{
 		using var memoryStream = new MemoryStream();
 		await using (var streamWriter = new StreamWriter(memoryStream))
@@ -43,7 +46,7 @@ public class CsvFileBuilder : ICsvFileBuilder
 			await using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
 			csvWriter.Context.RegisterClassMap<TClassMap>();
-			await csvWriter.WriteRecordsAsync(records);
+			await csvWriter.WriteRecordsAsync(records, cancellationToken);
 		}
 
 		return memoryStream.ToArray();

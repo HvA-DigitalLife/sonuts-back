@@ -7,6 +7,7 @@ public class Theme : BaseEntity //http://hl7.org/fhir/R4/plandefinition.html#Pla
 	public required ThemeType Type { get; set; }
 	public Category Category { get; set; } = default!;
 	public required Image Image { get; set; }
+	public required ThemeUnit Unit { get; set; }
 	public required FrequencyType FrequencyType { get; set; }
 	public int? FrequencyGoal { get; set; }
 	public required string CurrentFrequencyQuestion { get; set; }

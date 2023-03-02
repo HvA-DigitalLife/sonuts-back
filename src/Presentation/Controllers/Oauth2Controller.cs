@@ -9,8 +9,8 @@ public class Oauth2Controller : ApiControllerBase
 {
 	[AllowAnonymous]
 	[HttpPost("/OAuth2/Token")]
-	public async Task<ActionResult<TokenVm>> CreateToken(CreateTokenCommand command)
+	public async Task<ActionResult<TokenVm>> CreateToken(CreateTokenCommand command, CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(command));
+		return Ok(await Mediator.Send(command, cancellationToken));
 	}
 }

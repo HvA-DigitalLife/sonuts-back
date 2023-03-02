@@ -16,7 +16,7 @@ public class ParticipantsController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Admin")]
 	[HttpGet]
-	public async Task<ActionResult<IEnumerable<OverviewParticipantDto>>> GetAllParticipants()
+	public async Task<ActionResult<IEnumerable<ParticipantRecord>>> GetAllParticipants()
 	{
 		return Ok(await Mediator.Send(new GetAllParticipantsQuery()));
 	}
@@ -26,9 +26,11 @@ public class ParticipantsController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Admin")]
 	[HttpGet("Csv")]
-	public async Task<ActionResult> GetParticipantsCsv()
+	public async Task<ActionResult> ExportParticipants(CancellationToken cancellationToken)
 	{
-		return File(await Mediator.Send(new GetParticipantsCsvQuery()), "text/csv", $"Participants-{DateOnly.FromDateTime(DateTime.Now):yyyy-MM-dd}");
+		var file = await Mediator.Send(new ExportParticipantsQuery(), cancellationToken);
+
+		return File(file.Content, file.ContentType, file.FileName);
 	}
 
 	/// <summary>
@@ -36,9 +38,9 @@ public class ParticipantsController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Participant")]
 	[HttpGet("Current")]
-	public async Task<ActionResult<ParticipantDto>> GetCurrentParticipant()
+	public async Task<ActionResult<ParticipantDto>> GetCurrentParticipant(CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(new GetCurrentParticipantQuery()));
+		return Ok(await Mediator.Send(new GetCurrentParticipantQuery(), cancellationToken));
 	}
 
 	/// <summary>
@@ -46,12 +48,12 @@ public class ParticipantsController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{participantId:guid}/QuestionnaireResponses")]
-	public async Task<ActionResult<IList<QuestionnaireResponseVm>>> GetQuestionnaireResponses(Guid participantId)
+	public async Task<ActionResult<IList<QuestionnaireResponseVm>>> GetQuestionnaireResponses(Guid participantId, CancellationToken cancellationToken)
 	{
 		return Ok(await Mediator.Send(new GetQuestionnaireResponsesForParticipantQuery
 		{
 			ParticipantId = participantId
-		}));
+		}, cancellationToken));
 	}
 
 	/// <summary>
@@ -60,12 +62,12 @@ public class ParticipantsController : ApiControllerBase
 	/// <returns></returns>
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{participantId:guid}/CarePlan")]
-	public async Task<ActionResult<CarePlanDto>> GetCurrentCarePlan(Guid participantId)
+	public async Task<ActionResult<CarePlanDto>> GetCurrentCarePlan(Guid participantId, CancellationToken cancellationToken)
 	{
 		return Ok(await Mediator.Send(new GetCurrentCarePlanQuery
 		{
 			ParticipantId = participantId
-		}));
+		}, cancellationToken));
 	}
 
 	/// <summary>
@@ -73,8 +75,8 @@ public class ParticipantsController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Admin")]
 	[HttpPost]
-	public async Task<ActionResult<ParticipantDto>> CreateParticipant(CreateParticipantCommand command)
+	public async Task<ActionResult<ParticipantDto>> CreateParticipant(CreateParticipantCommand command, CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(command));
+		return Ok(await Mediator.Send(command, cancellationToken));
 	}
 }

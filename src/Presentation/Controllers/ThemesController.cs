@@ -11,32 +11,32 @@ public class ThemesController : ApiControllerBase
 {
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{themeId:guid}")]
-	public async Task<ActionResult<ThemeDto>> Get(Guid themeId)
+	public async Task<ActionResult<ThemeDto>> Get(Guid themeId, CancellationToken cancellationToken)
 	{
 		return Ok(await Mediator.Send(new GetThemeQuery
 		{
 			Id = themeId
-		}));
+		}, cancellationToken));
 	}
 
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{themeId:guid}/Faq")]
-	public async Task<ActionResult<List<FaqDto>>> GetFaq(Guid themeId)
+	public async Task<ActionResult<List<FaqDto>>> GetFaq(Guid themeId, CancellationToken cancellationToken)
 	{
 		return Ok(await Mediator.Send(new GetFaqQuery
 		{
 			ThemeId = themeId
-		}));
+		}, cancellationToken));
 	}
 
 
 	[Authorize(Roles = "Participant")]
 	[HttpGet("{themeId:guid}/Recipes")]
-	public async Task<ActionResult<List<RecipeDto>>> GetRecipes(Guid themeId)
+	public async Task<ActionResult<List<RecipeDto>>> GetRecipes(Guid themeId, CancellationToken cancellationToken)
 	{
 		return Ok(await Mediator.Send(new GetRecipesQuery
 		{
 			ThemeId = themeId
-		}));
+		}, cancellationToken));
 	}
 }

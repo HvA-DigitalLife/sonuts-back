@@ -6,9 +6,9 @@ using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Logic.Participants.Queries;
 
-public record GetAllParticipantsQuery : IRequest<IEnumerable<OverviewParticipantDto>>;
+public record GetAllParticipantsQuery : IRequest<IEnumerable<ParticipantRecord>>;
 
-internal class GetAllParticipantsQueryHandler : IRequestHandler<GetAllParticipantsQuery, IEnumerable<OverviewParticipantDto>>
+internal class GetAllParticipantsQueryHandler : IRequestHandler<GetAllParticipantsQuery, IEnumerable<ParticipantRecord>>
 {
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
@@ -19,14 +19,14 @@ internal class GetAllParticipantsQueryHandler : IRequestHandler<GetAllParticipan
 		_mapper = mapper;
 	}
 
-	public async Task<IEnumerable<OverviewParticipantDto>> Handle(GetAllParticipantsQuery request, CancellationToken cancellationToken)
+	public async Task<IEnumerable<ParticipantRecord>> Handle(GetAllParticipantsQuery request, CancellationToken cancellationToken)
 	{
 		return await _context.Participants
-			.ProjectToListAsync<OverviewParticipantDto>(_mapper.ConfigurationProvider, cancellationToken);
+			.ProjectToListAsync<ParticipantRecord>(_mapper.ConfigurationProvider, cancellationToken);
 	}
 }
 
-public class OverviewParticipantDto : IMapFrom<Participant>
+public class ParticipantRecord : IMapFrom<Participant>
 {
 	public Guid Id { get; set; }
 	public string? FirstName { get; set; }

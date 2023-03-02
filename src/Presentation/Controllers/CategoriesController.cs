@@ -12,8 +12,8 @@ public class CategoriesController : ApiControllerBase
 	/// </summary>
 	[Authorize(Roles = "Admin, Participant")]
 	[HttpGet]
-	public async Task<ActionResult<ICollection<CategoriesWithRecommendationsVm>>> GetCategories()
+	public async Task<ActionResult<ICollection<CategoriesWithRecommendationsVm>>> GetCategories(CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(new GetCategoriesQuery()));
+		return Ok(await Mediator.Send(new GetCategoriesQuery(), cancellationToken));
 	}
 }
