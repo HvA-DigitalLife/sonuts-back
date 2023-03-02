@@ -10,6 +10,7 @@ public record RecommendedThemeVm
 	public required string Description { get; init; }
 	public required ThemeType Type { get; init; }
 	public required ImageDto Image { get; init; }
+	public required ThemeUnit Unit { get; init; }
 	public FrequencyType FrequencyType { get; init; }
 	public int? FrequencyGoal { get; init; }
 	public required string? CurrentFrequencyQuestion { get; init; }

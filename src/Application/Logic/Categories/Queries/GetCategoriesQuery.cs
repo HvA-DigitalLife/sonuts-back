@@ -50,6 +50,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					Type = theme.Type,
 					Description = theme.Description,
 					Image = _mapper.Map<ImageDto>(theme.Image),
+					Unit = theme.Unit,
 					FrequencyType = theme.FrequencyType,
 					FrequencyGoal = theme.FrequencyGoal,
 					CurrentFrequencyQuestion = theme.CurrentFrequencyQuestion,
