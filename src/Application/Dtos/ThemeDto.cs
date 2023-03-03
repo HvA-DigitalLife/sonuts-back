@@ -13,6 +13,7 @@ public class ThemeDto : IMapFrom<Theme>
 	public required CategoryDto Category { get; set; }
 	public required ImageDto Image { get; set; }
 	public required ThemeUnit Unit { get; set; }
+	public string? UnitDescription { get; set; }
 	public FrequencyType FrequencyType { get; set; }
 	public int? FrequencyGoal { get; set; }
 	public required string CurrentFrequencyQuestion { get; set; }

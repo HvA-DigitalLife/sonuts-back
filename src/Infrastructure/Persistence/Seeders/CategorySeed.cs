@@ -928,7 +928,8 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "groenten"
 						},
-						Unit = ThemeUnit.Grams,
+						Unit = ThemeUnit.Portion,
+						UnitDescription = "100g",
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
@@ -950,14 +951,15 @@ internal static class CategorySeed
 					new()
 					{
 						Name = "Peulvruchten",
-						Description = "Dagelijks ten minste 2 stuks peulvruchten",
+						Description = "Dagelijks ten minste 1 portie peulvruchten",
 						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "fruit"
 						},
-						Unit = ThemeUnit.Amount,
+						Unit = ThemeUnit.Portion,
+						UnitDescription = "200g",
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
@@ -972,8 +974,7 @@ internal static class CategorySeed
 							new()
 							{
 								Question = "Hoeveel peulvruchten moet ik eten?",
-								Answer =
-									"Een portie peulvruchten is 200 gram. Dat is ongeveer 4 opscheplepels. Een portie peulvruchten is dus 4 keer zoveel als een portie groente.",
+								Answer = "Een portie peulvruchten is 200 gram. Dat is ongeveer 4 opscheplepels. Een portie peulvruchten is dus 4 keer zoveel als een portie groente.",
 							},
 						},
 						Activities = new List<Activity>
@@ -981,7 +982,7 @@ internal static class CategorySeed
 							new()
 							{
 								Name = "Peulvruchten",
-								Description = "Een portie peulvruchten is 100 gram.",
+								Description = "Een portie peulvruchten is 200 gram.",
 								Image = new Image
 								{
 									Extension = "png",
@@ -1000,7 +1001,7 @@ internal static class CategorySeed
 									Extension = "png",
 									Name = "fc5fcc51-e19c-4e14-8647-82cff962ba83"
 								},
-								Steps = new()
+								Steps = new List<RecipeStep>
 								{
 									new()
 									{
@@ -1080,7 +1081,8 @@ internal static class CategorySeed
 							Extension = "png",
 							Name = "vis"
 						},
-						Unit = ThemeUnit.Amount,
+						Unit = ThemeUnit.Portion,
+						UnitDescription = "100g",
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al vis?",

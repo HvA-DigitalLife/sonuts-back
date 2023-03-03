@@ -4,6 +4,6 @@ public enum ThemeUnit
 {
 	Amount,
 	Minutes,
-	Grams,
+	Portion,
 	Glasses
 }
