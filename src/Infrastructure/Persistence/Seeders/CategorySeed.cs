@@ -929,7 +929,7 @@ internal static class CategorySeed
 							Name = "groenten"
 						},
 						Unit = ThemeUnit.Portion,
-						UnitDescription = "100g",
+						UnitAmount = 100,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
@@ -959,7 +959,7 @@ internal static class CategorySeed
 							Name = "fruit"
 						},
 						Unit = ThemeUnit.Portion,
-						UnitDescription = "200g",
+						UnitAmount = 200,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
@@ -1082,7 +1082,7 @@ internal static class CategorySeed
 							Name = "vis"
 						},
 						Unit = ThemeUnit.Portion,
-						UnitDescription = "100g",
+						UnitAmount = 100,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al vis?",
