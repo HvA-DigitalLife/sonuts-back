@@ -141,7 +141,7 @@ internal class CreateQuestionnaireResponseCommandHandler : IRequestHandler<Creat
 			}).ToList()
 		};
 
-		await _context.QuestionnaireResponses.AddAsync(entity, cancellationToken);
+		_context.QuestionnaireResponses.Add(entity);
 		
 		await _context.SaveChangesAsync(cancellationToken);
 

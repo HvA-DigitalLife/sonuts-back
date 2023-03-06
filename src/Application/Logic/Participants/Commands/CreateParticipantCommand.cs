@@ -77,10 +77,8 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 			MaritalStatus = request.MaritalStatus,
 			IsActive = true
 		};
-
-		// ReSharper disable once MethodSupportsCancellation
-		// Do not stop creating participant when user is already created
-		await _context.Participants.AddAsync(entity);
+		
+		_context.Participants.Add(entity);
 
 		await _context.SaveChangesAsync(cancellationToken);
 

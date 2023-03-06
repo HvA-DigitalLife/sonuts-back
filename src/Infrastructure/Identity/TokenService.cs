@@ -70,7 +70,7 @@ public class TokenService : ITokenService
 		rng.GetBytes(randomNumber);
 		var token = Convert.ToBase64String(randomNumber);
 
-		await _context.RefreshTokens.AddAsync(new RefreshToken
+		_context.RefreshTokens.Add(new RefreshToken
 		{
 			Token = token,
 			IssuedAt = _dateTime.Now,
