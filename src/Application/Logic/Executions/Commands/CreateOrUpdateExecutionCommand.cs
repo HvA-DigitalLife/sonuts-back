@@ -96,7 +96,7 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 
 		await _context.SaveChangesAsync(cancellationToken);
 
-		var motivationalMessages = await _context.MotivationalMessages.Where(mm => mm.MinPercentage >= request.Amount && mm.MaxPercentage >= request.Amount).ToArrayAsync(cancellationToken);
+		var motivationalMessages = await _context.MotivationalMessages.Where(mm => mm.MinPercentage <= request.Amount && mm.MaxPercentage >= request.Amount).ToArrayAsync(cancellationToken);
 
 		return new ExecutionWithMotivationalMessageVm
 		{
