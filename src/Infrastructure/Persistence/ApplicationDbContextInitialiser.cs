@@ -60,6 +60,7 @@ public class ApplicationDbContextInitialiser
 		await ClientSeed.Seed(_context);
 		await ContentSeed.Seed(_context);
 		await CategorySeed.Seed(_context /*, _fhirOptions, _categoryDao, _questionnaireDao, _themeDao*/);
+		await MotivationalMessageSeed.Seed(_context);
 		await RecommendationRuleSeed.Seed(_context);
 	}
 }

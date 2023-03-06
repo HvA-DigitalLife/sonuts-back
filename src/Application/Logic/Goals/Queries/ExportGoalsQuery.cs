@@ -1,13 +1,11 @@
-using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Models;
 
 namespace Sonuts.Application.Logic.Goals.Queries;
-public record ExportGoalsQuery : IRequest<ExportFile>
-{
-}
+
+public record ExportGoalsQuery : IRequest<ExportFile>;
 
 internal class ExportGoalsQueryHandler : IRequestHandler<ExportGoalsQuery, ExportFile>
 {

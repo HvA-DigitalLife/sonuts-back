@@ -18,6 +18,15 @@ public class GoalsController : ApiControllerBase
 		return Ok(await Mediator.Send(new GetGoalsQuery(), cancellationToken));
 	}
 
+	[Authorize(Roles = "Admin")]
+	[HttpGet("Csv")]
+	public async Task<ActionResult> ExportGoals(CancellationToken cancellationToken)
+	{
+		var file = await Mediator.Send(new ExportGoalsQuery(), cancellationToken);
+
+		return File(file.Content, file.ContentType, file.FileName);
+	}
+
 	/// <summary>
 	/// Change goal moment 
 	/// </summary>
