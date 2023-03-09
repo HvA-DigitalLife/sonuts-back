@@ -215,6 +215,7 @@ internal static class CategorySeed
 						},
 						new() // 5A
 						{
+							Id = new Guid("e9e1f1e4-d666-4936-a52b-50dd3b02f086"),
 							Type = QuestionType.Choice,
 							Text = "Hoe vaak per maand eet u, gemiddeld gezien, peulvruchten?",
 							Description = "Peulvruchten zijn bijvoorbeeld bruine bonen, witte bonen, kapucijners, kidney(nier)bonen, linzen of kikkererwten. Reken doperwten, tuinbonen en sperziebonen niet mee, deze moeten bij groente worden ingevuld.",
@@ -231,6 +232,7 @@ internal static class CategorySeed
 						},
 						new() // 5B
 						{
+							Id = new Guid("3b1be15f-5b3d-4be6-b106-fd586396def3"),
 							Type = QuestionType.Choice,
 							Text = "Hoeveel peulvruchten eet u op ’een dag dat u peulvruchten eet?",
 							Description = "Opscheplepels (circa 50 gram) per dag (een portie = 200 gram, dus 4 opscheplepels).",
@@ -550,6 +552,7 @@ internal static class CategorySeed
 						},
 						new() // 9A
 						{
+							Id = new Guid("5de4555f-4780-4e27-ab5e-24b0358ba6e6"),
 							Type = QuestionType.Choice,
 							Text = "Hoe vaak per week eet u gemiddeld magere vis?",
 							Description = "Magere vis is bijvoorbeeld forel, kabeljauw, koolvis, pangasius, schelvis, schol, tilapia, tong, tonijn of wijting.",
@@ -568,6 +571,7 @@ internal static class CategorySeed
 						},
 						new() // 9B
 						{
+							Id = new Guid("a696cbfa-eae0-4015-938c-31b9f641005d"),
 							Type = QuestionType.Choice,
 							Text = "Hoeveel porties magere vis eet u gemiddeld op zo’n dag?",
 							Order = 28,
@@ -583,6 +587,7 @@ internal static class CategorySeed
 						},
 						new() // 9C
 						{
+							Id = new Guid("b547d936-3b8b-4386-81af-6cac317aa858"),
 							Type = QuestionType.Choice,
 							Text = "Hoe vaak per week eet u gemiddeld vette vis?",
 							Description = "Vette vis is bijvoorbeeld bokking, haring, heilbot, makreel, paling, sardines, sprot filet of zalm.",
@@ -601,6 +606,7 @@ internal static class CategorySeed
 						},
 						new() // 9D
 						{
+							Id = new Guid("e9152e08-4ee9-4d3b-8608-f590d31663be"),
 							Type = QuestionType.Choice,
 							Text = "Hoeveel porties vette vis eet u gemiddeld op zo’n dag?",
 							Order = 30,
@@ -749,6 +755,7 @@ internal static class CategorySeed
 						},
 						new() // 13A
 						{
+							Id = new Guid("48227a6a-1aa2-49ea-9837-0acdae9b8297"),
 							Type = QuestionType.Choice,
 							Text = "Op gemiddeld hoeveel dagen per week drinkt u alcohol?",
 							Order = 39,
@@ -766,6 +773,7 @@ internal static class CategorySeed
 						},
 						new() // 13B
 						{
+							Id = new Guid("f06d8859-416c-4050-8de2-1b0a8ed4717f"),
 							Type = QuestionType.Choice,
 							Text = "Hoeveel glazen drinkt u op zo’n dag?",
 							Order = 40,
@@ -950,6 +958,7 @@ internal static class CategorySeed
 					},
 					new()
 					{
+						Id = new Guid("8452671a-fa49-4aa7-aed4-cad36bea9553"),
 						Name = "Peulvruchten",
 						Description = "Dagelijks ten minste 1 portie peulvruchten",
 						Type = ThemeType.Default,
@@ -1073,6 +1082,7 @@ internal static class CategorySeed
 					},
 					new()
 					{
+						Id = new Guid("b9db755f-5d6c-4797-9373-d95b0633bbb8"),
 						Name = "Vis",
 						Description = "Eet elke week een keer vis",
 						Type = ThemeType.Default,
@@ -1103,15 +1113,17 @@ internal static class CategorySeed
 					},
 					new()
 					{
+						Id = new Guid("5a06f5c6-b3bd-4a88-a200-e0342e46e50a"),
 						Name = "Alcohol",
 						Description = "Drink minder alcohol",
 						Type = ThemeType.Negative,
 						Image = new Image
 						{
 							Extension = "png",
-							Name = "dansen"
+							Name = "alcohol"
 						},
 						Unit = ThemeUnit.Glasses,
+						UnitAmount = 200,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 0,
 						CurrentFrequencyQuestion = "Hoeveel glazen alcohol drink je per week?",
