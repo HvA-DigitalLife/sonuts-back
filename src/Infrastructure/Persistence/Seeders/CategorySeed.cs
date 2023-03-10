@@ -128,38 +128,20 @@ internal static class CategorySeed
 						},
 						new() // 2A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Op gemiddeld hoeveel dagen per week eet u drie hoofdmaaltijden?",
 							Description = "Ontbijt, lunch, avondmaaltijd",
 							Order = 3,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 3A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u, gemiddeld gezien, fruit?",
 							Order = 4,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 3B
 						{
@@ -181,37 +163,21 @@ internal static class CategorySeed
 						new() // 4A
 						{
 							Id = new Guid("c05d9393-328c-4e54-a504-7330445fd8cf"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u, gemiddeld gezien, groente of rauwkost?",
 							Description = "Zowel verse, diepvries als groente in conservenblik tellen mee.",
 							Order = 6,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 4B
 						{
 							Id = new Guid("d14f00d4-32f2-4a22-8829-7d7ed86a127c"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel opscheplepels/porties groente of rauwkost (circa 50 gram) eet u gemiddeld op een dag dat u groente eet?",
 							Order = 7,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 5A
 						{
@@ -233,171 +199,91 @@ internal static class CategorySeed
 						new() // 5B
 						{
 							Id = new Guid("3b1be15f-5b3d-4be6-b106-fd586396def3"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel peulvruchten eet u op ’een dag dat u peulvruchten eet?",
 							Description = "Opscheplepels (circa 50 gram) per dag (een portie = 200 gram, dus 4 opscheplepels).",
 							Order = 8,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 6.1A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld witte rijst of witte deegwaren?",
 							Description = "Macaroni, mie, spaghetti, witte couscous, gierst.",
 							Order = 9,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 6.1B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel opscheplepels witte rijst of witte deegwaren eet u op zo’n dag?",
 							Description = "Een opscheplepel staat gelijk aan 50 gram.",
 							Order = 10,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 6.2A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld volkoren deegwaren?",
 							Description = "(volkoren macaroni, spaghetti, volkoren couscous, bulgur, quinoa etc), zilvervliesrijst.",
 							Order = 11,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 6.2B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel opscheplepels volkoren deegwaren eet u op zo’n dag?",
 							Description = "Een opscheplepel staat gelijk aan 50 gram.",
 							Order = 12,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 6.3A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld witte graanproducten?",
 							Description = "(wit brood, crackers, beschuit, cornflakes etc.)",
 							Order = 13,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 6.3B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel stuks witte graanproducten eet u op zo’n dag?",
 							Order = 14,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 6.4A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld volkoren graanproducten?",
 							Description = "Volkorenbrood, volkoren beschuit, volkoren crackers, tarwe zemelen, havermout of roggebrood.",
 							Order = 15,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 6.4B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel stuks volkoren graanproducten eet u op zo’n dag?",
 							Order = 16,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 7A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld ongezouten pinda’s of noten?",
 							Description = "100% pindakaas of notenspread mag u hierbij meerekenen.",
 							Order = 17,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 7B
 						{
@@ -420,205 +306,109 @@ internal static class CategorySeed
 						},
 						new() // 8.1A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week drinkt u gemiddeld (karne)melk of sojamelk?",
 							Order = 19,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 8.1B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel glazen (karne)melk of sojamelk drinkt u op zo’n dag?",
 							Description = "Glazen/beker (200ml).",
 							Order = 20,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 8.2A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week drinkt u gemiddeld chocolademelk, vla of vruchtendrank?",
 							Order = 21,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 8.2B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel glazen chocolademelk, vla of vruchtendrank drinkt u op zo’n dag?",
 							Description = "Glazen/beker (200ml).",
 							Order = 22,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 8.3A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u kwark of skyr?",
 							Order = 23,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 8.3B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel schaaltjes kwark of skyr eet u op zo’n dag?",
 							Description = "Schaaltjes (150ml).",
 							Order = 24,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 8.4A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u yoghurt, vruchtenyoghurt, vla etc?",
 							Order = 25,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 8.4B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel schaaltjes yoghurt, vruchtenyoghurt, vla etc eet u op zo’n dag?",
 							Description = "Schaaltjes (150ml).",
 							Order = 26,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 9A
 						{
 							Id = new Guid("5de4555f-4780-4e27-ab5e-24b0358ba6e6"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld magere vis?",
 							Description = "Magere vis is bijvoorbeeld forel, kabeljauw, koolvis, pangasius, schelvis, schol, tilapia, tong, tonijn of wijting.",
 							Order = 27,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 9B
 						{
 							Id = new Guid("a696cbfa-eae0-4015-938c-31b9f641005d"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel porties magere vis eet u gemiddeld op zo’n dag?",
 							Order = 28,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 9C
 						{
 							Id = new Guid("b547d936-3b8b-4386-81af-6cac317aa858"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld vette vis?",
 							Description = "Vette vis is bijvoorbeeld bokking, haring, heilbot, makreel, paling, sardines, sprot filet of zalm.",
 							Order = 29,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 9D
 						{
 							Id = new Guid("e9152e08-4ee9-4d3b-8608-f590d31663be"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel porties vette vis eet u gemiddeld op zo’n dag?",
 							Order = 30,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 10A
 						{
@@ -650,90 +440,49 @@ internal static class CategorySeed
 						},
 						new() // 11.1A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld rood vlees?",
 							Description = "Rood vlees is bijvoorbeeld vlees van het rund, varken, schaap/lam, paard en geit, zoals biefstuk, varkenslapje of gehakt?",
 							Order = 33,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 11.1B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel porties rood vlees eet u op zo’n dag?",
 							Description = "(Een normale portie is 100 gram).",
 							Order = 34,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						//TODO: 11B
 						new() // 11.2A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld bewerkt vlees?",
 							Description = "Bewerkt vlees is bijvoorbeeld bacon, hamburger of worst. Alle in de winkel verkrijgbare gekruide/gerookte vleesproducten vallen onder bewerkt vlees.",
 							Order = 35,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 11.2B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel porties bewerkt vlees eet u op zo’n dag?",
 							Description = "(Een normale portie is 100 gram).",
 							Order = 36,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 12A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Op gemiddeld hoeveel dagen per week drinkt u dranken met suiker?",
 							Description = "koffie of thee met suiker, zuiveldranken met suiker zoals chocolademelk en yoghurtdrank met suiker, vruchtensappen, energie- of sportdranken, frisdranken zoals cola en sinas, limonade of ranja.",
 							Order = 37,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 12B
 						{
@@ -756,20 +505,11 @@ internal static class CategorySeed
 						new() // 13A
 						{
 							Id = new Guid("48227a6a-1aa2-49ea-9837-0acdae9b8297"),
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Op gemiddeld hoeveel dagen per week drinkt u alcohol?",
 							Order = 39,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 13B
 						{
@@ -791,135 +531,71 @@ internal static class CategorySeed
 						},
 						new() // 14.1A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld chocola?",
 							Description = "(bonbons, chocolaatjes), candybars (mars, snickers etc).",
 							Order = 41,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 14.1B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel porties/stuks chocola eet u op zo’n dag?",
 							Order = 42,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 14.2A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld snoep?",
 							Description = "(zuurtjes, drop etc).",
 							Order = 43,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 14.2B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel stuks snoep eet u op zo’n dag?",
 							Order = 44,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 14.3A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld koek, cake, taart of biscuit?",
 							Description = "(evergreen, sultana etc).",
 							Order = 45,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 14.3B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel stuks koek, cake, taart of biscuit eet u op zo’n dag?",
 							Order = 46,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
 						new() // 14.4A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld hartige tussendoortjes?",
 							Description = "Chips, zoute nootjes, kroket, stukjes kaas, worst etc.",
 							Order = 47,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "Nooit", Value = "0", Order = 0 },
-								new () { Name = "1", Value = "1", Order = 1 },
-								new () { Name = "2", Value = "2", Order = 2 },
-								new () { Name = "3", Value = "3", Order = 3 },
-								new () { Name = "4", Value = "4", Order = 4 },
-								new () { Name = "5", Value = "5", Order = 5 },
-								new () { Name = "6", Value = "6", Order = 6 },
-								new () { Name = "Elke dag", Value = "7", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
 						new() // 14.4B
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoeveel porties/stuks hartige tussendoortjes eet u op zo’n dag?",
 							Order = 48,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Name = "1", Value = "1", Order = 0 },
-								new () { Name = "2", Value = "2", Order = 1 },
-								new () { Name = "3", Value = "3", Order = 2 },
-								new () { Name = "4", Value = "4", Order = 3 },
-								new () { Name = "5", Value = "5", Order = 4 },
-								new () { Name = "6", Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						}
 					}
 				},

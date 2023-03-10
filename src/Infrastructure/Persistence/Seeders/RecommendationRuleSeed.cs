@@ -79,7 +79,7 @@ internal class RecommendationRuleSeed
 					RecommendationRule = new RecommendationRule
 					{
 						Type = RecommendationRuleType.Sum,
-						Operator = Operator.LessThan,
+						Operator = Operator.GreaterThan,
 						Value = "1",
 						Questions = new List<Question>
 						{

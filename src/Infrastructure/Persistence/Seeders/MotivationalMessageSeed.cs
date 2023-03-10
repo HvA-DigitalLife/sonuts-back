@@ -60,7 +60,7 @@ internal static class MotivationalMessageSeed
 			{
 				Message = "Tip:  Geef niet op. Jij kunt het ook!",
 				MinPercentage = 0,
-				MaxPercentage = 0
+				MaxPercentage = 50
 			});
 
 			context.MotivationalMessages.Add(new MotivationalMessage
