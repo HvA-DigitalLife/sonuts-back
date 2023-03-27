@@ -1,6 +1,7 @@
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Mappings;
@@ -40,10 +41,15 @@ public class GetQuestionnaireResponsesForParticipantQueryHandler : IRequestHandl
 
 	public async Task<IList<QuestionnaireResponseVm>> Handle(GetQuestionnaireResponsesForParticipantQuery request, CancellationToken cancellationToken)
 	{
-		return await _context.QuestionnaireResponses
+		var lastQuestionResponseIds = (await _context.QuestionnaireResponses
+				.Where(qr => qr.Participant.Id == request.ParticipantId)
+				.ToArrayAsync(cancellationToken))
 			.OrderByDescending(qr => qr.CreatedAt)
 			.DistinctBy(qr => qr.Questionnaire.Id)
-			.Where(questionnaireResponse => questionnaireResponse.Participant.Id.Equals(request.ParticipantId!.Value))
+			.Select(qr => qr.Id);
+
+		return await _context.QuestionnaireResponses
+			.Where(qr => lastQuestionResponseIds.Contains(qr.Id))
 			.ProjectToListAsync<QuestionnaireResponseVm>(_mapper.ConfigurationProvider, cancellationToken);
 	}
 }

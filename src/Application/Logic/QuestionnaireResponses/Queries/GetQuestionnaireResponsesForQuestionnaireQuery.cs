@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Sonuts.Application.Common.Exceptions;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Dtos;
+using Sonuts.Application.Logic.QuestionnaireResponses.Models;
+using Sonuts.Domain.Entities;
 
 namespace Sonuts.Application.Logic.QuestionnaireResponses.Queries;
 
@@ -38,14 +40,12 @@ public class GetQuestionnaireResponsesForQuestionnaireQueryHandler : IRequestHan
 	public async Task<QuestionnaireResponseDto> Handle(GetQuestionnaireResponsesForQuestionnaireQuery request, CancellationToken cancellationToken)
 	{
 		var questionnaireResponses = await _context.QuestionnaireResponses
-			                             .OrderByDescending(qr => qr.CreatedAt)
-			                             .DistinctBy(qr => qr.Questionnaire.Id)
 			                             .Include(questionnaireResponse => questionnaireResponse.Responses).ThenInclude(response => response.Question)
 			                             .OrderByDescending(questionnaireResponse => questionnaireResponse.CreatedAt)
-			                             .FirstOrDefaultAsync(questionnaireResponse => questionnaireResponse.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId))
-			                                                                           && questionnaireResponse.Questionnaire.Id.Equals(request.QuestionnaireId), cancellationToken)
+			                             .FirstOrDefaultAsync(questionnaireResponse => questionnaireResponse.Participant.Id == Guid.Parse(_currentUserService.AuthorizedUserId)
+			                                                                           && questionnaireResponse.Questionnaire.Id == request.QuestionnaireId, cancellationToken)
 		                             ?? throw new NotFoundException();
-
+		
 		return _mapper.Map<QuestionnaireResponseDto>(questionnaireResponses);
 	}
 }

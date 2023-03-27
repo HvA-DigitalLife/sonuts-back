@@ -27,7 +27,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 
 	public async Task<ICollection<CategoriesWithRecommendationsVm>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
 	{
-		var userId = _currentUserService.AuthorizedUserId;
+		var userId = new Guid(_currentUserService.AuthorizedUserId);
 
 		var categories = await _context.Categories
 			.Include(category => category.Themes).ThenInclude(theme => theme.Image)
@@ -75,19 +75,22 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 		return response;
 	}
 
-	private async Task<bool> IsRecommendedTheme(string userId, IEnumerable<RecommendationRule> rules, CancellationToken cancellationToken)
+	private async Task<bool> IsRecommendedTheme(Guid userId, IEnumerable<RecommendationRule> rules, CancellationToken cancellationToken)
 	{
 		var ruleArray = rules.ToArray();
 
 		if (!ruleArray.Any())
 			return false;
-		
-		var questionResponses = await _context.QuestionnaireResponses
+
+		var lastQuestionResponseIds = (await _context.QuestionnaireResponses
+			.Where(qr => qr.Participant.Id == userId)
+			.ToArrayAsync(cancellationToken))
 			.OrderByDescending(qr => qr.CreatedAt)
 			.DistinctBy(qr => qr.Questionnaire.Id)
-			.Where(qr => qr.Participant.Id == new Guid(userId))
-			.Include(qr => qr.Responses)
-			.SelectMany(qr => qr.Responses)
+			.Select(qr => qr.Id);
+
+		var questionResponses = await _context.QuestionResponses
+			.Where(qr => lastQuestionResponseIds.Contains(qr.QuestionnaireResponse.Id))
 			.ToArrayAsync(cancellationToken);
 
 		foreach (var rule in ruleArray)
