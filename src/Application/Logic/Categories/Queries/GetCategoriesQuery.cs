@@ -81,20 +81,17 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 
 		if (!ruleArray.Any())
 			return false;
+		
+		var questionResponses = await _context.QuestionnaireResponses
+			.OrderByDescending(qr => qr.CreatedAt)
+			.DistinctBy(qr => qr.Questionnaire.Id)
+			.Where(qr => qr.Participant.Id == new Guid(userId))
+			.Include(qr => qr.Responses)
+			.SelectMany(qr => qr.Responses)
+			.ToArrayAsync(cancellationToken);
 
 		foreach (var rule in ruleArray)
 		{
-			var questionResponses = await _context.QuestionResponses
-				.Where(questionResponse =>
-					questionResponse.QuestionnaireResponse.Participant.Id.Equals(new Guid(userId)) &&
-					rule.Questions
-						.Select(question => question.Id)
-						.Contains(questionResponse.Question.Id))
-				.ToListAsync(cancellationToken);
-
-			if (questionResponses.Count < rule.Questions.Count) //TODO: Check if this be done per operator if not all questions are required
-				return false;
-
 			switch (rule.Type)
 			{
 				case RecommendationRuleType.All:
