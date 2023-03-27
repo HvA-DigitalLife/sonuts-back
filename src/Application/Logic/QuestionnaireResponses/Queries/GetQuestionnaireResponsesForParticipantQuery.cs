@@ -41,6 +41,8 @@ public class GetQuestionnaireResponsesForParticipantQueryHandler : IRequestHandl
 	public async Task<IList<QuestionnaireResponseVm>> Handle(GetQuestionnaireResponsesForParticipantQuery request, CancellationToken cancellationToken)
 	{
 		return await _context.QuestionnaireResponses
+			.OrderByDescending(qr => qr.CreatedAt)
+			.DistinctBy(qr => qr.Questionnaire.Id)
 			.Where(questionnaireResponse => questionnaireResponse.Participant.Id.Equals(request.ParticipantId!.Value))
 			.ProjectToListAsync<QuestionnaireResponseVm>(_mapper.ConfigurationProvider, cancellationToken);
 	}
