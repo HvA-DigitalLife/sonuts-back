@@ -42,6 +42,7 @@ public class GetQuestionnaireResponsesForParticipantQueryHandler : IRequestHandl
 	public async Task<IList<QuestionnaireResponseVm>> Handle(GetQuestionnaireResponsesForParticipantQuery request, CancellationToken cancellationToken)
 	{
 		var lastQuestionResponseIds = (await _context.QuestionnaireResponses
+				.Include(qr => qr.Questionnaire)
 				.Where(qr => qr.Participant.Id == request.ParticipantId)
 				.ToArrayAsync(cancellationToken))
 			.OrderByDescending(qr => qr.CreatedAt)
