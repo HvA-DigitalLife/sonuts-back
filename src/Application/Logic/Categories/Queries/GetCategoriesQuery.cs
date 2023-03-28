@@ -102,29 +102,29 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					switch (rule.Operator)
 					{
 						case Operator.Equals:
-							if (!questionResponses.All(response => response.Answer.Equals(rule.Value))) return false;
+							if (questionResponses.Any(response => response.Answer != rule.Value)) return false;
 							break;
 						case Operator.NotEquals:
-							if (questionResponses.Any(response => response.Answer.Equals(rule.Value))) return false;
+							if (questionResponses.Any(response => response.Answer == rule.Value)) return false;
 							break;
 						case Operator.GreaterThan:
-							if (questionResponses.All(response => int.Parse(response.Answer) > int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) > int.Parse(rule.Value))) return false;
 							break;
 						case Operator.LessThan:
-							if (questionResponses.All(response => int.Parse(response.Answer) < int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) < int.Parse(rule.Value))) return false;
 							break;
 						case Operator.GreaterOrEquals:
-							if (questionResponses.All(response => int.Parse(response.Answer) >= int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) >= int.Parse(rule.Value))) return false;
 							break;
 						case Operator.LessOrEquals:
-							if (questionResponses.All(response => int.Parse(response.Answer) <= int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) <= int.Parse(rule.Value))) return false;
 							break;
 						default:
 							return false;
 					}
 					break;
 				case RecommendationRuleType.Sum:
-					var sum = questionResponses.Sum(response => int.Parse(response.Answer));
+					var sum = questionResponses.Sum(response => int.TryParse(response.Answer, out var answer) ? answer : 0);
 					var value = int.Parse(rule.Value);
 					switch (rule.Operator)
 					{
