@@ -83,6 +83,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 			return false;
 
 		var lastQuestionResponseIds = (await _context.QuestionnaireResponses
+			.Include(qr => qr.Questionnaire)
 			.Where(qr => qr.Participant.Id == userId)
 			.ToArrayAsync(cancellationToken))
 			.OrderByDescending(qr => qr.CreatedAt)
