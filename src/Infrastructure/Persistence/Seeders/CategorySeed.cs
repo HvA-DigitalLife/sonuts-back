@@ -388,7 +388,7 @@ internal static class CategorySeed
 							Type = QuestionType.Integer,
 							Text = "Hoeveel porties magere vis eet u gemiddeld op zo’n dag?",
 							Order = 28,
-							Min = 1,
+							Min = 0,
 							Max = 6
 						},
 						new() // 9C
@@ -407,7 +407,7 @@ internal static class CategorySeed
 							Type = QuestionType.Integer,
 							Text = "Hoeveel porties vette vis eet u gemiddeld op zo’n dag?",
 							Order = 30,
-							Min = 1,
+							Min = 0,
 							Max = 6
 						},
 						new() // 10A

@@ -82,6 +82,8 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 		if (!ruleArray.Any())
 			return false;
 
+		var ruleQuestionIds = ruleArray.SelectMany(ra => ra.Questions.Select(q => q.Id));
+
 		var lastQuestionResponseIds = (await _context.QuestionnaireResponses
 			.Include(qr => qr.Questionnaire)
 			.Where(qr => qr.Participant.Id == userId)
@@ -91,7 +93,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 			.Select(qr => qr.Id);
 
 		var questionResponses = await _context.QuestionResponses
-			.Where(qr => lastQuestionResponseIds.Contains(qr.QuestionnaireResponse.Id))
+			.Where(qr => lastQuestionResponseIds.Contains(qr.QuestionnaireResponse.Id) && ruleQuestionIds.Contains(qr.Question.Id))
 			.ToArrayAsync(cancellationToken);
 
 		foreach (var rule in ruleArray)

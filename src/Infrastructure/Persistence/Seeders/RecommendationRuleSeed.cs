@@ -30,7 +30,7 @@ internal class RecommendationRuleSeed
 				},
 				new()
 				{
-					ThemeId = new Guid("7e1e494e-4dad-4c0f-b448-128552f7869f"), // Peulvruchten
+					ThemeId = new Guid("8452671a-fa49-4aa7-aed4-cad36bea9553"), // Peulvruchten
 					RecommendationRule = new RecommendationRule
 					{
 						Type = RecommendationRuleType.Sum,
