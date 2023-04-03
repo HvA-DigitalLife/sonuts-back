@@ -21,7 +21,7 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
 	{
 		var requestName = typeof(TRequest).Name;
 		var userId = _currentUserService.UserId ?? string.Empty;
-		var userName = string.IsNullOrEmpty(userId) ? string.Empty : await _identityService.GetUserNameAsync(userId);
+		var userName = string.IsNullOrEmpty(userId) ? string.Empty : await _identityService.GetUserNameAsync(userId) ?? string.Empty;
 
 		if (_logger.IsEnabled(LogLevel.Information))
 			_logger.LogInformation("Sonuts request: {RequestName} {@UserId} {@UserName} {@Request}",

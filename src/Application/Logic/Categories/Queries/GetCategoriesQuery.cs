@@ -153,7 +153,37 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.Any:
-					return false; //TODO
+					//TODO: Fix 'Any' rule combined with other rules returning true before others have been checked
+					switch (rule.Operator)
+					{
+						case Operator.Equals:
+							if (questionResponses.Any(response => response.Answer == rule.Value))
+								return true;
+							break;
+						case Operator.NotEquals:
+							if (questionResponses.Any(response => response.Answer != rule.Value))
+								return true;
+							break;
+						case Operator.GreaterThan:
+							if (questionResponses.Any(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) > int.Parse(rule.Value)))
+								return true;
+							break;
+						case Operator.LessThan:
+							if (questionResponses.Any(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) < int.Parse(rule.Value)))
+								return true;
+							break;
+						case Operator.GreaterOrEquals:
+							if (questionResponses.Any(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) >= int.Parse(rule.Value)))
+								return true;
+							break;
+						case Operator.LessOrEquals:
+							if (questionResponses.Any(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) <= int.Parse(rule.Value)))
+								return true;
+							break;
+						default:
+							return false;
+					}
+					break;
 				default:
 					return false;
 			}

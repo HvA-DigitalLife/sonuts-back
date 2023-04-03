@@ -27,18 +27,18 @@ public class IdentityService : IIdentityService
 		_context = context;
 	}
 
-	public async Task<string> GetIdAsync(string userName)
+	public async Task<string?> GetIdAsync(string userName)
 	{
-		var user = await _userManager.Users.FirstAsync(u => u.NormalizedUserName == userName.ToUpper());
+		var user = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedUserName == userName.ToUpper());
 
-		return user.Id;
+		return user?.Id;
 	}
 
-	public async Task<string> GetUserNameAsync(string userId)
+	public async Task<string?> GetUserNameAsync(string userId)
 	{
-		var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+		var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-		return user.UserName!;
+		return user?.UserName;
 	}
 
 	public async Task<IList<string>> GetRolesAsync(string userId)
