@@ -98,6 +98,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 
 		foreach (var rule in ruleArray)
 		{
+			int value;
 			switch (rule.Type)
 			{
 				case RecommendationRuleType.All:
@@ -127,7 +128,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					break;
 				case RecommendationRuleType.Sum:
 					var sum = questionResponses.Sum(response => int.TryParse(response.Answer, out var answer) ? answer : 0);
-					var value = int.Parse(rule.Value);
+					value = int.Parse(rule.Value);
 					switch (rule.Operator)
 					{
 						case Operator.Equals:
@@ -147,6 +148,39 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 							break;
 						case Operator.LessOrEquals:
 							if (sum > value) return false;
+							break;
+						default:
+							return false;
+					}
+					break;
+				case RecommendationRuleType.Product:
+					var product = questionResponses.Aggregate(0, (current, next) => current * (int.TryParse(next.Answer, out var answer) ? answer : 0));
+					value = int.Parse(rule.Value);
+					switch (rule.Operator)
+					{
+						case Operator.Equals:
+							if (product != value)
+								return false;
+							break;
+						case Operator.NotEquals:
+							if (product == value)
+								return false;
+							break;
+						case Operator.GreaterThan:
+							if (product <= value)
+								return false;
+							break;
+						case Operator.LessThan:
+							if (product >= value)
+								return false;
+							break;
+						case Operator.GreaterOrEquals:
+							if (product < value)
+								return false;
+							break;
+						case Operator.LessOrEquals:
+							if (product > value)
+								return false;
 							break;
 						default:
 							return false;
