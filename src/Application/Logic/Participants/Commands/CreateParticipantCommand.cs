@@ -25,11 +25,12 @@ public record CreateParticipantCommand : IRequest<ParticipantDto>
 
 public class CreateParticipantCommandValidator : AbstractValidator<CreateParticipantCommand>
 {
-	public CreateParticipantCommandValidator()
+	public CreateParticipantCommandValidator(IIdentityService identityService)
 	{
 		RuleFor(query => query.Email)
 			.NotNull()
-			.EmailAddress();
+			.EmailAddress()
+			.MustAsync(async (email, _) => await identityService.GetIdAsync(email) == null).WithMessage("Email is already in use.");
 
 		RuleFor(query => query.Password)
 			.NotEmpty()
@@ -77,7 +78,7 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 			MaritalStatus = request.MaritalStatus,
 			IsActive = true
 		};
-		
+
 		_context.Participants.Add(entity);
 
 		await _context.SaveChangesAsync(cancellationToken);

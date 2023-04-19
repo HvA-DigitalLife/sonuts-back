@@ -17,7 +17,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 	private readonly ICurrentUserService _currentUserService;
 	private readonly IApplicationDbContext _context;
 	private readonly IMapper _mapper;
-	
+
 	public GetCategoriesQueryHandler(ICurrentUserService currentUserService, IApplicationDbContext context, IMapper mapper)
 	{
 		_currentUserService = currentUserService;
@@ -82,7 +82,8 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 		if (!ruleArray.Any())
 			return false;
 
-		var ruleQuestionIds = ruleArray.SelectMany(ra => ra.Questions.Select(q => q.Id));
+		var ruleQuestionIds = ruleArray
+			.SelectMany(ra => ra.Questions.Select(q => q.Id));
 
 		var lastQuestionResponseIds = (await _context.QuestionnaireResponses
 			.Include(qr => qr.Questionnaire)
@@ -105,22 +106,28 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					switch (rule.Operator)
 					{
 						case Operator.Equals:
-							if (questionResponses.Any(response => response.Answer != rule.Value)) return false;
+							if (questionResponses.Any(response => response.Answer != rule.Value))
+								return false;
 							break;
 						case Operator.NotEquals:
-							if (questionResponses.Any(response => response.Answer == rule.Value)) return false;
+							if (questionResponses.Any(response => response.Answer == rule.Value))
+								return false;
 							break;
 						case Operator.GreaterThan:
-							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) > int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) > int.Parse(rule.Value)))
+								return false;
 							break;
 						case Operator.LessThan:
-							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) < int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) < int.Parse(rule.Value)))
+								return false;
 							break;
 						case Operator.GreaterOrEquals:
-							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) >= int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) >= int.Parse(rule.Value)))
+								return false;
 							break;
 						case Operator.LessOrEquals:
-							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) <= int.Parse(rule.Value))) return false;
+							if (questionResponses.All(response => (int.TryParse(response.Answer, out var answer) ? answer : 0) <= int.Parse(rule.Value)))
+								return false;
 							break;
 						default:
 							return false;
@@ -132,22 +139,28 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					switch (rule.Operator)
 					{
 						case Operator.Equals:
-							if (sum != value) return false;
+							if (sum != value)
+								return false;
 							break;
 						case Operator.NotEquals:
-							if (sum == value) return false;
+							if (sum == value)
+								return false;
 							break;
 						case Operator.GreaterThan:
-							if (sum <= value) return false;
+							if (sum <= value)
+								return false;
 							break;
 						case Operator.LessThan:
-							if (sum >= value) return false;
+							if (sum >= value)
+								return false;
 							break;
 						case Operator.GreaterOrEquals:
-							if (sum < value) return false;
+							if (sum < value)
+								return false;
 							break;
 						case Operator.LessOrEquals:
-							if (sum > value) return false;
+							if (sum > value)
+								return false;
 							break;
 						default:
 							return false;
