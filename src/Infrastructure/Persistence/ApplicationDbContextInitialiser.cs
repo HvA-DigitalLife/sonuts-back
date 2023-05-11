@@ -14,9 +14,9 @@ public class ApplicationDbContextInitialiser
 	private readonly RoleManager<IdentityRole> _roleManager;
 
 	public ApplicationDbContextInitialiser(
-		ILogger<ApplicationDbContextInitialiser> logger, 
-		ApplicationDbContext context, 
-		UserManager<User> userManager, 
+		ILogger<ApplicationDbContextInitialiser> logger,
+		ApplicationDbContext context,
+		UserManager<User> userManager,
 		RoleManager<IdentityRole> roleManager)
 	{
 		_logger = logger;
@@ -58,9 +58,9 @@ public class ApplicationDbContextInitialiser
 	{
 		await UserSeed.Seed(_userManager, _roleManager, _context);
 		await ClientSeed.Seed(_context);
-		await ContentSeed.Seed(_context);
-		await CategorySeed.Seed(_context /*, _fhirOptions, _categoryDao, _questionnaireDao, _themeDao*/);
-		await MotivationalMessageSeed.Seed(_context);
-		await RecommendationRuleSeed.Seed(_context);
+		//await ContentSeed.Seed(_context);
+		//await CategorySeed.Seed(_context /*, _fhirOptions, _categoryDao, _questionnaireDao, _themeDao*/);
+		//await MotivationalMessageSeed.Seed(_context);
+		//await RecommendationRuleSeed.Seed(_context);
 	}
 }
