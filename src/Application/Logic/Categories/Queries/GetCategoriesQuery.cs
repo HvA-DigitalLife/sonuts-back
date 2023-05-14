@@ -167,7 +167,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.Product:
-					var product = questionResponses.Aggregate(0, (current, next) => current * (int.TryParse(next.Answer, out var answer) ? answer : 0));
+					var product = questionResponses.Aggregate(0, (current, next) => current * (int.TryParse(next.Answer, out var answer) ? answer : 1));
 					value = int.Parse(rule.Value);
 					switch (rule.Operator)
 					{

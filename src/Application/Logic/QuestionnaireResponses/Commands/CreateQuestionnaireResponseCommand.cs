@@ -56,15 +56,17 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 				.MustAsync((response, _, _) => IsValidAnswerAsync(response))
 				.WithMessage("'{PropertyValue}' is not a valid answer");
 		});
-
 	}
 
 	private async Task<bool> IsValidAnswerAsync(CreateQuestionResponse response)
 	{
 		var question = await _context.Questions
-			               .Include(question => question.AnswerOptions)
-			               .FirstOrDefaultAsync(question => question.Id.Equals(response.QuestionId!.Value)) ??
-		               throw new NotFoundException(nameof(Question), response.QuestionId!.Value);
+						   .Include(question => question.AnswerOptions)
+						   .FirstOrDefaultAsync(question => question.Id.Equals(response.QuestionId!.Value)) ??
+					   throw new NotFoundException(nameof(Question), response.QuestionId!.Value);
+
+		if (string.IsNullOrWhiteSpace(response.Answer) && !question.IsRequired)
+			return true;
 
 		return question.Type switch
 		{
@@ -131,18 +133,18 @@ internal class CreateQuestionnaireResponseCommandHandler : IRequestHandler<Creat
 		var entity = new QuestionnaireResponse
 		{
 			Questionnaire = await _context.Questionnaires.FirstOrDefaultAsync(questionnaire => questionnaire.Id.Equals(request.QuestionnaireId!.Value), cancellationToken)
-			                ?? throw new NotFoundException(nameof(Questionnaire), request.QuestionnaireId!),
+							?? throw new NotFoundException(nameof(Questionnaire), request.QuestionnaireId!),
 			Participant = (await _context.Participants.FirstOrDefaultAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken))!,
 			Responses = request.Responses.Select(response => new QuestionResponse
 			{
 				Question = _context.Questions.FirstOrDefault(question => question.Id.Equals(response.QuestionId))
-				           ?? throw new NotFoundException(nameof(Question), response.QuestionId!),
+						   ?? throw new NotFoundException(nameof(Question), response.QuestionId!),
 				Answer = response.Answer!
 			}).ToList()
 		};
 
 		_context.QuestionnaireResponses.Add(entity);
-		
+
 		await _context.SaveChangesAsync(cancellationToken);
 
 		return _mapper.Map<QuestionnaireResponseDto>(entity);
