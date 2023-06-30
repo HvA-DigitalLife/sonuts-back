@@ -253,14 +253,14 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					if (questionResponses.Any())
 					{
 						//Deze gaat mis als niet alle vragen hiervoor zijn ingevuld!!
-						//var portionsChocolate = (int.TryParse(questionResponses[7].Answer, out var answerAverageDaysChocolate) ? answerAverageDaysChocolate : 0) * (int.TryParse(questionResponses[4].Answer, out var answerPortionsChocolate) ? answerPortionsChocolate : 0);
-						//var portionsSweets = (int.TryParse(questionResponses[2].Answer, out var answerAverageDaysSweets) ? answerAverageDaysSweets : 0) * (int.TryParse(questionResponses[6].Answer, out var answerPortionsSweets) ? answerPortionsSweets : 0);
-						//var portionsBiscuits = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysBiscuits) ? answerAverageDaysBiscuits : 0) * (int.TryParse(questionResponses[8].Answer, out var answerPortionsBiscuits) ? answerPortionsBiscuits : 0);
-						//var portionsSnacks = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysSnacks) ? answerAverageDaysSnacks : 0) * (int.TryParse(questionResponses[0].Answer, out var answerPortionsSnacks) ? answerPortionsSnacks : 0);
-						//var totalPortionsCandyPerWeek = portionsChocolate + portionsSweets + portionsBiscuits + portionsSnacks;
+						var portionsChocolate = (int.TryParse(questionResponses[7].Answer, out var answerAverageDaysChocolate) ? answerAverageDaysChocolate : 0) * (int.TryParse(questionResponses[4].Answer, out var answerPortionsChocolate) ? answerPortionsChocolate : 0);
+						var portionsSweets = (int.TryParse(questionResponses[2].Answer, out var answerAverageDaysSweets) ? answerAverageDaysSweets : 0) * (int.TryParse(questionResponses[6].Answer, out var answerPortionsSweets) ? answerPortionsSweets : 0);
+						var portionsBiscuits = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysBiscuits) ? answerAverageDaysBiscuits : 0) * (int.TryParse(questionResponses[8].Answer, out var answerPortionsBiscuits) ? answerPortionsBiscuits : 0);
+						var portionsSnacks = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysSnacks) ? answerAverageDaysSnacks : 0) * (int.TryParse(questionResponses[0].Answer, out var answerPortionsSnacks) ? answerPortionsSnacks : 0);
+						var totalPortionsCandyPerWeek = portionsChocolate + portionsSweets + portionsBiscuits + portionsSnacks;
 						//The recommendation is to eat no more than 3 snacks each week.
-						//if (totalPortionsCandyPerWeek < 4)
-							//return false;
+						if (totalPortionsCandyPerWeek < 4)
+							return false;
 					}
 					break;
 				case RecommendationRuleType.Any:
