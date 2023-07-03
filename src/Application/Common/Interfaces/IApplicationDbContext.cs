@@ -51,6 +51,8 @@ public interface IApplicationDbContext
 
 	DbSet<Theme> Themes { get; }
 
+	DbSet<TinyHabit> TinyHabit { get; }
+
 	DbSet<Video> Videos { get; }
 
 	Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

@@ -71,6 +71,8 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
 
 	public DbSet<Theme> Themes => Set<Theme>();
 
+	public DbSet<TinyHabit> TinyHabit => Set<TinyHabit>();
+
 	public DbSet<Video> Videos => Set<Video>();
 
 	protected override void OnModelCreating(ModelBuilder builder)

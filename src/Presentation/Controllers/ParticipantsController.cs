@@ -6,6 +6,7 @@ using Sonuts.Application.Logic.Participants.Commands;
 using Sonuts.Application.Logic.Participants.Queries;
 using Sonuts.Application.Logic.QuestionnaireResponses.Models;
 using Sonuts.Application.Logic.QuestionnaireResponses.Queries;
+using Sonuts.Application.Logic.TinyHabits.Queries;
 
 namespace Sonuts.Presentation.Controllers;
 
@@ -65,6 +66,20 @@ public class ParticipantsController : ApiControllerBase
 	public async Task<ActionResult<CarePlanDto>> GetCurrentCarePlan(Guid participantId, CancellationToken cancellationToken)
 	{
 		return Ok(await Mediator.Send(new GetCurrentCarePlanQuery
+		{
+			ParticipantId = participantId
+		}, cancellationToken));
+	}
+
+	/// <summary>
+	/// Get all tiny habits for the participant
+	/// </summary>
+	/// <returns></returns>
+	[Authorize(Roles = "Participant")]
+	[HttpGet("{participantId:guid}/TinyHabits")]
+	public async Task<ActionResult<IList<TinyHabitDto>>> GetTinyHabitsOverview(Guid participantId, CancellationToken cancellationToken)
+	{
+		return Ok(await Mediator.Send(new GetTinyHabitsOverviewForParticipantQuery
 		{
 			ParticipantId = participantId
 		}, cancellationToken));
