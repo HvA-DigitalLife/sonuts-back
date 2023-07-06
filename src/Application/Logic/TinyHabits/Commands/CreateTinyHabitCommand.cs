@@ -54,10 +54,10 @@ public class CreateTinyHabitCommandHandler : IRequestHandler<CreateTinyHabitComm
 	{
 		var entity = new TinyHabit
 		{
-			CreatedAt = (DateOnly) request.CreatedAt,
-			Participant = request.Participant,
-			Category = request.Category,
-			TinyHabitText = request.TinyHabitText
+			CreatedAt = request?.CreatedAt,
+			Participant = request?.Participant,
+			Category = request?.Category,
+			TinyHabitText = request?.TinyHabitText
 		};
 
 		_context.TinyHabit.Add(entity);
