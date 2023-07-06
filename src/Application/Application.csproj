@@ -19,4 +19,14 @@
         <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Logic\TinyHabits\" />
+      <None Remove="Logic\TinyHabits\Commands\" />
+      <None Remove="Logic\TinyHabits\Queries\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Logic\TinyHabits\" />
+      <Folder Include="Logic\TinyHabits\Commands\" />
+      <Folder Include="Logic\TinyHabits\Queries\" />
+    </ItemGroup>
 </Project>
