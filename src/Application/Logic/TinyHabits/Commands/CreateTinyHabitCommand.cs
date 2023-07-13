@@ -15,8 +15,7 @@ namespace Sonuts.Application.Logic.TinyHabits.Commands
 	public record CreateTinyHabitCommand : IRequest<TinyHabitDto>
 	{
 		public DateOnly? CreatedAt { get; init; } = DateOnly.FromDateTime(DateTime.Now);
-		public required Participant? Participant { get; set; }
-		public required Category? Category { get; set; }
+		public required Guid? ParticipantId { get; set; }
 		public required string? TinyHabitText { get; set; }
 	}
 }
@@ -28,11 +27,8 @@ public class CreateTinyHabitCommandValidator : AbstractValidator<CreateTinyHabit
 		RuleFor(query => query.CreatedAt)
 			.NotNull();
 
-		RuleFor(query => query.Participant)
+		RuleFor(query => query.ParticipantId)
 			.NotNull();
-
-		RuleFor(query => query.Category)
-			.NotEmpty();
 
 		RuleFor(query => query.TinyHabitText)
 			.NotEmpty();
@@ -55,8 +51,7 @@ public class CreateTinyHabitCommandHandler : IRequestHandler<CreateTinyHabitComm
 		var entity = new TinyHabit
 		{
 			CreatedAt = request?.CreatedAt,
-			Participant = request?.Participant,
-			Category = request?.Category,
+			ParticipantId = request?.ParticipantId,
 			TinyHabitText = request?.TinyHabitText
 		};
 
