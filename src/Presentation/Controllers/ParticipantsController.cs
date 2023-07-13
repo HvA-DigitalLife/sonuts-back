@@ -6,6 +6,7 @@ using Sonuts.Application.Logic.Participants.Commands;
 using Sonuts.Application.Logic.Participants.Queries;
 using Sonuts.Application.Logic.QuestionnaireResponses.Models;
 using Sonuts.Application.Logic.QuestionnaireResponses.Queries;
+using Sonuts.Application.Logic.TinyHabits.Commands;
 using Sonuts.Application.Logic.TinyHabits.Queries;
 
 namespace Sonuts.Presentation.Controllers;
@@ -83,6 +84,16 @@ public class ParticipantsController : ApiControllerBase
 		{
 			ParticipantId = participantId
 		}, cancellationToken));
+	}
+
+	/// <summary>
+	/// Create tiny habit for a participant
+	/// </summary>
+	[Authorize(Roles = "Participant")]
+	[HttpPost("TinyHabit")]
+	public async Task<ActionResult<TinyHabitDto>> CreateTinyHabit(CreateTinyHabitCommand command, CancellationToken cancellationToken)
+	{
+		return Ok(await Mediator.Send(command, cancellationToken));
 	}
 
 	/// <summary>

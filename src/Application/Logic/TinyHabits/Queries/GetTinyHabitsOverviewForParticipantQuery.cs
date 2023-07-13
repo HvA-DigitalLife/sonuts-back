@@ -31,7 +31,7 @@ public GetTinyHabitsOverviewForParticipantQueryHandler(ICurrentUserService curre
 public async Task<IEnumerable<TinyHabitRecord>> Handle(GetTinyHabitsOverviewForParticipantQuery request, CancellationToken cancellationToken)
 {
 	return await _context.TinyHabit
-		.Where(th => th.Participant.Id == request.ParticipantId)
+		.Where(th => th.ParticipantId == request.ParticipantId)
 		.ProjectToListAsync<TinyHabitRecord>(_mapper.ConfigurationProvider, cancellationToken);
 }
 }
@@ -40,7 +40,6 @@ public class TinyHabitRecord : IMapFrom<TinyHabit>
 {
 public Guid Id { get; set; }
 public DateOnly CreatedAt { get; set; }
-public required Participant Participant { get; set; }
-public required Category Category { get; set; }
+public required Guid ParticipantId { get; set; }
 public required string TinyHabitText { get; set; }
 }
