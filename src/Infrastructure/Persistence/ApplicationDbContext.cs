@@ -14,6 +14,10 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
 	private readonly IMediator _mediator;
 	private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
 
+	public ApplicationDbContext (
+		DbContextOptions<ApplicationDbContext> options) : base(options)
+	{ }
+
 	public ApplicationDbContext(
 		DbContextOptions<ApplicationDbContext> options,
 		IMediator mediator,
