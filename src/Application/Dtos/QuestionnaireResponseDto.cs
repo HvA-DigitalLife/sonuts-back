@@ -6,8 +6,8 @@ namespace Sonuts.Application.Dtos;
 public class QuestionnaireResponseDto : IMapFrom<QuestionnaireResponse>
 {
 	public Guid Id { get; set; }
-	public DateTime CreatedAt { get; set; }
-	public QuestionnaireDto Questionnaire { get; set; } = default!;
-	public ParticipantDto Participant { get; set; } = default!;
+	public DateOnly CreatedAt { get; set; }
+	public required QuestionnaireDto Questionnaire { get; set; }
+	public required ParticipantDto Participant { get; set; }
 	public ICollection<QuestionResponseDto> Responses { get; set; } = new List<QuestionResponseDto>();
 }

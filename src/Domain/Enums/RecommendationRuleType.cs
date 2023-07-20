@@ -3,6 +3,12 @@ namespace Sonuts.Domain.Enums;
 public enum RecommendationRuleType
 {
 	All,
-	Any,
-	Sum
+	Product,
+	Sum,
+	SumOfProductsCereal,
+	SumOfProductsDairy,
+	SumOfProductsMeat,
+	SumOfProductsFish,
+	SumOfProductsCandy,
+	Any
 }

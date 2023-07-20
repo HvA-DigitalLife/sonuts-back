@@ -2,6 +2,6 @@ namespace Sonuts.Domain.Entities;
 
 public class Image : BaseEntity
 {
-	public string Extension { get; set; } = default!;
+	public required string Extension { get; set; }
 	public string? Name { get; set; }
 }

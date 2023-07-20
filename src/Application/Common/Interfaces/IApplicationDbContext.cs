@@ -17,7 +17,7 @@ public interface IApplicationDbContext
 
 	DbSet<Coach> Coaches { get; }
 
-	DbSet<Domain.Entities.Content> Content { get; }
+	DbSet<Content> Content { get; }
 
 	DbSet<Execution> Executions { get; }
 
@@ -26,6 +26,8 @@ public interface IApplicationDbContext
 	DbSet<Goal> Goals { get; }
 
 	DbSet<Image> Images { get; }
+
+	DbSet<MotivationalMessage> MotivationalMessages { get; }
 
 	DbSet<Participant> Participants { get; }
 
@@ -48,6 +50,8 @@ public interface IApplicationDbContext
 	DbSet<RefreshToken> RefreshTokens { get; }
 
 	DbSet<Theme> Themes { get; }
+
+	DbSet<TinyHabit> TinyHabit { get; }
 
 	DbSet<Video> Videos { get; }
 

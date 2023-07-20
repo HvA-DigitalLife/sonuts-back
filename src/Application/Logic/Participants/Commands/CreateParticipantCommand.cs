@@ -5,6 +5,7 @@ using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Common.Models;
 using Sonuts.Application.Dtos;
 using Sonuts.Domain.Entities;
+using Sonuts.Domain.Enums;
 using ValidationException = Sonuts.Application.Common.Exceptions.ValidationException;
 
 namespace Sonuts.Application.Logic.Participants.Commands;
@@ -24,11 +25,12 @@ public record CreateParticipantCommand : IRequest<ParticipantDto>
 
 public class CreateParticipantCommandValidator : AbstractValidator<CreateParticipantCommand>
 {
-	public CreateParticipantCommandValidator()
+	public CreateParticipantCommandValidator(IIdentityService identityService)
 	{
 		RuleFor(query => query.Email)
 			.NotNull()
-			.EmailAddress();
+			.EmailAddress()
+			.MustAsync(async (email, _) => await identityService.GetIdAsync(email) == null).WithMessage("Email is already in use.");
 
 		RuleFor(query => query.Password)
 			.NotEmpty()
@@ -62,6 +64,8 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 		if (!result.Succeeded)
 			throw new ValidationException();
 
+		await _identityService.AddToRole(userId, Role.Participant.ToString());
+
 		var entity = new Participant
 		{
 			Id = Guid.Parse(userId),
@@ -75,9 +79,7 @@ public class CreateParticipantCommandHandler : IRequestHandler<CreateParticipant
 			IsActive = true
 		};
 
-		// ReSharper disable once MethodSupportsCancellation
-		// Do not stop creating participant when user is already created
-		await _context.Participants.AddAsync(entity);
+		_context.Participants.Add(entity);
 
 		await _context.SaveChangesAsync(cancellationToken);
 

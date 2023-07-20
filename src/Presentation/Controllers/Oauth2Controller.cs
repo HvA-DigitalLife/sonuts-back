@@ -8,9 +8,9 @@ namespace Sonuts.Presentation.Controllers;
 public class Oauth2Controller : ApiControllerBase
 {
 	[AllowAnonymous]
-	[HttpPost("/oauth2/token")]
-	public async Task<ActionResult<TokenVm>> CreateToken(CreateTokenCommand command)
+	[HttpPost("/OAuth2/Token")]
+	public async Task<ActionResult<TokenVm>> CreateToken(CreateTokenCommand command, CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(command));
+		return Ok(await Mediator.Send(command, cancellationToken));
 	}
 }

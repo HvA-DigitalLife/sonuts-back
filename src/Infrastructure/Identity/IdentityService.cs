@@ -27,18 +27,18 @@ public class IdentityService : IIdentityService
 		_context = context;
 	}
 
-	public async Task<string> GetIdAsync(string userName)
+	public async Task<string?> GetIdAsync(string userName)
 	{
-		var user = await _userManager.Users.FirstAsync(u => u.NormalizedUserName == userName.ToUpper());
+		var user = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedUserName == userName.ToUpper());
 
-		return user.Id;
+		return user?.Id;
 	}
 
-	public async Task<string> GetUserNameAsync(string userId)
+	public async Task<string?> GetUserNameAsync(string userId)
 	{
-		var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+		var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-		return user.UserName;
+		return user?.UserName;
 	}
 
 	public async Task<IList<string>> GetRolesAsync(string userId)
@@ -90,7 +90,7 @@ public class IdentityService : IIdentityService
 	{
 		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-		if (user == null)
+		if (user is null)
 		{
 			return false;
 		}
@@ -130,6 +130,6 @@ public class IdentityService : IIdentityService
 			.Include(rt => rt.Client)
 			.FirstOrDefaultAsync(rt => rt.Token.Equals(token));
 
-		return refreshToken is not null && refreshToken.User.NormalizedUserName.Equals(username.ToUpper()) && refreshToken.Client.Id.Equals(clientId);
+		return refreshToken is not null && refreshToken.User.NormalizedUserName!.Equals(username.ToUpper()) && refreshToken.Client.Id.Equals(clientId);
 	}
 }

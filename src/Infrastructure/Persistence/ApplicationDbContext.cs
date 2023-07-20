@@ -46,7 +46,9 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
 	public DbSet<Goal> Goals => Set<Goal>();
 
 	public DbSet<Image> Images => Set<Image>();
-	
+
+	public DbSet<MotivationalMessage> MotivationalMessages => Set<MotivationalMessage>();
+
 	public DbSet<Participant> Participants => Set<Participant>();
 
 	public DbSet<Question> Questions => Set<Question>();
@@ -68,6 +70,8 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
 	public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
 	public DbSet<Theme> Themes => Set<Theme>();
+
+	public DbSet<TinyHabit> TinyHabit => Set<TinyHabit>();
 
 	public DbSet<Video> Videos => Set<Video>();
 

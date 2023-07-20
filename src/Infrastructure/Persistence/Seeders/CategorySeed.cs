@@ -1,9 +1,7 @@
 using Sonuts.Application.Common.Interfaces;
-using Sonuts.Application.Common.Interfaces.Fhir;
 using Sonuts.Domain.Entities;
 using Sonuts.Domain.Enums;
 
-// ReSharper disable StringLiteralTypo
 namespace Sonuts.Infrastructure.Persistence.Seeders;
 
 internal static class CategorySeed
@@ -12,7 +10,7 @@ internal static class CategorySeed
 	private static readonly Guid VoedingId = new("a5997737-7f28-4f5f-92fc-6054023b1248");
 	private static readonly Guid BewegenId = new("33c34b68-0925-4af4-a612-11503c87208f");
 
-	internal static async Task Seed(IApplicationDbContext context, IFhirOptions fhirOptions, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao)
+	internal static async Task Seed(IApplicationDbContext context /*, IFhirOptions fhirOptions, ICategoryDao categoryDao, IQuestionnaireDao questionnaireDao, IThemeDao themeDao*/)
 	{
 		List<Category> categories = new();
 
@@ -31,135 +29,39 @@ internal static class CategorySeed
 					{
 						new()
 						{
-							Type = QuestionType.Integer,
-							Text = "Wat is uw leeftijd?",
-							Order = 0,
-						},
-						new()
-						{
 							Type = QuestionType.Choice,
 							Text = "Wat is uw geslacht?",
-							Order = 1,
+							Order = 0,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Man", Order = 0 },
-								new() { Value = "Vrouw", Order = 1 },
-								new() { Value = "Anders", Order = 2 }
-							}
-						},
-						new()
-						{
-							Type = QuestionType.String,
-							Text = "In welk land ben u zelf geboren?",
-							Order = 2
-						},
-						new()
-						{
-							Type = QuestionType.String,
-							Text = "In welk land is uw moeder geboren?",
-							Order = 3
-						},
-						new()
-						{
-							Type = QuestionType.String,
-							Text = "In welk land is uw vader geboren?",
-							Order = 4
-						},
-						new()
-						{
-							Type = QuestionType.OpenChoice,
-							Text = "Welke van onderstaande beschrijvingen past het beste bij uw situatie?",
-							Description = "(Zet een kruisje in het vakje dat het best bij u past)",
-							Order = 5,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new() { Value = "Alleenstaand", Order = 0 },
-								new() { Value = "Getrouwd", Order = 1 },
-								new() { Value = "Samenwonend", Order = 2 },
-								new() { Value = "Apart wonend", Order = 3 },
-								new() { Value = "Weduwnaar", Order = 4 },
-								new() { Value = "Gescheiden", Order = 5 }
-							},
-							OpenAnswerLabel = "Anders, namelijk"
-						},
-						new()
-						{
-							Type = QuestionType.Boolean,
-							Text = "Heeft u kinderen?",
-							Order = 6
-						},
-						new()
-						{
-							Type = QuestionType.OpenChoice,
-							Text = "Wat is de hoogste opleiding die u heeft afgerond?",
-							Order = 7,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new() { Value = "Geen opleiding afgemaakt", Order = 0 },
-								new() { Value = "Basisschool of lager beroepsonderwijs (LEAO, LTS)", Order = 1 },
-								new() { Value = "Voorbereidend Middelbaar Beroepsonderwijs (VMBO); middelbaar algemeen voortgezet onderwijs (MAVO/MULO)", Order = 3 },
-								new() { Value = "Middelbaar beroepsonderwijs (MBO / MTS / MEAO); hoger algemeen voortgezet onderwijs (HAVO); voorbereidend wetenschappelijk onderwijs(VWO)", Order = 4 },
-								new() { Value = "Hoger beroepsonderwijs (bijvoorbeeld HBO / HEAO / PABO)", Order = 5 },
-								new() { Value = "Wetenschappelijk onderwijs / universiteit", Order = 6 }
-							},
-							OpenAnswerLabel = "Anders, namelijk"
-						},
-						new()
-						{
-							Id = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
-							Type = QuestionType.MultiOpenChoice,
-							Text = "Wat is uw arbeidspositie?",
-							Description = "Meerdere antwoorden mogelijk",
-							Order = 8,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new() { Value = "(Vrijwilligers) werk - voltijds", Order = 0 },
-								new() { Value = "(Vrijwilligers) werk - deeltijds", Order = 1 },
-								new() { Value = "Gepensioneerd", Order = 3 },
-								new() { Value = "Huisman/vrouw", Order = 4 },
-								new() { Value = "Student", Order = 5 },
-								new() { Value = "Niet werkzaam (maar ook niet gepensioneerd)", Order = 6 },
-								new() { Value = "Blijvend arbeidsongeschikt / ziek", Order = 7 }
-							},
-							OpenAnswerLabel = "Anders, Namelijk"
-						},
-						new()
-						{
-							Type = QuestionType.String,
-							Text = "Beschrijf uw baan",
-							Order = 9,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
-								Operator = Operator.Equals,
-								Answer = "(Vrijwilligers) werk - voltijds"
-							}
-						},
-						new()
-						{
-							Type = QuestionType.String,
-							Text = "Beschrijf uw baan",
-							Order = 10,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("e9efcf8e-955d-4017-9ab3-d57f2238cd02"),
-								Operator = Operator.Equals,
-								Answer = "(Vrijwilligers) werk - deeltijds"
+								new() { Name = "Man", Value = "Man", Order = 0 },
+								new() { Name = "Vrouw", Value = "Vrouw", Order = 1 },
+								new() { Name = "Anders", Value = "Anders", Order = 2 },
+								new() { Name = "Zeg ik liever niet", Value = "Zeg ik liever niet", Order = 3 }
 							}
 						},
 						new()
 						{
 							Type = QuestionType.Integer,
-							Text = "Wat is uw lengte",
+							Text = "Wat is uw leeftijd?",
+							Order = 1,
+							Min = 1
+						},
+						new()
+						{
+							Type = QuestionType.Integer,
+							Text = "Wat is uw lengte?",
 							Description = "In centimeters",
-							Order = 11
+							Order = 2,
+							Min = 1
 						},
 						new()
 						{
 							Type = QuestionType.Integer,
 							Text = "Wat is uw gewicht?",
 							Description = "In kilogram",
-							Order = 12
+							Order = 3,
+							Min = 1
 						}
 					}
 				}
@@ -178,7 +80,7 @@ internal static class CategorySeed
 					Description = "Vragen over voeding",
 					Questions = new List<Question>
 					{
-						new()
+						new() // 1A
 						{
 							Type = QuestionType.MultiOpenChoice,
 							Text = "Heeft u speciale voedingsgewoontes?",
@@ -186,17 +88,17 @@ internal static class CategorySeed
 							Order = 0,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Nee", Order = 0 },
-								new() { Value = "Ik eet vegetarisch (geen vis, geen vlees)", Order = 1 },
-								new() { Value = "Ik eet geen vlees, maar wel vis", Order = 2 },
-								new() { Value = "Ik eet veganistisch", Order = 3 },
-								new() { Value = "Ik eet geen varkensvlees", Order = 4 },
-								new() { Value = "Ik eet geen koeienvlees", Order = 5 },
-								new() { Value = "Ik eet flexitarisch", Order = 6 }
+								new() { Name = "Nee", Value = "Nee", Order = 0 },
+								new() { Name = "Ik eet vegetarisch (geen vis, geen vlees)", Value = "Ik eet vegetarisch (geen vis, geen vlees)", Order = 1 },
+								new() { Name = "Ik eet geen vlees, maar wel vis", Value = "Ik eet geen vlees, maar wel vis", Order = 2 },
+								new() { Name = "Ik eet veganistisch", Value = "Ik eet veganistisch", Order = 3 },
+								new() { Name = "Ik eet geen varkensvlees", Value = "Ik eet geen varkensvlees", Order = 4 },
+								new() { Name = "Ik eet geen koeienvlees", Value = "Ik eet geen koeienvlees", Order = 5 },
+								new() { Name = "Ik eet flexitarisch", Value = "Ik eet flexitarisch", Order = 6 }
 							},
 							OpenAnswerLabel = "Ja, anders namelijk"
 						},
-						new()
+						new() // 1B
 						{
 							Id = new Guid("eff4185b-c2ad-4746-8802-7ec3b00985d4"),
 							Type = QuestionType.MultiOpenChoice,
@@ -205,10 +107,10 @@ internal static class CategorySeed
 							Order = 1,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Glutenvrij", Order = 0 },
-								new() { Value = "Lactosebeperkt/lactosevrij", Order = 1 },
-								new() { Value = "Zoutbeperkt", Order = 2 },
-								new() { Value = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)", Order = 3 },
+								new() { Name = "Glutenvrij", Value = "Glutenvrij", Order = 0 },
+								new() { Name = "Lactosebeperkt/lactosevrij", Value = "Lactosebeperkt/lactosevrij", Order = 1 },
+								new() { Name = "Zoutbeperkt", Value = "Zoutbeperkt", Order = 2 },
+								new() { Name = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)", Value = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)", Order = 3 },
 							},
 							OpenAnswerLabel = "Anders, namelijk"
 						},
@@ -224,42 +126,24 @@ internal static class CategorySeed
 								Answer = "Ik ben allergisch voor 1 of meerdere voedingsmiddelen (e.g. pinda’s, schaaldieren)"
 							}
 						},
-						new()
+						new() // 2A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Op gemiddeld hoeveel dagen per week eet u drie hoofdmaaltijden?",
-							Description = "(ontbijt, lunch, avondmaaltijd)",
+							Description = "Ontbijt, lunch, avondmaaltijd",
 							Order = 3,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
-						new()
+						new() // 3A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u, gemiddeld gezien, fruit?",
 							Order = 4,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
-						new()
+						new() // 3B
 						{
 							Type = QuestionType.Choice,
 							Text = "Hoeveel porties fruit eet u gemiddeld op een dag dat u fruit eet?",
@@ -267,98 +151,451 @@ internal static class CategorySeed
 							Order = 5,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "1", Order = 0 },
-								new () { Value = "2", Order = 1 },
-								new () { Value = "3", Order = 2 },
-								new () { Value = "4", Order = 3 },
-								new () { Value = "5", Order = 4 },
-								new () { Value = "6", Order = 5 },
-								new () { Value = "Meer porties per dag", Order = 6 }
+								new () { Name = "1", Value = "1", Order = 0 },
+								new () { Name = "2", Value = "2", Order = 1 },
+								new () { Name = "3", Value = "3", Order = 2 },
+								new () { Name = "4", Value = "4", Order = 3 },
+								new () { Name = "5", Value = "5", Order = 4 },
+								new () { Name = "6", Value = "6", Order = 5 },
+								new () { Name = "Meer porties per dag", Value = "10", Order = 6 }
 							}
 						},
-						new()
+						new() // 4A
 						{
-							Type = QuestionType.Choice,
+							Id = new Guid("c05d9393-328c-4e54-a504-7330445fd8cf"),
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u, gemiddeld gezien, groente of rauwkost?",
 							Description = "Zowel verse, diepvries als groente in conservenblik tellen mee.",
 							Order = 6,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
-							}
+							Min = 0,
+							Max = 7
 						},
-						new()
+						new() // 4B
 						{
-							Type = QuestionType.Choice,
+							Id = new Guid("d14f00d4-32f2-4a22-8829-7d7ed86a127c"),
+							Type = QuestionType.Integer,
 							Text = "Hoeveel opscheplepels/porties groente of rauwkost (circa 50 gram) eet u gemiddeld op een dag dat u groente eet?",
 							Order = 7,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Value = "1", Order = 0 },
-								new () { Value = "2", Order = 1 },
-								new () { Value = "3", Order = 2 },
-								new () { Value = "4", Order = 3 },
-								new () { Value = "5", Order = 4 },
-								new () { Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
-						new()
+						new() // 5A
 						{
+							Id = new Guid("e9e1f1e4-d666-4936-a52b-50dd3b02f086"),
 							Type = QuestionType.Choice,
 							Text = "Hoe vaak per maand eet u, gemiddeld gezien, peulvruchten?",
 							Description = "Peulvruchten zijn bijvoorbeeld bruine bonen, witte bonen, kapucijners, kidney(nier)bonen, linzen of kikkererwten. Reken doperwten, tuinbonen en sperziebonen niet mee, deze moeten bij groente worden ingevuld.",
 							Order = 8,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "Een keer per maand", Order = 1 },
-								new () { Value = "2-3 keer per maand", Order = 2 },
-								new () { Value = "1 keer per week", Order = 3 },
-								new () { Value = "2-3 keer per week", Order = 4 },
-								new () { Value = "Meer dan 3 keer per week", Order = 5 }
+								new () { Name = "Nooit", Value = "0", Order = 0 },
+								new () { Name = "Een keer per maand", Value = "1", Order = 1 },
+								new () { Name = "2-3 keer per maand", Value = "2", Order = 2 },
+								new () { Name = "1 keer per week", Value = "4", Order = 3 },
+								new () { Name = "2-3 keer per week", Value = "8", Order = 4 },
+								new () { Name = "Meer dan 3 keer per week", Value = "15", Order = 5 }
 							}
 						},
-						new()
+						new() // 5B
 						{
-							Type = QuestionType.Choice,
+							Id = new Guid("3b1be15f-5b3d-4be6-b106-fd586396def3"),
+							Type = QuestionType.Integer,
 							Text = "Hoeveel peulvruchten eet u op ’een dag dat u peulvruchten eet?",
 							Description = "Opscheplepels (circa 50 gram) per dag (een portie = 200 gram, dus 4 opscheplepels).",
 							Order = 8,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new () { Value = "1", Order = 0 },
-								new () { Value = "2", Order = 1 },
-								new () { Value = "3", Order = 2 },
-								new () { Value = "4", Order = 3 },
-								new () { Value = "5", Order = 4 },
-								new () { Value = "6", Order = 5 }
-							}
+							Min = 1,
+							Max = 6
 						},
-						//TODO: 6.
-						new()
+						new() // 6.1A
 						{
-							Type = QuestionType.Choice,
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld witte rijst of witte deegwaren?",
+							Description = "Macaroni, mie, spaghetti, witte couscous, gierst.",
+							Order = 9,
+							Min = 0,
+							Max = 7
+						},
+						new() // 6.1B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel opscheplepels witte rijst of witte deegwaren eet u op zo’n dag?",
+							Description = "Een opscheplepel staat gelijk aan 50 gram.",
+							Order = 10,
+							Min = 1,
+							Max = 6
+						},
+						new() // 6.2A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld volkoren deegwaren?",
+							Description = "(volkoren macaroni, spaghetti, volkoren couscous, bulgur, quinoa etc), zilvervliesrijst.",
+							Order = 11,
+							Min = 0,
+							Max = 7
+						},
+						new() // 6.2B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel opscheplepels volkoren deegwaren eet u op zo’n dag?",
+							Description = "Een opscheplepel staat gelijk aan 50 gram.",
+							Order = 12,
+							Min = 1,
+							Max = 6
+						},
+						new() // 6.3A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld witte graanproducten?",
+							Description = "(wit brood, crackers, beschuit, cornflakes etc.)",
+							Order = 13,
+							Min = 0,
+							Max = 7
+						},
+						new() // 6.3B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel stuks witte graanproducten eet u op zo’n dag?",
+							Order = 14,
+							Min = 1,
+							Max = 6
+						},
+						new() // 6.4A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld volkoren graanproducten?",
+							Description = "Volkorenbrood, volkoren beschuit, volkoren crackers, tarwe zemelen, havermout of roggebrood.",
+							Order = 15,
+							Min = 0,
+							Max = 7
+						},
+						new() // 6.4B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel stuks volkoren graanproducten eet u op zo’n dag?",
+							Order = 16,
+							Min = 1,
+							Max = 6
+						},
+						new() // 7A
+						{
+							Type = QuestionType.Integer,
 							Text = "Hoe vaak per week eet u gemiddeld ongezouten pinda’s of noten?",
 							Description = "100% pindakaas of notenspread mag u hierbij meerekenen.",
-							Order = 9,
+							Order = 17,
+							Min = 0,
+							Max = 7
+						},
+						new() // 7B
+						{
+							Type = QuestionType.Choice,
+							Text = "Hoeveel handjes noten of pinda’s eet u op zo’n dag?",
+							Description = "kleine  handjes (circa 15 gram) per dag.",
+							Order = 18,
 							AnswerOptions = new List<AnswerOption>
 							{
-								new () { Value = "Nooit", Order = 0 },
-								new () { Value = "1", Order = 1 },
-								new () { Value = "2", Order = 2 },
-								new () { Value = "3", Order = 3 },
-								new () { Value = "4", Order = 4 },
-								new () { Value = "5", Order = 5 },
-								new () { Value = "6", Order = 6 },
-								new () { Value = "Elke dag", Order = 7 }
+								new () { Name = "0.5", Value = "0", Order = 0 },
+								new () { Name = "1", Value = "1", Order = 1 },
+								new () { Name = "2", Value = "2", Order = 2 },
+								new () { Name = "3", Value = "3", Order = 3 },
+								new () { Name = "4", Value = "4", Order = 4 },
+								new () { Name = "5", Value = "5", Order = 5 },
+								new () { Name = "6", Value = "6", Order = 6 },
+								new () { Name = "7", Value = "7", Order = 7 },
+								new () { Name = "Meer", Value = "10", Order = 7 }
 							}
+						},
+						new() // 8.1A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week drinkt u gemiddeld (karne)melk of sojamelk?",
+							Order = 19,
+							Min = 0,
+							Max = 7
+						},
+						new() // 8.1B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel glazen (karne)melk of sojamelk drinkt u op zo’n dag?",
+							Description = "Glazen/beker (200ml).",
+							Order = 20,
+							Min = 1,
+							Max = 6
+						},
+						new() // 8.2A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week drinkt u gemiddeld chocolademelk, vla of vruchtendrank?",
+							Order = 21,
+							Min = 0,
+							Max = 7
+						},
+						new() // 8.2B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel glazen chocolademelk, vla of vruchtendrank drinkt u op zo’n dag?",
+							Description = "Glazen/beker (200ml).",
+							Order = 22,
+							Min = 1,
+							Max = 6
+						},
+						new() // 8.3A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u kwark of skyr?",
+							Order = 23,
+							Min = 0,
+							Max = 7
+						},
+						new() // 8.3B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel schaaltjes kwark of skyr eet u op zo’n dag?",
+							Description = "Schaaltjes (150ml).",
+							Order = 24,
+							Min = 1,
+							Max = 6
+						},
+						new() // 8.4A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u yoghurt, vruchtenyoghurt, vla etc?",
+							Order = 25,
+							Min = 0,
+							Max = 7
+						},
+						new() // 8.4B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel schaaltjes yoghurt, vruchtenyoghurt, vla etc eet u op zo’n dag?",
+							Description = "Schaaltjes (150ml).",
+							Order = 26,
+							Min = 1,
+							Max = 6
+						},
+						new() // 9A
+						{
+							Id = new Guid("5de4555f-4780-4e27-ab5e-24b0358ba6e6"),
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld magere vis?",
+							Description = "Magere vis is bijvoorbeeld forel, kabeljauw, koolvis, pangasius, schelvis, schol, tilapia, tong, tonijn of wijting.",
+							Order = 27,
+							Min = 0,
+							Max = 7
+						},
+						new() // 9B
+						{
+							Id = new Guid("a696cbfa-eae0-4015-938c-31b9f641005d"),
+							Type = QuestionType.Integer,
+							Text = "Hoeveel porties magere vis eet u gemiddeld op zo’n dag?",
+							Order = 28,
+							Min = 0,
+							Max = 6
+						},
+						new() // 9C
+						{
+							Id = new Guid("b547d936-3b8b-4386-81af-6cac317aa858"),
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld vette vis?",
+							Description = "Vette vis is bijvoorbeeld bokking, haring, heilbot, makreel, paling, sardines, sprot filet of zalm.",
+							Order = 29,
+							Min = 0,
+							Max = 7
+						},
+						new() // 9D
+						{
+							Id = new Guid("e9152e08-4ee9-4d3b-8608-f590d31663be"),
+							Type = QuestionType.Integer,
+							Text = "Hoeveel porties vette vis eet u gemiddeld op zo’n dag?",
+							Order = 30,
+							Min = 0,
+							Max = 6
+						},
+						new() // 10A
+						{
+							Type = QuestionType.Choice,
+							Text = "Met welke soorten boter besmeert u meestal uw brood, knäckebröd, cracker of beschuit?",
+							Order = 31,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new () { Name = "Ik gebruik meestal geen boter", Value = "Ik gebruik meestal geen boter", Order = 0 },
+								new () { Name = "Bijna altijd met (dieet) halvarine, (dieet)margarine", Value = "Bijna altijd met (dieet) halvarine, (dieet)margarine", Order = 1 },
+								new () { Name = "Bijna altijd met (halfvolle) roomboter", Value = "Bijna altijd met (halfvolle) roomboter", Order = 2 },
+								new () { Name = "Met zowel (dieet) halvarine, (dieet)margarine als (halfvolle) roomboter", Value = "Met zowel (dieet) halvarine, (dieet)margarine als (halfvolle) roomboter", Order = 3 }
+							}
+						},
+						new() // 10B
+						{
+							Type = QuestionType.MultiChoice,
+							Text = "Welk(e) soort(en) vet gebruikt u voor de bereiding van de warme maaltijd?",
+							Description = "Hierbij zijn meerdere antwoorden mogelijk.",
+							Order = 32,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new () { Name = "Ik gebruik meestal geen boter, margarine, olie of andere bakproducten", Value = "Ik gebruik meestal geen boter, margarine, olie of andere bakproducten", Order = 0 },
+								new () { Name = "Meestal roomboter", Value = "Meestal roomboter", Order = 1 },
+								new () { Name = "Meestal margarine of bakproduct uit een pakje", Value = "Meestal margarine of bakproduct uit een pakje", Order = 2 },
+								new () { Name = "Meestal margarine of bakproduct uit een fles", Value = "Meestal margarine of bakproduct uit een fles", Order = 3 },
+								new () { Name = "Olie", Value = "Olie", Order = 4 }
+							}
+						},
+						new() // 11.1A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld rood vlees?",
+							Description = "Rood vlees is bijvoorbeeld vlees van het rund, varken, schaap/lam, paard en geit, zoals biefstuk, varkenslapje of gehakt?",
+							Order = 33,
+							Min = 0,
+							Max = 7
+						},
+						new() // 11.1B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel porties rood vlees eet u op zo’n dag?",
+							Description = "(Een normale portie is 100 gram).",
+							Order = 34,
+							Min = 1,
+							Max = 6
+						},
+						//TODO: 11B
+						new() // 11.2A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld bewerkt vlees?",
+							Description = "Bewerkt vlees is bijvoorbeeld bacon, hamburger of worst. Alle in de winkel verkrijgbare gekruide/gerookte vleesproducten vallen onder bewerkt vlees.",
+							Order = 35,
+							Min = 0,
+							Max = 7
+						},
+						new() // 11.2B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel porties bewerkt vlees eet u op zo’n dag?",
+							Description = "(Een normale portie is 100 gram).",
+							Order = 36,
+							Min = 1,
+							Max = 6
+						},
+						new() // 12A
+						{
+							Type = QuestionType.Integer,
+							Text = "Op gemiddeld hoeveel dagen per week drinkt u dranken met suiker?",
+							Description = "koffie of thee met suiker, zuiveldranken met suiker zoals chocolademelk en yoghurtdrank met suiker, vruchtensappen, energie- of sportdranken, frisdranken zoals cola en sinas, limonade of ranja.",
+							Order = 37,
+							Min = 0,
+							Max = 7
+						},
+						new() // 12B
+						{
+							Type = QuestionType.Choice,
+							Text = "Hoeveel glazen drinkt u op zo’n dag?",
+							Description = "Een glas is 225mL",
+							Order = 38,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new () { Name = "1", Value = "1", Order = 0 },
+								new () { Name = "2", Value = "2", Order = 1 },
+								new () { Name = "3", Value = "3", Order = 2 },
+								new () { Name = "4", Value = "4", Order = 3 },
+								new () { Name = "5", Value = "5", Order = 4 },
+								new () { Name = "6", Value = "6", Order = 5 },
+								new () { Name = "7", Value = "7", Order = 6 },
+								new () { Name = "Meer", Value = "10", Order = 7 }
+							}
+						},
+						new() // 13A
+						{
+							Id = new Guid("48227a6a-1aa2-49ea-9837-0acdae9b8297"),
+							Type = QuestionType.Integer,
+							Text = "Op gemiddeld hoeveel dagen per week drinkt u alcohol?",
+							Order = 39,
+							Min = 0,
+							Max = 7
+						},
+						new() // 13B
+						{
+							Id = new Guid("f06d8859-416c-4050-8de2-1b0a8ed4717f"),
+							Type = QuestionType.Choice,
+							Text = "Hoeveel glazen drinkt u op zo’n dag?",
+							Order = 40,
+							AnswerOptions = new List<AnswerOption>
+							{
+								new () { Name = "1", Value = "1", Order = 0 },
+								new () { Name = "2", Value = "2", Order = 1 },
+								new () { Name = "3", Value = "3", Order = 2 },
+								new () { Name = "4", Value = "4", Order = 3 },
+								new () { Name = "5", Value = "5", Order = 4 },
+								new () { Name = "6", Value = "6", Order = 5 },
+								new () { Name = "7", Value = "7", Order = 6 },
+								new () { Name = "Meer", Value = "10", Order = 7 }
+							}
+						},
+						new() // 14.1A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld chocola?",
+							Description = "(bonbons, chocolaatjes), candybars (mars, snickers etc).",
+							Order = 41,
+							Min = 0,
+							Max = 7
+						},
+						new() // 14.1B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel porties/stuks chocola eet u op zo’n dag?",
+							Order = 42,
+							Min = 1,
+							Max = 6
+						},
+						new() // 14.2A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld snoep?",
+							Description = "(zuurtjes, drop etc).",
+							Order = 43,
+							Min = 0,
+							Max = 7
+						},
+						new() // 14.2B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel stuks snoep eet u op zo’n dag?",
+							Order = 44,
+							Min = 1,
+							Max = 6
+						},
+						new() // 14.3A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld koek, cake, taart of biscuit?",
+							Description = "(evergreen, sultana etc).",
+							Order = 45,
+							Min = 0,
+							Max = 7
+						},
+						new() // 14.3B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel stuks koek, cake, taart of biscuit eet u op zo’n dag?",
+							Order = 46,
+							Min = 1,
+							Max = 6
+						},
+						new() // 14.4A
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoe vaak per week eet u gemiddeld hartige tussendoortjes?",
+							Description = "Chips, zoute nootjes, kroket, stukjes kaas, worst etc.",
+							Order = 47,
+							Min = 0,
+							Max = 7
+						},
+						new() // 14.4B
+						{
+							Type = QuestionType.Integer,
+							Text = "Hoeveel porties/stuks hartige tussendoortjes eet u op zo’n dag?",
+							Order = 48,
+							Min = 1,
+							Max = 6
 						}
 					}
 				},
@@ -366,13 +603,17 @@ internal static class CategorySeed
 				{
 					new()
 					{
+						Id = new Guid("7e1e494e-4dad-4c0f-b448-128552f7869f"),
 						Name = "Groenten",
 						Description = "Dagelijks ten minste 200 gram groente",
+						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "groenten"
 						},
+						Unit = ThemeUnit.Portion,
+						UnitAmount = 100,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al groente?",
@@ -393,40 +634,141 @@ internal static class CategorySeed
 					},
 					new()
 					{
+						Id = new Guid("8452671a-fa49-4aa7-aed4-cad36bea9553"),
 						Name = "Peulvruchten",
-						Description = "Dagelijks ten minste 2 stuks peulvruchten",
+						Description = "Dagelijks ten minste 1 portie peulvruchten",
+						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "fruit"
 						},
+						Unit = ThemeUnit.Portion,
+						UnitAmount = 200,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 14,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al peulvruchten?",
 						GoalFrequencyQuestion = "Hoe vaak in de week wil je peulvruchten eten?",
+						Faq = new List<Faq>
+						{
+							new()
+							{
+								Question = "Wat zijn peulvruchten?",
+								Answer = "Peulvruchten zijn bijvoorbeeld bonen, erwten, linzen, kikkererwten en sojabonen.",
+							},
+							new()
+							{
+								Question = "Hoeveel peulvruchten moet ik eten?",
+								Answer = "Een portie peulvruchten is 200 gram. Dat is ongeveer 4 opscheplepels. Een portie peulvruchten is dus 4 keer zoveel als een portie groente.",
+							},
+						},
 						Activities = new List<Activity>
 						{
 							new()
 							{
 								Name = "Peulvruchten",
-								Description = "Een portie peulvruchten is 100 gram.",
+								Description = "Een portie peulvruchten is 200 gram.",
 								Image = new Image
 								{
 									Extension = "png",
 									Name = "fruit"
+								}
+
+							}
+						},
+						Recipes = new List<Recipe>
+						{
+							new()
+							{
+								Name = "Pasta met peulvruchten",
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "fc5fcc51-e19c-4e14-8647-82cff962ba83"
+								},
+								Steps = new List<RecipeStep>
+								{
+									new()
+									{
+										Description = "Zet water op het vuur",
+										Order = 0
+									},
+									new()
+									{
+										Description = "Laat het water koken",
+										Order = 1
+									},
+									new()
+									{
+										Description = "Doe de paste in het water",
+										Order = 2
+									}
+								},
+								Ingredients = new()
+								{
+									new()
+									{
+										Ingredient = "500ml water"
+									},
+									new()
+									{
+										Ingredient = "100 Gram pasta"
+									}
+								}
+							},
+							new()
+							{
+								Name = "Vis met peulvruchten",
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "a25515a3-9383-4f44-9597-488ba6393a14"
+								},
+								Steps = new()
+								{
+									new()
+									{
+										Description = "Zet water op het vuur",
+										Order = 0
+									},
+									new()
+									{
+										Description = "Laat het water koken",
+										Order = 1
+									},
+									new()
+									{
+										Description = "Doe de paste in het water",
+										Order = 2
+									}
+								},
+								Ingredients = new()
+								{
+									new()
+									{
+										Ingredient = "500ml water"
+									},
+									new()
+									{
+										Ingredient = "100 Gram pasta"
+									}
 								}
 							}
 						}
 					},
 					new()
 					{
+						Id = new Guid("b9db755f-5d6c-4797-9373-d95b0633bbb8"),
 						Name = "Vis",
 						Description = "Eet elke week een keer vis",
+						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "vis"
 						},
+						Unit = ThemeUnit.Portion,
+						UnitAmount = 100,
 						FrequencyType = FrequencyType.Amount,
 						FrequencyGoal = 1,
 						CurrentFrequencyQuestion = "Hoe vaak in de week eet je al vis?",
@@ -441,6 +783,37 @@ internal static class CategorySeed
 								{
 									Extension = "png",
 									Name = "vis"
+								}
+							}
+						}
+					},
+					new()
+					{
+						Id = new Guid("5a06f5c6-b3bd-4a88-a200-e0342e46e50a"),
+						Name = "Alcohol",
+						Description = "Drink minder alcohol",
+						Type = ThemeType.Negative,
+						Image = new Image
+						{
+							Extension = "png",
+							Name = "alcohol"
+						},
+						Unit = ThemeUnit.Glasses,
+						UnitAmount = 200,
+						FrequencyType = FrequencyType.Amount,
+						FrequencyGoal = 0,
+						CurrentFrequencyQuestion = "Hoeveel glazen alcohol drink je per week?",
+						GoalFrequencyQuestion = "Hoeveel glazen alcohol wil je maximaal drinken per week?",
+						Activities = new List<Activity>
+						{
+							new()
+							{
+								Name = "Alcohol",
+								Description = "Minder alcohol drinken",
+								Image = new Image
+								{
+									Extension = "png",
+									Name = "geen"
 								}
 							}
 						}
@@ -461,296 +834,448 @@ internal static class CategorySeed
 					Description = "Vragen over beweging",
 					Questions = new List<Question>
 					{
-						new()
+						new() // 0
 						{
-							Id = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
-							Type = QuestionType.Boolean,
-							Text = "Is er sprake van lopen van/naar werk?",
+							Type = QuestionType.Display,
+							Text = "Introductie",
+							Description = "Neem in uw gedachten een normale week in de afgelopen maanden. Wilt u aangeven hoeveel dagen per week u de onderstaande activiteiten verrichte, hoeveel minuten u daar dan gemiddeld op zo’n dag mee bezig was en hoe inspannend deze activiteit was?",
 							Order = 0,
+							IsRequired = false
 						},
-						new()
+						new() // 1
 						{
-							Type = QuestionType.Integer,
-							Text = "Hoeveel dagen per week?",
+							Id = default,
+							Type = QuestionType.Display,
+							Text = "Woon-(vrijwilligers)werk verkeer (heen en terug)",
+							Description = "Het gaat hierbij om de activiteit (lopen, fietsen) om naar terugkerende, geplande activiteiten te gaan. Zoals bijvoorbeeld (vrijwilligers)werk, mantel-zorg, oppassen, het volgen van een cursus volgen.",
+							Information = "Voorbeeld 1: U fietst 1 dag per week 15 min heen, en 15 min terug om op uw kleinkinderen te passen. U vult dan in 1 dag, totaal 30 minuten fietsen)\r\nVoorbeeld 2: U helpt vrijwillig 3 keer in de week in het buurthuis en loopt hiervoor 10 minuten van huis naar de bus, en op de terug weg loopt u weer 10 minuten van de bus naar huis. U vult dan in 3 dagen in de week, 20 minuten lopen. ",
 							Order = 1,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+							IsRequired = false
 						},
-						new()
+						new() // 1A
 						{
+							Id = new Guid("12f3f26f-d826-47b6-b208-98ebeab937c1"),
 							Type = QuestionType.Integer,
-							Text = "Hoeveel minuten gemiddeld per dag?",
+							Text = "Aantal dagen per week lopen van/naar deze activiteit",
 							Order = 2,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 1B
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag lopen van/naar deze activiteit",
+							Order = 3,
 							EnableWhen = new EnableWhen
 							{
-								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+								DependentQuestionId = new Guid("12f3f26f-d826-47b6-b208-98ebeab937c1"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
 						},
-						new()
+						new() // 1C
 						{
 							Type = QuestionType.Choice,
-							Text = "Hoe inspannend was deze activiteit?",
-							Order = 3,
+							Text = "Inspanning bij lopen van/naar deze activiteit",
+							Order = 4,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("12f3f26f-d826-47b6-b208-98ebeab937c1"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
 							AnswerOptions = new List<AnswerOption>
 							{
-								new()
-								{
-									Value = "Langzaam",
-									Order = 0
-								},
-								new()
-								{
-									Value = "Gemiddeld",
-									Order = 1
-								},
-								new()
-								{
-									Value = "Snel",
-									Order = 2
-								}
+								new() { Name = "Langzaam", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Snel", Value = "3", Order = 2 }
 							},
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("261e4fab-2094-42af-8a6f-808b9a7506cd"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+							IsRequired = true
 						},
-						new()
+						new() // 1D
 						{
-							Id = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
-							Type = QuestionType.Boolean,
-							Text = "Is er sprake van fietsen van/naar werk?",
-							Order = 4,
-						},
-						new()
-						{
+							Id = new Guid("23a3e071-59e3-4d40-86a4-3fcbe1fb96a8"),
 							Type = QuestionType.Integer,
-							Text = "Hoeveel dagen per week?",
+							Text = "Aantal dagen per week fietsen van/naar deze activiteit",
 							Order = 5,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+							IsRequired = true,
+							Min = 0,
+							Max = 7
 						},
-						new()
+						new() // 1E
 						{
-							Type = QuestionType.Integer,
-							Text = "Hoeveel minuten gemiddeld per dag?",
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag fietsen van/naar deze activiteit",
 							Order = 6,
 							EnableWhen = new EnableWhen
 							{
-								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+								DependentQuestionId = new Guid("12f3f26f-d826-47b6-b208-98ebeab937c1"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
 						},
-						new()
+						new() // 1F
 						{
 							Type = QuestionType.Choice,
-							Text = "Hoe inspannend was deze activiteit?",
+							Text = "Inspanning bij fietsen van/naar deze activiteit",
 							Order = 7,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("23a3e071-59e3-4d40-86a4-3fcbe1fb96a8"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
 							AnswerOptions = new List<AnswerOption>
 							{
-								new()
-								{
-									Value = "Langzaam",
-									Order = 0
-								},
-								new()
-								{
-									Value = "Gemiddeld",
-									Order = 1
-								},
-								new()
-								{
-									Value = "Snel",
-									Order = 2
-								}
+								new() { Name = "Langzaam", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Snel", Value = "3", Order = 2 }
 							},
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("2b35733d-1a23-45e4-9185-90e140219bd6"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+							IsRequired = true
 						},
-						new()
+						new() // 2
 						{
-							Id = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
-							Type = QuestionType.Boolean,
-							Text = "Is er sprake van licht en matig inspannend werk?",
-							Description = "Zittend/staand werk, met af en toe lopen, zoals bureauwerk of lopend werk met lichte lasten.",
-							Order = 8
+							Type = QuestionType.Display,
+							Text = "Lichamelijke activiteit tijdens (vrijwilligers)werk (niet zijnde huishoudelijk activiteiten en vrijetijdsbestedingen)",
+							Description = "Het gaat hierbij om fysieke activiteit tijdens terugkerende, geplande activiteiten te gaan. Zoals bijvoorbeeld (vrijwilligers)werk, mantel-zorg, oppassen, het volgen van een cursus volgen.\r\n\r\nLet op: tel alle activiteiten bij elkaar op.",
+							Information = "Voorbeeld 1: Tijdens de 4 uur oppassen op uw kleinkinderen speelt u af en toe actief met ze buiten en bent u zittend of staan met hen bezig. U kunt nu invullen 4 uur licht en matig inspannende activiteit. \r\nVoorbeeld 2: Tijdens de in totaal 6 uur per week (vrijwilligers)werk in het buurthuis bent u ongeveer de helft van de tijd druk bezig met spullen klaar zetten, sjouwen en schoonmaken. De andere helft van de tijd staat u achter de bar. U vult dan bij licht en matig inspannende activiteit 3 uur in, en bij zwaar inspannende activiteit ook drie uur.",
+							Order = 8,
+							IsRequired = false
 						},
-						new()
+						new() // 2A
 						{
-							Type = QuestionType.Integer,
-							Text = "Hoeveel minuten gemiddeld per dag?",
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per week licht en matig inspannende activiteit",
+							Description = "(zittend/staand, met af en toe lopen, zoals bureauwerk of lopend met lichte lasten)",
 							Order = 9,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("b8219b70-fef3-4ad5-a04c-f7a08b7d9631"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+							IsRequired = true
 						},
-						new()
+						new() // 2B
 						{
-							Id = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
-							Type = QuestionType.Boolean,
-							Text = "Is er sprake van zwaar inspannend werk?",
-							Description = "Lopend werk, waarbij regelmatig zware dingen moeten worden opgetild?",
-							Order = 10
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per week zwaar inspannende activiteit",
+							Description = "(lopend, waarbij regelmatig zware dingen moeten worden opgetild)",
+							Order = 10,
+							IsRequired = true
 						},
-						new()
+						new() // 3
 						{
-							Type = QuestionType.Integer,
-							Text = "Hoeveel minuten gemiddeld per dag?",
+							Type = QuestionType.Display,
+							Text = "Huishoudelijke activiteiten",
+							Description = null,
 							Order = 11,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("514b7d7f-1c8e-482d-b35a-d1d5de2092ad"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+							IsRequired = false,
 						},
-						new()
+						new() // 3A
 						{
-							Id = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
-							Type = QuestionType.Boolean,
-							Text = "Is er sprake van licht en matig inspannend huishoudelijk werk?",
-							Description = "Denk aan staand werk, zoals koken, afwassen, strijken, kind eten geven/in bad doen en lopend werk, zoals stofzuigen, boodschappen doen.",
-							Order = 12
-						},
-						new()
-						{
+							Id = new Guid("acf89dc4-6f24-4db1-8bb8-63ae2d06eca3"),
 							Type = QuestionType.Integer,
-							Text = "Hoeveel dagen per week?",
+							Text = "Aantal dagen per week licht en matig inspannend huishoudelijk werk",
+							Description = "(staand werk, zoals koken, afwassen, strijken, kind eten geven/in bad doen en lopen werk, zoals stofzuigen, boodschappen doen)",
+							Order = 12,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3B
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag licht en matig inspannend huishoudelijk werk",
 							Order = 13,
 							EnableWhen = new EnableWhen
 							{
-								DependentQuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+								DependentQuestionId = new Guid("acf89dc4-6f24-4db1-8bb8-63ae2d06eca3"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
 						},
-						new()
+						new() // 3C
 						{
+							Id = new Guid("f975c685-2616-4736-ae77-a38b50021f42"),
 							Type = QuestionType.Integer,
-							Text = "Hoeveel minuten gemiddeld per dag?",
+							Text = "Aantal dagen per week zwaar inspannend huishoudelijk werk",
+							Description = "(vloer schrobben, tapijt uitkloppen, met zware boodschappen lopen)",
 							Order = 14,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3D
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag zwaar inspannend huishoudelijk werk ",
+							Order = 15,
 							EnableWhen = new EnableWhen
 							{
-								DependentQuestionId = Guid.Parse("f38ae8ff-bc85-4440-8f57-65187fe1eec7"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+								DependentQuestionId = new Guid("f975c685-2616-4736-ae77-a38b50021f42"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
 						},
-						new()
+						new() // 3
 						{
-							Id = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
-							Type = QuestionType.Boolean,
-							Text = " Is er sprake van zwaar inspannend huishoudelijk werk?",
-							Description = "Denk aan vloer schrobben, tapijt uitkloppen, met zware boodschappen lopen.",
-							Order = 15
-						},
-						new()
-						{
-							Type = QuestionType.Integer,
-							Text = "Hoeveel dagen per week?",
+							Type = QuestionType.Display,
+							Text = "Vrije Tijd",
+							Description = "Activiteiten voor eigen plezier.",
 							Order = 16,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+							IsRequired = false
 						},
-						new()
+						new() // 3A
 						{
+							Id = new Guid("dfb09925-e9d4-4e8f-9ab3-97e8d27e1939"),
 							Type = QuestionType.Integer,
-							Text = "Hoeveel minuten gemiddeld per dag?",
+							Text = "Aantal dagen per week wandelen",
 							Order = 17,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3B
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag wandelen",
+							Order = 18,
 							EnableWhen = new EnableWhen
 							{
-								DependentQuestionId = Guid.Parse("6165ce04-e468-47d5-bddd-84a4e86894da"),
-								Operator = Operator.Equals,
-								Answer = "Yes"
-							}
+								DependentQuestionId = new Guid("dfb09925-e9d4-4e8f-9ab3-97e8d27e1939"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
 						},
-						new()
+						new() // 3C
 						{
-							Id = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
-							Type = QuestionType.MultiChoice,
-							Text = "Welk van de onderstaande activiteiten doet u in uw vrije tijd?",
-							Description = "Meerdere antwoorden mogelijk",
-							Order = 18,
-							AnswerOptions = new List<AnswerOption>
-							{
-								new() { Value = "Wandelen", Order = 0 },
-								new() { Value = "Fietsen", Order = 1 },
-								new() { Value = "Tuinieren", Order = 2 },
-								new() { Value = "Klussen/Doe het zelven", Order = 3 },
-								new() { Value = "Geen van deze activiteiten", Order = 4 }
-							}
-						},
-						new()
-						{
-							Type = QuestionType.Integer,
-							Text = "Hoeveel dagen per week?",
+							Type = QuestionType.Choice,
+							Text = "Inspanning tijdens wandelen",
 							Order = 19,
 							EnableWhen = new EnableWhen
 							{
-								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
-								Operator = Operator.NotEquals,
-								Answer = "Geen van deze activiteiten"
-							}
-						},
-						new()
-						{
-							Type = QuestionType.Integer,
-							Text = "Hoeveel minuten gemiddeld per dag?",
-							Order = 20,
-							EnableWhen = new EnableWhen
-							{
-								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
-								Operator = Operator.NotEquals,
-								Answer = "Geen van deze activiteiten"
-							}
-						},
-						new()
-						{
-							Type = QuestionType.Integer,
-							Text = "Hoe inspannend was deze activiteit?",
-							Order = 21,
+								DependentQuestionId = new Guid("dfb09925-e9d4-4e8f-9ab3-97e8d27e1939"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
 							AnswerOptions = new List<AnswerOption>
 							{
-								new() { Value = "Langzaam", Order = 0 },
-								new() { Value = "Gemiddeld", Order = 0 },
-								new() { Value = "Snel", Order = 0 }
+								new() { Name = "Langzaam", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Snel", Value = "3", Order = 2 }
 							},
+							IsRequired = true
+						},
+						new() // 3D
+						{
+							Id = new Guid("eb05db70-8725-4778-961e-6f58050f2c3e"),
+							Type = QuestionType.Integer,
+							Text = "Aantal dagen per week fietsen",
+							Order = 20,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3E
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag fietsen",
+							Order = 21,
 							EnableWhen = new EnableWhen
 							{
-								DependentQuestionId = Guid.Parse("9e06be64-7e6a-49fb-8528-726a3c113526"),
-								Operator = Operator.NotEquals,
-								Answer = "Geen van deze activiteiten"
-							}
+								DependentQuestionId = new Guid("eb05db70-8725-4778-961e-6f58050f2c3e"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
 						},
-						//TODO: 8
-						new()
+						new() // 3F
 						{
+							Type = QuestionType.Choice,
+							Text = "Inspanning tijdens fietsen",
+							Order = 22,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("eb05db70-8725-4778-961e-6f58050f2c3e"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Name = "Langzaam", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Snel", Value = "3", Order = 2 }
+							},
+							IsRequired = true
+						},
+						new() // 3G
+						{
+							Id = new Guid("1ade4290-1dfe-4ecc-806a-4f5e04e92f79"),
 							Type = QuestionType.Integer,
-							Text = " Op gemiddeld hoeveel dagen per week ben u, alles bijelkaar opgeteld, tenminste een halfuur bezig met fietsen, klussen, tuinieren of sporten?",
-							Order = 22
+							Text = "Aantal dagen per week tuinieren",
+							Order = 23,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3H
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag tuinieren",
+							Order = 24,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("1ade4290-1dfe-4ecc-806a-4f5e04e92f79"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
+						},
+						new() // 3I
+						{
+							Type = QuestionType.Choice,
+							Text = "Inspanning tijdens tuinieren",
+							Order = 25,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("1ade4290-1dfe-4ecc-806a-4f5e04e92f79"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Name = "Licht", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Zwaar", Value = "3", Order = 2 }
+							},
+							IsRequired = true
+						},
+						new() // 3J
+						{
+							Id = new Guid("2a1ff093-d640-42df-9a3a-4652834b5cf3"),
+							Type = QuestionType.Integer,
+							Text = "Aantal dagen per week klussen/doe-het-zelven",
+							Order = 26,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3K
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag klussen/doe-het-zelven",
+							Order = 27,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("2a1ff093-d640-42df-9a3a-4652834b5cf3"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
+						},
+						new() // 3L
+						{
+							Type = QuestionType.Choice,
+							Text = "Inspanning tijdens klussen/doe-het-zelven",
+							Order = 28,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("2a1ff093-d640-42df-9a3a-4652834b5cf3"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Name = "Licht", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Zwaar", Value = "3", Order = 2 }
+							},
+							IsRequired = true
+						},
+						new() // 3M
+						{
+							Id = new Guid("498fc817-bfe7-461e-a9aa-2bc58b641034"),
+							Type = QuestionType.Integer,
+							Text = "Aantal dagen per week balansoefeningen",
+							Order = 29,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3N
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag balansoefeningen",
+							Order = 30,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("498fc817-bfe7-461e-a9aa-2bc58b641034"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
+						},
+						new() // 3O
+						{
+							Type = QuestionType.Choice,
+							Text = "Inspanning tijdens balansoefeningen",
+							Order = 31,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("498fc817-bfe7-461e-a9aa-2bc58b641034"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Name = "Licht", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Zwaar", Value = "3", Order = 2 }
+							},
+							IsRequired = true
+						},
+						new() // 3P
+						{
+							Id = new Guid("68f74c5b-5db4-4706-ab7c-010e4e43b480"),
+							Type = QuestionType.Integer,
+							Text = "Aantal dagen per week spierversterkende oefeningen",
+							Order = 32,
+							IsRequired = true,
+							Min = 0,
+							Max = 7
+						},
+						new() // 3Q
+						{
+							Type = QuestionType.Duration,
+							Text = "Gemiddelde tijd per dag spierversterkende oefeningen",
+							Order = 33,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("68f74c5b-5db4-4706-ab7c-010e4e43b480"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							IsRequired = true
+						},
+						new() // 3R
+						{
+							Type = QuestionType.Choice,
+							Text = "Inspanning tijdens spierversterkende oefeningen",
+							Order = 34,
+							EnableWhen = new EnableWhen
+							{
+								DependentQuestionId = new Guid("68f74c5b-5db4-4706-ab7c-010e4e43b480"),
+								Operator = Operator.GreaterThan,
+								Answer = "0"
+							},
+							AnswerOptions = new List<AnswerOption>
+							{
+								new() { Name = "Licht", Value = "1", Order = 0 },
+								new() { Name = "Gemiddeld", Value = "2", Order = 1 },
+								new() { Name = "Zwaar", Value = "3", Order = 2 }
+							},
+							IsRequired = true
 						}
 					}
 				},
@@ -760,11 +1285,13 @@ internal static class CategorySeed
 					{
 						Name = "Balans",
 						Description = "Aanbeveling: Minimaal twee keer per week",
+						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "bewegen"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -772,16 +1299,6 @@ internal static class CategorySeed
 						GoalFrequencyQuestion = "Hoe vaak per week wil je dit nog meer doen?",
 						Activities = new List<Activity>
 						{
-							new()
-							{
-								Name = "Geen",
-								Description = "Geen beweging",
-								Image = new Image
-								{
-									Extension = "png",
-									Name = "geen"
-								}
-							},
 							new()
 							{
 								Name = "Fietsen",
@@ -838,11 +1355,13 @@ internal static class CategorySeed
 					{
 						Name = "Bewegen",
 						Description = "Aanbeveling: Minimaal 150 minuten per week bewegen",
+						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "bewegen"
 						},
+						Unit = ThemeUnit.Minutes,
 						FrequencyType = FrequencyType.Minutes,
 						FrequencyGoal = 150,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
@@ -853,22 +1372,23 @@ internal static class CategorySeed
 						{
 							new()
 							{
-								Name = "Geen",
-								Description = "Geen beweging",
-								Image = new Image
-								{
-									Extension = "png",
-									Name = "geen"
-								}
-							},
-							new()
-							{
 								Name = "Fietsen",
 								Description = "Minuten fietsen",
 								Image = new Image
 								{
 									Extension = "png",
 									Name = "fietsen"
+								},
+								Videos = new List<Video>
+								{
+									new()
+									{
+										Url = "https://www.youtube.com/watch?v=7VRLk9zUc4Q&t=1s"
+									},
+									new()
+									{
+										Url = "https://www.youtube.com/watch?v=GN9Hhv-3o98"
+									}
 								}
 							},
 							new()
@@ -917,11 +1437,13 @@ internal static class CategorySeed
 					{
 						Name = "Spierkracht",
 						Description = "Aanbeveling: Minimaal twee keer per week",
+						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "spierkracht"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -929,16 +1451,6 @@ internal static class CategorySeed
 						GoalFrequencyQuestion = "Hoe vaak per week wil je dit nog meer doen?",
 						Activities = new List<Activity>
 						{
-							new()
-							{
-								Name = "Geen",
-								Description = "Geen beweging",
-								Image = new Image
-								{
-									Extension = "png",
-									Name = "geen"
-								}
-							},
 							new()
 							{
 								Name = "Fietsen",
@@ -995,11 +1507,13 @@ internal static class CategorySeed
 					{
 						Name = "Botsterkte",
 						Description = "Aanbeveling: Minimaal twee keer per week",
+						Type = ThemeType.Default,
 						Image = new Image
 						{
 							Extension = "png",
 							Name = "botsterkte"
 						},
+						Unit = ThemeUnit.Amount,
 						FrequencyType = FrequencyType.Amount,
 						CurrentActivityQuestion = "Welke beweging doe je al?",
 						GoalActivityQuestion = "Welke beweging wil je nog meer doen?",
@@ -1025,23 +1539,23 @@ internal static class CategorySeed
 		{
 			context.Categories.AddRange(categories);
 
-			if (fhirOptions.Write)
-			{
-				// Create fhir value set containing all categories
-				await categoryDao.Initialize(categories);
-
-				foreach (var category in categories)
-				{
-					// Add category questionnaire to FHIR database
-					await questionnaireDao.Insert(category.Questionnaire);
-					
-					foreach (var theme in category.Themes)
-					{
-						// Add theme to FHIR database
-						await themeDao.Insert(theme);
-					}
-				}
-			}
+			// if (fhirOptions.Write)
+			// {
+			// 	// Create fhir value set containing all categories
+			// 	await categoryDao.Initialize(categories);
+			//
+			// 	foreach (var category in categories)
+			// 	{
+			// 		// Add category questionnaire to FHIR database
+			// 		await questionnaireDao.Insert(category.Questionnaire);
+			// 		
+			// 		foreach (var theme in category.Themes)
+			// 		{
+			// 			// Add theme to FHIR database
+			// 			await themeDao.Insert(theme);
+			// 		}
+			// 	}
+			// }
 
 			await context.SaveChangesAsync();
 		}

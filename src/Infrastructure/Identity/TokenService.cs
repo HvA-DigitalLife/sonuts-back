@@ -44,7 +44,7 @@ public class TokenService : ITokenService
 			IssuedAt = _dateTime.Now,
 			Issuer = _configuration["Authentication:Issuer"],
 			Audience = _configuration["Authentication:Audience"],
-			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:SecurityKey"])), SecurityAlgorithms.HmacSha256Signature)
+			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:SecurityKey"]!)), SecurityAlgorithms.HmacSha256Signature)
 		};
 
 		foreach (var role in await _userManager.GetRolesAsync(user))
@@ -70,7 +70,7 @@ public class TokenService : ITokenService
 		rng.GetBytes(randomNumber);
 		var token = Convert.ToBase64String(randomNumber);
 
-		await _context.RefreshTokens.AddAsync(new RefreshToken
+		_context.RefreshTokens.Add(new RefreshToken
 		{
 			Token = token,
 			IssuedAt = _dateTime.Now,
@@ -98,7 +98,7 @@ public class TokenService : ITokenService
 			IssuedAt = now,
 			Issuer = _configuration["Authentication:Issuer"],
 			Audience = _configuration["Authentication:Audience"],
-			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:SecurityKey"])), SecurityAlgorithms.HmacSha256Signature)
+			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:SecurityKey"]!)), SecurityAlgorithms.HmacSha256Signature)
 		};
 
 		return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));

@@ -7,6 +7,6 @@ namespace Sonuts.Application.Logic.QuestionnaireResponses.Models;
 public class QuestionnaireResponseVm : IMapFrom<QuestionnaireResponse>
 {
 	public Guid Id { get; set; }
-	public DateTime CreatedAt { get; set; }
-	public QuestionnaireIdVm Questionnaire { get; set; } = default!;
+	public DateOnly CreatedAt { get; set; }
+	public required QuestionnaireIdVm Questionnaire { get; set; }
 }

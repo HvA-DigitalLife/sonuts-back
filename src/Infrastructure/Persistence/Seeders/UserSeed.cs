@@ -36,7 +36,12 @@ internal class UserSeed
 				if (roleName.Equals(Role.Participant.ToString()))
 				{
 					shouldSave = true;
-					await context.Participants.AddAsync(new Participant { Id = Guid.Parse(applicationUser.Id), FirstName = "FirstName", LastName = "LastName"});
+					context.Participants.Add(new Participant
+					{
+						Id = Guid.Parse(applicationUser.Id),
+						FirstName = "FirstName",
+						LastName = "LastName"
+					});
 				}
 			}
 		}

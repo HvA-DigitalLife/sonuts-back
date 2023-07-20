@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Sonuts.Application.Common.Exceptions;
 
-namespace Sonuts.Presentation.Filters;
+namespace Sonuts.Presentation.Common;
 
 public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 {
@@ -26,7 +26,7 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 
 		base.OnException(context);
 	}
-	
+
 	private void HandleException(ExceptionContext context)
 	{
 		var type = context.Exception.GetType();

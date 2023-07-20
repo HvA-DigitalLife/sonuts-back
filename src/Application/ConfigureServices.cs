@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Sonuts.Application.Common.Behaviours;
+using Sonuts.Application.Logic.TinyHabits.Queries;
 
 namespace Sonuts.Application;
 
@@ -17,7 +18,6 @@ public static class ConfigureServices
 		services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehaviour<,>));
 		services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 		services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
-
 		return services;
 	}
 }

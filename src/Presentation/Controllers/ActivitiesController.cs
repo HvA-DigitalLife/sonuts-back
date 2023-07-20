@@ -5,12 +5,15 @@ using Sonuts.Application.Logic.Activities.Queries;
 
 namespace Sonuts.Presentation.Controllers;
 
-public class ActivityController : ApiControllerBase
+public class ActivitiesController : ApiControllerBase
 {
 	[Authorize(Roles = "Admin, Participant")]
 	[HttpGet("{activityId:guid}")]
-	public async Task<ActionResult<ActivityDto>> GetActivity(Guid activityId)
+	public async Task<ActionResult<ActivityDto>> GetActivity(Guid activityId, CancellationToken cancellationToken)
 	{
-		return Ok(await Mediator.Send(new GetActivityQuery { Id = activityId }));
+		return Ok(await Mediator.Send(new GetActivityQuery
+		{
+			Id = activityId
+		}, cancellationToken));
 	}
 }

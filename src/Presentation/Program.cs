@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration, builder.Environment);
 
 var app = builder.Build();
@@ -36,7 +36,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
-	FileProvider = new PhysicalFileProvider(builder.Configuration["Files:ImagePath"]),
+	FileProvider = new PhysicalFileProvider(app.Configuration["Files:ImagePath"]!),
 	RequestPath = "/Images"
 });
 
