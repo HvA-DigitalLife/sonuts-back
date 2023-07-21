@@ -1,6 +1,7 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Sonuts.Application.Common.Interfaces;
 using Sonuts.Application.Dtos;
 using Sonuts.Application.Logic.Categories.Models;
@@ -27,52 +28,52 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 
 	public async Task<ICollection<CategoriesWithRecommendationsVm>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
 	{
-		var userId = new Guid(_currentUserService.AuthorizedUserId);
+			var userId = new Guid(_currentUserService.AuthorizedUserId);
 
-		var categories = await _context.Categories
-			.Include(category => category.Themes).ThenInclude(theme => theme.Image)
-			.Include(category => category.Themes).ThenInclude(theme => theme.RecommendationRules).ThenInclude(rule => rule.Questions)
-			.Where(category => category.IsActive)
-			.ToListAsync(cancellationToken);
+			var categories = await _context.Categories
+				.Include(category => category.Themes).ThenInclude(theme => theme.Image)
+				.Include(category => category.Themes).ThenInclude(theme => theme.RecommendationRules).ThenInclude(rule => rule.Questions)
+				.Where(category => category.IsActive)
+				.ToListAsync(cancellationToken);
 
-		var response = new List<CategoriesWithRecommendationsVm>();
+			var response = new List<CategoriesWithRecommendationsVm>();
 
-		foreach (var category in categories)
-		{
-			var themes = new List<RecommendedThemeVm>();
-
-			foreach (var theme in category.Themes)
+			foreach (var category in categories)
 			{
-				themes.Add(new RecommendedThemeVm
+				var themes = new List<RecommendedThemeVm>();
+
+				foreach (var theme in category.Themes)
 				{
-					Id = theme.Id,
-					Name = theme.Name,
-					Type = theme.Type,
-					Description = theme.Description,
-					Image = _mapper.Map<ImageDto>(theme.Image),
-					Unit = theme.Unit,
-					UnitAmount = theme.UnitAmount,
-					FrequencyType = theme.FrequencyType,
-					FrequencyGoal = theme.FrequencyGoal,
-					CurrentFrequencyQuestion = theme.CurrentFrequencyQuestion,
-					GoalFrequencyQuestion = theme.GoalFrequencyQuestion,
-					CurrentActivityQuestion = theme.CurrentActivityQuestion,
-					GoalActivityQuestion = theme.GoalActivityQuestion,
-					IsRecommended = await IsRecommendedTheme(userId, theme.RecommendationRules, cancellationToken)
+					themes.Add(new RecommendedThemeVm
+					{
+						Id = theme.Id,
+						Name = theme.Name,
+						Type = theme.Type,
+						Description = theme.Description,
+						Image = _mapper.Map<ImageDto>(theme.Image),
+						Unit = theme.Unit,
+						UnitAmount = theme.UnitAmount,
+						FrequencyType = theme.FrequencyType,
+						FrequencyGoal = theme.FrequencyGoal,
+						CurrentFrequencyQuestion = theme.CurrentFrequencyQuestion,
+						GoalFrequencyQuestion = theme.GoalFrequencyQuestion,
+						CurrentActivityQuestion = theme.CurrentActivityQuestion,
+						GoalActivityQuestion = theme.GoalActivityQuestion,
+						IsRecommended = await IsRecommendedTheme(userId, theme.RecommendationRules, cancellationToken)
+					});
+				}
+
+				response.Add(new CategoriesWithRecommendationsVm
+				{
+					Id = category.Id,
+					IsActive = category.IsActive,
+					Name = category.Name,
+					Color = category.Color,
+					Themes = themes
 				});
 			}
 
-			response.Add(new CategoriesWithRecommendationsVm
-			{
-				Id = category.Id,
-				IsActive = category.IsActive,
-				Name = category.Name,
-				Color = category.Color,
-				Themes = themes
-			});
-		}
-
-		return response;
+			return response;
 	}
 
 	private async Task<bool> IsRecommendedTheme(Guid userId, IEnumerable<RecommendationRule> rules, CancellationToken cancellationToken)
