@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -254,14 +255,66 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					if (questionResponses.Any())
 					{
 						//Deze gaat mis als niet alle vragen hiervoor zijn ingevuld!!
-						var portionsChocolate = (int.TryParse(questionResponses[7].Answer, out var answerAverageDaysChocolate) ? answerAverageDaysChocolate : 0) * (int.TryParse(questionResponses[4].Answer, out var answerPortionsChocolate) ? answerPortionsChocolate : 0);
-						var portionsSweets = (int.TryParse(questionResponses[2].Answer, out var answerAverageDaysSweets) ? answerAverageDaysSweets : 0) * (int.TryParse(questionResponses[6].Answer, out var answerPortionsSweets) ? answerPortionsSweets : 0);
-						var portionsBiscuits = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysBiscuits) ? answerAverageDaysBiscuits : 0) * (int.TryParse(questionResponses[8].Answer, out var answerPortionsBiscuits) ? answerPortionsBiscuits : 0);
-						var portionsSnacks = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysSnacks) ? answerAverageDaysSnacks : 0) * (int.TryParse(questionResponses[0].Answer, out var answerPortionsSnacks) ? answerPortionsSnacks : 0);
+						var portionsChocolate = (int.TryParse(questionResponses[7].Answer, out var answerAverageDaysChocolate) ? answerAverageDaysChocolate : 0) * (int.TryParse(questionResponses[5].Answer, out var answerPortionsChocolate) ? answerPortionsChocolate : 0);
+						var portionsSweets = (int.TryParse(questionResponses[4].Answer, out var answerAverageDaysSweets) ? answerAverageDaysSweets : 0) * (int.TryParse(questionResponses[6].Answer, out var answerPortionsSweets) ? answerPortionsSweets : 0);
+						var portionsBiscuits = (int.TryParse(questionResponses[2].Answer, out var answerAverageDaysBiscuits) ? answerAverageDaysBiscuits : 0) * (int.TryParse(questionResponses[3].Answer, out var answerPortionsBiscuits) ? answerPortionsBiscuits : 0);
+						var portionsSnacks = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysSnacks) ? answerAverageDaysSnacks : 0) * (int.TryParse(questionResponses[7].Answer, out var answerPortionsSnacks) ? answerPortionsSnacks : 0);
 						var totalPortionsCandyPerWeek = portionsChocolate + portionsSweets + portionsBiscuits + portionsSnacks;
 						//The recommendation is to eat no more than 3 snacks each week.
 						if (totalPortionsCandyPerWeek < 4)
 							return false;
+					}
+					break;
+				case RecommendationRuleType.SumOfProductsExercise:
+					if (questionResponses.Any())
+					{		
+						//commute variable set up
+						//5: Average time per day walking to/from this activity
+						var answerTimeWalkCommute = questionResponses[5].Answer.Split(":");
+						var hoursTimeWalkCommute = int.Parse(answerTimeWalkCommute[0]);
+						var minutesTimeWalkCommute = int.Parse(answerTimeWalkCommute[1]);
+						var averageTimeOfWalkingCommute = (hoursTimeWalkCommute * 60) + minutesTimeWalkCommute;
+
+						//6: Average time per day cycling to/from this activity
+						var answerTimeCycleCommute = questionResponses[6].Answer.Split(":");
+						var hoursTimeCycleCommute = int.Parse(answerTimeCycleCommute[0]);
+						var minutesTimeCycleCommute = int.Parse(answerTimeCycleCommute[1]);
+						var averageTimeOfCyclingCommute = (hoursTimeCycleCommute * 60) + minutesTimeCycleCommute;
+
+						//leisure time variable set up
+						//1: Average time per day walking
+						var answerTimeWalkLeisure = questionResponses[1].Answer.Split(":");
+						var hoursTimeWalkLeisure = int.Parse(answerTimeWalkLeisure[0]);
+						var minutesTimeWalkLeisure = int.Parse(answerTimeWalkLeisure[1]);
+						var averageTimeOfWalkingLeisure = (hoursTimeWalkLeisure * 60) + minutesTimeWalkLeisure;
+
+						//7: Average time per day cycling
+						var answerTimeCycleLeisure = questionResponses[7].Answer.Split(":");
+						var hoursTimeCycleLeisure = int.Parse(answerTimeCycleLeisure[0]);
+						var minutesTimeCycleLeisure = int.Parse(answerTimeCycleLeisure[1]);
+						var averageTimeOfCyclingLeisure = (hoursTimeCycleLeisure * 60) + minutesTimeCycleLeisure;
+
+
+						//commuting calculations
+						// 3 * 5
+						//3: Number of days per week walking to/from this activity
+						var walkForCommute = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysWalkingCommute) ? answerAverageDaysWalkingCommute : 0) * averageTimeOfWalkingCommute;
+						// 2 * 6
+						//2: Number of days per week cycling to/from this activity
+						var cycleForCommute = (int.TryParse(questionResponses[2].Answer, out var answerAverageDaysCyclingCommute) ? answerAverageDaysCyclingCommute : 0) * averageTimeOfCyclingCommute;
+
+						//leisure time calculations
+						// 4 * 1
+						//4: Number of days per week walking
+						var walkLeisureTime = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysWalkingLeisure) ? answerAverageDaysWalkingLeisure : 0) * averageTimeOfWalkingLeisure;
+						// 0 * 7
+						//0: Number of days per week cycling
+						var cycleLeisureTime = (int.TryParse(questionResponses[0].Answer, out var answerAverageDaysCyclingLeisure) ? answerAverageDaysCyclingLeisure : 0) * averageTimeOfCyclingLeisure;
+						var totalExercisePerWeek = walkForCommute + cycleForCommute + walkLeisureTime + cycleLeisureTime;
+						if (totalExercisePerWeek > 150)
+						{
+							return false;
+						}
 					}
 					break;
 				case RecommendationRuleType.Any:
