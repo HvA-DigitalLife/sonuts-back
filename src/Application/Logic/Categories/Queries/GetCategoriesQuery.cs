@@ -206,10 +206,11 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.SumOfProductsCereal:
-					if (questionResponses.Any())
+					if (questionResponses.Any() && questionResponses.Length == 4)
 					{
-						var sumOfProductsWholemealPasta = int.TryParse(questionResponses[0].Answer, out var answer) ? answer : 0 * (int.TryParse(questionResponses[3].Answer, out var answer2) ? answer2 : 0) * 35;
-						var sumOfProductsWholemealCereal = int.TryParse(questionResponses[1].Answer, out var answer3) ? answer3 : 0 * (int.TryParse(questionResponses[2].Answer, out var answer4) ? answer4 : 0) * 50;
+						var sortedQuestionResponses = questionResponses.OrderBy(qr => qr.Question.Order).ToArray();
+						var sumOfProductsWholemealPasta = int.TryParse(sortedQuestionResponses[0].Answer, out var answer) ? answer : 0 * (int.TryParse(sortedQuestionResponses[1].Answer, out var answer2) ? answer2 : 0) * 35;
+						var sumOfProductsWholemealCereal = int.TryParse(sortedQuestionResponses[2].Answer, out var answer3) ? answer3 : 0 * (int.TryParse(sortedQuestionResponses[3].Answer, out var answer4) ? answer4 : 0) * 50;
 						var totalSumOfProductsWholemeal = sumOfProductsWholemealPasta + sumOfProductsWholemealCereal;
 						//The user should consume a minimum of 630 grams of wholegrain products per week.
 						if (totalSumOfProductsWholemeal > 630)
@@ -217,12 +218,13 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.SumOfProductsDairy:
-					if (questionResponses.Any())
+					if (questionResponses.Any() && questionResponses.Length == 8)
 					{
-						var productsQuestionMilk = (int.TryParse(questionResponses[4].Answer, out var answerAverageDaysMilk) ? answerAverageDaysMilk : 0) * (int.TryParse(questionResponses[2].Answer, out var answerAverageGlassesMilk) ? answerAverageGlassesMilk : 0) * 200;
-						var productsQuestionChocolateMilk = (int.TryParse(questionResponses[5].Answer, out var answerAverageDaysChocMilk) ? answerAverageDaysChocMilk : 0) * (int.TryParse(questionResponses[6].Answer, out var answerAverageGlassesChocMilk) ? answerAverageGlassesChocMilk : 0) * 200;
-						var productQuestionCustard = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysCustard) ? answerAverageDaysCustard : 0) * (int.TryParse(questionResponses[0].Answer, out var answerAverageBowlsCustard) ? answerAverageBowlsCustard : 0) * 150;
-						var productQuestionYoghurt = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysYoghurt) ? answerAverageDaysYoghurt : 0) * (int.TryParse(questionResponses[7].Answer, out var answerAverageBowlsYoghurt) ? answerAverageBowlsYoghurt : 0) * 150;
+						var sortedQuestionResponses = questionResponses.OrderBy(qr => qr.Question.Order).ToArray();
+						var productsQuestionMilk = (int.TryParse(sortedQuestionResponses[0].Answer, out var answerAverageDaysMilk) ? answerAverageDaysMilk : 0) * (int.TryParse(sortedQuestionResponses[1].Answer, out var answerAverageGlassesMilk) ? answerAverageGlassesMilk : 0) * 200;
+						var productsQuestionChocolateMilk = (int.TryParse(sortedQuestionResponses[2].Answer, out var answerAverageDaysChocMilk) ? answerAverageDaysChocMilk : 0) * (int.TryParse(sortedQuestionResponses[3].Answer, out var answerAverageGlassesChocMilk) ? answerAverageGlassesChocMilk : 0) * 200;
+						var productQuestionCustard = (int.TryParse(sortedQuestionResponses[4].Answer, out var answerAverageDaysCustard) ? answerAverageDaysCustard : 0) * (int.TryParse(sortedQuestionResponses[5].Answer, out var answerAverageBowlsCustard) ? answerAverageBowlsCustard : 0) * 150;
+						var productQuestionYoghurt = (int.TryParse(sortedQuestionResponses[6].Answer, out var answerAverageDaysYoghurt) ? answerAverageDaysYoghurt : 0) * (int.TryParse(sortedQuestionResponses[7].Answer, out var answerAverageBowlsYoghurt) ? answerAverageBowlsYoghurt : 0) * 150;
 						var totalSumOfProductsDairy = productsQuestionMilk + productsQuestionChocolateMilk + productQuestionCustard + productQuestionYoghurt;
 						//The user should consume a minimum of 2450 ml of dairy per week.
 						if (totalSumOfProductsDairy > 2450)
@@ -230,10 +232,11 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.SumOfProductsMeat:
-					if (questionResponses.Any())
+					if (questionResponses.Any() && questionResponses.Length == 4)
 					{
-						var portionsOfRedMeat = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysRedMeat) ? answerAverageDaysRedMeat : 0) * (int.TryParse(questionResponses[3].Answer, out var answerPortionsRedMeat) ? answerPortionsRedMeat : 0);
-						var portionsOfProcessedMeat = (int.TryParse(questionResponses[0].Answer, out var answerAverageDaysProcessedMeat) ? answerAverageDaysProcessedMeat : 0) * (int.TryParse(questionResponses[2].Answer, out var answerPortionsProcessedMeat) ? answerPortionsProcessedMeat : 0);
+						var sortedQuestionResponses = questionResponses.OrderBy(qr => qr.Question.Order).ToArray();
+						var portionsOfRedMeat = (int.TryParse(sortedQuestionResponses[0].Answer, out var answerAverageDaysRedMeat) ? answerAverageDaysRedMeat : 0) * (int.TryParse(sortedQuestionResponses[1].Answer, out var answerPortionsRedMeat) ? answerPortionsRedMeat : 0);
+						var portionsOfProcessedMeat = (int.TryParse(sortedQuestionResponses[2].Answer, out var answerAverageDaysProcessedMeat) ? answerAverageDaysProcessedMeat : 0) * (int.TryParse(sortedQuestionResponses[3].Answer, out var answerPortionsProcessedMeat) ? answerPortionsProcessedMeat : 0);
 						var totalPortionsMeatPerWeek = portionsOfRedMeat + portionsOfProcessedMeat;
 						//Three portions of red or processed meat are allowed per week.
 						if (totalPortionsMeatPerWeek < 4)
@@ -241,10 +244,11 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.SumOfProductsFish:
-					if (questionResponses.Any())
+					if (questionResponses.Any() && questionResponses.Length == 4)
 					{
-						var portionsOfLeanFish = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysLeanFish) ? answerAverageDaysLeanFish : 0) * (int.TryParse(questionResponses[2].Answer, out var answerPortionsLeanFish) ? answerPortionsLeanFish : 0);
-						var portionsOfOilyFish = (int.TryParse(questionResponses[0].Answer, out var answerAverageDaysOilyFish) ? answerAverageDaysOilyFish : 0) * (int.TryParse(questionResponses[3].Answer, out var answerPortionsOilyFish) ? answerPortionsOilyFish : 0);
+						var sortedQuestionResponses = questionResponses.OrderBy(qr => qr.Question.Order).ToArray();
+						var portionsOfLeanFish = (int.TryParse(sortedQuestionResponses[0].Answer, out var answerAverageDaysLeanFish) ? answerAverageDaysLeanFish : 0) * (int.TryParse(sortedQuestionResponses[1].Answer, out var answerPortionsLeanFish) ? answerPortionsLeanFish : 0);
+						var portionsOfOilyFish = (int.TryParse(sortedQuestionResponses[2].Answer, out var answerAverageDaysOilyFish) ? answerAverageDaysOilyFish : 0) * (int.TryParse(sortedQuestionResponses[3].Answer, out var answerPortionsOilyFish) ? answerPortionsOilyFish : 0);
 						var totalPortionsFishPerWeek = portionsOfLeanFish + portionsOfOilyFish;
 						//The user should at least eat 1 portion of fish per week.
 						if (totalPortionsFishPerWeek > 1)
@@ -252,13 +256,14 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.SumOfProductsCandy:
-					if (questionResponses.Any())
+					if (questionResponses.Any() && questionResponses.Length == 8)
 					{
+						var sortedQuestionResponses = questionResponses.OrderBy(qr => qr.Question.Order).ToArray();
 						//Deze gaat mis als niet alle vragen hiervoor zijn ingevuld!!
-						var portionsChocolate = (int.TryParse(questionResponses[7].Answer, out var answerAverageDaysChocolate) ? answerAverageDaysChocolate : 0) * (int.TryParse(questionResponses[5].Answer, out var answerPortionsChocolate) ? answerPortionsChocolate : 0);
-						var portionsSweets = (int.TryParse(questionResponses[4].Answer, out var answerAverageDaysSweets) ? answerAverageDaysSweets : 0) * (int.TryParse(questionResponses[6].Answer, out var answerPortionsSweets) ? answerPortionsSweets : 0);
-						var portionsBiscuits = (int.TryParse(questionResponses[2].Answer, out var answerAverageDaysBiscuits) ? answerAverageDaysBiscuits : 0) * (int.TryParse(questionResponses[3].Answer, out var answerPortionsBiscuits) ? answerPortionsBiscuits : 0);
-						var portionsSnacks = (int.TryParse(questionResponses[1].Answer, out var answerAverageDaysSnacks) ? answerAverageDaysSnacks : 0) * (int.TryParse(questionResponses[7].Answer, out var answerPortionsSnacks) ? answerPortionsSnacks : 0);
+						var portionsChocolate = (int.TryParse(sortedQuestionResponses[0].Answer, out var answerAverageDaysChocolate) ? answerAverageDaysChocolate : 0) * (int.TryParse(sortedQuestionResponses[1].Answer, out var answerPortionsChocolate) ? answerPortionsChocolate : 0);
+						var portionsSweets = (int.TryParse(sortedQuestionResponses[2].Answer, out var answerAverageDaysSweets) ? answerAverageDaysSweets : 0) * (int.TryParse(sortedQuestionResponses[3].Answer, out var answerPortionsSweets) ? answerPortionsSweets : 0);
+						var portionsBiscuits = (int.TryParse(sortedQuestionResponses[4].Answer, out var answerAverageDaysBiscuits) ? answerAverageDaysBiscuits : 0) * (int.TryParse(sortedQuestionResponses[5].Answer, out var answerPortionsBiscuits) ? answerPortionsBiscuits : 0);
+						var portionsSnacks = (int.TryParse(sortedQuestionResponses[6].Answer, out var answerAverageDaysSnacks) ? answerAverageDaysSnacks : 0) * (int.TryParse(sortedQuestionResponses[7].Answer, out var answerPortionsSnacks) ? answerPortionsSnacks : 0);
 						var totalPortionsCandyPerWeek = portionsChocolate + portionsSweets + portionsBiscuits + portionsSnacks;
 						//The recommendation is to eat no more than 3 snacks each week.
 						if (totalPortionsCandyPerWeek < 4)
@@ -266,50 +271,69 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.SumOfProductsExercise:
-					if (questionResponses.Any())
-					{		
+					if (questionResponses.Any() && questionResponses.Length == 8)
+					{
+						var sortedQuestionResponses = questionResponses.OrderBy(qr => qr.Question.Order).ToArray();
 						//commute variable set up
-						//5: Average time per day walking to/from this activity
-						var answerTimeWalkCommute = questionResponses[5].Answer.Split(":");
+						//Average time per day walking to/from this activity
+						var answerTimeWalkCommute = sortedQuestionResponses[1].Answer.Split(":");
 						var hoursTimeWalkCommute = int.Parse(answerTimeWalkCommute[0]);
-						var minutesTimeWalkCommute = int.Parse(answerTimeWalkCommute[1]);
+
+						var minutesTimeWalkCommute = 0;
+						if (answerTimeWalkCommute.Length > 1)
+						{
+							minutesTimeWalkCommute = int.Parse(answerTimeWalkCommute[1]);
+						}
 						var averageTimeOfWalkingCommute = (hoursTimeWalkCommute * 60) + minutesTimeWalkCommute;
 
-						//6: Average time per day cycling to/from this activity
-						var answerTimeCycleCommute = questionResponses[6].Answer.Split(":");
+						//Average time per day cycling to/from this activity
+						var answerTimeCycleCommute = sortedQuestionResponses[3].Answer.Split(":");
 						var hoursTimeCycleCommute = int.Parse(answerTimeCycleCommute[0]);
-						var minutesTimeCycleCommute = int.Parse(answerTimeCycleCommute[1]);
+
+						var minutesTimeCycleCommute = 0;
+						if (answerTimeCycleCommute.Length > 1)
+						{
+							minutesTimeCycleCommute = int.Parse(answerTimeCycleCommute[1]);
+						}
 						var averageTimeOfCyclingCommute = (hoursTimeCycleCommute * 60) + minutesTimeCycleCommute;
 
 						//leisure time variable set up
-						//1: Average time per day walking
-						var answerTimeWalkLeisure = questionResponses[1].Answer.Split(":");
+						//Average time per day walking
+						var answerTimeWalkLeisure = sortedQuestionResponses[5].Answer.Split(":");
 						var hoursTimeWalkLeisure = int.Parse(answerTimeWalkLeisure[0]);
-						var minutesTimeWalkLeisure = int.Parse(answerTimeWalkLeisure[1]);
+						var minutesTimeWalkLeisure = 0;
+						if (answerTimeWalkLeisure.Length > 1)
+						{
+							minutesTimeWalkLeisure = int.Parse(answerTimeWalkLeisure[1]);
+						}
 						var averageTimeOfWalkingLeisure = (hoursTimeWalkLeisure * 60) + minutesTimeWalkLeisure;
 
 						//7: Average time per day cycling
-						var answerTimeCycleLeisure = questionResponses[7].Answer.Split(":");
+						var answerTimeCycleLeisure = sortedQuestionResponses[7].Answer.Split(":");
 						var hoursTimeCycleLeisure = int.Parse(answerTimeCycleLeisure[0]);
-						var minutesTimeCycleLeisure = int.Parse(answerTimeCycleLeisure[1]);
-						var averageTimeOfCyclingLeisure = (hoursTimeCycleLeisure * 60) + minutesTimeCycleLeisure;
 
+						var minutesTimeCycleLeisure = 0;
+						if (answerTimeCycleLeisure.Length > 1)
+						{
+							minutesTimeCycleLeisure = int.Parse(answerTimeCycleLeisure[1]);
+						}
+						var averageTimeOfCyclingLeisure = (hoursTimeCycleLeisure * 60) + minutesTimeCycleLeisure;
 
 						//commuting calculations
 						// 3 * 5
 						//3: Number of days per week walking to/from this activity
-						var walkForCommute = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysWalkingCommute) ? answerAverageDaysWalkingCommute : 0) * averageTimeOfWalkingCommute;
+						var walkForCommute = (int.TryParse(sortedQuestionResponses[0].Answer, out var answerAverageDaysWalkingCommute) ? answerAverageDaysWalkingCommute : 0) * averageTimeOfWalkingCommute;
 						// 2 * 6
 						//2: Number of days per week cycling to/from this activity
-						var cycleForCommute = (int.TryParse(questionResponses[2].Answer, out var answerAverageDaysCyclingCommute) ? answerAverageDaysCyclingCommute : 0) * averageTimeOfCyclingCommute;
+						var cycleForCommute = (int.TryParse(sortedQuestionResponses[2].Answer, out var answerAverageDaysCyclingCommute) ? answerAverageDaysCyclingCommute : 0) * averageTimeOfCyclingCommute;
 
 						//leisure time calculations
 						// 4 * 1
 						//4: Number of days per week walking
-						var walkLeisureTime = (int.TryParse(questionResponses[3].Answer, out var answerAverageDaysWalkingLeisure) ? answerAverageDaysWalkingLeisure : 0) * averageTimeOfWalkingLeisure;
+						var walkLeisureTime = (int.TryParse(sortedQuestionResponses[4].Answer, out var answerAverageDaysWalkingLeisure) ? answerAverageDaysWalkingLeisure : 0) * averageTimeOfWalkingLeisure;
 						// 0 * 7
 						//0: Number of days per week cycling
-						var cycleLeisureTime = (int.TryParse(questionResponses[0].Answer, out var answerAverageDaysCyclingLeisure) ? answerAverageDaysCyclingLeisure : 0) * averageTimeOfCyclingLeisure;
+						var cycleLeisureTime = (int.TryParse(sortedQuestionResponses[6].Answer, out var answerAverageDaysCyclingLeisure) ? answerAverageDaysCyclingLeisure : 0) * averageTimeOfCyclingLeisure;
 						var totalExercisePerWeek = walkForCommute + cycleForCommute + walkLeisureTime + cycleLeisureTime;
 						if (totalExercisePerWeek > 150)
 						{
