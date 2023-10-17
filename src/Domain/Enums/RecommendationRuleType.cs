@@ -10,5 +10,6 @@ public enum RecommendationRuleType
 	SumOfProductsMeat,
 	SumOfProductsFish,
 	SumOfProductsCandy,
+	SumOfProductsExercise,
 	Any
 }
