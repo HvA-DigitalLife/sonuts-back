@@ -141,7 +141,7 @@ public class CreateCarePlanCommandHandler : IRequestHandler<CreateCarePlanComman
 		var carePlan = new CarePlan
 		{
 			Start = start,
-			End = start.AddMonths(1),
+			End = start.AddDays(20),
 			Participant = await _context.Participants.FirstAsync(participant => participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)), cancellationToken),
 			Goals = goals
 		};
