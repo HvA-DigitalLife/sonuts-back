@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -79,7 +80,7 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 			QuestionType.Integer =>
 				int.TryParse(response.Answer, out var integerAnswer)
 				&& integerAnswer >= 0
-				&& (question.Min is null || integerAnswer >= question.Min)
+				//&& (question.Min is null || integerAnswer >= question.Min)
 				&& (question.Max is null || integerAnswer <= question.Max),
 
 			QuestionType.Decimal =>
@@ -91,7 +92,7 @@ public class CreateQuestionnaireResponseCommandValidator : AbstractValidator<Cre
 				&& int.TryParse(response.Answer!.Split(':')[1], out var minutes),
 
 			QuestionType.Choice =>
-				question.AnswerOptions?.FirstOrDefault(option => option.Value.ToLower().Equals(response.Answer!.ToLower())) != null,
+				question.AnswerOptions?.FirstOrDefault(option => option.Value.ToLower().Equals(response.Answer!.ToLower())) != null || response.Answer!.Equals("0"),
 
 			QuestionType.OpenChoice =>
 				!string.IsNullOrWhiteSpace(response.Answer),
