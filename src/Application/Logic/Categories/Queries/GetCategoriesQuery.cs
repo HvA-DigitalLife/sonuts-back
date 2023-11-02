@@ -271,7 +271,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 					}
 					break;
 				case RecommendationRuleType.SumOfProductsExercise:
-					if (questionResponses.Any() && questionResponses.Length == 8)
+					if (questionResponses.Any() && questionResponses.Length == 10)
 					{
 						var sortedQuestionResponses = questionResponses.OrderBy(qr => qr.Question.Order).ToArray();
 						//commute variable set up
@@ -308,7 +308,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 						}
 						var averageTimeOfWalkingLeisure = (hoursTimeWalkLeisure * 60) + minutesTimeWalkLeisure;
 
-						//7: Average time per day cycling
+						//Average time per day cycling
 						var answerTimeCycleLeisure = sortedQuestionResponses[7].Answer.Split(":");
 						var hoursTimeCycleLeisure = int.Parse(answerTimeCycleLeisure[0]);
 
@@ -319,22 +319,35 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ICo
 						}
 						var averageTimeOfCyclingLeisure = (hoursTimeCycleLeisure * 60) + minutesTimeCycleLeisure;
 
+						//Average time per day other sports
+						var answerTimeOtherSports = sortedQuestionResponses[9].Answer.Split(":");
+						var hoursTimeOtherSports = int.Parse(answerTimeOtherSports[0]);
+
+						var minutesTimeOtherSports = 0;
+						if (answerTimeOtherSports.Length > 1)
+						{
+							minutesTimeOtherSports = int.Parse(answerTimeOtherSports[1]);
+						}
+						var averageTimeOfOtherSports = (hoursTimeOtherSports * 60) + minutesTimeOtherSports;
+
 						//commuting calculations
-						// 3 * 5
-						//3: Number of days per week walking to/from this activity
+						//Number of days per week walking to/from this activity
 						var walkForCommute = (int.TryParse(sortedQuestionResponses[0].Answer, out var answerAverageDaysWalkingCommute) ? answerAverageDaysWalkingCommute : 0) * averageTimeOfWalkingCommute;
-						// 2 * 6
-						//2: Number of days per week cycling to/from this activity
+						
+						//Number of days per week cycling to/from this activity
 						var cycleForCommute = (int.TryParse(sortedQuestionResponses[2].Answer, out var answerAverageDaysCyclingCommute) ? answerAverageDaysCyclingCommute : 0) * averageTimeOfCyclingCommute;
 
 						//leisure time calculations
-						// 4 * 1
-						//4: Number of days per week walking
+						//Number of days per week walking
 						var walkLeisureTime = (int.TryParse(sortedQuestionResponses[4].Answer, out var answerAverageDaysWalkingLeisure) ? answerAverageDaysWalkingLeisure : 0) * averageTimeOfWalkingLeisure;
-						// 0 * 7
-						//0: Number of days per week cycling
+						
+						//Number of days per week cycling
 						var cycleLeisureTime = (int.TryParse(sortedQuestionResponses[6].Answer, out var answerAverageDaysCyclingLeisure) ? answerAverageDaysCyclingLeisure : 0) * averageTimeOfCyclingLeisure;
-						var totalExercisePerWeek = walkForCommute + cycleForCommute + walkLeisureTime + cycleLeisureTime;
+
+						//Number of days per week other sports
+						var otherSportsTime = (int.TryParse(sortedQuestionResponses[8].Answer, out var answerAverageDaysOtherSports) ? answerAverageDaysOtherSports : 0) * averageTimeOfOtherSports;
+
+						var totalExercisePerWeek = walkForCommute + cycleForCommute + walkLeisureTime + cycleLeisureTime + otherSportsTime;
 						if (totalExercisePerWeek > 150)
 						{
 							return false;
