@@ -23,12 +23,14 @@ public class GetIntentionsQueryHandler : IRequestHandler<GetGoalsQuery, ICollect
 
 	public async Task<ICollection<GoalDto>> Handle(GetGoalsQuery request, CancellationToken cancellationToken)
 	{
-		return _mapper.Map<ICollection<GoalDto>>(await _context.Goals
-			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)))
+	 var goals = _mapper.Map<ICollection<GoalDto>>(await _context.Goals
+			.Where(goal => goal.CarePlan.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)) && goal.CarePlan.End.CompareTo(DateOnly.FromDateTime(DateTime.Now)) > 0)
 			.Include(goal => goal.Activity.Theme.Category)
 			.Include(goal => goal.Activity.Theme.Image)
 			.Include(goal => goal.Activity.Image)
 			.Include(goal => goal.Executions)
 			.ToListAsync(cancellationToken));
+
+		return goals;
 	}
 }
