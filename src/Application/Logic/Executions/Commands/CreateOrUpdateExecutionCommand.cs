@@ -60,7 +60,7 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 	{
 		var carePlan = await _context.CarePlans
 						   .Include(plan => plan.Goals)
-						   .FirstOrDefaultAsync(cp => cp.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)) && cp.End.CompareTo(DateOnly.FromDateTime(DateTime.Now)) > 0 , cancellationToken)
+						   .FirstOrDefaultAsync(cp => cp.Participant.Id.Equals(Guid.Parse(_currentUserService.AuthorizedUserId)) && cp.End.CompareTo(DateOnly.FromDateTime(DateTime.Now)) > 0, cancellationToken)
 					   ?? throw new NotFoundException(nameof(Goal), request.GoalId!.Value);
 
 		if (!carePlan.Goals.Any(g => g.Id.Equals(request.GoalId!.Value)))
@@ -157,7 +157,7 @@ internal class CreateOrUpdateExecutionCommandHandler : IRequestHandler<CreateOrU
 				: await _context.MotivationalMessages.Where(mm => mm.MinPercentage <= request.Amount && mm.MaxPercentage >= request.Amount).ToArrayAsync(cancellationToken);
 		}
 
-		if (motivationalMessages == null)
+		if (motivationalMessages == null || motivationalMessages.Count() == 0)
 		{
 			motivationalMessages = await _context.MotivationalMessages.Where(mm => mm.MinPercentage <= request.Amount && mm.MaxPercentage >= request.Amount).ToArrayAsync(cancellationToken);
 		}
