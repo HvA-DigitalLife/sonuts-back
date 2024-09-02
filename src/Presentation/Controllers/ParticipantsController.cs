@@ -46,6 +46,16 @@ public class ParticipantsController : ApiControllerBase
 	}
 
 	/// <summary>
+	/// Update the password for the participant
+	/// </summary>
+	[Authorize(Roles = "Participant")]
+	[HttpPut("UpdatePassword")]
+	public async Task<ActionResult<ChangePasswordDto>> UpdatePassword(UpdatePasswordForParticipantCommand command, CancellationToken cancellationToken)
+	{
+		return Ok(await Mediator.Send(command, cancellationToken));
+	}
+
+	/// <summary>
 	/// Get all questionnaire responses for participant
 	/// </summary>
 	[Authorize(Roles = "Participant")]

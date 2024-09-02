@@ -63,6 +63,14 @@ public class IdentityService : IIdentityService
 		return (result.ToApplicationResult(), user.Id);
 	}
 
+	public async Task<(Result Result, string UserId)> UpdatePasswordAsync(string userName, string oldPassword, string newPassword)
+	{
+		var user = await _userManager.FindByEmailAsync(userName);
+		var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+
+		return (result.ToApplicationResult(), user.Id);
+	}
+
 	public async Task<bool> IsInRoleAsync(string userId, string role)
 	{
 		var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);

@@ -20,6 +20,8 @@ public interface IIdentityService
 
 	Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);
 
+	Task<(Result Result, string UserId)> UpdatePasswordAsync(string userName, string oldPassword, string newPassword);
+
 	Task<Result> DeleteUserAsync(string userId);
 
 	Task<bool> CheckPasswordAsync(string username, string password);
