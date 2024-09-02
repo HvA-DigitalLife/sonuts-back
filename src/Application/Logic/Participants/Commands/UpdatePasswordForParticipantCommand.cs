@@ -23,7 +23,6 @@ public class UpdatePasswordCommandValidator : AbstractValidator<UpdatePasswordFo
 		RuleFor(query => query.Email)
 			.NotNull()
 			.EmailAddress();
-		//.MustAsync(async (email, _) => await identityService.GetIdAsync(email) != null).WithMessage("Email does not exist.");
 
 		RuleFor(query => query.OldPassword)
 			.NotEmpty()
