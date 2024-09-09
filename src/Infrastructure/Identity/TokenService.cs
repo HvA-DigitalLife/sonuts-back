@@ -94,7 +94,7 @@ public class TokenService : ITokenService
 			{
 				new(ClaimTypes.Role, "InternalNetwork")
 			}),
-			Expires = now.AddMinutes(60),
+			Expires = now.AddMinutes(1),
 			IssuedAt = now,
 			Issuer = _configuration["Authentication:Issuer"],
 			Audience = _configuration["Authentication:Audience"],
